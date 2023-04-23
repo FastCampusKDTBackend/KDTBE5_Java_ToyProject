@@ -13,9 +13,9 @@
   - 본인의 이름으로 ````branch````를 생성하여 ````push````후 ````pull request```` 작성
     - 예시 
       - branch 이름 - ````FirstNameLastName````
-      - commit 메시지 (멘토 리뷰 이전) - [1차 VER1.0...] Java ToyProject upload by FirstNameLastName
-      - commit 메시지 (멘토 리뷰 이전) - [1차 VER2.0...] Java ToyProject upload by FirstNameLastName
-      - commit 메시지 (멘토 리뷰 이후) - [2차] Java ToyProject upload by FirstNameLastName
+      - commit 메시지 (멘토 리뷰 이전) - [1차 VER1.0...] Java ToyProject upload by FirstNameLastName (labeling도 가능: first)
+      - commit 메시지 (멘토 리뷰 이전) - [1차 VER2.0...] Java ToyProject upload by FirstNameLastName (labeling도 가능: second)
+      - commit 메시지 (멘토 리뷰 이후) - [2차] Java ToyProject upload by FirstNameLastName (labeling도 가능: resubmit)
   - PR 메시지는 본인이 하고 싶은 말이나 질문을 적어주세요.
     - ````코드리뷰 빡세게 부탁드립니다.```` ````클린한 코드인지 봐주세요.```` ````이 코드의 조금 더 나은 방법이 있을까요.````
     - ````~~번 문제 풀지 못했습니다.```` ````~~번 문제 풀이 방법을 알려주시면 감사하겠습니다.````

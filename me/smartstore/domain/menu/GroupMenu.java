@@ -74,7 +74,6 @@ public class GroupMenu implements Menu {
                     Group group = allGroups.get(typeIndex + 1);
                     group.setParameter(parameter);
                     group.setGroupType(groupType);
-                    System.out.println(allGroups);
                 }
                 System.out.println(String.format("\nGroupType: %s", groupType.name()));
                 System.out.println("Parameter: " + parameters[typeIndex]);
@@ -127,7 +126,6 @@ public class GroupMenu implements Menu {
                     Parameter parameter = parameters[typeIndex];
                     setParameter(parameter);
                     allGroups.get(typeIndex + 1).setParameter(parameter);
-                    System.out.println(allGroups);
                 }
                 System.out.println(String.format("\nGroupType: %s", groupType.name()));
                 System.out.println("Parameter: " + parameters[typeIndex]);

@@ -125,7 +125,26 @@ public class GroupMenu implements Menu {
         }
     };
 
-    private void findParameter() {};
+    private void findParameter() {
+        while (true) {
+            try {
+                System.out.println("\nWhich group (GENERAL (G), VIP (V), VVIP (VV))?");
+                String inputData = nextLine("END");
+                GroupType groupType = GroupType.valueOf(inputData).convertToFullName();
+                Integer typeIndex = GroupType.getTypeIndex(groupType);
+
+                System.out.println(String.format("\nGroupType: %s", groupType.name()));
+                System.out.println("Parameter: " + parameters[typeIndex]);
+            } catch (InputEndException e) {
+                System.out.println(e.getMessage());
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(ERR_MSG_INVALID_INPUT_RANGE.getMessage());
+            } catch (InputRangeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    };
 
     private void updateParameter() {};
 }

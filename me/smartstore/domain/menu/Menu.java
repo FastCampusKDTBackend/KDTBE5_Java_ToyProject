@@ -7,11 +7,11 @@ import java.util.Scanner;
 
 public interface Menu {
     Scanner scanner = new Scanner(System.in);
-    private String nextLine() {
+    default String nextLine() {
         return scanner.next().toUpperCase();
     }
 
-    private void displayMenu(String[] options) {
+    default void displayMenu(String[] options) {
         StringBuilder builder = new StringBuilder();
         builder.append("===============================").append("\n");
         for (int i = 0; i < options.length; i++) {

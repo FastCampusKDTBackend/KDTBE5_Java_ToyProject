@@ -11,6 +11,14 @@ public interface Menu {
         return scanner.next().toUpperCase();
     }
 
+    default int convertInt(String inputData) {
+        try {
+            return Integer.parseInt(inputData);
+        } catch (NumberFormatException e) {
+            throw new InputMismatchException(ERR_MSG_INVALID_INPUT_FORMAT.getMessage());
+        }
+    }
+
     default void displayMenu(String[] options) {
         StringBuilder builder = new StringBuilder();
         builder.append("===============================").append("\n");
@@ -26,15 +34,11 @@ public interface Menu {
         while (true) {
             try {
                 displayMenu(options);
-                try {
-                    int choice = Integer.parseInt(nextLine());
-                    if (choice >= 1 && choice <= options.length) {
-                        return choice;
-                    }
-                    throw new InputRangeException("입력한 숫자가 범위를 벗어났습니다.");
-                } catch (NumberFormatException e) {
-                    throw new InputMismatchException("입력한 데이터가 올바르지 않습니다.");
+                int choice = convertInt(nextLine());
+                if (choice >= 1 && choice <= options.length) {
+                    return choice;
                 }
+                throw new InputRangeException("입력한 숫자가 범위를 벗어났습니다.");
             } catch (InputMismatchException e) {
                 System.out.println(e.getMessage());
             } catch (InputRangeException e) {

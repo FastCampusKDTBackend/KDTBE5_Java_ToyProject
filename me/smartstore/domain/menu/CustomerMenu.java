@@ -1,7 +1,9 @@
 package me.smartstore.domain.menu;
 
+import me.smartstore.domain.customer.Customers;
 public class CustomerMenu implements Menu {
     private static CustomerMenu customerMenu;
+    private final Customers allCustomers;
 
     public static CustomerMenu getInstance() {
         if (customerMenu == null) {
@@ -10,7 +12,9 @@ public class CustomerMenu implements Menu {
         return customerMenu;
     }
 
-    private CustomerMenu() {}
+    private CustomerMenu() {
+        this.allCustomers = Customers.getInstance();
+    }
 
     @Override
     public void manage() {

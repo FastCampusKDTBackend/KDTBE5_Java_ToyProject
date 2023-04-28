@@ -13,7 +13,7 @@ public class CustomArrayList<E> implements CustomCollection<E>{
     private int capacity;
 
     public CustomArrayList() {
-        this.customArray = new Object[]{};
+        this.customArray = new Object[DEFAULT_CAPACITY];
         this.capacity = DEFAULT_CAPACITY;
         this.size = 0;
     }
@@ -57,6 +57,10 @@ public class CustomArrayList<E> implements CustomCollection<E>{
     }
 
     public boolean add(E e) {
+        if (size == customArray.length) {
+            customArray = grow();
+        }
+
         add(e, customArray, size);
         return true;
     }
@@ -70,11 +74,12 @@ public class CustomArrayList<E> implements CustomCollection<E>{
             customArray = grow();
         }
 
-        for (int i = index; i < size; i++) {
+
+        for (int i = this.size; i >= index; i--) {
             customArray[i + 1] = customArray[i];
         }
         customArray[index] = (Object) e;
-        size = customArray.length;
+        size += 1;
 
         return true;
     }
@@ -92,7 +97,8 @@ public class CustomArrayList<E> implements CustomCollection<E>{
         if (size == customArray.length) {
             customArray = grow();
         }
-        customArray[size++] = e;
+        customArray[size] = e;
+        this.size += 1;
     }
 
     private Object[] grow() {
@@ -109,6 +115,27 @@ public class CustomArrayList<E> implements CustomCollection<E>{
     public void clear() {
         this.customArray = new Object[DEFAULT_CAPACITY];
         capacity = DEFAULT_CAPACITY;
-        size = this.customArray.length;
+        size = 0;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("customArray=[");
+
+        if (size == 0) {
+            stringBuilder.append("]\n");
+        } else {
+            for (int i = 0; i < size; i++) {
+                stringBuilder.append(customArray[i]);
+                stringBuilder.append(",");
+            }
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+            stringBuilder.append("]\n");
+        }
+
+        stringBuilder.append("size: " + this.size + "\n");
+        stringBuilder.append("capacity: " + this.capacity + "\n");
+        return stringBuilder.toString();
     }
 }

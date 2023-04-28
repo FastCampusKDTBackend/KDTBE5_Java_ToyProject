@@ -14,6 +14,7 @@ public interface CustomCollection<E> {
     boolean add(E e);
     boolean remove(Object o);
 
+    E get(int index);
     void clear();
     boolean equals(Object o);
     int hashCode();

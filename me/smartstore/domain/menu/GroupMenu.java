@@ -81,7 +81,7 @@ public class GroupMenu implements Menu {
                 System.out.println(e.getMessage());
             }
         }
-    };
+    }
 
     private void findParameter() {
         while (true) {
@@ -102,9 +102,38 @@ public class GroupMenu implements Menu {
                 System.out.println(e.getMessage());
             }
         }
-    };
+    }
 
-    private void updateParameter() {};
+    private void updateParameter() {
+        while (true) {
+            try {
+                System.out.println("\nWhich group (GENERAL (G), VIP (V), VVIP (VV))?");
+                String inputData = nextLine("END");
+                GroupType groupType = GroupType.valueOf(inputData).convertToFullName();
+
+                // 존재하는지 확인
+                Integer typeIndex = GroupType.getTypeIndex(groupType);
+                if (!isExitType[typeIndex]) {
+                    System.out.println("No parameter. Set the parameter first.");
+                    break;
+                } else {
+                    Parameter parameter = parameters[typeIndex];
+                    setParameter(parameter);
+                }
+                System.out.println(String.format("\nGroupType: %s", groupType.name()));
+                System.out.println("Parameter: " + parameters[typeIndex]);
+
+            } catch (InputEndException e) {
+                System.out.println(e.getMessage());
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(ERR_MSG_INVALID_INPUT_RANGE.getMessage());
+            } catch (InputRangeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
     private void setParameter(Parameter parameter) {
         while (true) {
             int choice = chooseMenu(new String[] {

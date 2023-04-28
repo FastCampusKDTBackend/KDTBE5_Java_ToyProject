@@ -1,5 +1,6 @@
 package me.smartstore.domain.menu;
 
+import me.smartstore.domain.group.Group;
 import me.smartstore.domain.group.GroupType;
 import me.smartstore.domain.group.Groups;
 import me.smartstore.domain.group.Parameter;
@@ -70,6 +71,10 @@ public class GroupMenu implements Menu {
                     setParameter(parameter);
                     parameters[typeIndex] = parameter;
                     isExitType[typeIndex] = true;
+                    Group group = allGroups.get(typeIndex + 1);
+                    group.setParameter(parameter);
+                    group.setGroupType(groupType);
+                    System.out.println(allGroups);
                 }
                 System.out.println(String.format("\nGroupType: %s", groupType.name()));
                 System.out.println("Parameter: " + parameters[typeIndex]);
@@ -121,6 +126,8 @@ public class GroupMenu implements Menu {
                 } else {
                     Parameter parameter = parameters[typeIndex];
                     setParameter(parameter);
+                    allGroups.get(typeIndex + 1).setParameter(parameter);
+                    System.out.println(allGroups);
                 }
                 System.out.println(String.format("\nGroupType: %s", groupType.name()));
                 System.out.println("Parameter: " + parameters[typeIndex]);

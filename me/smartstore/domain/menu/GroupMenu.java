@@ -65,49 +65,7 @@ public class GroupMenu implements Menu {
                     System.out.println(String.format("%s group already exists.", groupType.name()));
                 } else {
                     Parameter parameter = new Parameter();
-                    while (true) {
-                        int choice = chooseMenu(new String[] {
-                                "Minimum Spent Time",
-                                "Minimum Total Pay",
-                                "Back"
-                        });
-
-                        if (choice == 1) {
-                            while (true) {
-                                try {
-                                    System.out.println("\nInput Minimum Spent Time:");
-                                    Integer minUsageTime = convertInt(nextLine("END"));
-                                    if (minUsageTime < 0) {
-                                        throw new InputRangeException();
-                                    }
-                                    parameter.setMinUsageTime(minUsageTime);
-                                    break;
-                                } catch (InputMismatchException e) {
-                                    System.out.println(ERR_MSG_INVALID_INPUT_TYPE.getMessage());
-                                } catch (InputRangeException e) {
-                                    System.out.println(ERR_MSG_INVALID_INPUT_RANGE.getMessage());
-                                }
-                            }
-                        } else if (choice == 2) {
-                            while (true) {
-                                try {
-                                    System.out.println("\nInput Minimum Total Pay:");
-                                    Integer minPurchaseAmount = convertInt(nextLine("END"));
-                                    if (minPurchaseAmount < 0) {
-                                        throw new InputRangeException();
-                                    }
-                                    parameter.setMinPurchaseAmount(minPurchaseAmount);
-                                    break;
-                                } catch (InputMismatchException e) {
-                                    System.out.println(ERR_MSG_INVALID_INPUT_TYPE.getMessage());
-                                } catch (InputRangeException e) {
-                                    System.out.println(ERR_MSG_INVALID_INPUT_RANGE.getMessage());
-                                }
-                            }
-                        } else {
-                            break;
-                        }
-                    }
+                    setParameter(parameter);
                     parameters[typeIndex] = parameter;
                     isExitType[typeIndex] = true;
                 }
@@ -147,4 +105,49 @@ public class GroupMenu implements Menu {
     };
 
     private void updateParameter() {};
+    private void setParameter(Parameter parameter) {
+        while (true) {
+            int choice = chooseMenu(new String[] {
+                    "Minimum Spent Time",
+                    "Minimum Total Pay",
+                    "Back"
+            });
+
+            if (choice == 1) {
+                while (true) {
+                    try {
+                        System.out.println("\nInput Minimum Spent Time:");
+                        Integer minUsageTime = convertInt(nextLine("END"));
+                        if (minUsageTime < 0) {
+                            throw new InputRangeException();
+                        }
+                        parameter.setMinUsageTime(minUsageTime);
+                        break;
+                    } catch (InputMismatchException e) {
+                        System.out.println(ERR_MSG_INVALID_INPUT_TYPE.getMessage());
+                    } catch (InputRangeException e) {
+                        System.out.println(ERR_MSG_INVALID_INPUT_RANGE.getMessage());
+                    }
+                }
+            } else if (choice == 2) {
+                while (true) {
+                    try {
+                        System.out.println("\nInput Minimum Total Pay:");
+                        Integer minPurchaseAmount = convertInt(nextLine("END"));
+                        if (minPurchaseAmount < 0) {
+                            throw new InputRangeException();
+                        }
+                        parameter.setMinPurchaseAmount(minPurchaseAmount);
+                        break;
+                    } catch (InputMismatchException e) {
+                        System.out.println(ERR_MSG_INVALID_INPUT_TYPE.getMessage());
+                    } catch (InputRangeException e) {
+                        System.out.println(ERR_MSG_INVALID_INPUT_RANGE.getMessage());
+                    }
+                }
+            } else {
+                break;
+            }
+        }
+    }
 }

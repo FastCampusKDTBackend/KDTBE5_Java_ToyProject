@@ -2,6 +2,7 @@ package me.smartstore.domain.menu;
 
 import me.smartstore.domain.customer.Customer;
 import me.smartstore.domain.customer.Customers;
+import me.smartstore.exception.ArrayEmptyException;
 import me.smartstore.exception.InputEndException;
 import me.smartstore.exception.InputRangeException;
 import me.smartstore.exception.message.ErrorMessage;
@@ -36,16 +37,20 @@ public class CustomerMenu implements Menu {
                 "Back"
             });
 
-            if (choice == 1) {
-                createCustomer();
-            } else if (choice == 2) {
-                findAllCustomers();
-            } else if (choice == 3) {
-                updateCustomer();
-            } else if (choice == 4) {
-                deleteCustomer();
-            } else {
-                break;
+            try {
+                if (choice == 1) {
+                    createCustomer();
+                } else if (choice == 2) {
+                    findAllCustomers();
+                } else if (choice == 3) {
+                    updateCustomer();
+                } else if (choice == 4) {
+                    deleteCustomer();
+                } else {
+                    break;
+                }
+            } catch (ArrayEmptyException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -137,7 +142,15 @@ public class CustomerMenu implements Menu {
         }
     }
 
-    private void findAllCustomers() {}
+    private void findAllCustomers() {
+        if (allCustomers.size() == 0) {
+            throw new ArrayEmptyException(ERR_MSG_INVALID_ARR_EMPTY.getMessage());
+        }
+        System.out.println("======= Customer Info. =======");
+        for (int i = 0; i < allCustomers.size(); i++) {
+            System.out.println(String.format("No. %d => ", i + 1) + allCustomers.get(i));
+        }
+    }
 
     private void updateCustomer() {}
 

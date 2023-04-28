@@ -95,7 +95,25 @@ public class CustomerMenu implements Menu {
         }
     }
 
-    private void updateCustomer() {}
+    private void updateCustomer() {
+        findAllCustomers();
+        while (true) {
+            System.out.print(String.format("\nWhich customer ( 1 ~ %d )? ", allCustomers.size()));
+            try {
+                Integer index = convertInt(nextLine());
+                if (index < 1 || index > allCustomers.size()) {
+                    throw new InputRangeException();
+                }
+                Customer customer = allCustomers.get(index - 1);
+                setCustomerInfo(customer);
+                return;
+            } catch (InputMismatchException e) {
+                System.out.println(e.getMessage());
+            } catch (InputRangeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
 
     private void deleteCustomer() {}
 

@@ -19,13 +19,16 @@ public enum GroupType {
         return this;
     }
 
-    public static int getTypeIndex(GroupType groupType) {
-        if (groupType == GENERAL) {
+    public static int getTypeLevel(Group group) {
+        GroupType type = group.getGroupType();
+        if (type == NONE) {
             return 0;
-        } else if (groupType == VIP) {
+        } else if (type == GENERAL) {
             return 1;
-        } else if (groupType == VVIP) {
+        } else if (type == VIP) {
             return 2;
+        } else if (type == VVIP) {
+            return 3;
         }
         throw new InputRangeException();
     }

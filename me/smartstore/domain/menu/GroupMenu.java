@@ -13,12 +13,8 @@ import static me.smartstore.exception.message.ErrorMessage.ERR_MSG_INVALID_INPUT
 import static me.smartstore.exception.message.ErrorMessage.ERR_MSG_INVALID_INPUT_TYPE;
 
 public class GroupMenu implements Menu {
-    private static final Integer GROUP_TYPE_COUNT = 3;
     private static GroupMenu groupMenu;
     private final Groups allGroups;
-
-    private final boolean[] isExitType;
-    private final Parameter[] parameters;
 
     public static GroupMenu getInstance() {
         if (groupMenu == null) {
@@ -28,8 +24,6 @@ public class GroupMenu implements Menu {
     }
 
     private GroupMenu() {
-        isExitType = new boolean[GROUP_TYPE_COUNT];
-        parameters = new Parameter[GROUP_TYPE_COUNT];
         this.allGroups = Groups.getInstance();
     }
 
@@ -61,22 +55,18 @@ public class GroupMenu implements Menu {
                 System.out.println("\nWhich group (GENERAL (G), VIP (V), VVIP (VV))?");
                 String inputData = nextLine("END");
                 GroupType groupType = GroupType.valueOf(inputData).convertToFullName();
+                Group group = allGroups.find(groupType);
 
-                // 존재하는지 확인
-                Integer typeIndex = GroupType.getTypeIndex(groupType);
-                if (isExitType[typeIndex]) {
+                if (group != null && group.getParameter() != null) {
                     System.out.println(String.format("%s group already exists.", groupType.name()));
                 } else {
                     Parameter parameter = new Parameter();
                     setParameter(parameter);
-                    parameters[typeIndex] = parameter;
-                    isExitType[typeIndex] = true;
-                    Group group = allGroups.get(typeIndex + 1);
-                    group.setParameter(parameter);
-                    group.setGroupType(groupType);
+                    group = new Group(parameter, groupType);
+                    allGroups.add(group);
                 }
                 System.out.println(String.format("\nGroupType: %s", groupType.name()));
-                System.out.println("Parameter: " + parameters[typeIndex]);
+                System.out.println("Parameter: " + group.getParameter());
 
             } catch (InputEndException e) {
                 System.out.println(e.getMessage());
@@ -95,10 +85,10 @@ public class GroupMenu implements Menu {
                 System.out.println("\nWhich group (GENERAL (G), VIP (V), VVIP (VV))?");
                 String inputData = nextLine("END");
                 GroupType groupType = GroupType.valueOf(inputData).convertToFullName();
-                Integer typeIndex = GroupType.getTypeIndex(groupType);
+                Group group = allGroups.find(groupType);
 
                 System.out.println(String.format("\nGroupType: %s", groupType.name()));
-                System.out.println("Parameter: " + parameters[typeIndex]);
+                System.out.println("Parameter: " + (group != null ? group.getParameter() : null));
             } catch (InputEndException e) {
                 System.out.println(e.getMessage());
                 break;
@@ -116,19 +106,18 @@ public class GroupMenu implements Menu {
                 System.out.println("\nWhich group (GENERAL (G), VIP (V), VVIP (VV))?");
                 String inputData = nextLine("END");
                 GroupType groupType = GroupType.valueOf(inputData).convertToFullName();
+                Group group = allGroups.find(groupType);
 
-                // 존재하는지 확인
-                Integer typeIndex = GroupType.getTypeIndex(groupType);
-                if (!isExitType[typeIndex]) {
+                if (group == null) {
                     System.out.println("No parameter. Set the parameter first.");
                     break;
                 } else {
-                    Parameter parameter = parameters[typeIndex];
+                    Parameter parameter = group.getParameter();
                     setParameter(parameter);
-                    allGroups.get(typeIndex + 1).setParameter(parameter);
+                    group.setParameter(parameter);
                 }
                 System.out.println(String.format("\nGroupType: %s", groupType.name()));
-                System.out.println("Parameter: " + parameters[typeIndex]);
+                System.out.println("Parameter: " + group.getParameter());
 
             } catch (InputEndException e) {
                 System.out.println(e.getMessage());

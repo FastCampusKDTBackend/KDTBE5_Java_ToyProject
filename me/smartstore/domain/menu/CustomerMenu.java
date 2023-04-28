@@ -73,6 +73,7 @@ public class CustomerMenu implements Menu {
                     setCustomerInfo(customer);
                     allCustomers.add(customer);
                 }
+                allCustomers.refresh();
                 return;
             } catch (InputMismatchException e) {
                 System.out.println(ERR_MSG_INVALID_INPUT_TYPE.getMessage());
@@ -106,6 +107,7 @@ public class CustomerMenu implements Menu {
                 }
                 Customer customer = allCustomers.get(index - 1);
                 setCustomerInfo(customer);
+                allCustomers.refresh();
                 return;
             } catch (InputMismatchException e) {
                 System.out.println(e.getMessage());

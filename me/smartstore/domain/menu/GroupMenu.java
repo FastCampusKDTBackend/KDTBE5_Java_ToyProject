@@ -1,5 +1,6 @@
 package me.smartstore.domain.menu;
 
+import me.smartstore.domain.customer.Customers;
 import me.smartstore.domain.group.Group;
 import me.smartstore.domain.group.GroupType;
 import me.smartstore.domain.group.Groups;
@@ -15,6 +16,7 @@ import static me.smartstore.exception.message.ErrorMessage.ERR_MSG_INVALID_INPUT
 public class GroupMenu implements Menu {
     private static GroupMenu groupMenu;
     private final Groups allGroups;
+    private final Customers allCustomers;
 
     public static GroupMenu getInstance() {
         if (groupMenu == null) {
@@ -25,6 +27,7 @@ public class GroupMenu implements Menu {
 
     private GroupMenu() {
         this.allGroups = Groups.getInstance();
+        this.allCustomers = Customers.getInstance();
     }
 
     @Override
@@ -64,6 +67,7 @@ public class GroupMenu implements Menu {
                     setParameter(parameter);
                     group = new Group(parameter, groupType);
                     allGroups.add(group);
+                    allCustomers.refresh();
                 }
                 System.out.println(String.format("\nGroupType: %s", groupType.name()));
                 System.out.println("Parameter: " + group.getParameter());
@@ -115,6 +119,7 @@ public class GroupMenu implements Menu {
                     Parameter parameter = group.getParameter();
                     setParameter(parameter);
                     group.setParameter(parameter);
+                    allCustomers.refresh();
                 }
                 System.out.println(String.format("\nGroupType: %s", groupType.name()));
                 System.out.println("Parameter: " + group.getParameter());

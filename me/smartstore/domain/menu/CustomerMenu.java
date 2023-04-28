@@ -14,6 +14,35 @@ public class CustomerMenu implements Menu {
 
     @Override
     public void manage() {
-        System.out.println("고객 메뉴입니다.");
+        while (true) {
+            int choice = chooseMenu(new String[]{
+                "Add Customer Data",
+                "View Customer Data",
+                "Update Customer Data",
+                "Delete Customer Data",
+                "Back"
+            });
+
+            if (choice == 1) {
+                createCustomer();
+            } else if (choice == 2) {
+                findAllCustomers();
+            } else if (choice == 3) {
+                updateCustomer();
+            } else if (choice == 4) {
+                deleteCustomer();
+            } else {
+                break;
+            }
+        }
     }
+
+    // TODO: Customer Methods
+    private void createCustomer() {}
+
+    private void findAllCustomers() {}
+
+    private void updateCustomer() {}
+
+    private void deleteCustomer() {}
 }

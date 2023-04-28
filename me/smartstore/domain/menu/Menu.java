@@ -33,7 +33,7 @@ public interface Menu {
 
     default void displayMenu(String[] options) {
         StringBuilder builder = new StringBuilder();
-        builder.append("===============================").append("\n");
+        builder.append("\n===============================").append("\n");
         for (int i = 0; i < options.length; i++) {
             builder.append(String.format(" %d. %s\n", i + 1, options[i]));
         }

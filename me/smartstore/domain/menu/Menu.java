@@ -1,14 +1,26 @@
 package me.smartstore.domain.menu;
 
+import me.smartstore.exception.InputEndException;
 import me.smartstore.exception.InputRangeException;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import static me.smartstore.exception.message.ErrorMessage.ERR_MSG_INVALID_INPUT_FORMAT;
+
 public interface Menu {
     Scanner scanner = new Scanner(System.in);
     default String nextLine() {
         return scanner.next().toUpperCase();
+    }
+
+    default String nextLine(String end) {
+        System.out.println("** Press 'end', if you want to exit! **");
+        String inputData = nextLine();
+        if (inputData.equals(end)) {
+            throw new InputEndException();
+        }
+        return inputData;
     }
 
     default int convertInt(String inputData) {

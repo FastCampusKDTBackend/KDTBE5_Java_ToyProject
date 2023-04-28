@@ -2,6 +2,7 @@ package me.smartstore.domain.menu;
 
 import me.smartstore.exception.InputEndException;
 import me.smartstore.exception.InputRangeException;
+import me.smartstore.exception.message.ErrorMessage;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -27,7 +28,7 @@ public interface Menu {
         try {
             return Integer.parseInt(inputData);
         } catch (NumberFormatException e) {
-            throw new InputMismatchException();
+            throw new InputMismatchException(ERR_MSG_INVALID_INPUT_FORMAT.getMessage());
         }
     }
 

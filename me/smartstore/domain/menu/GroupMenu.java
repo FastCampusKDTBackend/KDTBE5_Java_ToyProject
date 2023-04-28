@@ -1,6 +1,7 @@
 package me.smartstore.domain.menu;
 
 import me.smartstore.domain.group.GroupType;
+import me.smartstore.domain.group.Groups;
 import me.smartstore.domain.group.Parameter;
 import me.smartstore.exception.InputEndException;
 import me.smartstore.exception.InputRangeException;
@@ -14,6 +15,7 @@ import static me.smartstore.exception.message.ErrorMessage.ERR_MSG_INVALID_INPUT
 public class GroupMenu implements Menu {
     private static final Integer GROUP_TYPE_COUNT = 3;
     private static GroupMenu groupMenu;
+    private final Groups allGroups;
 
     private boolean[] isExitType;
     private Parameter[] parameters;
@@ -28,6 +30,7 @@ public class GroupMenu implements Menu {
     private GroupMenu() {
         isExitType = new boolean[GROUP_TYPE_COUNT];
         parameters = new Parameter[GROUP_TYPE_COUNT];
+        this.allGroups = Groups.getInstance();
     }
 
     @Override

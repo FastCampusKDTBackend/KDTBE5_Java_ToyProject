@@ -5,7 +5,6 @@ import me.smartstore.domain.group.Groups;
 import me.smartstore.domain.group.Parameter;
 import me.smartstore.exception.InputEndException;
 import me.smartstore.exception.InputRangeException;
-import me.smartstore.exception.message.ErrorMessage;
 
 import java.util.InputMismatchException;
 
@@ -17,8 +16,8 @@ public class GroupMenu implements Menu {
     private static GroupMenu groupMenu;
     private final Groups allGroups;
 
-    private boolean[] isExitType;
-    private Parameter[] parameters;
+    private final boolean[] isExitType;
+    private final Parameter[] parameters;
 
     public static GroupMenu getInstance() {
         if (groupMenu == null) {

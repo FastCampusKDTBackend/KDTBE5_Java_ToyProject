@@ -1,5 +1,7 @@
 package me.smartstore.domain.group;
 
+import me.smartstore.exception.InputRangeException;
+
 public enum GroupType {
     NONE, GENERAL, VIP, VVIP,
     N, G, V, VV;
@@ -15,5 +17,16 @@ public enum GroupType {
             return VVIP;
         }
         return this;
+    }
+
+    public static int getTypeIndex(GroupType groupType) {
+        if (groupType == GENERAL) {
+            return 0;
+        } else if (groupType == VIP) {
+            return 1;
+        } else if (groupType == VVIP) {
+            return 2;
+        }
+        throw new InputRangeException();
     }
 }

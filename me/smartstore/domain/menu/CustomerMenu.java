@@ -89,7 +89,7 @@ public class CustomerMenu implements Menu {
         if (allCustomers.size() == 0) {
             throw new ArrayEmptyException();
         }
-        System.out.println("======= Customer Info. =======");
+        System.out.println("\n======= Customer Info. =======");
         for (int i = 0; i < allCustomers.size(); i++) {
             System.out.println(String.format("No. %d => ", i + 1) + allCustomers.get(i));
         }
@@ -115,7 +115,25 @@ public class CustomerMenu implements Menu {
         }
     }
 
-    private void deleteCustomer() {}
+    private void deleteCustomer() {
+        findAllCustomers();
+        while (true) {
+            System.out.print(String.format("\nWhich customer ( 1 ~ %d )? ", allCustomers.size()));
+            try {
+                Integer index = convertInt(nextLine());
+                if (index < 1 || index > allCustomers.size()) {
+                    throw new InputRangeException();
+                }
+                System.out.println(allCustomers.pop(index - 1));
+                findAllCustomers();
+                return;
+            } catch (InputMismatchException e) {
+                System.out.println(e.getMessage());
+            } catch (InputRangeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
 
     private void setCustomerInfo(Customer customer) {
         boolean isNotSaved = true;

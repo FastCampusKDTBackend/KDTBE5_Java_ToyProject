@@ -6,7 +6,7 @@ import me.smartstore.exception.InputRangeException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import static me.smartstore.exception.message.ErrorMessage.ERR_MSG_INVALID_INPUT_FORMAT;
+import static me.smartstore.exception.message.ErrorMessage.*;
 
 public interface Menu {
     Scanner scanner = new Scanner(System.in);
@@ -27,7 +27,7 @@ public interface Menu {
         try {
             return Integer.parseInt(inputData);
         } catch (NumberFormatException e) {
-            throw new InputMismatchException(ERR_MSG_INVALID_INPUT_FORMAT.getMessage());
+            throw new InputMismatchException();
         }
     }
 
@@ -50,7 +50,7 @@ public interface Menu {
                 if (choice >= 1 && choice <= options.length) {
                     return choice;
                 }
-                throw new InputRangeException("입력한 숫자가 범위를 벗어났습니다.");
+                throw new InputRangeException();
             } catch (InputMismatchException e) {
                 System.out.println(e.getMessage());
             } catch (InputRangeException e) {

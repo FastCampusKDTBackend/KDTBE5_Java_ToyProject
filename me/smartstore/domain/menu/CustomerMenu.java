@@ -144,7 +144,7 @@ public class CustomerMenu implements Menu {
 
     private void findAllCustomers() {
         if (allCustomers.size() == 0) {
-            throw new ArrayEmptyException(ERR_MSG_INVALID_ARR_EMPTY.getMessage());
+            throw new ArrayEmptyException();
         }
         System.out.println("======= Customer Info. =======");
         for (int i = 0; i < allCustomers.size(); i++) {

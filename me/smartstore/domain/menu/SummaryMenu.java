@@ -14,6 +14,34 @@ public class SummaryMenu implements Menu {
 
     @Override
     public void manage() {
-        System.out.println("써머리 메뉴입니다.");
+        while (true) {
+            int choice = chooseMenu(new String[]{
+                    "Summary",
+                    "Summary (Sorted By Name)",
+                    "Summary (Sorted By Spent Time)",
+                    "Summary (Sorted By Total Payment)",
+                    "Back"
+            });
+
+            if (choice == 1) {
+                getSummary();
+            } else if (choice == 2) {
+                getSummarySortedByName();
+            } else if (choice == 3) {
+                getSummarySortedByTime();
+            } else if (choice == 4) {
+                getSummarySortedByTotalPayment();
+            } else {
+                break;
+            }
+        }
     }
+
+    private void getSummary() {}
+
+    private void getSummarySortedByName() {}
+
+    private void getSummarySortedByTime() {}
+
+    private void getSummarySortedByTotalPayment() {}
 }

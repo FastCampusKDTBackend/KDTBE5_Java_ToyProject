@@ -62,30 +62,36 @@ public class SummaryMenu implements Menu {
     }
 
     private void getSummarySortedByName() {
-        int classificationVal = getClassificationValue();
-        if (classificationVal == END_PRESS) return;
-        Comparator<Customer> comparator = (customer1, customer2) -> {
-            return (classificationVal) * customer1.getCustomerName().compareTo(customer2.getCustomerName());
-        };
-        getSummary(allCustomers.getSortedCustomers(comparator));
+        while (true) {
+            int classificationVal = getClassificationValue();
+            if (classificationVal == END_PRESS) return;
+            Comparator<Customer> comparator = (customer1, customer2) -> {
+                return (classificationVal) * customer1.getCustomerName().compareTo(customer2.getCustomerName());
+            };
+            getSummary(allCustomers.getSortedCustomers(comparator));
+        }
     }
 
     private void getSummarySortedByTime() {
-        int classificationVal = getClassificationValue();
-        if (classificationVal == END_PRESS) return;
-        Comparator<Customer> comparator = (customer1, customer2) -> {
-            return (classificationVal) * customer1.getSpentTime().compareTo(customer2.getSpentTime());
-        };
-        getSummary(allCustomers.getSortedCustomers(comparator));
+        while (true) {
+            int classificationVal = getClassificationValue();
+            if (classificationVal == END_PRESS) return;
+            Comparator<Customer> comparator = (customer1, customer2) -> {
+                return (classificationVal) * customer1.getSpentTime().compareTo(customer2.getSpentTime());
+            };
+            getSummary(allCustomers.getSortedCustomers(comparator));
+        }
     }
 
     private void getSummarySortedByTotalPayment() {
-        int classificationVal = getClassificationValue();
-        if (classificationVal == END_PRESS) return;
-        Comparator<Customer> comparator = (customer1, customer2) -> {
-            return (classificationVal) * customer1.getTotalPay().compareTo(customer2.getTotalPay());
-        };
-        getSummary(allCustomers.getSortedCustomers(comparator));
+        while (true) {
+            int classificationVal = getClassificationValue();
+            if (classificationVal == END_PRESS) return;
+            Comparator<Customer> comparator = (customer1, customer2) -> {
+                return (classificationVal) * customer1.getTotalPay().compareTo(customer2.getTotalPay());
+            };
+            getSummary(allCustomers.getSortedCustomers(comparator));
+        }
     }
 
     private int getClassificationValue() {
@@ -144,6 +150,7 @@ public class SummaryMenu implements Menu {
             builder.append("Null.").append("\n");
         }
 
+        builder.append("==============================").append("\n");
         System.out.println(builder);
     }
 }

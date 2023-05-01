@@ -1,10 +1,15 @@
 package me.smartstore.domain.menu;
 
 import me.smartstore.domain.customer.Customer;
+import me.smartstore.domain.customer.Customers;
+import me.smartstore.domain.group.Group;
 import me.smartstore.domain.group.GroupType;
+import me.smartstore.domain.group.Groups;
 import me.smartstore.domain.group.Parameter;
 public class SummaryMenu implements Menu {
     private static SummaryMenu summaryMenu;
+    private final Customers allCustomers;
+    private final Groups allGroups;
 
     public static SummaryMenu getInstance() {
         if (summaryMenu == null) {
@@ -13,7 +18,10 @@ public class SummaryMenu implements Menu {
         return summaryMenu;
     }
 
-    private SummaryMenu() {}
+    private SummaryMenu() {
+        this.allCustomers = Customers.getInstance();
+        this.allGroups = Groups.getInstance();
+    }
 
     @Override
     public void manage() {
@@ -27,7 +35,7 @@ public class SummaryMenu implements Menu {
             });
 
             if (choice == 1) {
-                getSummary();
+                getSummary(allCustomers.getCustomers());
             } else if (choice == 2) {
                 getSummarySortedByName();
             } else if (choice == 3) {

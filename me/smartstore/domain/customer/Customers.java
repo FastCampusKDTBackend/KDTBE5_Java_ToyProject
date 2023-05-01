@@ -5,6 +5,8 @@ import me.smartstore.domain.group.GroupType;
 import me.smartstore.domain.group.Groups;
 import me.smartstore.utils.MyArray;
 
+import java.util.Arrays;
+import java.util.Comparator;
 
 import static me.smartstore.domain.group.GroupType.getTypeLevel;
 
@@ -56,4 +58,14 @@ public class Customers extends MyArray<Customer> {
         return customers;
     }
 
+    /**
+     * 원하는 정렬 기준을 가진 Comparator를 파라미터로 받아 정렬된 Customer 배열을 얻어내는 메서드
+     * @param comparator: 정렬하고자 하는 기준으로 Comparator를 만들어 파라미터로 입력하세요.
+     * @return 원하는 정렬 기준으로 정렬된 Customer 배열을 리턴합니다.
+     */
+    public Customer[] getSortedCustomers(Comparator<Customer> comparator) {
+        Customer[] customers = getCustomers();
+        Arrays.sort(customers, comparator);
+        return customers;
+    }
 }

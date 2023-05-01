@@ -1,6 +1,7 @@
 package com.smartstore.util;
 
 public class CustomHashMap<K, V> implements Map<K, V> {
+    // TODO: 2023-05-02 modify Entry Class to interface, implements it in CustomHashMap as different name Like Node
     //Entry Class for CustomHashMap
     private class Entry<K, V>{
         //Key is unmodifiable

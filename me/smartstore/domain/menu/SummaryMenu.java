@@ -6,7 +6,10 @@ import me.smartstore.domain.group.Group;
 import me.smartstore.domain.group.GroupType;
 import me.smartstore.domain.group.Groups;
 import me.smartstore.domain.group.Parameter;
+import java.util.Comparator;
+
 public class SummaryMenu implements Menu {
+    private static final int END_PRESS = 10000;
     private static SummaryMenu summaryMenu;
     private final Customers allCustomers;
     private final Groups allGroups;
@@ -55,11 +58,34 @@ public class SummaryMenu implements Menu {
         printSummary(customers, GroupType.VVIP);
     }
 
-    private void getSummarySortedByName() {}
+    private void getSummarySortedByName() {
+        int classificationVal = getClassificationValue();
+        if (classificationVal == END_PRESS) return;
+        Comparator<Customer> comparator = (customer1, customer2) -> {
+            return (classificationVal) * customer1.getCustomerName().compareTo(customer2.getCustomerName());
+        };
+        getSummary(allCustomers.getSortedCustomers(comparator));
+    }
 
-    private void getSummarySortedByTime() {}
+    private void getSummarySortedByTime() {
+        int classificationVal = getClassificationValue();
+        if (classificationVal == END_PRESS) return;
+        Comparator<Customer> comparator = (customer1, customer2) -> {
+            return (classificationVal) * customer1.getTotalUsageTime().compareTo(customer2.getTotalUsageTime());
+        };
+        getSummary(allCustomers.getSortedCustomers(comparator));
+    }
 
-    private void getSummarySortedByTotalPayment() {}
+    private void getSummarySortedByTotalPayment() {
+        int classificationVal = getClassificationValue();
+        if (classificationVal == END_PRESS) return;
+        Comparator<Customer> comparator = (customer1, customer2) -> {
+            return (classificationVal) * customer1.getTotalPurchaseAmount().compareTo(customer2.getTotalPurchaseAmount());
+        };
+        getSummary(allCustomers.getSortedCustomers(comparator));
+    }
+
+
     private void printSummary(Customer[] customers, GroupType type) {
         StringBuilder builder = new StringBuilder();
         Parameter parameter = null;

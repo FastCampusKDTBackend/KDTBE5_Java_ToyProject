@@ -85,14 +85,14 @@ public class CustomHashMap<K, V> implements Map<K, V> {
             //loop until e.next is not exists
             while (e.next != null){
                 //if key exists, set value as new one
-                if (e.getKey() == key){
+                if (e.getKey().equals(key)){
                     e.setValue(value);
                     return;
                 }
                 e = e.next;
             }
             //if key == final entry's key, set value, key is Unique
-            if(e.getKey() == key){
+            if(e.getKey().equals(key)){
                 e.setValue(value);
                 return;
             }
@@ -117,7 +117,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         //loop until e.next is not exists
         while (e != null){
             //if key exists, return value
-            if(e.getKey() == key){
+            if(e.getKey().equals(key)){
                 return e.getValue();
             }
             e = e.next;
@@ -136,8 +136,8 @@ public class CustomHashMap<K, V> implements Map<K, V> {
             return false;
         }
 
-        //if first Entry's key == key
-        if(e.getKey() == key){
+        //if first Entry's e.key equals key
+        if(e.getKey().equals(key)){
             //shift second Entry to first(remove)
             entries[hash] = e.next;
             e.next = null;
@@ -149,7 +149,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
         //loop until e.next is not exists
         while (e != null){
-            if (e.getKey() == key) {
+            if (e.getKey().equals(key)) {
                 //shift next Entry to current(remove)
                 prev.next = e.next;
                 e.next = null;

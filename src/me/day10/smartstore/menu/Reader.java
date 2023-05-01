@@ -22,6 +22,11 @@ public class Reader {
         }
     }
 
+    public String inputString() {
+        StringTokenizer st = new StringTokenizer(nextLine());
+        return st.nextToken();
+    }
+
     private String nextLine() throws RuntimeException {
         try {
             return br.readLine();

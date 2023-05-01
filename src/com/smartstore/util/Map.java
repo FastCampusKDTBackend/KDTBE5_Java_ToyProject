@@ -17,6 +17,8 @@ public interface Map<K, V> {
         return value;
     }
 
+    int size();
+
 
 
 }

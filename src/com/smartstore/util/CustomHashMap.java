@@ -41,7 +41,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("CustomHashMap { \n");
-        for(int i = 0 ; i < SIZE ; i++){
+        for(int i = 0; i < CAPACITY_SIZE; i++){
             if(entries[i] != null){
                 sb.append(entries[i]);
             }
@@ -63,17 +63,17 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         +--------------------+--------------------+--------------------+--------------------+--------------------+
         Too big SIZE have chance to increase unnecessary indexes
      */
-    private final int SIZE = 5;
+    private final int CAPACITY_SIZE = 5;
 
     private Entry<K, V>[] entries;
 
     public CustomHashMap(){
-        entries = new Entry[SIZE];
+        entries = new Entry[CAPACITY_SIZE];
     }
     @Override
     public void put(K key, V value){
         //Get Entries index from hash code 0 to size-1
-        int hash = key.hashCode() % SIZE;
+        int hash = key.hashCode() % CAPACITY_SIZE;
         Entry<K, V> e = entries[hash];
 
         //if entries[hash] is empty
@@ -106,7 +106,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
     @Override
     public V get(K key){
-        int hash = key.hashCode() % SIZE;
+        int hash = key.hashCode() % CAPACITY_SIZE;
         Entry<K, V> e = entries[hash];
 
         //if entries[hash] is empty, return null
@@ -128,7 +128,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean remove(K key){
-        int hash = key.hashCode() % SIZE;
+        int hash = key.hashCode() % CAPACITY_SIZE;
         Entry<K, V> e = entries[hash];
 
         //if entries[hash] is empty, return false
@@ -160,6 +160,11 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
         //if key not exits, return false
         return false;
+    }
+
+    @Override
+    public int size() {
+        return CAPACITY_SIZE;
     }
 
 }

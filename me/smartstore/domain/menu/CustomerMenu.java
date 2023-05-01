@@ -161,7 +161,7 @@ public class CustomerMenu implements Menu {
                             if (usageTime < 0) {
                                 throw new InputRangeException();
                             }
-                            customer.setTotalUsageTime(usageTime);
+                            customer.setSpentTime(usageTime);
                             break;
                         } catch (InputMismatchException e) {
                             System.out.println(ERR_MSG_INVALID_INPUT_TYPE.getMessage());
@@ -177,7 +177,7 @@ public class CustomerMenu implements Menu {
                             if (purchaseAmount < 0) {
                                 throw new InputRangeException();
                             }
-                            customer.setTotalPurchaseAmount(purchaseAmount);
+                            customer.setTotalPay(purchaseAmount);
                             break;
                         } catch (InputMismatchException e) {
                             System.out.println(ERR_MSG_INVALID_INPUT_TYPE.getMessage());

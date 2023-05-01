@@ -74,7 +74,7 @@ public class SummaryMenu implements Menu {
         int classificationVal = getClassificationValue();
         if (classificationVal == END_PRESS) return;
         Comparator<Customer> comparator = (customer1, customer2) -> {
-            return (classificationVal) * customer1.getTotalUsageTime().compareTo(customer2.getTotalUsageTime());
+            return (classificationVal) * customer1.getSpentTime().compareTo(customer2.getSpentTime());
         };
         getSummary(allCustomers.getSortedCustomers(comparator));
     }
@@ -83,7 +83,7 @@ public class SummaryMenu implements Menu {
         int classificationVal = getClassificationValue();
         if (classificationVal == END_PRESS) return;
         Comparator<Customer> comparator = (customer1, customer2) -> {
-            return (classificationVal) * customer1.getTotalPurchaseAmount().compareTo(customer2.getTotalPurchaseAmount());
+            return (classificationVal) * customer1.getTotalPay().compareTo(customer2.getTotalPay());
         };
         getSummary(allCustomers.getSortedCustomers(comparator));
     }

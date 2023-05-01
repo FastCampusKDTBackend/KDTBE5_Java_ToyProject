@@ -28,7 +28,7 @@ public class Customers extends MyArray<Customer> {
     public void refresh() {
         for (int i = 0; i < allCustomers.size(); i++) {
             Customer customer = allCustomers.get(i);
-            Group group = findGroupOfCustomer(customer.getTotalUsageTime(), customer.getTotalPurchaseAmount());
+            Group group = findGroupOfCustomer(customer.getSpentTime(), customer.getTotalPay());
             customer.setGroup(group);
         }
     }

@@ -7,8 +7,8 @@ import java.util.Objects;
 public class Customer {
     private String customerName;
     private String customerId;
-    private Integer totalUsageTime;
-    private Integer totalPurchaseAmount;
+    private Integer spentTime;
+    private Integer totalPay;
     private Group group;
 
     public Customer() {}
@@ -22,11 +22,11 @@ public class Customer {
         this.customerId = customerId;
     }
 
-    public Customer(String customerName, String customerId, Integer totalUsageTime, Integer totalPurchaseAmount) {
+    public Customer(String customerName, String customerId, Integer spentTime, Integer totalPay) {
         this.customerName = customerName;
         this.customerId = customerId;
-        this.totalUsageTime = totalUsageTime;
-        this.totalPurchaseAmount = totalPurchaseAmount;
+        this.spentTime = spentTime;
+        this.totalPay = totalPay;
     }
 
     public String getCustomerName() {
@@ -45,20 +45,20 @@ public class Customer {
         this.customerId = customerId;
     }
 
-    public Integer getTotalUsageTime() {
-        return totalUsageTime;
+    public Integer getSpentTime() {
+        return spentTime;
     }
 
-    public void setTotalUsageTime(Integer totalUsageTime) {
-        this.totalUsageTime = totalUsageTime;
+    public void setSpentTime(Integer spentTime) {
+        this.spentTime = spentTime;
     }
 
-    public Integer getTotalPurchaseAmount() {
-        return totalPurchaseAmount;
+    public Integer getTotalPay() {
+        return totalPay;
     }
 
-    public void setTotalPurchaseAmount(Integer totalPurchaseAmount) {
-        this.totalPurchaseAmount = totalPurchaseAmount;
+    public void setTotalPay(Integer totalPay) {
+        this.totalPay = totalPay;
     }
 
     public Group getGroup() {
@@ -79,9 +79,9 @@ public class Customer {
         if (!Objects.equals(customerName, customer.customerName))
             return false;
         if (!Objects.equals(customerId, customer.customerId)) return false;
-        if (!Objects.equals(totalUsageTime, customer.totalUsageTime))
+        if (!Objects.equals(spentTime, customer.spentTime))
             return false;
-        if (!Objects.equals(totalPurchaseAmount, customer.totalPurchaseAmount))
+        if (!Objects.equals(totalPay, customer.totalPay))
             return false;
         return Objects.equals(group, customer.group);
     }
@@ -90,8 +90,8 @@ public class Customer {
     public int hashCode() {
         int result = customerName != null ? customerName.hashCode() : 0;
         result = 31 * result + (customerId != null ? customerId.hashCode() : 0);
-        result = 31 * result + (totalUsageTime != null ? totalUsageTime.hashCode() : 0);
-        result = 31 * result + (totalPurchaseAmount != null ? totalPurchaseAmount.hashCode() : 0);
+        result = 31 * result + (spentTime != null ? spentTime.hashCode() : 0);
+        result = 31 * result + (totalPay != null ? totalPay.hashCode() : 0);
         result = 31 * result + (group != null ? group.hashCode() : 0);
         return result;
     }

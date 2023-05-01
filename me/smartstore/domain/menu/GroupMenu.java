@@ -2,7 +2,7 @@ package me.smartstore.domain.menu;
 
 import me.smartstore.domain.customer.Customers;
 import me.smartstore.domain.group.Group;
-import me.smartstore.domain.group.GroupType;
+import me.smartstore.domain.group.constant.GroupType;
 import me.smartstore.domain.group.Groups;
 import me.smartstore.domain.group.Parameter;
 import me.smartstore.exception.InputEndException;
@@ -10,8 +10,8 @@ import me.smartstore.exception.InputRangeException;
 
 import java.util.InputMismatchException;
 
-import static me.smartstore.exception.message.ErrorMessage.ERR_MSG_INVALID_INPUT_RANGE;
-import static me.smartstore.exception.message.ErrorMessage.ERR_MSG_INVALID_INPUT_TYPE;
+import static me.smartstore.exception.constant.Message.*;
+import static me.smartstore.exception.constant.Message.END_MSG;
 
 public class GroupMenu implements Menu {
     private static GroupMenu groupMenu;
@@ -56,7 +56,7 @@ public class GroupMenu implements Menu {
         while (true) {
             try {
                 System.out.println("\nWhich group (GENERAL (G), VIP (V), VVIP (VV))?");
-                String inputData = nextLine("END");
+                String inputData = nextLine(END_MSG.getMessage());
                 GroupType groupType = GroupType.valueOf(inputData).convertToFullName();
                 Group group = allGroups.find(groupType);
 
@@ -87,7 +87,7 @@ public class GroupMenu implements Menu {
         while (true) {
             try {
                 System.out.println("\nWhich group (GENERAL (G), VIP (V), VVIP (VV))?");
-                String inputData = nextLine("END");
+                String inputData = nextLine(END_MSG.getMessage());
                 GroupType groupType = GroupType.valueOf(inputData).convertToFullName();
                 Group group = allGroups.find(groupType);
 
@@ -108,7 +108,7 @@ public class GroupMenu implements Menu {
         while (true) {
             try {
                 System.out.println("\nWhich group (GENERAL (G), VIP (V), VVIP (VV))?");
-                String inputData = nextLine("END");
+                String inputData = nextLine(END_MSG.getMessage());
                 GroupType groupType = GroupType.valueOf(inputData).convertToFullName();
                 Group group = allGroups.find(groupType);
 
@@ -147,7 +147,7 @@ public class GroupMenu implements Menu {
                 while (true) {
                     try {
                         System.out.println("\nInput Minimum Spent Time:");
-                        Integer minUsageTime = convertInt(nextLine("END"));
+                        Integer minUsageTime = convertInt(nextLine(END_MSG.getMessage()));
                         if (minUsageTime < 0) {
                             throw new InputRangeException();
                         }
@@ -163,7 +163,7 @@ public class GroupMenu implements Menu {
                 while (true) {
                     try {
                         System.out.println("\nInput Minimum Total Pay:");
-                        Integer minPurchaseAmount = convertInt(nextLine("END"));
+                        Integer minPurchaseAmount = convertInt(nextLine(END_MSG.getMessage()));
                         if (minPurchaseAmount < 0) {
                             throw new InputRangeException();
                         }

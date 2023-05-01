@@ -1,5 +1,6 @@
 package me.smartstore.domain.group;
 
+import me.smartstore.domain.group.constant.GroupType;
 import me.smartstore.utils.MyArray;
 
 public class Groups extends MyArray<Group> {

@@ -6,7 +6,7 @@ import me.smartstore.exception.InputRangeException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import static me.smartstore.exception.message.ErrorMessage.*;
+import static me.smartstore.exception.constant.Message.*;
 
 public interface Menu {
     Scanner scanner = new Scanner(System.in);

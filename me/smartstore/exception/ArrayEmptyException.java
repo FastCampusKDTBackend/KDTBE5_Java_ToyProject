@@ -1,8 +1,6 @@
 package me.smartstore.exception;
 
-import me.smartstore.exception.message.ErrorMessage;
-
-import static me.smartstore.exception.message.ErrorMessage.ERR_MSG_INVALID_ARR_EMPTY;
+import static me.smartstore.exception.constant.Message.ERR_MSG_INVALID_ARR_EMPTY;
 
 public class ArrayEmptyException extends RuntimeException {
     public ArrayEmptyException() {

@@ -1,5 +1,6 @@
-package me.smartstore.domain.group;
+package me.smartstore.domain.group.constant;
 
+import me.smartstore.domain.group.Group;
 import me.smartstore.exception.InputRangeException;
 
 public enum GroupType {

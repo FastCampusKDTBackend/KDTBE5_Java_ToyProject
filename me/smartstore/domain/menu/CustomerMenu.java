@@ -8,7 +8,7 @@ import me.smartstore.exception.InputRangeException;
 
 import java.util.InputMismatchException;
 
-import static me.smartstore.exception.message.ErrorMessage.*;
+import static me.smartstore.exception.constant.Message.*;
 
 public class CustomerMenu implements Menu {
     private static CustomerMenu customerMenu;
@@ -58,7 +58,7 @@ public class CustomerMenu implements Menu {
         while (true) {
             System.out.println("How many customers to input?");
             try {
-                String inputData = nextLine("END");
+                String inputData = nextLine(END_MSG.getMessage());
                 Integer number = convertInt(inputData);
                 // 최대 등록 인원 지정 조건이 없어서 100명으로 지정
                 if (number <= 0 || number > 100) {
@@ -149,15 +149,15 @@ public class CustomerMenu implements Menu {
             try {
                 if (choice == 1) {
                     System.out.println("\nInput Customer's Name:");
-                    customer.setCustomerName(nextLine("END"));
+                    customer.setCustomerName(nextLine(END_MSG.getMessage()));
                 } else if (choice == 2) {
                     System.out.println("\nInput Customer's ID:");
-                    customer.setCustomerId(nextLine("END"));
+                    customer.setCustomerId(nextLine(END_MSG.getMessage()));
                 } else if (choice == 3) {
                     while (true) {
                         try {
                             System.out.println("\nInput Customer's Spent Time:");
-                            Integer usageTime = convertInt(nextLine("END"));
+                            Integer usageTime = convertInt(nextLine(END_MSG.getMessage()));
                             if (usageTime < 0) {
                                 throw new InputRangeException();
                             }
@@ -173,7 +173,7 @@ public class CustomerMenu implements Menu {
                     while (true) {
                         try {
                             System.out.println("\nInput Customer's Total Payment:");
-                            Integer purchaseAmount = convertInt(nextLine("END"));
+                            Integer purchaseAmount = convertInt(nextLine(END_MSG.getMessage()));
                             if (purchaseAmount < 0) {
                                 throw new InputRangeException();
                             }

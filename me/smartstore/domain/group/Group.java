@@ -1,5 +1,7 @@
 package me.smartstore.domain.group;
 
+import me.smartstore.domain.group.constant.GroupType;
+
 import java.util.Objects;
 
 public class Group {

@@ -7,7 +7,7 @@ import me.smartstore.utils.MyArray;
 import java.util.Arrays;
 import java.util.Comparator;
 
-import static me.smartstore.domain.group.GroupType.getTypeLevel;
+import static me.smartstore.domain.group.constant.GroupType.getTypeLevel;
 
 public class Customers extends MyArray<Customer> {
     private static Customers allCustomers;

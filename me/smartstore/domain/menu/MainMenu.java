@@ -1,5 +1,7 @@
 package me.smartstore.domain.menu;
 
+import static me.smartstore.exception.constant.Message.END_PROGRAM;
+
 public class MainMenu implements Menu {
     private final CustomerMenu customerMenu;
     private final GroupMenu groupMenu;
@@ -35,7 +37,7 @@ public class MainMenu implements Menu {
             } else if (choice == 3) {
                 summaryMenu.manage();
             } else {
-                System.out.println("Program Finished");
+                System.out.println(END_PROGRAM.getMessage());
                 break;
             }
         }

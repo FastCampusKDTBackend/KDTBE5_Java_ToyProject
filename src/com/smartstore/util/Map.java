@@ -10,7 +10,7 @@ public interface Map<K, V> {
 
     default V getOrDefault(K key, V defaultValue){
         V value = get(key);
-        //if key is not exits, return defaultValue
+        //if key is not exists, return defaultValue
         if(value == null){
             return defaultValue;
         }

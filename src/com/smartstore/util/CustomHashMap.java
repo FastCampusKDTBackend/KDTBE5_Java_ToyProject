@@ -3,6 +3,7 @@ package com.smartstore.util;
 public class CustomHashMap<K, V> implements Map<K, V> {
     //Entry Class for CustomHashMap
     private class Entry<K, V>{
+        //Key is unmodifiable
         private final K key;
         private V value;
         private Entry<K,V> next;
@@ -12,7 +13,6 @@ public class CustomHashMap<K, V> implements Map<K, V> {
             this.value = value;
         }
 
-        //Key is immutable
         public K getKey() {
             return this.key;
         }
@@ -51,7 +51,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
     }
 
     /*
-        Entries
+        entries
         +--------------------+--------------------+--------------------+--------------------+--------------------+
         | Head1              | Head2              | Head3              |        ...         | Head.SIZE          |
         | key.hash % SIZE    | key.hash % SIZE    | key.hash % SIZE    | key.hash % SIZE    | key.hash % SIZE    |
@@ -63,9 +63,9 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         +--------------------+--------------------+--------------------+--------------------+--------------------+
         Too big SIZE have chance to increase unnecessary indexes
      */
-    private final int CAPACITY_SIZE = 5;
-
     private Entry<K, V>[] entries;
+
+    private final int CAPACITY_SIZE = 5;
 
     public CustomHashMap(){
         entries = new Entry[CAPACITY_SIZE];
@@ -76,13 +76,13 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         int hash = key.hashCode() % CAPACITY_SIZE;
         Entry<K, V> e = entries[hash];
 
-        //if entries[hash] is empty
+        //if entries[hash] is not exists
         if(e == null){
             //create new Entry
             entries[hash] = new Entry<K, V>(key, value);
         }
         else{
-            //loop until entries value not exists
+            //loop until e.next is not exists
             while (e.next != null){
                 //if key exists, set value as new one
                 if (e.getKey() == key){
@@ -91,7 +91,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
                 }
                 e = e.next;
             }
-            //if key == final entry's key, set value
+            //if key == final entry's key, set value, key is Unique
             if(e.getKey() == key){
                 e.setValue(value);
                 return;
@@ -109,14 +109,14 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         int hash = key.hashCode() % CAPACITY_SIZE;
         Entry<K, V> e = entries[hash];
 
-        //if entries[hash] is empty, return null
+        //if entries[hash] is not exists, return null
         if (e == null) {
             return null;
         }
 
-        //loop until entries value not exists
+        //loop until e.next is not exists
         while (e != null){
-            //if key exits, return value
+            //if key exists, return value
             if(e.getKey() == key){
                 return e.getValue();
             }
@@ -131,7 +131,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         int hash = key.hashCode() % CAPACITY_SIZE;
         Entry<K, V> e = entries[hash];
 
-        //if entries[hash] is empty, return false
+        //if entries[hash] is not exists, return false
         if (e == null){
             return false;
         }
@@ -147,6 +147,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         Entry<K, V> prev = e;
         e = e.next;
 
+        //loop until e.next is not exists
         while (e != null){
             if (e.getKey() == key) {
                 //shift next Entry to current(remove)
@@ -158,7 +159,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
             e = e.next;
         }
 
-        //if key not exits, return false
+        //if key not exists, return false
         return false;
     }
 

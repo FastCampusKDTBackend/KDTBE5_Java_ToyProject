@@ -5,6 +5,7 @@ import me.smartstore.domain.group.GroupType;
 import me.smartstore.domain.group.Groups;
 import me.smartstore.utils.MyArray;
 
+
 import static me.smartstore.domain.group.GroupType.getTypeLevel;
 
 public class Customers extends MyArray<Customer> {
@@ -46,4 +47,13 @@ public class Customers extends MyArray<Customer> {
         }
         return group;
     }
+
+    public Customer[] getCustomers() {
+        Customer[] customers = new Customer[size];
+        for (int i = 0; i < size; i++) {
+            customers[i] = allCustomers.get(i);
+        }
+        return customers;
+    }
+
 }

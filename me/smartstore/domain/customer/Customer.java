@@ -99,10 +99,10 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer{" +
-                "customerName='" + customerName + '\'' +
-                ", customerId='" + customerId + '\'' +
-                ", totalUsageTime=" + totalUsageTime +
-                ", totalPurchaseAmount=" + totalPurchaseAmount +
+                "userId='" + customerId + '\'' +
+                ", name='" + customerName + '\'' +
+                ", spentTime=" + spentTime +
+                ", totalPay=" + totalPay +
                 ", group=" + group +
                 '}';
     }

@@ -8,6 +8,7 @@ public class StartMenu implements Menu {
     private StartMenu() {}
     public static StartMenu getInstance() { return INSTANCE; }
 
+    private static final Printer printer = Printer.getInstance();
     private static final String OUTPUT =
                     '\n' +
                     "==============================" + '\n' +
@@ -39,7 +40,9 @@ public class StartMenu implements Menu {
         }
     }
 
-    private void print(String s) {}
+    private void print(String s) {
+        printer.print(s);
+    }
 
     private int input() { return 0; }
 }

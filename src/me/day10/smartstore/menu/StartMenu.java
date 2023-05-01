@@ -35,9 +35,7 @@ public class StartMenu implements Menu {
                 print(OUTPUT);
                 int i = input();
                 return nextMenu[i];
-            } catch (InputMismatchException e) {
-                print("Invalid Format for Input." + " Please try again.\n");
-            } catch (InvalidMenuException e) {
+            } catch (InputMismatchException | InvalidMenuException e) {
                 print(e.getMessage());
             }
         }

@@ -18,7 +18,7 @@ public class Reader {
         try {
             return Integer.parseInt(st.nextToken());
         } catch (NumberFormatException e) {
-            throw new InputMismatchException();
+            throw new InputMismatchException("Invalid Format for Input." + " Please try again.\n");
         }
     }
 

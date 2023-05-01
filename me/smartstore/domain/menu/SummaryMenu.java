@@ -6,6 +6,9 @@ import me.smartstore.domain.group.Group;
 import me.smartstore.domain.group.GroupType;
 import me.smartstore.domain.group.Groups;
 import me.smartstore.domain.group.Parameter;
+import me.smartstore.exception.InputEndException;
+import me.smartstore.exception.InputRangeException;
+
 import java.util.Comparator;
 
 public class SummaryMenu implements Menu {
@@ -85,6 +88,29 @@ public class SummaryMenu implements Menu {
         getSummary(allCustomers.getSortedCustomers(comparator));
     }
 
+    private int getClassificationValue() {
+        while (true) {
+            try {
+                System.out.println("Which order (ASCENDING (A), DESCENDING (D))?");
+                String value = nextLine("END");
+
+                if (!value.equals("A") && !value.equals("D")) {
+                    throw new InputRangeException();
+                }
+
+                if (value.equals("A")) {
+                    return 1; // 오름차순
+                }
+                return -1; // 내림차순
+            } catch (InputEndException e) {
+                System.out.println(e.getMessage());
+                break;
+            } catch (InputRangeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return END_PRESS;
+    }
 
     private void printSummary(Customer[] customers, GroupType type) {
         StringBuilder builder = new StringBuilder();

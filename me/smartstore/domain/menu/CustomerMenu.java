@@ -5,7 +5,6 @@ import me.smartstore.domain.customer.Customers;
 import me.smartstore.exception.ArrayEmptyException;
 import me.smartstore.exception.InputEndException;
 import me.smartstore.exception.InputRangeException;
-import me.smartstore.exception.message.ErrorMessage;
 
 import java.util.InputMismatchException;
 
@@ -55,7 +54,6 @@ public class CustomerMenu implements Menu {
         }
     }
 
-    // TODO: Customer Methods
     private void createCustomer() {
         while (true) {
             System.out.println("How many customers to input?");

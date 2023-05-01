@@ -1,7 +1,5 @@
 package me.smartstore.domain.menu;
 
-import me.smartstore.SmartStoreApplication;
-
 public class MainMenu implements Menu {
     private final CustomerMenu customerMenu;
     private final GroupMenu groupMenu;

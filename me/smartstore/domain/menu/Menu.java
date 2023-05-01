@@ -2,7 +2,6 @@ package me.smartstore.domain.menu;
 
 import me.smartstore.exception.InputEndException;
 import me.smartstore.exception.InputRangeException;
-import me.smartstore.exception.message.ErrorMessage;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

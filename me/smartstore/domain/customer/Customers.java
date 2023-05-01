@@ -1,7 +1,6 @@
 package me.smartstore.domain.customer;
 
 import me.smartstore.domain.group.Group;
-import me.smartstore.domain.group.GroupType;
 import me.smartstore.domain.group.Groups;
 import me.smartstore.utils.MyArray;
 

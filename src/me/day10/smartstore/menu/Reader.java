@@ -13,7 +13,7 @@ public class Reader {
     private Reader() {}
     public static Reader getInstance() { return INSTANCE; }
 
-    public int inputInteger() throws NumberFormatException {
+    public int inputInteger() throws InputMismatchException {
         StringTokenizer st = new StringTokenizer(nextLine());
         try {
             return Integer.parseInt(st.nextToken());

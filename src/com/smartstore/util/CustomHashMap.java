@@ -52,15 +52,15 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
     /*
         entries
-        +--------------------+--------------------+--------------------+--------------------+--------------------+
-        | Head1              | Head2              | Head3              |        ...         | Head.SIZE          |
-        | key.hash % SIZE    | key.hash % SIZE    | key.hash % SIZE    | key.hash % SIZE    | key.hash % SIZE    |
-        +--------------------+--------------------+--------------------+--------------------+--------------------+
-        | [key, value]       | null               | null               | [key, value]       | [key, value]       |
-        | [key, value]       |                    |                    |                    | [key, value]       |
-        | [key, value]       |                    |                    |                    | [key, value]       |
-        |                    |                    |                    |                    | [key, value]       |
-        +--------------------+--------------------+--------------------+--------------------+--------------------+
+        +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+        | Head1                    | Head2                    | Head3                    |        ...               | Head.SIZE                |
+        | key.hashcode() % CA_SIZE | key.hashcode() % CA_SIZE | key.hashcode() % CA_SIZE | key.hashcode() % CA_SIZE | key.hashcode() % CA_SIZE |
+        +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+        | 1: [key, value]          | null                     | null                     | 1: [key, value]          | 1: [key, value]          |
+        | 2: [key, value] (1.next) |                          |                          | 2: [key, value] (1.next) | 2: [key, value] (1.next) |
+        | 3: [key, value] (2.next) |                          |                          | 3: [key, value] (2.next) | 3: [key, value] (2.next) |
+        |                          |                          |                          |                          | 4: [key, value] (3.next) |
+        +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
         Too big SIZE have chance to increase unnecessary indexes
      */
     private Entry<K, V>[] entries;
@@ -82,9 +82,9 @@ public class CustomHashMap<K, V> implements Map<K, V> {
             entries[hash] = new Entry<K, V>(key, value);
         }
         else{
-            //loop until e.next is not exists
+            //loop until e.next is not null
             while (e.next != null){
-                //if key exists, set value as new one
+                //if key exists, set value as new value, key is Unique
                 if (e.getKey().equals(key)){
                     e.setValue(value);
                     return;
@@ -114,7 +114,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
             return null;
         }
 
-        //loop until e.next is not exists
+        //loop until e.next is not null
         while (e != null){
             //if key exists, return value
             if(e.getKey().equals(key)){
@@ -147,7 +147,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         Entry<K, V> prev = e;
         e = e.next;
 
-        //loop until e.next is not exists
+        //loop until e is not null
         while (e != null){
             if (e.getKey().equals(key)) {
                 //shift next Entry to current(remove)

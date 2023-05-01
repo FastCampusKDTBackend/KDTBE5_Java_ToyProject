@@ -8,6 +8,7 @@ public class StartMenu implements Menu {
     private StartMenu() {}
     public static StartMenu getInstance() { return INSTANCE; }
 
+    private static final Reader reader = Reader.getInstance();
     private static final Printer printer = Printer.getInstance();
     private static final String OUTPUT =
                     '\n' +
@@ -44,5 +45,10 @@ public class StartMenu implements Menu {
         printer.print(s);
     }
 
-    private int input() { return 0; }
+    private int input() throws InputMismatchException, Exception {
+        int ret = reader.inputInteger();
+        if (ret <= 0 || ret >= nextMenu.length)
+            throw new Exception("Invalid Menu Input." + " Please try again.\n");
+        return ret;
+    }
 }

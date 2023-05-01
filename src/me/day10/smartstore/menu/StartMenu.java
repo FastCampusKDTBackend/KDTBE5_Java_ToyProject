@@ -37,7 +37,7 @@ public class StartMenu implements Menu {
                 return nextMenu[i];
             } catch (InputMismatchException e) {
                 print("Invalid Format for Input." + " Please try again.\n");
-            } catch (Exception e) {
+            } catch (InvalidMenuException e) {
                 print(e.getMessage());
             }
         }
@@ -47,10 +47,10 @@ public class StartMenu implements Menu {
         printer.print(s);
     }
 
-    private int input() throws InputMismatchException, Exception {
+    private int input() throws InputMismatchException, InvalidMenuException {
         int ret = reader.inputInteger();
         if (ret <= 0 || ret >= nextMenu.length)
-            throw new Exception("Invalid Menu Input." + " Please try again.\n");
+            throw new InvalidMenuException("Invalid Menu Input." + " Please try again.\n");
         return ret;
     }
 }

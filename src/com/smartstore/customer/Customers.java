@@ -1,4 +1,4 @@
-package customer;
+package com.smartstore.customer;
 
 import java.util.List;
 

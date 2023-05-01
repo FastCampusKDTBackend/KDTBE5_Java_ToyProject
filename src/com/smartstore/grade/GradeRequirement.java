@@ -1,4 +1,4 @@
-package grade;
+package com.smartstore.grade;
 
 public class GradeRequirement {
     private int minUsageTime;

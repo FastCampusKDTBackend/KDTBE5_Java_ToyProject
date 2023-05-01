@@ -1,4 +1,4 @@
-package menu;
+package com.smartstore.menu;
 
 interface Menu {
     StringBuilder sb = new StringBuilder();

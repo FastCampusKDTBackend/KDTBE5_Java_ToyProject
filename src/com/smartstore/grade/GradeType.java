@@ -1,4 +1,4 @@
-package grade;
+package com.smartstore.grade;
 
 public enum GradeType {
     GENERAL(new String[] {"G", "GENERAL", "일반"}),

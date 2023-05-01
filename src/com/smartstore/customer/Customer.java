@@ -1,5 +1,6 @@
-package customer;
-import grade.Grade;
+package com.smartstore.customer;
+
+import com.smartstore.grade.Grade;
 
 public class Customer {
     private int customerId;

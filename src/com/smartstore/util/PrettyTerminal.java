@@ -1,4 +1,4 @@
-package Util;
+package com.smartstore.util;
 
 public enum PrettyTerminal {
     RESET("\u001B[0m"),

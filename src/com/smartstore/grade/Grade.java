@@ -1,4 +1,4 @@
-package grade;
+package com.smartstore.grade;
 
 import java.util.Map;
 

@@ -10,6 +10,7 @@ public class EndMenu implements Menu {
 
     @Override
     public Menu printAndInputAndGetNextMenu() {
+        Printer.getInstance().print("\nProgram Finished.\n");
         return null;
     }
 }

@@ -1,9 +1,9 @@
 package com.smartstore.util;
 
-public class CustomHashMap<K,V>{
+public class CustomHashMap<K, V> implements Map<K, V> {
     //Entry Class for CustomHashMap
     private class Entry<K, V>{
-        private K key;
+        private final K key;
         private V value;
         private Entry<K,V> next;
 
@@ -70,7 +70,7 @@ public class CustomHashMap<K,V>{
     public CustomHashMap(){
         entries = new Entry[SIZE];
     }
-
+    @Override
     public void put(K key, V value){
         //Get Entries index from hash code 0 to size-1
         int hash = key.hashCode() % SIZE;
@@ -104,6 +104,7 @@ public class CustomHashMap<K,V>{
 
     }
 
+    @Override
     public V get(K key){
         int hash = key.hashCode() % SIZE;
         Entry<K, V> e = entries[hash];
@@ -125,22 +126,14 @@ public class CustomHashMap<K,V>{
         return null;
     }
 
-    public V getOrDefault(K key, V defaultValue){
-        V value = get(key);
-
-        if(value == null){
-            return defaultValue;
-        }
-        return value;
-    }
-
-    public Entry<K, V> remove(K key){
+    @Override
+    public boolean remove(K key){
         int hash = key.hashCode() % SIZE;
         Entry<K, V> e = entries[hash];
 
-        //if entries[hash] is empty, return null
+        //if entries[hash] is empty, return false
         if (e == null){
-            return null;
+            return false;
         }
 
         //if first Entry's key == key
@@ -148,7 +141,7 @@ public class CustomHashMap<K,V>{
             //shift second Entry to first(remove)
             entries[hash] = e.next;
             e.next = null;
-            return e;
+            return true;
         }
 
         Entry<K, V> prev = e;
@@ -159,14 +152,14 @@ public class CustomHashMap<K,V>{
                 //shift next Entry to current(remove)
                 prev.next = e.next;
                 e.next = null;
-                return e;
+                return true;
             }
             prev = e;
             e = e.next;
         }
 
-        //if key not exits, return null
-        return null;
+        //if key not exits, return false
+        return false;
     }
 
 }

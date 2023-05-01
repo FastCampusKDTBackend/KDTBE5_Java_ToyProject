@@ -1,5 +1,7 @@
 package me.day10.smartstore.menu;
 
+import java.util.InputMismatchException;
+
 public class StartMenu implements Menu {
 
     private static final StartMenu INSTANCE = new StartMenu();
@@ -15,6 +17,14 @@ public class StartMenu implements Menu {
                     "4. " + "Quit" + '\n' +
                     "==============================" + '\n' +
                     "Choose One: ";
+
+    private final Menu[] nextMenu = {
+            null,
+            GroupMenu.getInstance(),                    // 1
+            CustomerMenu.getInstance(),                 // 2
+            ClassificationSummaryMenu.getInstance(),    // 3
+            EndMenu.getInstance()                       // 4
+    };
 
     @Override
     public Menu printAndInputAndGetNextMenu() {

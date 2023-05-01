@@ -24,10 +24,7 @@ public class ViewParameterMenu implements Menu {
             print(GROUP_OUTPUT);
             try {
                 String groupName = InputGroupName();
-                GroupType groupType = Arrays.stream(GroupType.values())
-                        .filter(t -> t.getShortcut().equals(groupName) || t.name().equals(groupName))
-                        .findAny()
-                        .orElseThrow(() -> new InvalidGroupTypeException("\nInvalid Group Name for Input. Please try again.\n"));
+                GroupType groupType = GroupType.getGroupTypeByString(groupName);
                 print(groupType.toString());
             } catch (BackMenuException e) {
                 print(e.getMessage());

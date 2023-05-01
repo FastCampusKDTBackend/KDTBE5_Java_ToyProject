@@ -28,6 +28,18 @@ public class StartMenu implements Menu {
 
     @Override
     public Menu printAndInputAndGetNextMenu() {
-        return null;
+        while (true) {
+            try {
+                print(OUTPUT);
+                int i = input();
+                return nextMenu[i];
+            } catch (Exception e) {
+                // something to do
+            }
+        }
     }
+
+    private void print(String s) {}
+
+    private int input() { return 0; }
 }

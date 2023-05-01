@@ -27,13 +27,13 @@ public class ViewParameterMenu implements Menu {
                 GroupType groupType = Arrays.stream(GroupType.values())
                         .filter(t -> t.getShortcut().equals(groupName) || t.name().equals(groupName))
                         .findAny()
-                        .orElseThrow(IllegalArgumentException::new);
+                        .orElseThrow(() -> new InvalidGroupTypeException("\nInvalid Group Name for Input. Please try again.\n"));
                 print(groupType.toString());
             } catch (BackMenuException e) {
                 print(e.getMessage());
                 return GroupMenu.getInstance();
-            } catch (IllegalArgumentException e) {
-                print("\nInvalid Group Name for Input. Please try again.\n");
+            } catch (InvalidGroupTypeException e) {
+                print(e.getMessage());
             }
         }
     }

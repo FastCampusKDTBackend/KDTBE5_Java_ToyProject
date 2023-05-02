@@ -1,6 +1,6 @@
 package Menu;
 
-public class ParameterMenu {
+public class ParameterMenu implements Menu{
 
     private static ParameterMenu allParameterMenu;
 
@@ -12,6 +12,12 @@ public class ParameterMenu {
     }
 
     private ParameterMenu() {
+
+    }
+
+
+    @Override
+    public void manage() {
 
     }
 }

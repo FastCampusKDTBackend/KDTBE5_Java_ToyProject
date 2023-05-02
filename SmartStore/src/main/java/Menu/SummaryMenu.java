@@ -1,6 +1,6 @@
 package Menu;
 
-public class SummaryMenu {
+public class SummaryMenu implements Menu{
     private static SummaryMenu allSummaryMenu;
 
     public static SummaryMenu getInstance() {
@@ -11,6 +11,11 @@ public class SummaryMenu {
     }
 
     private SummaryMenu() {
+
+    }
+
+    @Override
+    public void manage() {
 
     }
 }

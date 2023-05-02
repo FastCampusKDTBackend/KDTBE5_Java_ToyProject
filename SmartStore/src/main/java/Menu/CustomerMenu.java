@@ -1,6 +1,6 @@
 package Menu;
 
-public class CustomerMenu {
+public class CustomerMenu implements Menu {
 
     private static CustomerMenu allCustomerMenu;
 
@@ -12,6 +12,11 @@ public class CustomerMenu {
     }
 
     private CustomerMenu() {
+
+    }
+
+    @Override
+    public void manage() {
 
     }
 }

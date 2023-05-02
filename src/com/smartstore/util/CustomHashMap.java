@@ -64,7 +64,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         | Head1    index 0         | Head2   index 1          | Head3    index 2         |        ...               | Head4   index 4          |
         | key.hashcode() % CA_SIZE | key.hashcode() % CA_SIZE | key.hashcode() % CA_SIZE | key.hashcode() % CA_SIZE | key.hashcode() % CA_SIZE |
         +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
-        | 1: [key, value]          | null                     | null                     | 1: [key, value]          | 1: [key, value]          |
+        | 1: [key, value]          |                          |                          | 1: [key, value]          | 1: [key, value]          |
         | 2: [key, value] (1.next) |                          |                          | 2: [key, value] (1.next) | 2: [key, value] (1.next) |
         |                          |                          |                          |                          | 3: [key, value] (2.next) |
         | 1,2,3... is not index    |                          |                          | 1,2,3... is not index    | 1,2,3... is not index    |
@@ -72,6 +72,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         Too big SIZE have chance to increasing wasted memory usage
         Too small Size have chance to increasing Hash collisions, negative affect to performance
         ideal size is expected entries * 0.75
+        key Not allowed null, value allowed null
      */
     private Node<K, V>[] entries;
 
@@ -87,6 +88,10 @@ public class CustomHashMap<K, V> implements Map<K, V> {
     }
     @Override
     public void put(K key, V value){
+        if(key == null){
+            return;
+        }
+
         //Get Entries index from hash code 0 to size-1
         int hash = key.hashCode() % CAPACITY;
         Node<K, V> e = entries[hash];
@@ -123,6 +128,9 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
     @Override
     public V get(K key){
+        if (key == null){
+            return null;
+        }
         int hash = key.hashCode() % CAPACITY;
         Node<K, V> e = entries[hash];
 
@@ -145,6 +153,9 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean remove(K key){
+        if(key == null){
+            return false;
+        }
         int hash = key.hashCode() % CAPACITY;
         Node<K, V> e = entries[hash];
 

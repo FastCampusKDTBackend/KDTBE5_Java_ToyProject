@@ -1,27 +1,28 @@
 package com.smartstore.util;
 
 public class CustomHashMap<K, V> implements Map<K, V> {
-    // TODO: 2023-05-02 modify Entry Class to interface, implements it in CustomHashMap as different name Like Node
-    //Entry Class for CustomHashMap
-    private class Entry<K, V>{
+    private class Node<K, V> implements Entry<K, V> {
         //Key is unmodifiable
         private final K key;
         private V value;
-        private Entry<K,V> next;
+        private Node<K,V> next;
 
-        public Entry(K key, V value){
+        public Node(K key, V value){
             this.key = key;
             this.value = value;
         }
 
+        @Override
         public K getKey() {
             return this.key;
         }
 
+        @Override
         public V getValue() {
             return this.value;
         }
 
+        @Override
         public void setValue(V value) {
             this.value = value;
         }
@@ -29,7 +30,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();
-            Entry <K, V> e = this;
+            Node<K, V> e = this;
             while (e != null){
                 sb.append("\t").append("[").append(" key :  ").append(e.getKey()).append(", value : ").append(e.getValue()).append(" ]\n");
                 e = e.next;
@@ -64,23 +65,23 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
         Too big SIZE have chance to increase unnecessary indexes
      */
-    private Entry<K, V>[] entries;
+    private Node<K, V>[] entries;
 
     private final int CAPACITY_SIZE = 5;
 
     public CustomHashMap(){
-        entries = new Entry[CAPACITY_SIZE];
+        entries = new Node[CAPACITY_SIZE];
     }
     @Override
     public void put(K key, V value){
         //Get Entries index from hash code 0 to size-1
         int hash = key.hashCode() % CAPACITY_SIZE;
-        Entry<K, V> e = entries[hash];
+        Node<K, V> e = entries[hash];
 
         //if entries[hash] is not exists
         if(e == null){
             //create new Entry
-            entries[hash] = new Entry<K, V>(key, value);
+            entries[hash] = new Node<K, V>(key, value);
         }
         else{
             //loop until e.next is not null
@@ -100,7 +101,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
             //if key doesn't exist
             //add new Entry end of the entries[hash]
-            e.next = new Entry<K, V>(key, value);
+            e.next = new Node<K, V>(key, value);
         }
 
     }
@@ -108,7 +109,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
     @Override
     public V get(K key){
         int hash = key.hashCode() % CAPACITY_SIZE;
-        Entry<K, V> e = entries[hash];
+        Node<K, V> e = entries[hash];
 
         //if entries[hash] is not exists, return null
         if (e == null) {
@@ -130,7 +131,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
     @Override
     public boolean remove(K key){
         int hash = key.hashCode() % CAPACITY_SIZE;
-        Entry<K, V> e = entries[hash];
+        Node<K, V> e = entries[hash];
 
         //if entries[hash] is not exists, return false
         if (e == null){
@@ -145,7 +146,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
             return true;
         }
 
-        Entry<K, V> prev = e;
+        Node<K, V> prev = e;
         e = e.next;
 
         //loop until e is not null

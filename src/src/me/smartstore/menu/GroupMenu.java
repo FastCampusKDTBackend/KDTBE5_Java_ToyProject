@@ -1,0 +1,81 @@
+package me.smartstore.menu;
+
+import me.smartstore.customer.Customers;
+import me.smartstore.exception.InputEndException;
+import me.smartstore.group.Group;
+import me.smartstore.group.GroupType;
+import me.smartstore.group.Groups;
+import me.smartstore.group.Parameter;
+import me.smartstore.util.Message;
+
+
+public class GroupMenu implements Menu{
+    private static GroupMenu groupMenu;
+    private final Groups allGroups = Groups.getInstance();
+    private final Customers allCustomers = Customers.getInstance();
+
+
+    public static GroupMenu getInstance(){
+        if(groupMenu == null){
+            return groupMenu = new GroupMenu();
+        }
+        else {
+            return groupMenu;
+        }
+    }
+
+    private GroupMenu(){};
+
+    @Override
+    public void manage() {
+        while ( true ) { // 서브 메뉴 페이지를 유지하기 위한 while
+            int choice = chooseMenu(new String[]{
+                    "Set Parameter",
+                    "View Parameter",
+                    "Update Parameter",
+                    "Back"});
+
+            if (choice == 1) {}//setParameter();
+            else if (choice == 2) {}// viewParameter();
+            else if (choice == 3) {}// updateParameter();
+            else break; // choice == 4
+        }
+    }
+
+    public GroupType chooseGroup(){
+        while ( true ) {
+            try {
+                System.out.print("Which group (GENERAL (G), VIP (V), VVIP (VV))? ");
+                String choice = nextLine(Message.END_MSG);
+
+                GroupType groupType = GroupType.valueOf(choice).replaceFullName();
+                return groupType;
+            }
+            catch (InputEndException e){
+                System.out.println(Message.ERR_MSG_INPUT_END);
+                return null;
+            }
+            catch (IllegalArgumentException e){
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+            }
+        }
+    }
+
+    public void setParameter(){
+        while ( true ){
+            GroupType groupType = chooseGroup();
+
+            Group group = allGroups.find(groupType);
+
+            if (group != null && group.getParameter() != null) { // group.getParameter()이 null이 아니면 이미 초기화됨
+                System.out.println("\n" + group.getGroupType() + " group already exists.");
+                System.out.println("\n" + group);
+            }
+            else {
+                Parameter parameter = new Parameter();
+                group.setParameter(parameter);
+                allCustomers.refresh(allGroups);
+            }
+        }
+    }
+}

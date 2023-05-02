@@ -134,8 +134,8 @@ public class CustomArrayList<E> implements CustomCollection<E>{
             stringBuilder.append("]\n");
         }
 
-        stringBuilder.append("size: " + this.size + "\n");
-        stringBuilder.append("capacity: " + this.capacity + "\n");
+        stringBuilder.append("size: ").append(this.size).append("\n");
+        stringBuilder.append("capacity: ").append(this.capacity).append("\n");
         return stringBuilder.toString();
     }
 }

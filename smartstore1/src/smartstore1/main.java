@@ -69,13 +69,14 @@ public class main {
 			 break;
 //////////////////////출력//////////////////////////////
 		 case 3:
-			 System.out.println("출력기준을 선택해주세요. 1.기본 2.이름순 3. 시간순 4.금액순");	
-			 int printNum = sc.nextInt();
-			 
+
 			 if(memberList.size() == 0) {
 				 System.out.println("입력된 고객이 없습니다. 처음 화면으로 돌아갑니다.");
 				 break;
-			 }			 
+			 }
+			 System.out.println("출력기준을 선택해주세요. 1.기본 2.이름순 3. 시간순 4.금액순");	
+			 int printNum = sc.nextInt();
+			 
 			 
 			 switch(printNum){
 				 case 1:		
@@ -112,6 +113,7 @@ public class main {
 					 break;
 				 }
 
+			 break;
 			
 ////////////////////////////출력//////////////////////////////////			 
 			 

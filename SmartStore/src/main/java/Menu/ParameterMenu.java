@@ -1,10 +1,13 @@
 package Menu;
 
+import Group.Parameter;
 import Group.GroupType;
 import CustomException.*;
+import Group.Groups;
 
 public class ParameterMenu implements Menu {
 
+    private final Groups allGroups = Groups.getInstance();
     private static ParameterMenu allParameterMenu;
 
     public static ParameterMenu getInstance() {
@@ -29,7 +32,7 @@ public class ParameterMenu implements Menu {
                     "Back"
             });
 
-            if (choice == 1) setParameter();
+            if (choice == 1) initParameter();
             else if (choice == 2) viewParameter();
             else if (choice == 3) updateParameter();
             else if (choice == 4) break;
@@ -53,8 +56,39 @@ public class ParameterMenu implements Menu {
         }
     }
 
-    private void setParameter() {
-        System.out.println("setParameter");
+    private Parameter setMenuParameter() {
+        Parameter parameter = new Parameter();
+        while (true) {
+            int choice = allParameterMenu.chooseMenu(new String[]{
+                    "Minimum Spent Time",
+                    "Minimum Total Pay",
+                    "Back"
+            });
+
+            if (choice == 1) {
+                System.out.println("Input Minimum Spent Time");
+                parameter.setMinTime(Integer.valueOf(nextLine(Message.END_MSG)));
+            } else if (choice == 2) {
+                System.out.println("Input Minimum Total Pay");
+                parameter.setMinPay(Integer.valueOf(nextLine(Message.END_MSG)));
+            } else if (choice == 3) {
+                break;
+            }
+        }
+        return parameter;
+    }
+
+    private void initParameter() {
+        while (true) {
+            GroupType groupType = selectGroup();
+            if (!allGroups.isExist(groupType)) {
+                System.out.println(groupType + "group already exists.");
+                return;
+            }
+            Parameter parameter = setMenuParameter();
+            allGroups.findGroup(groupType).setParameter(parameter);
+        }
+
     }
 
     private void viewParameter() {

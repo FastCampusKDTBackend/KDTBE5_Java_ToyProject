@@ -2,7 +2,7 @@ package Customer;
 
 import Arrays.MyArray;
 
-public class Customers extends MyArray {
+public class Customers extends MyArray<Customer> {
 
     //singleton
     private static Customers allCustomers;

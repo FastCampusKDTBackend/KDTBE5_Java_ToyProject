@@ -44,6 +44,7 @@ public class SmartStoreApp {
 
     public void run() {
         details();
+        allGroups.init();
         mainMenu.manage();
     }
 }

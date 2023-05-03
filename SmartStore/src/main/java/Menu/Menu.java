@@ -2,9 +2,9 @@ package Menu;
 
 import java.util.InputMismatchException;
 
-import Exception.InputRangeException;
-import Exception.InputEndException;
-import Exception.Message;
+import CustomException.InputRangeException;
+import CustomException.InputEndException;
+import CustomException.Message;
 
 import java.util.Scanner;
 
@@ -40,7 +40,8 @@ public interface Menu {
 
             } catch (InputRangeException e) {
                 System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
-
+            } catch (NumberFormatException e) {
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
             }
         }
     }

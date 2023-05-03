@@ -1,4 +1,4 @@
-package Exception;
+package CustomException;
 
 public class InputRangeException extends RuntimeException {
     public InputRangeException() {

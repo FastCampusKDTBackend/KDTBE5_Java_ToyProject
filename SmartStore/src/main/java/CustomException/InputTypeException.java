@@ -1,4 +1,4 @@
-package Exception;
+package CustomException;
 
 public class InputTypeException extends RuntimeException {
     public InputTypeException() {

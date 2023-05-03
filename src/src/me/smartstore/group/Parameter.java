@@ -3,7 +3,6 @@ package me.smartstore.group;
 import java.util.Objects;
 
 public class Parameter {
-    // 분류 기준을 저장할 파라미터 (시간 , 금액)
     private Integer minTime;
     private Integer minPay;
 

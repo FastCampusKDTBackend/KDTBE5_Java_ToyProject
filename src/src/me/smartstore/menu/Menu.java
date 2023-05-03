@@ -8,9 +8,12 @@ import me.smartstore.util.Message;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import static me.smartstore.util.Message.ERR_MSG_INVALID_INPUT_FORMAT;
+
 interface Menu {
     Scanner scanner = new Scanner(System.in);
     default String nextLine() {
+        // end -> END , g - > G
         return scanner.nextLine().toUpperCase();
     }
 
@@ -33,12 +36,19 @@ interface Menu {
                 if (choice >= 1 && choice <= menus.length) return choice;
                 throw new InputRangeException();
             }
-            catch (InputMismatchException e){
-                System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
+            catch (NumberFormatException e){
+                System.out.println(ERR_MSG_INVALID_INPUT_FORMAT);
             }
             catch (InputRangeException e){
                 System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
             }
+        }
+    }
+    default int formatInt(String inputData) {
+        try {
+            return Integer.parseInt(inputData);
+        } catch (NumberFormatException e) {
+            throw new InputMismatchException(ERR_MSG_INVALID_INPUT_FORMAT);
         }
     }
 

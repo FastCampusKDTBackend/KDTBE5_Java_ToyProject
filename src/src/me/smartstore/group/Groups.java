@@ -14,9 +14,10 @@ public class Groups extends MyArray<Group> {
 
     private Groups() {}
 
-    public Group find(GroupType groupType){
-        for(Group group : arrays){
-            if(group.getGroupType() == groupType){
+    public Group find(GroupType groupType) {
+        for (int i = 0; i < allGroups.size(); i++) {
+            Group group = allGroups.get(i);
+            if (group.getGroupType() == groupType) {
                 return group;
             }
         }

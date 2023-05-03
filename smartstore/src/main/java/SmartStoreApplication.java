@@ -1,10 +1,16 @@
 import util.view.InputView;
 import util.view.OutputView;
+import vo.Menus;
+import vo.type.RootMenuName;
+
+import java.util.ArrayList;
+import java.util.Optional;
 
 public class SmartStoreApplication {
     private static SmartStoreApplication smartStoreApplication = null;
     private final InputView inputView;
     private final OutputView outputView;
+    private final ArrayList<Menus> rootMenus = new ArrayList<>();
 
     private SmartStoreApplication(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
@@ -24,7 +30,18 @@ public class SmartStoreApplication {
         return this;
     }
 
+    private void rootMenuInit() {
+        addRootMenu();
+    }
+
+    private void addRootMenu() {
+        RootMenuName.getAllNames().stream()
+                .map(Menus::new)
+                .forEach(rootMenus::add);
+    }
+
     public void run() {
+        rootMenuInit();
         outputView.copyRight();
 
         while (true) {

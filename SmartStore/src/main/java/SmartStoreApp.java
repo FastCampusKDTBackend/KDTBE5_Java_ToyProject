@@ -1,4 +1,5 @@
 import Customer.Customers;
+import Customer.Customer;
 import Group.Groups;
 import Menu.MainMenu;
 
@@ -31,7 +32,13 @@ public class SmartStoreApp {
     }
 
     public SmartStoreApp test() {
-
+        for (int i = 0; i < 26; i++) {
+            allCustomers.add(new Customer(
+                    Character.toString((char) ('a' + i)),
+                    (char) ('a' + i) + "123",
+                    ((int) (Math.random() * 5) + 1) * 10,
+                    ((int) (Math.random() * 5) + 1) * 100000));
+        }
         return this;
     }
 

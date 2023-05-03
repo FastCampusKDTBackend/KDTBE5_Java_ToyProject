@@ -1,10 +1,12 @@
 import util.view.InputView;
 import util.view.OutputView;
+import vo.ApplicationMenu;
 import vo.Menus;
 import vo.type.RootMenuName;
+import vo.type.SubMenuName;
 
 import java.util.ArrayList;
-import java.util.Optional;
+import java.util.List;
 
 public class SmartStoreApplication {
     private static SmartStoreApplication smartStoreApplication = null;
@@ -30,8 +32,18 @@ public class SmartStoreApplication {
         return this;
     }
 
-    private void rootMenuInit() {
+    private void menuInit() {
         addRootMenu();
+        addSubMenu();
+    }
+
+    private void addSubMenu() {
+        rootMenus.forEach(rootMenu -> {
+                    List<String> subMenus = SubMenuName.getSubNames(rootMenu.getName());
+                    subMenus.stream()
+                            .map(ApplicationMenu::new)
+                            .forEach(rootMenu::add);
+                });
     }
 
     private void addRootMenu() {
@@ -41,7 +53,7 @@ public class SmartStoreApplication {
     }
 
     public void run() {
-        rootMenuInit();
+        menuInit();
         outputView.copyRight();
 
         while (true) {
@@ -91,7 +103,7 @@ public class SmartStoreApplication {
     }
 
     private void viewParameter() {
-        
+
     }
 
     private void updateParameter() {

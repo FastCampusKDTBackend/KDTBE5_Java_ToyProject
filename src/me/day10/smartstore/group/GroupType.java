@@ -6,9 +6,9 @@ import java.util.Arrays;
 
 public enum GroupType {
 
-    GENERAL("G", null),
-    VIP("V", null),
-    VVIP("VV", null);
+    GENERAL("G", new GroupTypeParameter()),
+    VIP("V", new GroupTypeParameter()),
+    VVIP("VV", new GroupTypeParameter());
 
     GroupType(String shortcut, GroupTypeParameter groupTypeParameter) {
         this.shortcut = shortcut;
@@ -27,6 +27,15 @@ public enum GroupType {
 
     private boolean isName(String s) {
         return (this.shortcut.equals(s) || this.name().equals(s));
+    }
+
+    public GroupTypeParameter getGroupTypeParameter() {
+        return this.groupTypeParameter;
+    }
+
+    public void setGroupTypeParameter(Integer minSpentTime, Integer minTotalPaid) {
+        this.groupTypeParameter.setMinSpentTime(minSpentTime);
+        this.groupTypeParameter.setMinTotalPaid(minTotalPaid);
     }
 
     @Override

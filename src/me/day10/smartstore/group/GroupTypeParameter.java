@@ -1,11 +1,16 @@
 package me.day10.smartstore.group;
 
 public class GroupTypeParameter {
-    int minSpentTime;
-    int minTotalPaid;
+    private Integer minSpentTime;
+    private Integer minTotalPaid;
 
-    public GroupTypeParameter(int minSpentTime, int minTotalPaid) {
+    public GroupTypeParameter() {}
+
+    public void setMinSpentTime(Integer minSpentTime) {
         this.minSpentTime = minSpentTime;
+    }
+
+    public void setMinTotalPaid(Integer minTotalPaid) {
         this.minTotalPaid = minTotalPaid;
     }
 

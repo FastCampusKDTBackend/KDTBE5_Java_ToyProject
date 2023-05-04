@@ -9,6 +9,7 @@ import view.Output;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 
 public class SummaryService {
@@ -21,6 +22,7 @@ public class SummaryService {
     private ArrayList<Customer> generalCustomer;
     private ArrayList<Customer> vipCustomer;
     private ArrayList<Customer> vvipCustomer;
+    private ArrayList<ArrayList<Customer>> allCustomers;
 
     public static SummaryService getInstance() {
         if (Objects.isNull(summaryService)){
@@ -57,6 +59,8 @@ public class SummaryService {
                 else noneCustomer.add(customer);
             }
         } catch (NullPointerException ignored){ }
+
+        allCustomers = new ArrayList<>(List.of(noneCustomer, generalCustomer, vipCustomer, vvipCustomer));
     }
 
     public void refreshClassifiedCustomers(){
@@ -79,26 +83,23 @@ public class SummaryService {
     }
 
     public void summarySortedByName(){
-        noneCustomer.sort(Comparator.comparing(Customer::getName));
-        generalCustomer.sort(Comparator.comparing(Customer::getName));
-        vipCustomer.sort(Comparator.comparing(Customer::getName));
-        vvipCustomer.sort(Comparator.comparing(Customer::getName));
+        arraySort(Comparator.comparing(Customer::getName));
         printSummary();
     }
 
     public void summarySortedBySpentTime(){
-        noneCustomer.sort(Comparator.comparing(Customer::getStoreUsageTime));
-        generalCustomer.sort(Comparator.comparing(Customer::getStoreUsageTime));
-        vipCustomer.sort(Comparator.comparing(Customer::getStoreUsageTime));
-        vvipCustomer.sort(Comparator.comparing(Customer::getStoreUsageTime));
+        arraySort(Comparator.comparing(Customer::getStoreUsageTime));
         printSummary();
     }
 
     public void summarySortedByTotalPayment(){
-        noneCustomer.sort(Comparator.comparing(Customer::getTotalPaymentAmount));
-        generalCustomer.sort(Comparator.comparing(Customer::getTotalPaymentAmount));
-        vipCustomer.sort(Comparator.comparing(Customer::getTotalPaymentAmount));
-        vvipCustomer.sort(Comparator.comparing(Customer::getTotalPaymentAmount));
+        arraySort(Comparator.comparing(Customer::getTotalPaymentAmount));
+        printSummary();
+    }
+
+    public void arraySort(Comparator<Customer> comparator) {
+        for (ArrayList<Customer> customerArrayList : allCustomers)
+            customerArrayList.sort(comparator);
         printSummary();
     }
 }

@@ -9,17 +9,17 @@ public class Groups extends DArray<Group> {
     private Groups() {
     }
 
-    public static Groups getInstance(){
-        if(allGroups == null){
+    public static Groups getInstance() {
+        if (allGroups == null) {
             allGroups = new Groups();
         }
         return allGroups;
     }
 
-    public Group find(GroupType groupType){
-        for (Group group : arrays){
-            if(group.getGroupType() == groupType){
-                return group;
+    public Group find(GroupType groupType) {
+        for (int i = 0; i < this.size; i++) {
+            if (this.get(i).getGroupType() == groupType) {
+                return this.get(i);
             }
         }
         return null;

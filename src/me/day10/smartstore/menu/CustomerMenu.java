@@ -1,7 +1,5 @@
 package me.day10.smartstore.menu;
 
-import java.util.InputMismatchException;
-
 public class CustomerMenu extends TopicIntroMenu {
 
     private static final String CUSTOMER_MENU_OUTPUT =

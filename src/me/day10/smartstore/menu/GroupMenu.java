@@ -1,7 +1,5 @@
 package me.day10.smartstore.menu;
 
-import java.util.InputMismatchException;
-
 public class GroupMenu extends TopicIntroMenu {
 
     private static final String MENU_OUTPUT =

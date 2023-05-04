@@ -1,6 +1,6 @@
 package me.day10.smartstore.menu;
 
-public class AddCustomerMenu extends Menu{
+public class AddCustomerMenu extends Menu {
 
     private static final AddCustomerMenu INSTANCE = new AddCustomerMenu();
     private AddCustomerMenu() {}

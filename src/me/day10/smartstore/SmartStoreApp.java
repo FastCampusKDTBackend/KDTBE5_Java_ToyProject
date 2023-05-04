@@ -7,9 +7,7 @@ public class SmartStoreApp {
 
     private static final SmartStoreApp INSTANCE = new SmartStoreApp();
     private SmartStoreApp() {}
-    public static SmartStoreApp getInstance() {
-        return INSTANCE;
-    }
+    public static SmartStoreApp getInstance() { return INSTANCE; }
 
     public SmartStoreApp test() {
         return this;

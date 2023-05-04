@@ -6,6 +6,20 @@ import java.util.InputMismatchException;
 
 public class SetParameterMenu extends Menu {
 
+    private static final String SET_GROUP_PARAMETER_OUTPUT =
+            "===== Set Group Parameter ====" + '\n' +
+                    " 1. " + "Minimum Spent Hours" + '\n' +
+                    " 2. " + "Minimum Total Amount Paid" + '\n' +
+                    " 3. " + "Back" + '\n' +
+                    "==============================" + '\n' +
+                    "Choose One: ";
+
+    private static final String[] GROUP_PARAMETER_INPUT = {
+            null,
+            "\n" + "Input " + "Minimum Spent Hours" + ":\n" + END_INPUT,
+            "\n" + "Input " + "Minimum Total Amount Paid" + ":\n" + END_INPUT
+    };
+
     // null means handle the next menus in this
     private static final SetParameterMenu INSTANCE = new SetParameterMenu(
             null,
@@ -17,20 +31,6 @@ public class SetParameterMenu extends Menu {
         super(nextMenus);
     }
     public static SetParameterMenu getInstance() { return INSTANCE; }
-
-    private static final String SET_GROUP_PARAMETER_OUTPUT =
-            "===== Set Group Parameter ====" + '\n' +
-            " 1. " + "Minimum Spent Hours" + '\n' +
-            " 2. " + "Minimum Total Amount Paid" + '\n' +
-            " 3. " + "Back" + '\n' +
-            "==============================" + '\n' +
-            "Choose One: ";
-
-    private static final String[] GROUP_PARAMETER_INPUT = {
-            null,
-            "\n" + "Input " + "Minimum Spent Hours" + ":\n" + END_INPUT,
-            "\n" + "Input " + "Minimum Total Amount Paid" + ":\n" + END_INPUT
-    };
 
     @Override
     public Menu printAndInputAndGetNextMenu() {

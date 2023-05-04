@@ -8,7 +8,6 @@ import java.util.StringTokenizer;
 
 public class Reader {
     private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
     private static final Reader INSTANCE = new Reader();
     private Reader() {}
     public static Reader getInstance() { return INSTANCE; }

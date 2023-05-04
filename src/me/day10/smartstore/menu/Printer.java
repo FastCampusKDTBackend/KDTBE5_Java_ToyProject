@@ -6,7 +6,6 @@ import java.io.OutputStreamWriter;
 
 public class Printer {
     private static final BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
     private static final Printer INSTANCE = new Printer();
     private Printer() {}
     public static Printer getInstance() { return INSTANCE; }

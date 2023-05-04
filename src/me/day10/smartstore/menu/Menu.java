@@ -14,7 +14,7 @@ public abstract class Menu {
 
     protected final Menu[] nextMenu;
 
-    Menu(Menu... nextMenus) {
+    protected Menu(Menu... nextMenus) {
         int len = nextMenus.length;
         nextMenu = new Menu[len];
         System.arraycopy(nextMenus, 0, nextMenu, 0, len);

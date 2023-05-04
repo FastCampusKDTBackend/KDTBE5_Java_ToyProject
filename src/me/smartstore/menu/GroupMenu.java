@@ -1,6 +1,6 @@
 package me.smartstore.menu;
 
-public class GroupMenu extends Menu{
+public class GroupMenu implements Menu{
     private static GroupMenu groupMenu;
 
     public static GroupMenu getInstance() {

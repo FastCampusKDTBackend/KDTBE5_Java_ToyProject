@@ -1,6 +1,6 @@
 package me.smartstore.menu;
 
-public class CustomerMenu extends Menu{
+public class CustomerMenu implements Menu{
     private static CustomerMenu customerMenu;
 
     public static CustomerMenu getInstance() {

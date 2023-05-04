@@ -7,31 +7,23 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
-public class Menu {
-    private static Menu menu;
-    protected Scanner scanner = new Scanner(System.in);
+public interface Menu {
+    Scanner scanner = new Scanner(System.in);
 
-    public static Menu getInstance() {
-        if (menu == null)
-            menu = new Menu();
-        return menu;
-    }
-
-    public String nextLine() {
+    default String nextLine() {
         return scanner.nextLine().toUpperCase();
     }
 
-    public String nextLine(String messageForEnd) throws InputEndException {
+    default String nextLine(String messageEnd) throws InputEndException {
         System.out.println("\n** Press 'end', if you want to exit! **");
-        String str = this.scanner.nextLine().toUpperCase();
+        String str = nextLine();
 
-        if (str.equals(messageForEnd))
+        if (str.equals(messageEnd))
             throw new InputEndException();
-        String[] strings = str.split("\\s");
-        return (strings.length > 1) ? "" : str;
+        return str;
     }
 
-    public int displayMenus(String[] menus) {
+    default int displayMenu(String[] menus) {
         while (true) {
             try {
                 System.out.println("\n==============================");
@@ -49,8 +41,10 @@ public class Menu {
                 throw new InputRangeException();
             } catch (InputMismatchException e) {
                 System.out.println(e.getMessage());
+
             } catch (InputRangeException e) {
                 System.out.println(e.getMessage());
+                
             }
         }
     }

@@ -94,7 +94,7 @@ public class CustomList<T> implements Collections<T>{
         }
 
         final int currentSize = this.elements.length;
-        if(newSize >  + currentSize - size){
+        if(newSize > currentSize - size){
             resize(currentSize + newSize );
         }
 

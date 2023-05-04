@@ -1,9 +1,8 @@
 package me.smartstore.exception;
 
-import me.smartstore.util.ErrorMessage;
 public class InputFormatException extends RuntimeException {
     public InputFormatException() {
-        super(ErrorMessage.ERR_MSG_INVALID_INPUT_FORMAT);
+        super(Message.ERR_MSG_INVALID_INPUT_FORMAT.getMessage());
     }
 
     public InputFormatException(String message) {

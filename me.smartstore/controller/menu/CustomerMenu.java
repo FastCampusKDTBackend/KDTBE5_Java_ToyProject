@@ -67,7 +67,6 @@ public class CustomerMenu implements Menu {
             if (menuNum == 2) viewCustomer();
             if (menuNum == 3) updateCustomer();
             if (menuNum == 4) deleteCustomer();
-            SummaryService.getInstance().refreshClassifiedCustomers();
 
         } catch (InputEndException | ArrayEmptyException exception) {
             System.out.println(exception.getMessage());
@@ -88,12 +87,14 @@ public class CustomerMenu implements Menu {
             setCustomer(customer);
             customerService.insertCustomer(customer);
         }
+        SummaryService.getInstance().refreshClassifiedCustomers();
     }
 
     /* Update Customer */
     private void updateCustomer(){
         viewCustomer();
         setCustomer(selectCustomer());
+        SummaryService.getInstance().refreshClassifiedCustomers();
     }
 
     /* View All Customers */
@@ -105,6 +106,7 @@ public class CustomerMenu implements Menu {
     private void deleteCustomer() {
         viewCustomer();
         customerService.deleteCustomerByNumber(Input.inputTargetCustomerNumber());
+        SummaryService.getInstance().refreshClassifiedCustomers();
     }
 
     /* CustomerMenu in SubMenu for SetCustomer */

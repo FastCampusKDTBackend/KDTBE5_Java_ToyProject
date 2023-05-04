@@ -60,7 +60,6 @@ public class GroupMenu implements Menu {
         if (menuNum == 1) setGroupData();
         if (menuNum == 2) viewAllGroup();
         if (menuNum == 3) updateGroupData();
-        SummaryService.getInstance().refreshClassifiedCustomers();
     }
 
     // 리팩터링 고려할 것.
@@ -76,6 +75,7 @@ public class GroupMenu implements Menu {
             Output.printErrorMessage(exception.getMessage());
             Output.printGroup(groupService.selectGroupByGroupType(groupType));
         }
+        SummaryService.getInstance().refreshClassifiedCustomers();
     }
 
     private void viewAllGroup() {
@@ -92,9 +92,10 @@ public class GroupMenu implements Menu {
             Group group = groupService.selectGroupByGroupType(groupType);
             Output.printGroup(group);
             setParameter(group.getParameter());
-        } catch (ArrayEmptyException | GroupNotFoundException exception) {
+        } catch (ArrayEmptyException | GroupNotFoundException | InputEndException exception) {
             Output.printErrorMessage(exception.getMessage());
         }
+        SummaryService.getInstance().refreshClassifiedCustomers();
     }
 
     // 이것들도 먼가 컨트롤러에 장착시켜서 처리할 수 있을 거 같은 느낌

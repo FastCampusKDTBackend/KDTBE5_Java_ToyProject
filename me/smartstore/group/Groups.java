@@ -15,9 +15,9 @@ public class Groups extends DArray<Group> {
     private Groups() {}
 
     public Group find(GroupType groupType) {
-        for(int i = 0; i < allGroups.size(); i++) {
-            if(allGroups.get(i).getGroupType() == groupType) {
-                return allGroups.get(i);
+        for(int i = 0; i < this.size; i++) {
+            if(this.get(i).getGroupType() == groupType) {
+                return this.get(i);
             }
         }
         return null;

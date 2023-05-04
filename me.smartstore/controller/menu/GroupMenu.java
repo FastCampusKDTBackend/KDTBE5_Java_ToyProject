@@ -3,9 +3,7 @@ package controller.menu;
 import domain.group.Group;
 import domain.group.GroupType;
 import domain.group.Parameter;
-import exception.GroupSetAlreadyException;
-import exception.InputEndException;
-import exception.InputRangeException;
+import exception.*;
 import service.GroupService;
 import service.SummaryService;
 import view.Input;
@@ -60,19 +58,19 @@ public class GroupMenu implements Menu {
     @Override
     public void service(int menuNum) {
         if (menuNum == 1) setGroupData();
-        if (menuNum == 2) viewGroupData();
+        if (menuNum == 2) viewAllGroup();
         if (menuNum == 3) updateGroupData();
         SummaryService.getInstance().refreshClassifiedCustomers();
     }
 
     // 리팩터링 고려할 것.
     private void setGroupData() {
-        GroupType groupType = Input.chooseGroup();
+        GroupType groupType = Input.chooseGroupType();
         try {
             groupService.checkInvalidGroup(groupType);
             Group group = new Group(new Parameter(), groupType);
             setParameter(group.getParameter());
-            groupService.addGroup(group);
+            groupService.insertGroup(group);
 
         } catch (GroupSetAlreadyException exception){
             Output.printErrorMessage(exception.getMessage());
@@ -80,12 +78,23 @@ public class GroupMenu implements Menu {
         }
     }
 
-    private void viewGroupData() {
-
+    private void viewAllGroup() {
+        try {
+            Output.printGroups(groupService.selectAllGroup());
+        } catch (ArrayEmptyException exception) {
+            Output.printErrorMessage(exception.getMessage());
+        }
     }
 
     private void updateGroupData() {
-
+        try {
+            GroupType groupType = Input.chooseGroupType();
+            Group group = groupService.selectGroupByGroupType(groupType);
+            Output.printGroup(group);
+            setParameter(group.getParameter());
+        } catch (ArrayEmptyException | GroupNotFoundException exception) {
+            Output.printErrorMessage(exception.getMessage());
+        }
     }
 
 
@@ -97,8 +106,9 @@ public class GroupMenu implements Menu {
                 if (choiceMenuNumber == 3) break;
                 if (choiceMenuNumber == 1) parameter.setMinTime(Input.inputMinSpentTime());
                 if (choiceMenuNumber == 2) parameter.setMinPay(Input.inputMinTotalPayment());
-            } catch (InputEndException | InputRangeException exception) {
+            } catch (InputEndException exception) {
                 Output.printErrorMessage(exception.getMessage());
+                break;
             }
         }
         setParameterEmptyValueToDefault(parameter);

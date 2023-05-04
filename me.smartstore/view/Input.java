@@ -6,7 +6,6 @@ import exception.InputEndException;
 import exception.InputFormatException;
 import exception.InputRangeException;
 import util.Console;
-import view.Message;
 
 public class Input {
 
@@ -75,7 +74,7 @@ public class Input {
         }
     }
 
-    public static GroupType chooseGroup(){
+    public static GroupType chooseGroupType(){
         while (true) {
             try {
                 System.out.println(INPUT_GROUP);
@@ -89,15 +88,27 @@ public class Input {
     }
 
     public static int inputMinSpentTime() {
-        int minimumSpentTime = inputValueToInteger(INPUT_MINIMUM_SPENT_TIME);
-        validateNegativeNumber(minimumSpentTime);
-        return minimumSpentTime;
+        while (true) {
+            try {
+                int minimumSpentTime = inputValueToInteger(INPUT_MINIMUM_SPENT_TIME);
+                validateNegativeNumber(minimumSpentTime);
+                return minimumSpentTime;
+            } catch (InputRangeException exception){
+                Output.printErrorMessage(exception.getMessage());
+            }
+        }
     }
 
     public static int inputMinTotalPayment() {
-        int minTotalPayment = inputValueToInteger(INPUT_MINIMUM_TOTAL_PAYMENT);
-        validateNegativeNumber(minTotalPayment);
-        return minTotalPayment;
+        while (true) {
+            try {
+                int minimumSpentTime = inputValueToInteger(INPUT_MINIMUM_TOTAL_PAYMENT);
+                validateNegativeNumber(minimumSpentTime);
+                return minimumSpentTime;
+            } catch (InputRangeException exception){
+                Output.printErrorMessage(exception.getMessage());
+            }
+        }
     }
 
     public static boolean isSummarySortOrderDesc() {

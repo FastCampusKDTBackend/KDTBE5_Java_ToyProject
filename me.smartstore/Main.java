@@ -1,5 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        SmartStore.getInstance().test().run();
+        SmartStore.getInstance().run();
+//        SmartStore.getInstance().test().run();
     }
 }

@@ -3,6 +3,7 @@ package view;
 import domain.customer.Customer;
 import domain.customer.Customers;
 import domain.group.Group;
+import domain.group.Groups;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,9 +14,14 @@ public class Output {
         System.out.println(message);
     }
 
-    public static void printGroup(Group group){
-        System.out.printf("%s Group Info : [ Time = %d | Pay = %d ]\n",
+    public static void printGroup(Group group) {
+        System.out.printf("%-7s Group Info : [ Time = %2d | Pay = %6d ]\n",
                 group.getGroupType(), group.getParameter().getMinTime(), group.getParameter().getMinPay());
+    }
+
+    public static void printGroups(Groups groups) {
+        for (Group group : groups.toList())
+            printGroup(group);
     }
 
     public static void customerList(Customers customers) {

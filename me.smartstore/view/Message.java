@@ -8,7 +8,11 @@ public interface Message {
     String ERR_MSG_INVALID_INPUT_RANGE = "Invalid Input. Please try again.";
     String ERR_MSG_INVALID_INPUT_TYPE = "Invalid Type for Input. Please try again.";
     String ERR_MSG_INVALID_INPUT_FORMAT = "Invalid Format for Input. Please try again.";
+
     String ERR_MSG_GROUP_SET_ALREADY = " group already exists.";
+    String ERR_MSG_GROUP_ARR_EMPTY = "No Groups. Please input one first.";
+    String ERR_MSG_GROUP_NOT_FOUND = "Not Found Group, Please input Group first";
+
     String ERR_MSG_INPUT_END = "END is pressed. Exit this menu.";
     String END_MSG = "END";
 }

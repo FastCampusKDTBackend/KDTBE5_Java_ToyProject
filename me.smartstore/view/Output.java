@@ -9,6 +9,15 @@ import java.util.List;
 
 public class Output {
 
+    public static void printErrorMessage(String message){
+        System.out.println(message);
+    }
+
+    public static void printGroup(Group group){
+        System.out.printf("%s Group Info : [ Time = %d | Pay = %d ]\n",
+                group.getGroupType(), group.getParameter().getMinTime(), group.getParameter().getMinPay());
+    }
+
     public static void customerList(Customers customers) {
         System.out.println("\n======= Customer Info. =======");
 

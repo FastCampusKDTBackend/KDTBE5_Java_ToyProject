@@ -14,6 +14,7 @@ public class Groups extends MyArray<Group> {
     }
 
     private Groups() {
+
     }
 
     public Group find(GroupType groupType) {

@@ -8,13 +8,14 @@ import exception.GroupNotFoundException;
 import exception.GroupSetAlreadyException;
 import view.Message;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 
 public class GroupService {
 
     private static GroupService groupService;
     private static final Groups groups = Groups.getInstance();
-    private static final String[] MENU_ITEMS = new String[]{"Minimum Spent Time", "Minimum Total Pay", "Back"};
 
     public static GroupService getInstance() {
         if (Objects.isNull(groupService)){
@@ -50,5 +51,11 @@ public class GroupService {
 
     public void checkGroupEmpty() {
         if (groups.size() == 0) throw new ArrayEmptyException(Message.ERR_MSG_GROUP_ARR_EMPTY);
+    }
+
+    public List<Group> sortGroup(){
+        List<Group> list = groups.toList();
+        list.sort(Comparator.comparingInt(group -> group.getGroupType().getRank()));
+        return list;
     }
 }

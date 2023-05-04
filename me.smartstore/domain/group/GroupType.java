@@ -1,13 +1,13 @@
 package domain.group;
 
 public enum GroupType {
-    NONE("해당없음"), GENERAL("일반고객"), VIP("우수고객"), VVIP("최우수고객"),
-    N("해당없음"), G("일반고객"), V("우수고객"), VV("최우수고객");
+    NONE(4), GENERAL(3), VIP(2), VVIP(1),
+    N(4), G(3), V(2), VV(1);
 
-    final String groupType;
+    final int groupRank;
 
-    GroupType(String groupType) {
-        this.groupType = groupType;
+    GroupType(int groupRank) {
+        this.groupRank = groupRank;
     }
 
     public GroupType replaceFullName() {
@@ -16,5 +16,9 @@ public enum GroupType {
         else if (this == V) return VIP;
         else if (this == VV) return VVIP;
         return this;
+    }
+
+    public int getRank(){
+        return groupRank;
     }
 }

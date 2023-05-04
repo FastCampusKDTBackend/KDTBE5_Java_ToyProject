@@ -1,5 +1,6 @@
 package Menu;
 
+import Group.Group;
 import Group.Parameter;
 import Group.GroupType;
 import CustomException.*;
@@ -32,9 +33,9 @@ public class ParameterMenu implements Menu {
                     "Back"
             });
 
-            if (choice == 1) initParameter();
+            if (choice == 1) updateParameter(choice);
             else if (choice == 2) viewParameter();
-            else if (choice == 3) updateParameter();
+            else if (choice == 3) updateParameter(choice);
             else if (choice == 4) break;
         }
     }
@@ -81,21 +82,43 @@ public class ParameterMenu implements Menu {
     private void initParameter() {
         while (true) {
             GroupType groupType = selectGroup();
+            if (groupType == null) break;
+            //예외처리로 변경
             if (!allGroups.isExist(groupType)) {
-                System.out.println(groupType + "group already exists.");
+                System.out.println(groupType + " group already exists.");
                 return;
+            } else {
+                Parameter parameter = setMenuParameter();
+                allGroups.findGroup(groupType).setParameter(parameter);
             }
-            Parameter parameter = setMenuParameter();
-            allGroups.findGroup(groupType).setParameter(parameter);
         }
 
     }
 
     private void viewParameter() {
-        System.out.println("viewParameter");
+        while (true) {
+            GroupType groupType = selectGroup();
+            if (groupType == null) break;
+            Group target = allGroups.findGroup(groupType);
+            System.out.println("GroupType: " + groupType);
+            System.out.println("Parameter: " + target.getParameter());
+        }
     }
 
-    private void updateParameter() {
-        System.out.println("updateParameter");
+    private void updateParameter(int index) {
+        while (true) {
+            GroupType groupType = selectGroup();
+            if (groupType == null) break;
+            //예외처리로 변경
+            if (!allGroups.isExist(groupType) && index == 1) {
+                System.out.println(groupType + " group already exists.");
+                return;
+            } else {
+                Parameter parameter = setMenuParameter();
+                allGroups.findGroup(groupType).setParameter(parameter);
+            }
+        }
     }
 }
+
+//todo 객체지향적으로 수정? + 예외처리

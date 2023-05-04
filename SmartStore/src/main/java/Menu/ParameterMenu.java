@@ -81,22 +81,6 @@ public class ParameterMenu implements Menu {
         return parameter;
     }
 
-    private void initParameter() {
-        while (true) {
-            GroupType groupType = selectGroup();
-            if (groupType == null) break;
-            //예외처리로 변경
-            if (!allGroups.isExist(groupType)) {
-                System.out.println(groupType + " group already exists.");
-                return;
-            } else {
-                Parameter parameter = setMenuParameter();
-                allGroups.findGroup(groupType).setParameter(parameter);
-            }
-        }
-
-    }
-
     private void viewParameter() {
         while (true) {
             GroupType groupType = selectGroup();

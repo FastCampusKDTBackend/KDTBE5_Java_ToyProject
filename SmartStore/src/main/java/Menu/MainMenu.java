@@ -21,7 +21,7 @@ public class MainMenu implements Menu{
 
     @Override
     public void manage() {
-        while ( true ) { // 프로그램 실행 while
+        while ( true ) { 
             int choice = allMainMenu.chooseMenu(new String[] {
                     "Parameter",
                     "Customer",

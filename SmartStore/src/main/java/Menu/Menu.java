@@ -23,7 +23,7 @@ public interface Menu {
     }
 
     default int chooseMenu(String[] menus) {
-        while (true) { // 예외 복구 while
+        while (true) {
             try {
                 System.out.println("===============================");
                 for (int i = 0; i < menus.length; i++) {

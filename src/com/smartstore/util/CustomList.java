@@ -2,7 +2,8 @@ package com.smartstore.util;
 
 import java.util.Arrays;
 
-public class CustomList<T> implements Collections<T>{
+
+public class CustomList<T> implements List<T> {
     @Override
     public int size() {
         return this.size;

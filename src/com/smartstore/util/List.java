@@ -1,6 +1,6 @@
 package com.smartstore.util;
 
-public interface Collections<T> {
+public interface List<T> {
     int size();
     T get(int index);
     void set(int index, T object);

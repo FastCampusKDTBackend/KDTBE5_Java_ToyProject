@@ -23,11 +23,10 @@ public class CustomEnumMap<K extends Enum<K>, V> implements Map<K, V>{
     public void put(K key, V value) {
         if(isValidKey(key)){
             int index = key.ordinal();
-            Object oldValue = values[index];
-            values[index] = value;
-            if(oldValue == null){
+            if(values[index] == null){
                 size++;
-            };
+            }
+            values[index] = value;
         }
     }
 

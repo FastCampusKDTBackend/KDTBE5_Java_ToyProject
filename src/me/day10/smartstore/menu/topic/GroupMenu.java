@@ -1,4 +1,9 @@
-package me.day10.smartstore.menu;
+package me.day10.smartstore.menu.topic;
+
+import me.day10.smartstore.menu.Menu;
+import me.day10.smartstore.menu.group.SetParameterMenu;
+import me.day10.smartstore.menu.group.UpdateParameterMenu;
+import me.day10.smartstore.menu.group.ViewParameterMenu;
 
 public class GroupMenu extends TopicIntroMenu {
 

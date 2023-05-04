@@ -1,6 +1,6 @@
 package me.day10.smartstore.group;
 
-import me.day10.smartstore.menu.InvalidGroupNameException;
+import me.day10.smartstore.menu.exception.InvalidGroupNameException;
 
 import java.util.Arrays;
 

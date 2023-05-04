@@ -1,4 +1,6 @@
-package me.day10.smartstore.menu;
+package me.day10.smartstore.menu.topic;
+
+import me.day10.smartstore.menu.Menu;
 
 public class ClassificationMenu extends TopicIntroMenu {
 

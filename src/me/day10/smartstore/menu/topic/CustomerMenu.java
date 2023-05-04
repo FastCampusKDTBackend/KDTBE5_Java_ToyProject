@@ -1,4 +1,10 @@
-package me.day10.smartstore.menu;
+package me.day10.smartstore.menu.topic;
+
+import me.day10.smartstore.menu.*;
+import me.day10.smartstore.menu.customer.AddCustomerMenu;
+import me.day10.smartstore.menu.customer.DeleteCustomerMenu;
+import me.day10.smartstore.menu.customer.UpdateCustomerMenu;
+import me.day10.smartstore.menu.customer.ViewCustomerMenu;
 
 public class CustomerMenu extends TopicIntroMenu {
 

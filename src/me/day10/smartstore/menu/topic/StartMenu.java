@@ -1,4 +1,7 @@
-package me.day10.smartstore.menu;
+package me.day10.smartstore.menu.topic;
+
+import me.day10.smartstore.menu.Menu;
+import me.day10.smartstore.menu.QuitMenu;
 
 public class StartMenu extends TopicIntroMenu {
 

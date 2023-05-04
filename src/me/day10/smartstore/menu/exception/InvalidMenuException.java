@@ -1,4 +1,4 @@
-package me.day10.smartstore.menu;
+package me.day10.smartstore.menu.exception;
 
 public class InvalidMenuException extends IllegalArgumentException {
 

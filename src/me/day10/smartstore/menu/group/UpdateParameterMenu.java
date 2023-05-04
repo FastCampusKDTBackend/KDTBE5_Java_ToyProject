@@ -1,4 +1,6 @@
-package me.day10.smartstore.menu;
+package me.day10.smartstore.menu.group;
+
+import me.day10.smartstore.menu.Menu;
 
 public class UpdateParameterMenu extends Menu {
 

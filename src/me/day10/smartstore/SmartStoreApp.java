@@ -1,7 +1,7 @@
 package me.day10.smartstore;
 
 import me.day10.smartstore.menu.Menu;
-import me.day10.smartstore.menu.StartMenu;
+import me.day10.smartstore.menu.topic.StartMenu;
 
 public class SmartStoreApp {
 

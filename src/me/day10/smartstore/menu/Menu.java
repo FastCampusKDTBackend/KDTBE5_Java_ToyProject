@@ -1,5 +1,8 @@
 package me.day10.smartstore.menu;
 
+import me.day10.smartstore.menu.exception.InputIsEndException;
+import me.day10.smartstore.menu.exception.InvalidMenuException;
+
 import java.util.InputMismatchException;
 
 public abstract class Menu {

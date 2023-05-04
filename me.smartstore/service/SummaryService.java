@@ -3,20 +3,16 @@ package service;
 import domain.customer.Customer;
 import domain.customer.Customers;
 import domain.group.Group;
-import domain.group.GroupType;
 import domain.group.Groups;
-import view.Output;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class SummaryService {
 
     private static SummaryService summaryService;
-    private static Customers customers = Customers.getInstance();
-    private static Groups groups = Groups.getInstance();
+    private static final Customers customers = Customers.getInstance();
+    private static final Groups groups = Groups.getInstance();
+    private static final GroupService groupService = GroupService.getInstance();
 
     private ArrayList<ArrayList<Customer>> allCustomers;
 
@@ -31,65 +27,54 @@ public class SummaryService {
         initClassifiedCustomers();
     }
 
-    private void initClassifiedCustomers(){
-        Group general = groups.find(GroupType.GENERAL);
-        Group vip = groups.find(GroupType.VIP);
-        Group vvip = groups.find(GroupType.VVIP);
+    private void initClassifiedCustomers() {
+        List<Group> sortGroups = groupService.sortGroup();
+        List<Customer> customerList = customers.toList();
+        allCustomers = new ArrayList<>();
 
-        ArrayList<Customer> noneCustomer = new ArrayList<>();
-        ArrayList<Customer> generalCustomer = new ArrayList<>();
-        ArrayList<Customer> vipCustomer = new ArrayList<>();
-        ArrayList<Customer> vvipCustomer = new ArrayList<>();
+        for (int i = 0; i < sortGroups.size(); i++) {
+            allCustomers.add(new ArrayList<>());
+        }
 
-        try {
-            for (Customer customer : customers.toList()) {
-                if (customer.getStoreUsageTime() >= vvip.getParameter().getMinTime() &&
-                        customer.getTotalPaymentAmount() >= vvip.getParameter().getMinPay())
-                    vvipCustomer.add(customer);
-                else if (customer.getStoreUsageTime() >= vip.getParameter().getMinTime() &&
-                        customer.getTotalPaymentAmount() >= vip.getParameter().getMinPay())
-                    vipCustomer.add(customer);
-                else if (customer.getStoreUsageTime() >= general.getParameter().getMinTime() &&
-                        customer.getTotalPaymentAmount() >= general.getParameter().getMinPay())
-                    generalCustomer.add(customer);
-                else noneCustomer.add(customer);
+        for (int i = 0; i < sortGroups.size(); i++) {
+            ArrayList<Customer> customerGroup = new ArrayList<>();
+            for (int j = customerList.size()-1; j >= 0; j--) {
+                if (customerList.get(j).getStoreUsageTime() >= sortGroups.get(i).getParameter().getMinTime()
+                        && customerList.get(j).getTotalPaymentAmount() >= sortGroups.get(i).getParameter().getMinPay()) {
+                    customerGroup.add(customerList.get(j));
+                    customerList.remove(j);
+                }
             }
-        } catch (NullPointerException ignored){ }
-        allCustomers = new ArrayList<>(List.of(noneCustomer, generalCustomer, vipCustomer, vvipCustomer));
+            allCustomers.set(i, customerGroup);
+        }
     }
 
     public void refreshClassifiedCustomers(){
         initClassifiedCustomers();
     }
 
-    private void printSummary() {
-        try {
-            Output.customerClassifiedList(allCustomers, groups.toList());
-        } catch (NullPointerException exception) {
-            System.out.println("please Complete Groups setting");
-        }
+    public ArrayList<ArrayList<Customer>> summaryDefault(){
+        return allCustomers;
     }
 
-    public void summaryDefault(){
-        printSummary();
-    }
-
-    public void summarySortedByName(boolean desc){
+    public ArrayList<ArrayList<Customer>> summarySortedByName(boolean desc){
         arraySort(Comparator.comparing(Customer::getName), desc);
+        return allCustomers;
     }
 
-    public void summarySortedBySpentTime(boolean desc){
+    public ArrayList<ArrayList<Customer>> summarySortedBySpentTime(boolean desc){
         arraySort(Comparator.comparing(Customer::getStoreUsageTime), desc);
+        return allCustomers;
     }
 
-    public void summarySortedByTotalPayment(boolean desc){
+    public ArrayList<ArrayList<Customer>> summarySortedByTotalPayment(boolean desc){
         arraySort(Comparator.comparing(Customer::getTotalPaymentAmount), desc);
+        return allCustomers;
     }
 
     public void arraySort(Comparator<Customer> comparator, boolean desc) {
         if (desc) comparator = comparator.reversed();
         for (ArrayList<Customer> customerArrayList : allCustomers)
             customerArrayList.sort(comparator);
-        printSummary();
     }
 }

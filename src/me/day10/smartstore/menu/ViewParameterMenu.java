@@ -4,11 +4,9 @@ import me.day10.smartstore.group.GroupType;
 
 public class ViewParameterMenu extends Menu {
 
-    private static class InstanceHolder {
-        private static final ViewParameterMenu INSTANCE = new ViewParameterMenu();
-    }
+    private static final ViewParameterMenu INSTANCE = new ViewParameterMenu();
     private ViewParameterMenu() {}
-    public static ViewParameterMenu getInstance() { return InstanceHolder.INSTANCE; }
+    public static ViewParameterMenu getInstance() { return INSTANCE; }
 
     private static final String GROUP_OUTPUT =
             "Which group (GENERAL (G), VIP (V), VVIP (VV))?\n" +

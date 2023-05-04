@@ -4,19 +4,17 @@ import java.util.InputMismatchException;
 
 public class GroupMenu extends Menu {
 
-    private static class InstanceHolder {
-        private static final GroupMenu INSTANCE = new GroupMenu(
-                null,
-                SetParameterMenu.getInstance(),     // 1
-                ViewParameterMenu.getInstance(),    // 2
-                UpdateParameterMenu.getInstance(),  // 3
-                null                                // 4 (StartMenu 순환 의존)
-        );
-    }
+    private static final GroupMenu INSTANCE = new GroupMenu(
+            null,
+            SetParameterMenu.getInstance(),     // 1
+            ViewParameterMenu.getInstance(),    // 2
+            UpdateParameterMenu.getInstance(),  // 3
+            null                                // 4 (StartMenu 순환 의존)
+    );
     private GroupMenu(Menu... nextMenus) {
         super(nextMenus);
     }
-    public static GroupMenu getInstance() { return InstanceHolder.INSTANCE; }
+    public static GroupMenu getInstance() { return INSTANCE; }
 
     private static final String MENU_OUTPUT =
                     '\n' +

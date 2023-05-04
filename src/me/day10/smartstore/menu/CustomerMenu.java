@@ -4,20 +4,18 @@ import java.util.InputMismatchException;
 
 public class CustomerMenu extends Menu {
 
-    private static class InstanceHolder {
-        private static final CustomerMenu INSTANCE = new CustomerMenu(
-                null,
-                AddCustomerMenu.getInstance(),
-                ViewCustomerMenu.getInstance(),
-                UpdateCustomerMenu.getInstance(),
-                DeleteCustomerMenu.getInstance(),
-                null    // back
-        );
-    }
+    private static final CustomerMenu INSTANCE = new CustomerMenu(
+            null,
+            AddCustomerMenu.getInstance(),
+            ViewCustomerMenu.getInstance(),
+            UpdateCustomerMenu.getInstance(),
+            DeleteCustomerMenu.getInstance(),
+            null    // back
+    );
     private CustomerMenu(Menu... nextMenus) {
         super(nextMenus);
     }
-    public static CustomerMenu getInstance() { return InstanceHolder.INSTANCE; }
+    public static CustomerMenu getInstance() { return INSTANCE; }
 
     private static final String CUSTOMER_MENU_OUTPUT =
                             '\n' +

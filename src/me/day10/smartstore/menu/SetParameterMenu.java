@@ -6,18 +6,16 @@ import java.util.InputMismatchException;
 
 public class SetParameterMenu extends Menu {
 
-    private static class InstanceHolder {
-        private static final SetParameterMenu INSTANCE = new SetParameterMenu(
-                null,
-                null, // read minSpentTime
-                null, // read minTotalPaid
-                null  // Back => GroupMenu
-        );
-    }
+    private static final SetParameterMenu INSTANCE = new SetParameterMenu(
+            null,
+            null, // read minSpentTime
+            null, // read minTotalPaid
+            null  // Back => GroupMenu
+    );
     private SetParameterMenu(Menu... nextMenus) {
         super(nextMenus);
     }
-    public static SetParameterMenu getInstance() { return InstanceHolder.INSTANCE; }
+    public static SetParameterMenu getInstance() { return INSTANCE; }
 
     private static final String END_INPUT = "** Press 'end', if you want to exit! **\n";
     private static final String GROUP_OUTPUT =

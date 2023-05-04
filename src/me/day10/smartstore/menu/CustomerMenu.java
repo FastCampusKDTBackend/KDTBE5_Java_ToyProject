@@ -2,9 +2,21 @@ package me.day10.smartstore.menu;
 
 import java.util.InputMismatchException;
 
-public class CustomerMenu extends Menu {
+public class CustomerMenu extends TopicIntroMenu {
+
+    private static final String CUSTOMER_MENU_OUTPUT =
+            '\n' +
+                    "======= " + "Customer" + " Menu ========\n" +
+                    " 1. Add " + "Customer" + '\n' +
+                    " 2. View " + "Customer" + '\n' +
+                    " 3. Update " + "Customer" + '\n' +
+                    " 4. Delete " + "Customer" + '\n' +
+                    " 5. Back\n" +
+                    "==============================\n" +
+                    "Choose One: ";
 
     private static final CustomerMenu INSTANCE = new CustomerMenu(
+            CUSTOMER_MENU_OUTPUT,
             null,
             AddCustomerMenu.getInstance(),
             ViewCustomerMenu.getInstance(),
@@ -12,33 +24,10 @@ public class CustomerMenu extends Menu {
             DeleteCustomerMenu.getInstance(),
             null    // back
     );
-    private CustomerMenu(Menu... nextMenus) {
-        super(nextMenus);
+
+    private CustomerMenu(String TOPIC_OUTPUT, Menu... nextMenus) {
+        super(TOPIC_OUTPUT, nextMenus);
     }
+
     public static CustomerMenu getInstance() { return INSTANCE; }
-
-    private static final String CUSTOMER_MENU_OUTPUT =
-                            '\n' +
-                            "======= " + "Customer" + " Menu ========\n" +
-                            " 1. Add " + "Customer" + '\n' +
-                            " 2. View " + "Customer" + '\n' +
-                            " 3. Update " + "Customer" + '\n' +
-                            " 4. Delete " + "Customer" + '\n' +
-                            " 5. Back\n" +
-                            "==============================\n" +
-                            "Choose One: ";
-
-    @Override
-    public Menu printAndInputAndGetNextMenu() {
-        nextMenu[nextMenu.length - 1] = StartMenu.getInstance();
-        while (true) {
-            print(CUSTOMER_MENU_OUTPUT);
-            try {
-                int menu = inputMenu();
-                return nextMenu[menu];
-            } catch (InvalidMenuException | InputMismatchException e) {
-                print(e.getMessage());
-            }
-        }
-    }
 }

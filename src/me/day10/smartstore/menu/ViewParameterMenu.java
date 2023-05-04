@@ -8,31 +8,21 @@ public class ViewParameterMenu extends Menu {
     private ViewParameterMenu() {}
     public static ViewParameterMenu getInstance() { return INSTANCE; }
 
-    private static final String GROUP_OUTPUT =
-            "Which group (GENERAL (G), VIP (V), VVIP (VV))?\n" +
-                    "** Press 'end', if you want to exit! **\n";
-
     @Override
     public Menu printAndInputAndGetNextMenu() {
+        Menu backMenu = GroupMenu.getInstance();
         while (true) {
             print(GROUP_OUTPUT);
             try {
-                String groupName = InputGroupName();
+                String groupName = inputGroupName();
                 GroupType groupType = GroupType.getGroupTypeByString(groupName);
-                print(groupType.toString());
+                print(groupType);
             } catch (BackMenuException e) {
                 print(e.getMessage());
-                return GroupMenu.getInstance();
+                return backMenu;
             } catch (InvalidGroupTypeException e) {
                 print(e.getMessage());
             }
         }
-    }
-
-    private String InputGroupName() throws BackMenuException {
-        String s = reader.inputString().toUpperCase();
-        if (s.equals("END"))
-            throw new BackMenuException("'end' is pressed. Exit this menu.\n");
-        return s;
     }
 }

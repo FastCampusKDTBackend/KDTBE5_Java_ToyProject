@@ -33,9 +33,9 @@ public enum GroupType {
         return this.groupTypeParameter;
     }
 
-    public void setGroupTypeParameter(Integer minSpentTime, Integer minTotalPaid) {
-        this.groupTypeParameter.setMinSpentTime(minSpentTime);
-        this.groupTypeParameter.setMinTotalPaid(minTotalPaid);
+    public void setGroupTypeParameter(Integer[] groupParameterArguments) {
+        this.groupTypeParameter.setMinSpentTime(groupParameterArguments[0]);
+        this.groupTypeParameter.setMinTotalPaid(groupParameterArguments[1]);
     }
 
     @Override

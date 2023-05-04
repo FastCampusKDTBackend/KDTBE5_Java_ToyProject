@@ -17,12 +17,6 @@ public class SetParameterMenu extends Menu {
     }
     public static SetParameterMenu getInstance() { return INSTANCE; }
 
-    private static final String END_INPUT = "** Press 'end', if you want to exit! **\n";
-    private static final String GROUP_OUTPUT =
-            '\n' +
-            "Which group (GENERAL (G), VIP (V), VVIP (VV))?\n"
-            + END_INPUT;
-
     private static final String GROUP_SET_PARAMETER_OUTPUT =
             "===== Set Group Parameter ====\n" +
             " 1. Minimum Spent Time\n" +
@@ -31,15 +25,11 @@ public class SetParameterMenu extends Menu {
             "==============================\n" +
             "Choose One: ";
 
-    private static final String MIN_SPENT_TIME_INPUT =
-            "\n" +
-            "Input Minimum Spent Time: \n" +
-            END_INPUT;
-
-    private static final String MIN_TOTAL_PAID_INPUT =
-            "\n" +
-            "Input Minimum Total Paid: \n" +
-            END_INPUT;
+    private static final String[] GROUP_PARAMETER_INPUT = {
+            null,
+            "\n" + "Input Minimum " + "Spent Time:\n" + END_INPUT,
+            "\n" + "Input Minimum " + "Total Paid:\n" + END_INPUT
+    };
 
     @Override
     public Menu printAndInputAndGetNextMenu() {
@@ -50,43 +40,36 @@ public class SetParameterMenu extends Menu {
                 String groupName = inputGroupName();
                 GroupType groupType = GroupType.getGroupTypeByString(groupName);
                 print(groupType);
-
-                Integer minSpentTime = null;
-                Integer minTotalPaid = null;
-                while (true) {
-                    print(GROUP_SET_PARAMETER_OUTPUT);
-                    try {
-                        int menu = inputMenu();
-
-                        if (menu == 1) {
-                            print(MIN_SPENT_TIME_INPUT);
-                            minSpentTime = inputIntegerOrEnd();
-                        } else if (menu == 2) {
-                            print(MIN_TOTAL_PAID_INPUT);
-                            minTotalPaid = inputIntegerOrEnd();
-                        } else {
-                            groupType.setGroupTypeParameter(minSpentTime, minTotalPaid);
-                            break;
-                        }
-                    } catch (InvalidMenuException | InputMismatchException e) {
-                        print(e.getMessage());
-                    } catch (BackMenuException e) {
-                        print(e.getMessage());
-                        break;
-                    }
-                }
+                inputGroupParameter(groupType);
+            } catch (BackMenuException e) {
+                print(e.getMessage());
+                return backMenu;
             } catch (InvalidGroupTypeException e) {
                 print(e.getMessage());
-            } catch (BackMenuException e) {
-                return backMenu;
             }
         }
     }
 
-    private String inputGroupName() throws BackMenuException {
-        String s = reader.inputString().toUpperCase();
-        checkIfInputIsEnd(s);
-        return s;
+    private void inputGroupParameter(GroupType groupType) {
+        Integer[] groupParameterArguments = { null, null, null }; // null, minSpentTime, minTotalPaid
+        while (true) {
+            print(GROUP_SET_PARAMETER_OUTPUT);
+            try {
+                int menu = inputMenu();
+                if (menu <= 2) {
+                    print(GROUP_PARAMETER_INPUT[menu]);
+                    groupParameterArguments[menu] = inputIntegerOrEnd();
+                } else {
+                    groupType.setGroupTypeParameter(groupParameterArguments);
+                    break;
+                }
+            } catch (BackMenuException e) {
+                print(e.getMessage());
+                break;
+            } catch (InvalidMenuException | InputMismatchException e) {
+                print(e.getMessage());
+            }
+        }
     }
 
     private Integer inputIntegerOrEnd() throws BackMenuException {

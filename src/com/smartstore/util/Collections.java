@@ -7,7 +7,8 @@ public interface Collections<T> {
     int indexOf(T object);
     void add(T object);
     void add(int index, T object);
-    T pop();
-    T pop(int index);
-    T pop(T object);
+    boolean remove(int index);
+    boolean remove(T object);
+
+    Object[] toArray();
 }

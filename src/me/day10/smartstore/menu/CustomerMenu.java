@@ -2,16 +2,23 @@ package me.day10.smartstore.menu;
 
 import java.util.InputMismatchException;
 
-public class CustomerMenu implements Menu {
+public class CustomerMenu extends Menu {
 
     private static class InstanceHolder {
-        private static final CustomerMenu INSTANCE = new CustomerMenu();
+        private static final CustomerMenu INSTANCE = new CustomerMenu(
+                null,
+                AddCustomerMenu.getInstance(),
+                ViewCustomerMenu.getInstance(),
+                UpdateCustomerMenu.getInstance(),
+                DeleteCustomerMenu.getInstance(),
+                null    // back
+        );
     }
-    private CustomerMenu() {}
-    public static CustomerMenu getInstance() { return CustomerMenu.InstanceHolder.INSTANCE; }
+    private CustomerMenu(Menu... nextMenus) {
+        super(nextMenus);
+    }
+    public static CustomerMenu getInstance() { return InstanceHolder.INSTANCE; }
 
-    private static final Reader reader = Reader.getInstance();
-    private static final Printer printer = Printer.getInstance();
     private static final String CUSTOMER_MENU_OUTPUT =
                             '\n' +
                             "======= " + "Customer" + " Menu ========\n" +
@@ -22,15 +29,6 @@ public class CustomerMenu implements Menu {
                             " 5. Back\n" +
                             "==============================\n" +
                             "Choose One: ";
-
-    private final Menu nextMenu[] = {
-            null,
-            AddCustomerMenu.getInstance(),
-            ViewCustomerMenu.getInstance(),
-            UpdateCustomerMenu.getInstance(),
-            DeleteCustomerMenu.getInstance(),
-            null    // back
-    };
 
     @Override
     public Menu printAndInputAndGetNextMenu() {
@@ -44,16 +42,5 @@ public class CustomerMenu implements Menu {
                 print(e.getMessage());
             }
         }
-    }
-
-    private void print(Object s) {
-        printer.print(s.toString());
-    }
-
-    private int inputMenu() throws InvalidMenuException, InputMismatchException {
-        int i = reader.inputInteger();
-        if (i <= 0 || i >= nextMenu.length)
-            throw new InvalidMenuException("Invalid Menu Input." + " Please try again.\n");
-        return i;
     }
 }

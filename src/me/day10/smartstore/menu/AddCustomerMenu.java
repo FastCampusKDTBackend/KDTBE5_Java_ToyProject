@@ -1,6 +1,6 @@
 package me.day10.smartstore.menu;
 
-public class AddCustomerMenu implements Menu {
+public class AddCustomerMenu extends Menu{
 
     private static class InstanceHolder {
         private static final AddCustomerMenu INSTANCE = new AddCustomerMenu();

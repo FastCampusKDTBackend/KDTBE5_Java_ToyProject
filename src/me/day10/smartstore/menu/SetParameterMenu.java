@@ -4,16 +4,21 @@ import me.day10.smartstore.group.GroupType;
 
 import java.util.InputMismatchException;
 
-public class SetParameterMenu implements Menu {
+public class SetParameterMenu extends Menu {
 
     private static class InstanceHolder {
-        private static final SetParameterMenu INSTANCE = new SetParameterMenu();
+        private static final SetParameterMenu INSTANCE = new SetParameterMenu(
+                null,
+                null, // read minSpentTime
+                null, // read minTotalPaid
+                null  // Back => GroupMenu
+        );
     }
-    private SetParameterMenu() {}
-    public static SetParameterMenu getInstance() { return SetParameterMenu.InstanceHolder.INSTANCE; }
+    private SetParameterMenu(Menu... nextMenus) {
+        super(nextMenus);
+    }
+    public static SetParameterMenu getInstance() { return InstanceHolder.INSTANCE; }
 
-    private static final Reader reader = Reader.getInstance();
-    private static final Printer printer = Printer.getInstance();
     private static final String END_INPUT = "** Press 'end', if you want to exit! **\n";
     private static final String GROUP_OUTPUT =
             '\n' +
@@ -37,13 +42,6 @@ public class SetParameterMenu implements Menu {
             "\n" +
             "Input Minimum Total Paid: \n" +
             END_INPUT;
-
-    private static final Menu nextMenu[] = {
-            null,
-            null, // read minSpentTime
-            null, // read minTotalPaid
-            null  // Back => GroupMenu
-    };
 
     @Override
     public Menu printAndInputAndGetNextMenu() {
@@ -87,21 +85,10 @@ public class SetParameterMenu implements Menu {
         }
     }
 
-    private void print(Object s) {
-        printer.print(s.toString());
-    }
-
     private String inputGroupName() throws BackMenuException {
         String s = reader.inputString().toUpperCase();
         checkIfInputIsEnd(s);
         return s;
-    }
-
-    private int inputMenu() throws InvalidMenuException {
-        int i = reader.inputInteger();
-        if (i <= 0 || i >= nextMenu.length)
-            throw new InvalidMenuException("\nInvalid Menu for Input. Please try again.\n");
-        return i;
     }
 
     private Integer inputIntegerOrEnd() throws BackMenuException {
@@ -116,10 +103,5 @@ public class SetParameterMenu implements Menu {
         } catch (NumberFormatException e) {
             throw new InputMismatchException("Invalid Format for Input. Please try again.\n");
         }
-    }
-
-    private void checkIfInputIsEnd(String s) throws BackMenuException {
-        if (s.equals("END"))
-            throw new BackMenuException("'end' is pressed. Exit this menu.\n\n");
     }
 }

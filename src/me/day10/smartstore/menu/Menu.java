@@ -1,5 +1,35 @@
 package me.day10.smartstore.menu;
 
-public interface Menu {
-    Menu printAndInputAndGetNextMenu();
+import java.util.InputMismatchException;
+
+public abstract class Menu {
+
+    protected static final Reader reader = Reader.getInstance();
+    protected static final Printer printer = Printer.getInstance();
+
+    protected final Menu[] nextMenu;
+
+    Menu(Menu... nextMenus) {
+        int len = nextMenus.length;
+        nextMenu = new Menu[len];
+        System.arraycopy(nextMenus, 0, nextMenu, 0, len);
+    }
+
+    public abstract Menu printAndInputAndGetNextMenu();
+
+    protected void print(Object s) {
+        printer.print(s.toString());
+    }
+
+    protected int inputMenu() throws InputMismatchException, InvalidMenuException {
+        int ret = reader.inputInteger();
+        if (ret <= 0 || ret >= nextMenu.length)
+            throw new InvalidMenuException("Invalid Menu Input." + " Please try again.\n");
+        return ret;
+    }
+
+    protected void checkIfInputIsEnd(String s) throws BackMenuException {
+        if (s.equals("END"))
+            throw new BackMenuException("'end' is pressed. Exit this menu.\n\n");
+    }
 }

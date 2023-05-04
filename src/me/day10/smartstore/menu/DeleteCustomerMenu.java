@@ -1,12 +1,12 @@
 package me.day10.smartstore.menu;
 
-public class DeleteCustomerMenu implements Menu {
+public class DeleteCustomerMenu extends Menu {
 
     private static class InstanceHolder {
         private static final DeleteCustomerMenu INSTANCE = new DeleteCustomerMenu();
     }
     private DeleteCustomerMenu() {}
-    public static DeleteCustomerMenu getInstance() { return DeleteCustomerMenu.InstanceHolder.INSTANCE; }
+    public static DeleteCustomerMenu getInstance() { return InstanceHolder.INSTANCE; }
 
     @Override
     public Menu printAndInputAndGetNextMenu() {

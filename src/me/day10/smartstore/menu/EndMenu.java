@@ -1,12 +1,12 @@
 package me.day10.smartstore.menu;
 
-public class EndMenu implements Menu {
+public class EndMenu extends Menu {
 
     private static class InstanceHolder {
         private static final EndMenu INSTANCE = new EndMenu();
     }
     private EndMenu() {}
-    public static EndMenu getInstance() { return EndMenu.InstanceHolder.INSTANCE; }
+    public static EndMenu getInstance() { return InstanceHolder.INSTANCE; }
 
     @Override
     public Menu printAndInputAndGetNextMenu() {

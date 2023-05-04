@@ -59,8 +59,7 @@ public class ParameterMenu implements Menu {
         }
     }
 
-    private Parameter setMenuParameter() {
-        Parameter parameter = new Parameter();
+    private Parameter setMenuParameter(Parameter parameter) {
         while (true) {
             int choice = allParameterMenu.chooseMenu(new String[]{
                     "Minimum Spent Time",
@@ -100,8 +99,8 @@ public class ParameterMenu implements Menu {
                 System.out.println(groupType + " group already exists.");
                 return;
             } else {
-                Parameter parameter = setMenuParameter();
-                allGroups.findGroup(groupType).setParameter(parameter);
+                setMenuParameter(allGroups.findGroup(groupType).getParameter());
+                //allGroups.findGroup(groupType).setParameter(parameter);
                 allCustomers.refresh();
             }
         }

@@ -59,6 +59,7 @@ public class CustomerMenu implements Menu {
                     //setCustomerData 메소드로 사용자 정보 추가
                     setJoiner = setCustomerData(setJoiner);
                     allCustomers.add(setJoiner);
+                    allCustomers.refresh();
                 }
                 return;
 

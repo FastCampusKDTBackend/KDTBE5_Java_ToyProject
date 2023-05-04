@@ -1,5 +1,6 @@
 package Menu;
 
+import Customer.Customers;
 import Group.Group;
 import Group.Parameter;
 import Group.GroupType;
@@ -9,6 +10,7 @@ import Group.Groups;
 public class ParameterMenu implements Menu {
 
     private final Groups allGroups = Groups.getInstance();
+    private final Customers allCustomers = Customers.getInstance();
     private static ParameterMenu allParameterMenu;
 
     public static ParameterMenu getInstance() {
@@ -116,6 +118,7 @@ public class ParameterMenu implements Menu {
             } else {
                 Parameter parameter = setMenuParameter();
                 allGroups.findGroup(groupType).setParameter(parameter);
+                allCustomers.refresh();
             }
         }
     }

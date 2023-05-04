@@ -6,8 +6,7 @@ import domain.group.Groups;
 import domain.group.Parameter;
 import exception.InputEndException;
 import exception.InputRangeException;
-import view.input.GroupInput;
-import view.input.MenuInput;
+import view.Input;
 
 import java.util.Objects;
 
@@ -33,8 +32,8 @@ public class GroupService {
             try {
                 int choiceMenuNumber = chooseSetParameterMenu();
                 if (choiceMenuNumber == 3) break;
-                if (choiceMenuNumber == 1) parameter.setMinTime(GroupInput.inputMinSpentTime());
-                if (choiceMenuNumber == 2) parameter.setMinPay(GroupInput.inputMinTotalPayment());
+                if (choiceMenuNumber == 1) parameter.setMinTime(Input.inputMinSpentTime());
+                if (choiceMenuNumber == 2) parameter.setMinPay(Input.inputMinTotalPayment());
             } catch (InputEndException | InputRangeException exception) {
                 System.out.println(exception.getMessage());
             }
@@ -50,7 +49,7 @@ public class GroupService {
     private int chooseSetParameterMenu(){
         while (true) {
             try {
-                int inputMenuNumber = MenuInput.chooseMenuNumber(MENU_ITEMS);
+                int inputMenuNumber = Input.chooseMenuNumber(MENU_ITEMS);
                 if (inputMenuNumber < 1 || inputMenuNumber > MENU_ITEMS.length) throw new InputRangeException();
                 return inputMenuNumber;
             } catch (InputRangeException exception){
@@ -68,7 +67,7 @@ public class GroupService {
         while (true) {
             GroupType groupType = null;
             try{
-                groupType = GroupInput.chooseGroup();
+                groupType = Input.chooseGroup();
                 checkInvalidGroup(groupType);
                 Group group = new Group(new Parameter(), groupType);
                 setParameter(group.getParameter());
@@ -92,7 +91,7 @@ public class GroupService {
     public void updateParameter() {
         while (true) {
             try {
-                setParameter(groups.find(GroupInput.chooseGroup()).getParameter());
+                setParameter(groups.find(Input.chooseGroup()).getParameter());
             } catch (InputEndException exception) {
                 System.out.println(exception.getMessage());
                 break;

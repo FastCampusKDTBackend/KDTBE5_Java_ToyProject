@@ -2,7 +2,7 @@ package domain.menu;
 
 import exception.InputEndException;
 import service.SummaryService;
-import view.input.CustomerInput;
+import view.Input;
 
 import java.util.Objects;
 
@@ -53,9 +53,9 @@ public class SummaryMenu implements Menu {
     public void service(int menuNum) {
         try{
             if (menuNum == 1) summaryService.summaryDefault();
-            if (menuNum == 2) summaryService.summarySortedByName(CustomerInput.isSummarySortOrderDesc());
-            if (menuNum == 3) summaryService.summarySortedBySpentTime(CustomerInput.isSummarySortOrderDesc());
-            if (menuNum == 4) summaryService.summarySortedByTotalPayment(CustomerInput.isSummarySortOrderDesc());
+            if (menuNum == 2) summaryService.summarySortedByName(Input.isSummarySortOrderDesc());
+            if (menuNum == 3) summaryService.summarySortedBySpentTime(Input.isSummarySortOrderDesc());
+            if (menuNum == 4) summaryService.summarySortedByTotalPayment(Input.isSummarySortOrderDesc());
         } catch (InputEndException exception) {
             System.out.println(exception.getMessage());
         }

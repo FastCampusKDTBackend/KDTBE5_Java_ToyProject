@@ -1,11 +1,10 @@
 package domain.menu;
 
-import controller.MenuController;
 import exception.ArrayEmptyException;
 import exception.InputEndException;
 import service.CustomerService;
 import service.SummaryService;
-import view.input.CustomerInput;
+import view.Input;
 
 import java.util.Objects;
 
@@ -56,7 +55,7 @@ public class CustomerMenu implements Menu {
     @Override
     public void service(int menuNum) {
         try {
-            if (menuNum == 1) customerService.addCustomer(CustomerInput.inputCustomerNumber());
+            if (menuNum == 1) customerService.addCustomer(Input.inputCustomerNumber());
             if (menuNum == 2) customerService.viewCustomer();
             if (menuNum == 3) customerService.updateCustomer();
             if (menuNum == 4) customerService.deleteCustomer();

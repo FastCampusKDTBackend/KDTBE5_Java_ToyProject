@@ -5,9 +5,8 @@ import domain.customer.Customers;
 import exception.ArrayEmptyException;
 import exception.InputEndException;
 import exception.InputRangeException;
+import view.Input;
 import view.Output;
-import view.input.CustomerInput;
-import view.input.MenuInput;
 
 import java.util.Objects;
 
@@ -35,10 +34,10 @@ public class CustomerService {
             try {
                 int choiceMenuNumber = chooseSetCustomerMenu();
                 if (choiceMenuNumber == 5) break;
-                if (choiceMenuNumber == 1) customer.setName(CustomerInput.inputCustomerName());
-                if (choiceMenuNumber == 2) customer.setId(CustomerInput.inputCustomerId());
-                if (choiceMenuNumber == 3) customer.setStoreUsageTime(CustomerInput.inputCustomerStoreUsageTime());
-                if (choiceMenuNumber == 4) customer.setTotalPaymentAmount(CustomerInput.inputCustomerTotalPaymentAmount());
+                if (choiceMenuNumber == 1) customer.setName(Input.inputCustomerName());
+                if (choiceMenuNumber == 2) customer.setId(Input.inputCustomerId());
+                if (choiceMenuNumber == 3) customer.setStoreUsageTime(Input.inputCustomerStoreUsageTime());
+                if (choiceMenuNumber == 4) customer.setTotalPaymentAmount(Input.inputCustomerTotalPaymentAmount());
             } catch (InputEndException | InputRangeException | IndexOutOfBoundsException exception) {
                 System.out.println(exception.getMessage());
             }
@@ -56,7 +55,7 @@ public class CustomerService {
     private int chooseSetCustomerMenu(){
         while (true) {
             try {
-                int inputMenuNumber = MenuInput.chooseMenuNumber(MENU_ITEMS);
+                int inputMenuNumber = Input.chooseMenuNumber(MENU_ITEMS);
                 if (inputMenuNumber < 1 || inputMenuNumber > MENU_ITEMS.length) throw new InputRangeException();
                 return inputMenuNumber;
             } catch (InputRangeException exception){
@@ -86,13 +85,13 @@ public class CustomerService {
     public void updateCustomer() {
         if (customers.isEmpty()) throw new ArrayEmptyException();
         viewCustomer();
-        setCustomer(customers.get(CustomerInput.inputTargetCustomerNumber()));
+        setCustomer(customers.get(Input.inputTargetCustomerNumber()));
     }
 
     /* DELETE CUSTOMER */
     public void deleteCustomer() {
         if (customers.isEmpty()) throw new ArrayEmptyException();
         viewCustomer();
-        customers.pop(CustomerInput.inputTargetCustomerNumber());
+        customers.pop(Input.inputTargetCustomerNumber());
     }
 }

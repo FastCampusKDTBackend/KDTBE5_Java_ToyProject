@@ -3,7 +3,7 @@ package controller;
 import domain.menu.Menu;
 import exception.InputFormatException;
 import exception.InputRangeException;
-import view.input.MenuInput;
+import view.Input;
 
 public class MenuController {
 
@@ -29,7 +29,7 @@ public class MenuController {
     public int chooseMenu() {
         while (true) {
             try {
-                int inputMenuNumber = MenuInput.chooseMenuNumber(menu.items());
+                int inputMenuNumber = Input.chooseMenuNumber(menu.items());
                 validateChoiceMenuNumRange(inputMenuNumber);
                 return inputMenuNumber;
             } catch (InputFormatException | InputRangeException exception) {

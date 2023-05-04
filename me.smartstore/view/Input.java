@@ -1,12 +1,17 @@
-package view.input;
+package view;
 
 import domain.customer.Customers;
+import domain.group.GroupType;
 import exception.InputEndException;
 import exception.InputFormatException;
+import exception.InputRangeException;
 import util.Console;
 import view.Message;
 
-public class CustomerInput extends Input{
+public class Input {
+
+    public static final String MENU_PRINT_FORMAT = "%d. %s\n";
+    public static final String INPUT_MENU_CHOICE = "메뉴 번호를 입력해주세요: "; // choose one:
 
     public static final String INPUT_CUSTOMER_NUMBER = "How many customers to input?";
     public static final String INPUT_CUSTOMER_NAME = "Input Customer's Name: ";
@@ -15,7 +20,21 @@ public class CustomerInput extends Input{
     public static final String INPUT_CUSTOMER_TOTAL_PAYMENT_AMOUNT = "Input Customer's Total Payment Amount: ";
     public static final String INPUT_UPDATE_CUSTOMER_NUMBER = "\nWhich customer ( 1 ~ %d )? > ";
 
+    public static final String INPUT_GROUP = "\nWhich group (GENERAL (G), VIP (V), VVIP (VV))?";
+    public static final String INPUT_MINIMUM_SPENT_TIME = "Input Minimum Spent Time: ";
+    public static final String INPUT_MINIMUM_TOTAL_PAYMENT = "Input Minimum Total Payment: ";
+
     public static final String INPUT_SUMMARY_ORDER = "Which order (ASCENDING (A), DESCENDING (D))?";
+
+    public static int chooseMenuNumber(String[] menu) {
+        System.out.println("\n==============================");
+        for (int i = 0; i < menu.length; i++) {
+            System.out.printf(MENU_PRINT_FORMAT, i+1, menu[i]);
+        }
+        System.out.println("==============================");
+        System.out.print(INPUT_MENU_CHOICE);
+        return Console.readLineToInteger();
+    }
 
     public static int inputCustomerNumber() throws InputEndException {
         return inputValueToInteger(INPUT_CUSTOMER_NUMBER);
@@ -56,6 +75,31 @@ public class CustomerInput extends Input{
         }
     }
 
+    public static GroupType chooseGroup(){
+        while (true) {
+            try {
+                System.out.println(INPUT_GROUP);
+                String group = Console.readLineEnd();
+                GroupType choiceGroup = GroupType.valueOf(group);
+                return choiceGroup.replaceFullName();
+            } catch (IllegalArgumentException exception) {
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+            }
+        }
+    }
+
+    public static int inputMinSpentTime() {
+        int minimumSpentTime = inputValueToInteger(INPUT_MINIMUM_SPENT_TIME);
+        validateNegativeNumber(minimumSpentTime);
+        return minimumSpentTime;
+    }
+
+    public static int inputMinTotalPayment() {
+        int minTotalPayment = inputValueToInteger(INPUT_MINIMUM_TOTAL_PAYMENT);
+        validateNegativeNumber(minTotalPayment);
+        return minTotalPayment;
+    }
+
     public static boolean isSummarySortOrderDesc() {
         System.out.println(INPUT_SUMMARY_ORDER);
         while (true) {
@@ -64,5 +108,20 @@ public class CustomerInput extends Input{
             if (str.equals("D")) return true;
             System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
         }
+    }
+
+    public static int inputValueToInteger(String message){
+        while (true) {
+            try {
+                System.out.println(message);
+                return Console.inputValueToInteger(Console.readLineEnd());
+            } catch (InputFormatException exception) {
+                System.out.println(exception.getMessage());
+            }
+        }
+    }
+
+    public static void validateNegativeNumber(int number){
+        if (number < 0) throw new InputRangeException();
     }
 }

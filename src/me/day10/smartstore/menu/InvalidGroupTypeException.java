@@ -1,6 +1,6 @@
 package me.day10.smartstore.menu;
 
-public class InvalidGroupTypeException extends Exception {
+public class InvalidGroupTypeException extends IllegalArgumentException {
 
     public InvalidGroupTypeException(String s) {
         super(s);

@@ -97,7 +97,6 @@ public class GroupMenu implements Menu {
         }
     }
 
-
     // 이것들도 먼가 컨트롤러에 장착시켜서 처리할 수 있을 거 같은 느낌
     void setParameter(Parameter parameter){
         while (true) {

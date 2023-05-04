@@ -18,10 +18,6 @@ public class SummaryService {
     private static Customers customers = Customers.getInstance();
     private static Groups groups = Groups.getInstance();
 
-    private ArrayList<Customer> noneCustomer;
-    private ArrayList<Customer> generalCustomer;
-    private ArrayList<Customer> vipCustomer;
-    private ArrayList<Customer> vvipCustomer;
     private ArrayList<ArrayList<Customer>> allCustomers;
 
     public static SummaryService getInstance() {
@@ -40,10 +36,10 @@ public class SummaryService {
         Group vip = groups.find(GroupType.VIP);
         Group vvip = groups.find(GroupType.VVIP);
 
-        noneCustomer = new ArrayList<>();
-        generalCustomer = new ArrayList<>();
-        vipCustomer = new ArrayList<>();
-        vvipCustomer = new ArrayList<>();
+        ArrayList<Customer> noneCustomer = new ArrayList<>();;
+        ArrayList<Customer> generalCustomer = new ArrayList<>();;
+        ArrayList<Customer> vipCustomer = new ArrayList<>();;
+        ArrayList<Customer> vvipCustomer = new ArrayList<>();;
 
         try {
             for (Customer customer : customers.toList()) {
@@ -59,7 +55,6 @@ public class SummaryService {
                 else noneCustomer.add(customer);
             }
         } catch (NullPointerException ignored){ }
-
         allCustomers = new ArrayList<>(List.of(noneCustomer, generalCustomer, vipCustomer, vvipCustomer));
     }
 
@@ -69,10 +64,7 @@ public class SummaryService {
 
     private void printSummary() {
         try {
-            Output.customerClassifiedList(noneCustomer, groups.find(GroupType.NONE));
-            Output.customerClassifiedList(generalCustomer, groups.find(GroupType.GENERAL));
-            Output.customerClassifiedList(vipCustomer, groups.find(GroupType.VIP));
-            Output.customerClassifiedList(vvipCustomer, groups.find(GroupType.VVIP));
+            Output.customerClassifiedList(allCustomers, groups.toList());
         } catch (NullPointerException exception) {
             System.out.println("please Complete Groups setting");
         }
@@ -84,20 +76,18 @@ public class SummaryService {
 
     public void summarySortedByName(){
         arraySort(Comparator.comparing(Customer::getName));
-        printSummary();
     }
 
     public void summarySortedBySpentTime(){
         arraySort(Comparator.comparing(Customer::getStoreUsageTime));
-        printSummary();
     }
 
     public void summarySortedByTotalPayment(){
         arraySort(Comparator.comparing(Customer::getTotalPaymentAmount));
-        printSummary();
     }
 
     public void arraySort(Comparator<Customer> comparator) {
+//        if ( 사용자입력 값이 desc? ) comparator.reversed();
         for (ArrayList<Customer> customerArrayList : allCustomers)
             customerArrayList.sort(comparator);
         printSummary();

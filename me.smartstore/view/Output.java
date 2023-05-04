@@ -5,6 +5,7 @@ import domain.customer.Customers;
 import domain.group.Group;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Output {
 
@@ -36,6 +37,12 @@ public class Output {
         for (Customer customer : customers) {
             System.out.printf("No. %-4d > ", cnt++);
             System.out.println(customer);
+        }
+    }
+
+    public static void customerClassifiedList(ArrayList<ArrayList<Customer>> allCustomers, List<Group> list) {
+        for (int i = 0; i < allCustomers.size(); i++) {
+            customerClassifiedList(allCustomers.get(i), list.get(i));
         }
     }
 }

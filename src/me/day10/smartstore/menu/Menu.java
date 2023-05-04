@@ -33,14 +33,14 @@ public abstract class Menu {
         return ret;
     }
 
-    protected String inputGroupName() throws BackMenuException {
+    protected String inputGroupName() throws InputIsEndException {
         String s = reader.inputString().toUpperCase();
         checkIfInputIsEnd(s);
         return s;
     }
 
-    protected void checkIfInputIsEnd(String s) throws BackMenuException {
+    protected void checkIfInputIsEnd(String s) throws InputIsEndException {
         if (s.equals("END"))
-            throw new BackMenuException("'end' is pressed. Exit this menu.\n\n");
+            throw new InputIsEndException("'end' is pressed. Exit this menu.\n\n");
     }
 }

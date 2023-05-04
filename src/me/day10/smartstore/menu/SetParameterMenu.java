@@ -1,15 +1,16 @@
 package me.day10.smartstore.menu;
 
-import me.day10.smartstore.group.GroupType;
+import me.day10.smartstore.group.Group;
 
 import java.util.InputMismatchException;
 
 public class SetParameterMenu extends Menu {
 
+    // null means handle the next menus in this
     private static final SetParameterMenu INSTANCE = new SetParameterMenu(
             null,
-            null, // read minSpentTime
-            null, // read minTotalPaid
+            null, // read minSpentHours
+            null, // read minTotalAmountPaid
             null  // Back => GroupMenu
     );
     private SetParameterMenu(Menu... nextMenus) {
@@ -17,18 +18,18 @@ public class SetParameterMenu extends Menu {
     }
     public static SetParameterMenu getInstance() { return INSTANCE; }
 
-    private static final String GROUP_SET_PARAMETER_OUTPUT =
-            "===== Set Group Parameter ====\n" +
-            " 1. Minimum Spent Time\n" +
-            " 2. Minimum Total Paid\n" +
-            " 3. Back\n" +
-            "==============================\n" +
+    private static final String SET_GROUP_PARAMETER_OUTPUT =
+            "===== Set Group Parameter ====" + '\n' +
+            " 1. " + "Minimum Spent Hours" + '\n' +
+            " 2. " + "Minimum Total Amount Paid" + '\n' +
+            " 3. " + "Back" + '\n' +
+            "==============================" + '\n' +
             "Choose One: ";
 
     private static final String[] GROUP_PARAMETER_INPUT = {
             null,
-            "\n" + "Input Minimum " + "Spent Time:\n" + END_INPUT,
-            "\n" + "Input Minimum " + "Total Paid:\n" + END_INPUT
+            "\n" + "Input " + "Minimum Spent Hours" + ":\n" + END_INPUT,
+            "\n" + "Input " + "Minimum Total Amount Paid" + ":\n" + END_INPUT
     };
 
     @Override
@@ -38,32 +39,33 @@ public class SetParameterMenu extends Menu {
             print(GROUP_OUTPUT);
             try {
                 String groupName = inputGroupName();
-                GroupType groupType = GroupType.getGroupTypeByString(groupName);
-                print(groupType);
-                inputGroupParameter(groupType);
-            } catch (BackMenuException e) {
+                Group group = Group.getGroupByString(groupName);
+                print(group);
+                inputGroupParameter(group);
+            } catch (InputIsEndException e) {
                 print(e.getMessage());
                 return backMenu;
-            } catch (InvalidGroupTypeException e) {
+            } catch (InvalidGroupNameException e) {
                 print(e.getMessage());
             }
         }
     }
 
-    private void inputGroupParameter(GroupType groupType) {
-        Integer[] groupParameterArguments = { null, null, null }; // null, minSpentTime, minTotalPaid
+    private void inputGroupParameter(Group group) {
+        Integer[] groupParameterArguments = { null, null, null }; // null, .., ..
         while (true) {
-            print(GROUP_SET_PARAMETER_OUTPUT);
+            print(SET_GROUP_PARAMETER_OUTPUT);
             try {
                 int menu = inputMenu();
                 if (menu <= 2) {
+                    assert menu != 0;
                     print(GROUP_PARAMETER_INPUT[menu]);
                     groupParameterArguments[menu] = inputIntegerOrEnd();
                 } else {
-                    groupType.setGroupTypeParameter(groupParameterArguments);
+                    group.setGroupParameter(groupParameterArguments);
                     break;
                 }
-            } catch (BackMenuException e) {
+            } catch (InputIsEndException e) {
                 print(e.getMessage());
                 break;
             } catch (InvalidMenuException | InputMismatchException e) {
@@ -72,7 +74,7 @@ public class SetParameterMenu extends Menu {
         }
     }
 
-    private Integer inputIntegerOrEnd() throws BackMenuException {
+    private Integer inputIntegerOrEnd() throws InputIsEndException {
         String s = reader.inputString().toUpperCase();
         checkIfInputIsEnd(s);
 

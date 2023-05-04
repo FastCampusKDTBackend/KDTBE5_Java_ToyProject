@@ -1,10 +1,10 @@
 package me.day10.smartstore.menu;
 
-public class EndMenu extends Menu {
+public class QuitMenu extends Menu {
 
-    private static final EndMenu INSTANCE = new EndMenu();
-    private EndMenu() {}
-    public static EndMenu getInstance() { return INSTANCE; }
+    private static final QuitMenu INSTANCE = new QuitMenu();
+    private QuitMenu() {}
+    public static QuitMenu getInstance() { return INSTANCE; }
 
     @Override
     public Menu printAndInputAndGetNextMenu() {

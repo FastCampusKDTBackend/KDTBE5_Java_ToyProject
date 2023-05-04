@@ -1,6 +1,6 @@
 package me.day10.smartstore.menu;
 
-import me.day10.smartstore.group.GroupType;
+import me.day10.smartstore.group.Group;
 
 public class ViewParameterMenu extends Menu {
 
@@ -15,12 +15,12 @@ public class ViewParameterMenu extends Menu {
             print(GROUP_OUTPUT);
             try {
                 String groupName = inputGroupName();
-                GroupType groupType = GroupType.getGroupTypeByString(groupName);
-                print(groupType);
-            } catch (BackMenuException e) {
+                Group group = Group.getGroupByString(groupName);
+                print(group);
+            } catch (InputIsEndException e) {
                 print(e.getMessage());
                 return backMenu;
-            } catch (InvalidGroupTypeException e) {
+            } catch (InvalidGroupNameException e) {
                 print(e.getMessage());
             }
         }

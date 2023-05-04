@@ -1,15 +1,13 @@
 package me.day10.smartstore.menu;
 
-import java.util.InputMismatchException;
-
 public class StartMenu extends TopicIntroMenu {
 
     private static final String OUTPUT =
                     '\n' +
                     "========= Start Menu =========" + '\n' +
                     "1. " + "Group" + '\n' +
-                    "2. " + "Customer Data" + '\n' +
-                    "3. " + "Classification Summary" + '\n' +
+                    "2. " + "Customer" + '\n' +
+                    "3. " + "Classification" + '\n' +
                     "4. " + "Quit" + '\n' +
                     "==============================" + '\n' +
                     "Choose One: ";
@@ -19,8 +17,8 @@ public class StartMenu extends TopicIntroMenu {
             null,
             GroupMenu.getInstance(),                    // 1
             CustomerMenu.getInstance(),                 // 2
-            ClassificationSummaryMenu.getInstance(),    // 3
-            EndMenu.getInstance()                       // 4
+            ClassificationMenu.getInstance(),    // 3
+            QuitMenu.getInstance()                       // 4
     );
 
     private StartMenu(String TOPIC_OUTPUT, Menu... nextMenus) {

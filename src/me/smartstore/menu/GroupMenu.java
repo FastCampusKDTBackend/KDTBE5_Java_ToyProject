@@ -11,4 +11,9 @@ public class GroupMenu implements Menu{
     }
 
     private GroupMenu() {}
+
+    @Override
+    public void manage(){
+
+    }
 }

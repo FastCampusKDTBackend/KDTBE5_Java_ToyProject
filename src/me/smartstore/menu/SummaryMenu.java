@@ -11,4 +11,9 @@ public class SummaryMenu implements Menu{
     }
 
     private SummaryMenu() {}
+
+    @Override
+    public void manage(){
+
+    }
 }

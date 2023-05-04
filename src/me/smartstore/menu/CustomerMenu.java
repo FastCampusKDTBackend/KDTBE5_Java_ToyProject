@@ -11,4 +11,9 @@ public class CustomerMenu implements Menu{
     }
 
     private CustomerMenu() {}
+
+    @Override
+    public void manage(){
+
+    }
 }

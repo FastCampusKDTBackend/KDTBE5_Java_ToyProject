@@ -1,4 +1,4 @@
-package me.smartstore.exception;
+package me.smartstore.exception.constant;
 
 public enum Message {
     ERR_MSG_INVALID_ARR_EMPTY("No Customers. Please input one first."),

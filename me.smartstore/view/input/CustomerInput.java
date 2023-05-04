@@ -4,6 +4,7 @@ import domain.customer.Customers;
 import exception.InputEndException;
 import exception.InputFormatException;
 import util.Console;
+import view.Message;
 
 public class CustomerInput extends Input{
 
@@ -13,6 +14,8 @@ public class CustomerInput extends Input{
     public static final String INPUT_CUSTOMER_STORE_USAGE_TIME = "Input Customer's Store Usage Time: ";
     public static final String INPUT_CUSTOMER_TOTAL_PAYMENT_AMOUNT = "Input Customer's Total Payment Amount: ";
     public static final String INPUT_UPDATE_CUSTOMER_NUMBER = "\nWhich customer ( 1 ~ %d )? > ";
+
+    public static final String INPUT_SUMMARY_ORDER = "Which order (ASCENDING (A), DESCENDING (D))?";
 
     public static int inputCustomerNumber() throws InputEndException {
         return inputValueToInteger(INPUT_CUSTOMER_NUMBER);
@@ -50,6 +53,16 @@ public class CustomerInput extends Input{
             } catch (InputFormatException exception) {
                 System.out.println(exception.getMessage());
             }
+        }
+    }
+
+    public static boolean isSummarySortOrderDesc() {
+        System.out.println(INPUT_SUMMARY_ORDER);
+        while (true) {
+            String str = Console.readLineEnd();
+            if (str.equals("A")) return false;
+            if (str.equals("D")) return true;
+            System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
         }
     }
 }

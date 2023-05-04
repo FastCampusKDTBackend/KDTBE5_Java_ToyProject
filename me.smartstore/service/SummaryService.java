@@ -36,10 +36,10 @@ public class SummaryService {
         Group vip = groups.find(GroupType.VIP);
         Group vvip = groups.find(GroupType.VVIP);
 
-        ArrayList<Customer> noneCustomer = new ArrayList<>();;
-        ArrayList<Customer> generalCustomer = new ArrayList<>();;
-        ArrayList<Customer> vipCustomer = new ArrayList<>();;
-        ArrayList<Customer> vvipCustomer = new ArrayList<>();;
+        ArrayList<Customer> noneCustomer = new ArrayList<>();
+        ArrayList<Customer> generalCustomer = new ArrayList<>();
+        ArrayList<Customer> vipCustomer = new ArrayList<>();
+        ArrayList<Customer> vvipCustomer = new ArrayList<>();
 
         try {
             for (Customer customer : customers.toList()) {
@@ -74,20 +74,20 @@ public class SummaryService {
         printSummary();
     }
 
-    public void summarySortedByName(){
-        arraySort(Comparator.comparing(Customer::getName));
+    public void summarySortedByName(boolean desc){
+        arraySort(Comparator.comparing(Customer::getName), desc);
     }
 
-    public void summarySortedBySpentTime(){
-        arraySort(Comparator.comparing(Customer::getStoreUsageTime));
+    public void summarySortedBySpentTime(boolean desc){
+        arraySort(Comparator.comparing(Customer::getStoreUsageTime), desc);
     }
 
-    public void summarySortedByTotalPayment(){
-        arraySort(Comparator.comparing(Customer::getTotalPaymentAmount));
+    public void summarySortedByTotalPayment(boolean desc){
+        arraySort(Comparator.comparing(Customer::getTotalPaymentAmount), desc);
     }
 
-    public void arraySort(Comparator<Customer> comparator) {
-//        if ( 사용자입력 값이 desc? ) comparator.reversed();
+    public void arraySort(Comparator<Customer> comparator, boolean desc) {
+        if (desc) comparator = comparator.reversed();
         for (ArrayList<Customer> customerArrayList : allCustomers)
             customerArrayList.sort(comparator);
         printSummary();

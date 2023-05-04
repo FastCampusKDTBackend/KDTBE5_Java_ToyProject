@@ -32,6 +32,7 @@ public class CustomEnumMap<K extends Enum<K>, V> implements Map<K, V>{
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public V get( K key) {
         if(isValidKey(key)){
             return (V) values[key.ordinal()];

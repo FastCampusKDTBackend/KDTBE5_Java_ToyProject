@@ -3,10 +3,6 @@ package service;
 import domain.customer.Customer;
 import domain.customer.Customers;
 import exception.ArrayEmptyException;
-import exception.InputEndException;
-import exception.InputRangeException;
-import view.Input;
-import view.Output;
 
 import java.util.Objects;
 
@@ -14,9 +10,6 @@ public class CustomerService {
 
     private static CustomerService customerService;
     private static final Customers customers = Customers.getInstance();
-
-    private static final String[] MENU_ITEMS = new String[]{"Customer Name", "Customer ID",
-            "Customer Store Usage Time", "Customer Total Payment Amount", "Back"};
 
     private CustomerService() {
 
@@ -29,69 +22,27 @@ public class CustomerService {
         return customerService;
     }
 
-    private void setCustomer(Customer customer) {
-        while (true) {
-            try {
-                int choiceMenuNumber = chooseSetCustomerMenu();
-                if (choiceMenuNumber == 5) break;
-                if (choiceMenuNumber == 1) customer.setName(Input.inputCustomerName());
-                if (choiceMenuNumber == 2) customer.setId(Input.inputCustomerId());
-                if (choiceMenuNumber == 3) customer.setStoreUsageTime(Input.inputCustomerStoreUsageTime());
-                if (choiceMenuNumber == 4) customer.setTotalPaymentAmount(Input.inputCustomerTotalPaymentAmount());
-            } catch (InputEndException | InputRangeException | IndexOutOfBoundsException exception) {
-                System.out.println(exception.getMessage());
-            }
+    public void insertCustomer(Customer customer){
+        customers.add(customer);
+    }
+
+    public Customers selectAllCustomer() {
+        return customers;
+    }
+
+    public void deleteCustomerByNumber(int number){
+        if (customers.isEmpty()){
+            throw new ArrayEmptyException();
         }
-        setCustomerEmptyValueToDefault(customer);
+        customers.pop(number);
     }
 
-    private void setCustomerEmptyValueToDefault(Customer customer){
-        if (Objects.isNull(customer.getId())) customer.setId(String.valueOf(Objects.hash(Math.random())));
-        if (Objects.isNull(customer.getName())) customer.setName(String.valueOf(Objects.hash(Math.random())));
-        if (Objects.isNull(customer.getStoreUsageTime())) customer.setStoreUsageTime(0);
-        if (Objects.isNull(customer.getTotalPaymentAmount())) customer.setTotalPaymentAmount(0);
-    }
-
-    private int chooseSetCustomerMenu(){
-        while (true) {
-            try {
-                int inputMenuNumber = Input.chooseMenuNumber(MENU_ITEMS);
-                if (inputMenuNumber < 1 || inputMenuNumber > MENU_ITEMS.length) throw new InputRangeException();
-                return inputMenuNumber;
-            } catch (InputRangeException exception){
-                System.out.println(exception.getMessage());
-            }
+    // null 을 반환하지 말고 exception 을 던질 것
+    // 지금은 input 에서 범위 처리 중
+    public Customer selectCustomerByNumber(int number) {
+        if (customers.get(number) != null){
+            return customers.get(number);
         }
-    }
-
-    /* ADD CUSTOMER */
-    public void addCustomer(int inputCustomerNumber){
-        for (int i = 1; i <= inputCustomerNumber; i++) {
-            System.out.printf("\n====== Customer %d Info. ======\n", i);
-            Customer customer = new Customer();
-
-            setCustomer(customer);
-
-            customers.add(customer);
-        }
-    }
-
-    /* VIEW CUSTOMER */
-    public void viewCustomer() {
-        Output.customerList(customers);
-    }
-
-    /* UPDATE CUSTOMER */
-    public void updateCustomer() {
-        if (customers.isEmpty()) throw new ArrayEmptyException();
-        viewCustomer();
-        setCustomer(customers.get(Input.inputTargetCustomerNumber()));
-    }
-
-    /* DELETE CUSTOMER */
-    public void deleteCustomer() {
-        if (customers.isEmpty()) throw new ArrayEmptyException();
-        viewCustomer();
-        customers.pop(Input.inputTargetCustomerNumber());
+        return null;
     }
 }

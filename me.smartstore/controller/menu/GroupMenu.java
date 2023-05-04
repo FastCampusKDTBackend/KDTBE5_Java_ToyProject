@@ -1,4 +1,4 @@
-package domain.menu;
+package controller.menu;
 
 import service.GroupService;
 import service.SummaryService;

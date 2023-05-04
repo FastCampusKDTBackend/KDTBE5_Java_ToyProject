@@ -1,4 +1,4 @@
-package domain.menu;
+package controller.menu;
 
 public interface Menu {
 

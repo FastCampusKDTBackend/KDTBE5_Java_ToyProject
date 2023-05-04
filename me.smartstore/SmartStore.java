@@ -5,7 +5,7 @@ import domain.group.Group;
 import domain.group.GroupType;
 import domain.group.Groups;
 import domain.group.Parameter;
-import domain.menu.MainMenu;
+import controller.menu.MainMenu;
 import util.Console;
 
 import java.util.Objects;

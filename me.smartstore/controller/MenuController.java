@@ -1,6 +1,6 @@
 package controller;
 
-import domain.menu.Menu;
+import controller.menu.Menu;
 import exception.InputFormatException;
 import exception.InputRangeException;
 import view.Input;

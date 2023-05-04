@@ -1,6 +1,10 @@
 package Menu;
 
+import Customer.Customers;
+import Group.Groups;
+
 public class SummaryMenu implements Menu{
+    private final Customers allCustomers = Customers.getInstance();
     private static SummaryMenu allSummaryMenu;
 
     public static SummaryMenu getInstance() {
@@ -35,5 +39,6 @@ public class SummaryMenu implements Menu{
 
     private void summary(int choice) {
         System.out.println(choice + "summary");
+        allCustomers.refresh();
     }
 }

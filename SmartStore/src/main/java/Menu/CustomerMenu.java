@@ -7,6 +7,7 @@ import CustomException.InputTypeException;
 import CustomException.Message;
 import Customer.Customer;
 import Customer.Customers;
+import Group.Group;
 
 import java.util.Arrays;
 import java.util.InputMismatchException;
@@ -117,6 +118,7 @@ public class CustomerMenu implements Menu {
 
     }
 
+    //수정 + 삭제
     private void updateCustomerData(int choice) {
         viewCustomerData();
         try {

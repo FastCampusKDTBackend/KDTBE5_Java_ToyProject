@@ -1,6 +1,9 @@
 import Customer.Customers;
 import Customer.Customer;
+import Group.Group;
+import Group.GroupType;
 import Group.Groups;
+import Group.Parameter;
 import Menu.MainMenu;
 
 public class SmartStoreApp {
@@ -32,6 +35,11 @@ public class SmartStoreApp {
     }
 
     public SmartStoreApp test() {
+
+        allGroups.add(new Group(new Parameter(10, 100000), GroupType.GENERAL));
+        allGroups.add(new Group(new Parameter(20, 200000), GroupType.VIP));
+        allGroups.add(new Group(new Parameter(30, 300000), GroupType.VVIP));
+
         for (int i = 0; i < 26; i++) {
             allCustomers.add(new Customer(
                     Character.toString((char) ('a' + i)),
@@ -44,7 +52,7 @@ public class SmartStoreApp {
 
     public void run() {
         details();
-        allGroups.init();
+        //allGroups.init();
         mainMenu.manage();
     }
 }

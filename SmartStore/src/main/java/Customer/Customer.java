@@ -1,5 +1,6 @@
 package Customer;
 
+import Group.Group;
 import Group.GroupType;
 
 import java.util.Objects;
@@ -9,7 +10,7 @@ public class Customer {
     private String ctmName;
     private Integer totalTime;
     private Integer totalPay;
-    private GroupType groupType;
+    private Group group;
 
     public Customer() {
 
@@ -27,12 +28,12 @@ public class Customer {
         this.totalPay = totalPay;
     }
 
-    public Customer(String ctmId, String ctmName, Integer totalTime, Integer totalPay, GroupType groupType) {
+    public Customer(String ctmId, String ctmName, Integer totalTime, Integer totalPay, Group group) {
         this.ctmId = ctmId;
         this.ctmName = ctmName;
         this.totalTime = totalTime;
         this.totalPay = totalPay;
-        this.groupType = groupType;
+        this.group = group;
     }
 
     public String getCtmId() {
@@ -67,12 +68,12 @@ public class Customer {
         this.totalPay = totalPay;
     }
 
-    public GroupType getGroupType() {
-        return groupType;
+    public Group getGroup() {
+        return group;
     }
 
-    public void setGroupType(GroupType groupType) {
-        this.groupType = groupType;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     @Override
@@ -95,7 +96,7 @@ public class Customer {
                 ", name='" + ctmName + '\'' +
                 ", spentTime=" + totalTime +
                 ", totalPay=" + totalPay +
-                ", group=" + groupType +
+                ", group=" + group +
                 '}';
     }
 }

@@ -26,11 +26,13 @@ public class SmartStoreApp {
     private SmartStoreApp() {}
 
     public void details() {
-        System.out.println("\n\n===========================================");
-        System.out.println(" Title : SmartStore Customer Classification");
-        System.out.println(" Release Date : 23.05.03");
-        System.out.println(" Copyright 2023 YongHyun All rights reserved.");
-        System.out.println("===========================================\n");
+        System.out.println("\n" +
+                "███████╗███╗   ███╗ █████╗ ██████╗ ████████╗    ███████╗████████╗ ██████╗ ██████╗ ███████╗\n" +
+                "██╔════╝████╗ ████║██╔══██╗██╔══██╗╚══██╔══╝    ██╔════╝╚══██╔══╝██╔═══██╗██╔══██╗██╔════╝\n" +
+                "███████╗██╔████╔██║███████║██████╔╝   ██║       ███████╗   ██║   ██║   ██║██████╔╝█████╗  \n" +
+                "╚════██║██║╚██╔╝██║██╔══██║██╔══██╗   ██║       ╚════██║   ██║   ██║   ██║██╔══██╗██╔══╝  \n" +
+                "███████║██║ ╚═╝ ██║██║  ██║██║  ██║   ██║       ███████║   ██║   ╚██████╔╝██║  ██║███████╗\n" +
+                "╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝       ╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝\n");
     }
 
     public SmartStoreApp test() {
@@ -48,7 +50,6 @@ public class SmartStoreApp {
                     null));
         }
 
-        // @TODO: refresh do not implemented yet.
         allCustomers.refresh(allGroups);
 
         System.out.println("allCustomers = " + allCustomers);

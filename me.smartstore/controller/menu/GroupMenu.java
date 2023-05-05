@@ -18,8 +18,10 @@ public class GroupMenu implements Menu {
     private static final int MENU_ITEMS_MAX_NUM;
     private static final int MENU_ITEMS_MIN_NUM;
 
-    private static GroupMenu parameterMenu;
     private static GroupService groupService;
+
+    private static GroupMenu parameterMenu;
+
 
     static {
         GROUP_MAIN_MENU_ITEMS = new String[]{"Set Parameter", "View Parameter", "Update Parameter", "Back"};
@@ -75,7 +77,7 @@ public class GroupMenu implements Menu {
             Output.printErrorMessage(exception.getMessage());
             Output.printGroup(groupService.selectGroupByGroupType(groupType));
         }
-        SummaryService.getInstance().refreshClassifiedCustomers();
+        callSummaryServiceRefresh();
     }
 
     private void viewAllGroup() {
@@ -95,7 +97,7 @@ public class GroupMenu implements Menu {
         } catch (ArrayEmptyException | GroupNotFoundException | InputEndException exception) {
             Output.printErrorMessage(exception.getMessage());
         }
-        SummaryService.getInstance().refreshClassifiedCustomers();
+        callSummaryServiceRefresh();
     }
 
     // 이것들도 먼가 컨트롤러에 장착시켜서 처리할 수 있을 거 같은 느낌
@@ -129,5 +131,9 @@ public class GroupMenu implements Menu {
                 Output.printErrorMessage(exception.getMessage());
             }
         }
+    }
+
+    private void callSummaryServiceRefresh(){
+        SummaryService.getInstance().refreshClassifiedCustomers();
     }
 }

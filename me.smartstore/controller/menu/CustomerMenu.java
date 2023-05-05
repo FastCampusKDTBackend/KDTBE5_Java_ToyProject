@@ -3,6 +3,7 @@ package controller.menu;
 import domain.customer.Customer;
 import exception.ArrayEmptyException;
 import exception.InputEndException;
+import exception.InputFormatException;
 import exception.InputRangeException;
 import service.CustomerService;
 import service.SummaryService;
@@ -18,8 +19,9 @@ public class CustomerMenu implements Menu {
     private static final int MENU_ITEMS_MAX_NUM;
     private static final int MENU_ITEMS_MIN_NUM;
 
-    private static CustomerMenu customerMenu;
     private static CustomerService customerService;
+
+    private static CustomerMenu customerMenu;
 
     static {
         CUSTOMER_MAIN_MENU_ITEMS = new String[]{"Add Customer Data", "View Customer Data",
@@ -31,7 +33,6 @@ public class CustomerMenu implements Menu {
         MENU_ITEMS_MAX_NUM = CUSTOMER_MAIN_MENU_ITEMS.length;
         MENU_ITEMS_MIN_NUM = 1;
         customerService = CustomerService.getInstance();
-
     }
 
     public static CustomerMenu getInstance() {
@@ -87,14 +88,14 @@ public class CustomerMenu implements Menu {
             setCustomer(customer);
             customerService.insertCustomer(customer);
         }
-        SummaryService.getInstance().refreshClassifiedCustomers();
+        callSummaryServiceRefresh();
     }
 
     /* Update Customer */
     private void updateCustomer(){
         viewCustomer();
         setCustomer(selectCustomer());
-        SummaryService.getInstance().refreshClassifiedCustomers();
+        callSummaryServiceRefresh();
     }
 
     /* View All Customers */
@@ -106,7 +107,7 @@ public class CustomerMenu implements Menu {
     private void deleteCustomer() {
         viewCustomer();
         customerService.deleteCustomerByNumber(Input.inputTargetCustomerNumber());
-        SummaryService.getInstance().refreshClassifiedCustomers();
+        callSummaryServiceRefresh();
     }
 
     /* CustomerMenu in SubMenu for SetCustomer */
@@ -131,9 +132,13 @@ public class CustomerMenu implements Menu {
                 int inputMenuNumber = Input.chooseMenuNumber(CUSTOMER_SET_MENU_ITEMS);
                 if (inputMenuNumber < 1 || inputMenuNumber > CUSTOMER_SET_MENU_ITEMS.length) throw new InputRangeException();
                 return inputMenuNumber;
-            } catch (InputRangeException exception){
+            } catch (InputRangeException | InputFormatException exception){
                 System.out.println(exception.getMessage());
             }
         }
+    }
+
+    private void callSummaryServiceRefresh(){
+        SummaryService.getInstance().refreshClassifiedCustomers();
     }
 }

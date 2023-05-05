@@ -30,23 +30,26 @@ public class SummaryService {
     private void initClassifiedCustomers() {
         List<Group> sortGroups = groupService.sortGroup();
         List<Customer> customerList = customers.toList();
+
         allCustomers = new ArrayList<>();
 
         for (int i = 0; i < sortGroups.size(); i++) {
             allCustomers.add(new ArrayList<>());
+            allCustomers.set(i, initClassifiedCustomersForGroup(customerList, sortGroups.get(i)));
+        }
+    }
+
+    private ArrayList<Customer> initClassifiedCustomersForGroup(List<Customer> customerList, Group group){
+        ArrayList<Customer> customerGroup = new ArrayList<>();
+
+        for (int i = customerList.size()-1; i >= 0; i--) {
+            if (customerList.get(i).getStoreUsageTime() >= group.getParameter().getMinTime()
+                    && customerList.get(i).getTotalPaymentAmount() >= group.getParameter().getMinPay()) {
+                customerGroup.add(customerList.remove(i));
+            }
         }
 
-        for (int i = 0; i < sortGroups.size(); i++) {
-            ArrayList<Customer> customerGroup = new ArrayList<>();
-            for (int j = customerList.size()-1; j >= 0; j--) {
-                if (customerList.get(j).getStoreUsageTime() >= sortGroups.get(i).getParameter().getMinTime()
-                        && customerList.get(j).getTotalPaymentAmount() >= sortGroups.get(i).getParameter().getMinPay()) {
-                    customerGroup.add(customerList.get(j));
-                    customerList.remove(j);
-                }
-            }
-            allCustomers.set(i, customerGroup);
-        }
+        return customerGroup;
     }
 
     public void refreshClassifiedCustomers(){

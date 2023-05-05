@@ -10,7 +10,10 @@ public class Customer {
     private Integer totalPaymentAmount; // smartStore total Payment Amount
 
     public Customer() {
-
+        name = String.valueOf(Objects.hash(Math.random()));
+        id = String.valueOf(Objects.hash(Math.random()));
+        storeUsageTime = 0;
+        totalPaymentAmount = 0;
     }
 
     public Customer(String name, String id, Integer storeUsageTime, Integer totalPaymentAmount) {

@@ -119,11 +119,10 @@ public class CustomerMenu implements Menu {
                 if (choiceMenuNumber == 2) customer.setId(Input.inputCustomerId());
                 if (choiceMenuNumber == 3) customer.setStoreUsageTime(Input.inputCustomerStoreUsageTime());
                 if (choiceMenuNumber == 4) customer.setTotalPaymentAmount(Input.inputCustomerTotalPaymentAmount());
-            } catch (InputEndException | InputRangeException | IndexOutOfBoundsException exception) {
+            } catch (InputEndException | InputRangeException | IndexOutOfBoundsException | ArrayEmptyException exception) {
                 System.out.println(exception.getMessage());
             }
         }
-        setCustomerEmptyValueToDefault(customer);
     }
 
     private int chooseSetCustomerMenu(){
@@ -136,12 +135,5 @@ public class CustomerMenu implements Menu {
                 System.out.println(exception.getMessage());
             }
         }
-    }
-
-    private void setCustomerEmptyValueToDefault(Customer customer){
-        if (Objects.isNull(customer.getId())) customer.setId(String.valueOf(Objects.hash(Math.random())));
-        if (Objects.isNull(customer.getName())) customer.setName(String.valueOf(Objects.hash(Math.random())));
-        if (Objects.isNull(customer.getStoreUsageTime())) customer.setStoreUsageTime(0);
-        if (Objects.isNull(customer.getTotalPaymentAmount())) customer.setTotalPaymentAmount(0);
     }
 }

@@ -11,7 +11,6 @@ public class SummaryService {
 
     private static SummaryService summaryService;
     private static final Customers customers = Customers.getInstance();
-    private static final Groups groups = Groups.getInstance();
     private static final GroupService groupService = GroupService.getInstance();
 
     private ArrayList<ArrayList<Customer>> allCustomers;
@@ -24,6 +23,10 @@ public class SummaryService {
     }
 
     private SummaryService() {
+        initClassifiedCustomers();
+    }
+
+    public void refreshClassifiedCustomers(){
         initClassifiedCustomers();
     }
 
@@ -50,10 +53,6 @@ public class SummaryService {
         }
 
         return customerGroup;
-    }
-
-    public void refreshClassifiedCustomers(){
-        initClassifiedCustomers();
     }
 
     public ArrayList<ArrayList<Customer>> summaryDefault(){

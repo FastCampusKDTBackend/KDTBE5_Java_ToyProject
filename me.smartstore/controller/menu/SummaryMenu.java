@@ -63,32 +63,39 @@ public class SummaryMenu implements Menu {
     public void service(int menuNum) {
         try{
             if (menuNum == 1) printSummaryDefault();
-            if (menuNum == 2) summaryService.summarySortedByName(Input.isSummarySortOrderDesc());
-            if (menuNum == 3) summaryService.summarySortedBySpentTime(Input.isSummarySortOrderDesc());
-            if (menuNum == 4) summaryService.summarySortedByTotalPayment(Input.isSummarySortOrderDesc());
-        } catch (InputEndException exception) {
+            if (menuNum == 2) printSummarySortedByName();
+            if (menuNum == 3) printSummarySortedBySpentTime();
+            if (menuNum == 4) printSummarySortedByTotalPayment();
+        } catch (InputEndException | ArrayEmptyException exception) {
             System.out.println(exception.getMessage());
         }
     }
 
-    private void printSummaryDefault() {
-        try {
-            ArrayList<ArrayList<Customer>> allCustomers = summaryService.summaryDefault();
-            printSummary(allCustomers);
-        } catch (ArrayEmptyException exception) {
+    private void printSummary(ArrayList<ArrayList<Customer>> allCustomers) {
+        try{
+            Output.customerClassifiedList(allCustomers, groupService.sortGroup());
+        }catch (ArrayEmptyException exception) {
             Output.printErrorMessage(exception.getMessage());
         }
     }
 
-    // 뭔가 잘못됨이 느껴지는 메서드 나중에 처리할 것
-    private void printSummary(ArrayList<ArrayList<Customer>> allCustomers) {
-        try {
-            List<Group> sortGroup = groupService.sortGroup();
-            Collections.reverse(allCustomers);
-            Collections.reverse(sortGroup);
-            Output.customerClassifiedList(allCustomers, sortGroup);
-        } catch (NullPointerException | IndexOutOfBoundsException exception) {
-            System.out.println("please Complete Groups setting");
-        }
+    private void printSummaryDefault() {
+        ArrayList<ArrayList<Customer>> allCustomers = summaryService.summaryDefault();
+        printSummary(allCustomers);
+    }
+
+    private void printSummarySortedByName(){
+        ArrayList<ArrayList<Customer>> allCustomers = summaryService.summarySortedByName(Input.isSummarySortOrderDesc());
+        printSummary(allCustomers);
+    }
+
+    private void printSummarySortedBySpentTime(){
+        ArrayList<ArrayList<Customer>> allCustomers = summaryService.summarySortedBySpentTime(Input.isSummarySortOrderDesc());
+        printSummary(allCustomers);
+    }
+
+    private void printSummarySortedByTotalPayment() {
+        ArrayList<ArrayList<Customer>> allCustomers = summaryService.summarySortedByTotalPayment(Input.isSummarySortOrderDesc());
+        printSummary(allCustomers);
     }
 }

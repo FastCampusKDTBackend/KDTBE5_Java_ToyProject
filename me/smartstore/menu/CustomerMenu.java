@@ -83,10 +83,21 @@ public class CustomerMenu implements Menu {
                 int customerTotalPay = Integer.parseInt(nextLine());
                 addCustomer.setCusTotalPay(customerTotalPay);
             }else {
-                allCustomers.add(addCustomer);
-                allCustomers.refresh(allGroups);
-                System.out.println(addCustomer);
-                break;
+                if(addCustomer.getCusId() == null || addCustomer.getCusName() == null ||
+                        addCustomer.getCusTotalTime() == null || addCustomer.getCusTotalPay() == null) {
+                    System.out.println(Message.ERR_MSG_INVALID_INPUT_NULL);
+                }else {
+                    allCustomers.add(addCustomer);
+                    allCustomers.refresh(allGroups);
+                    System.out.printf(
+                            "＿人人人人人人人人人人人人人人人人人人人人人人人人人人＿\n" +
+                            "＞　Success !!! %s  ＜\n" +
+                            "￣^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y￣\n" +
+                            "       .A__A    ✨\uD83C\uDF82✨    A__A\n" +
+                            "       ( •⩊•)  _______ (•⩊• )\n" +
+                            "       (>\uD83C\uDF70>)   |   |   (<\uD83D\uDD2A<)\n", addCustomer);
+                    break;
+                }
             }
         }
     }
@@ -104,7 +115,7 @@ public class CustomerMenu implements Menu {
             try {
                 viewCustomer();
                 System.out.printf("Which customer ( 1 ~ %d ) ? : ", allCustomers.size());
-                int updateIndex = Integer.parseInt(nextLine());
+                int updateIndex = Integer.parseInt(nextLine(Message.END_MSG));
                 Customer updateCustomer = allCustomers.get(updateIndex - 1);
                 while(true) {
                     int choice = chooseMenu(new String[]{
@@ -131,25 +142,51 @@ public class CustomerMenu implements Menu {
                         int customerTotalPay = Integer.parseInt(nextLine());
                         updateCustomer.setCusTotalPay(customerTotalPay);
                     }else {
-                        System.out.println(updateCustomer);
                         allCustomers.refresh(allGroups);
+                        System.out.printf(
+                                "SUCCESS UPDATE!!\n" +
+                                "%s\n" +
+                                "두다다다다다다다\n" +
+                                "　(∩`・ω・)\n" +
+                                "＿/_ミつ/￣￣￣/\n" +
+                                "　　＼/＿＿＿/\n", updateCustomer);
                         break;
                     }
                 }
-            }catch (InputEndException e) {
+            }catch (InputEndException e ) {
                 System.out.println(Message.ERR_MSG_INPUT_END);
                 break;
+            }catch (NumberFormatException e){
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
+            }catch (IndexOutOfBoundsException e) {
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
             }
-
         }
     }
 
     private void deleteCustomer() {
         while(true) {
-            viewCustomer();
-            System.out.printf("Which customer ( 1 ~ %d ) ? : ", allCustomers.size());
-            int updateIndex = Integer.parseInt(nextLine());
-            allCustomers.pop(updateIndex);
+            try {
+                viewCustomer();
+                System.out.printf("Which customer ( 1 ~ %d ) ? : ", allCustomers.size());
+                int updateIndex = Integer.parseInt(nextLine(Message.END_MSG));
+                allCustomers.pop(updateIndex - 1);
+                System.out.println(
+                        "SUCCESS DELETE!!\n" +
+                        "두다다다다다다다\n" +
+                        "두다다다다다다다\n" +
+                        "　(∩`・ω・)\n" +
+                        "＿/_ミつ/￣￣￣/\n" +
+                        "　　＼/＿＿＿/\n");
+            }catch (InputEndException e) {
+                System.out.println(Message.ERR_MSG_INPUT_END);
+                break;
+            }catch (NumberFormatException e) {
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
+            }catch (IndexOutOfBoundsException e) {
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+            }
+
         }
         
     }

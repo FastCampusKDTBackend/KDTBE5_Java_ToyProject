@@ -18,28 +18,23 @@ public class SetParameterMenu extends Menu {
                     " 3. " + "Back" + '\n' +
                     "==============================" + '\n' +
                     "Choose One: ";
-
     private static final String[] GROUP_PARAMETER_INPUT = {
             null,
             "\n" + "Input " + "Minimum Spent Hours" + ":\n" + END_INPUT,
             "\n" + "Input " + "Minimum Total Amount Paid" + ":\n" + END_INPUT
     };
 
-    // null means handle the next menus in this
-    private static final SetParameterMenu INSTANCE = new SetParameterMenu(
-            null,
-            null, // read minSpentHours
-            null, // read minTotalAmountPaid
-            null  // Back => GroupMenu
-    );
-    private SetParameterMenu(Menu... nextMenus) {
-        super(nextMenus);
+    private static class InstanceHolder {
+        private static final SetParameterMenu INSTANCE = new SetParameterMenu();
     }
-    public static SetParameterMenu getInstance() { return INSTANCE; }
+
+    private SetParameterMenu() { super(); }
+
+    public static SetParameterMenu getInstance() { return InstanceHolder.INSTANCE; }
 
     @Override
     public Menu printAndInputAndGetNextMenu() {
-        Menu backMenu = GroupMenu.getInstance();
+        setNextMenus();
         while (true) {
             print(GROUP_OUTPUT);
             try {
@@ -49,11 +44,21 @@ public class SetParameterMenu extends Menu {
                 inputGroupParameter(group);
             } catch (InputIsEndException e) {
                 print(e.getMessage());
-                return backMenu;
+                return getBackMenu();
             } catch (InvalidGroupNameException e) {
                 print(e.getMessage());
             }
         }
+    }
+
+    @Override
+    public void setNextMenus() {
+        setNextMenus(
+                null,
+                null,                    // read minSpentHours
+                null,                    // read minTotalAmountPaid
+                GroupMenu.getInstance()  // Back => GroupMenu
+        );
     }
 
     private void inputGroupParameter(Group group) {

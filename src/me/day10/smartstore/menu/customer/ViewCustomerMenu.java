@@ -6,14 +6,21 @@ import me.day10.smartstore.menu.topic.CustomerMenu;
 
 public class ViewCustomerMenu extends Menu {
 
-    private static final ViewCustomerMenu INSTANCE = new ViewCustomerMenu();
+    private static class InstanceHolder {
+        private static final ViewCustomerMenu INSTANCE = new ViewCustomerMenu();
+    }
     private ViewCustomerMenu() {}
-    public static ViewCustomerMenu getInstance() { return INSTANCE; }
+    public static ViewCustomerMenu getInstance() { return InstanceHolder.INSTANCE; }
 
     @Override
     public Menu printAndInputAndGetNextMenu() {
         print(CustomerRepository.getInstance());
+        setNextMenus();
+        return getBackMenu();
+    }
 
-        return CustomerMenu.getInstance();
+    @Override
+    protected void setNextMenus() {
+        setNextMenus(null, CustomerMenu.getInstance());
     }
 }

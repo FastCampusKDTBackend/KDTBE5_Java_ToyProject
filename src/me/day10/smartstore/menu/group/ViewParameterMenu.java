@@ -8,13 +8,15 @@ import me.day10.smartstore.menu.topic.GroupMenu;
 
 public class ViewParameterMenu extends Menu {
 
-    private static final ViewParameterMenu INSTANCE = new ViewParameterMenu();
+    private static class InstanceHolder {
+        private static final ViewParameterMenu INSTANCE = new ViewParameterMenu();
+    }
     private ViewParameterMenu() {}
-    public static ViewParameterMenu getInstance() { return INSTANCE; }
+    public static ViewParameterMenu getInstance() { return InstanceHolder.INSTANCE; }
 
     @Override
     public Menu printAndInputAndGetNextMenu() {
-        Menu backMenu = GroupMenu.getInstance();
+        setNextMenus();
         while (true) {
             print(GROUP_OUTPUT);
             try {
@@ -23,10 +25,15 @@ public class ViewParameterMenu extends Menu {
                 print(group);
             } catch (InputIsEndException e) {
                 print(e.getMessage());
-                return backMenu;
+                return getBackMenu();
             } catch (InvalidGroupNameException e) {
                 print(e.getMessage());
             }
         }
+    }
+
+    @Override
+    protected void setNextMenus() {
+        setNextMenus(null, GroupMenu.getInstance());
     }
 }

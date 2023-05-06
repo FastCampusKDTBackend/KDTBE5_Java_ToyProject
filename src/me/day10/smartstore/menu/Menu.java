@@ -15,18 +15,23 @@ public abstract class Menu {
                     "Which group (GENERAL (G), VIP (V), VVIP (VV))?\n"
                     + END_INPUT;
 
-    protected final Menu[] nextMenu;
+    protected Menu[] nextMenus;
+    protected Menu BACK_MENU;
 
-    protected Menu(Menu... nextMenus) {
-        int len = nextMenus.length;
-        nextMenu = new Menu[len];
-        System.arraycopy(nextMenus, 0, nextMenu, 0, len);
-    }
+    protected Menu() {}
 
     public abstract Menu printAndInputAndGetNextMenu();
 
-    protected final void setBackMenu(Menu backMenu) {
-        nextMenu[nextMenu.length - 1] = backMenu;
+    protected final Menu getBackMenu() { return BACK_MENU; }
+
+    protected abstract void setNextMenus();
+
+    protected final void setNextMenus(Menu... nextMenus) {
+        int len = nextMenus.length;
+        if (this.nextMenus == null)
+            this.nextMenus = new Menu[len];
+        System.arraycopy(nextMenus, 1, this.nextMenus, 1, len - 1);
+        BACK_MENU = this.nextMenus[len - 1];
     }
 
     protected void print(Object s) {
@@ -35,7 +40,7 @@ public abstract class Menu {
 
     protected int inputMenu() throws InputMismatchException, InvalidMenuException {
         int ret = reader.inputInteger();
-        if (ret <= 0 || ret >= nextMenu.length)
+        if (ret <= 0 || ret >= nextMenus.length)
             throw new InvalidMenuException("Invalid Menu Input." + " Please try again.\n");
         return ret;
     }

@@ -1,6 +1,5 @@
 package me.day10.smartstore.menu.topic;
 
-import me.day10.smartstore.menu.Menu;
 import me.day10.smartstore.menu.QuitMenu;
 
 public class StartMenu extends TopicIntroMenu {
@@ -15,18 +14,20 @@ public class StartMenu extends TopicIntroMenu {
                     "==============================" + '\n' +
                     "Choose One: ";
 
-    private static final StartMenu INSTANCE = new StartMenu(
-            OUTPUT,
-            null,
-            GroupMenu.getInstance(),                    // 1
-            CustomerMenu.getInstance(),                 // 2
-            ClassificationMenu.getInstance(),    // 3
-            QuitMenu.getInstance()                       // 4
-    );
+    private static final StartMenu INSTANCE = new StartMenu();
 
-    private StartMenu(String TOPIC_OUTPUT, Menu... nextMenus) {
-        super(TOPIC_OUTPUT, nextMenus);
-    }
+    private StartMenu() { super(OUTPUT); }
 
     public static StartMenu getInstance() { return INSTANCE; }
+
+    @Override
+    protected void setNextMenus() {
+        setNextMenus(
+            null,
+            GroupMenu.getInstance(),            // 1
+            CustomerMenu.getInstance(),         // 2
+            ClassificationMenu.getInstance(),   // 3
+            QuitMenu.getInstance()              // 4
+        );
+    }
 }

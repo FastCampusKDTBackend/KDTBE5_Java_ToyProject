@@ -12,4 +12,7 @@ public class UpdateParameterMenu extends Menu {
     public Menu printAndInputAndGetNextMenu() {
         return null;
     }
+
+    @Override
+    protected void setNextMenus() {}
 }

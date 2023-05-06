@@ -1,15 +1,16 @@
 package me.day10.smartstore.menu.topic;
 
-import me.day10.smartstore.menu.Menu;
-
 public class ClassificationMenu extends TopicIntroMenu {
 
     private static final String SUMMARY_MENU_OUTPUT = null;
-    private static final ClassificationMenu INSTANCE = new ClassificationMenu(SUMMARY_MENU_OUTPUT);
+    private static final ClassificationMenu INSTANCE = new ClassificationMenu();
 
-    private ClassificationMenu(String TOPIC_OUTPUT, Menu... nextMenus) {
-        super(TOPIC_OUTPUT, nextMenus);
-    }
+    private ClassificationMenu() { super(SUMMARY_MENU_OUTPUT); }
 
     public static ClassificationMenu getInstance() { return INSTANCE; }
+
+    @Override
+    protected void setNextMenus() {
+        setNextMenus();
+    }
 }

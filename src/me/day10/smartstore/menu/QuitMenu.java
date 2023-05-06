@@ -11,4 +11,7 @@ public class QuitMenu extends Menu {
         Printer.getInstance().print("\nProgram Finished.\n");
         return null;
     }
+
+    @Override
+    protected void setNextMenus() {}
 }

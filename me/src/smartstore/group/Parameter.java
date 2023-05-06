@@ -2,7 +2,12 @@ package smartstore.group;
 
 import java.util.Objects;
 
-public class Parameter {
+import smartstore.exception.InputEndException;
+import smartstore.menu.Menu;
+import smartstore.util.Message;
+
+//등급 나누는 기준.
+public class Parameter implements Menu { 
     private Integer minTime;
     private Integer minPay;
 
@@ -44,11 +49,88 @@ public class Parameter {
         return Objects.hash(minTime, minPay);
     }
 
-    @Override
+	@Override
     public String toString() {
         return "Parameter{" +
                 "minTime=" + minTime +
                 ", minPay=" + minPay +
                 '}';
+    }
+
+	@Override
+	public void manage() {
+		while ( true ) {
+            int choice = chooseMenu(new String[]{
+                    "Minimum Spent Time",
+                    "Minimum Total Pay",
+                    "Back"});
+
+            if (choice == 1) setParameterTime(choice);
+            else if (choice == 2) setParameterPay(choice);
+            else break; // choice == 3
+        }
+	}
+	
+	public void setParameterTime(int choiceMenu) {
+		this.setMinTime(chooseGroup(choiceMenu));
+		
+	}
+	
+	private void setParameterPay(int choiceMenu) {
+		this.setMinPay(chooseGroup(choiceMenu));
+		
+	}
+	
+	public int chooseGroup(int choiceMenu) {
+		int result = 0;
+        while ( true ) {
+            try {
+            	if (choiceMenu == 1) {
+            		System.out.print("Input Minimum Spent Time: ");
+            	} else if (choiceMenu == 2) {
+            		System.out.print("Input Minimum Total Pay: ");
+            	}
+                String choice = nextLine(Message.END_MSG);
+                if(isNumeric(choice)) {
+                	result = Integer.parseInt(choice);
+                }
+                break;
+            } catch (InputEndException e) {
+                System.out.println(Message.ERR_MSG_INPUT_END);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+            }
+        }
+        return result;
+    }
+	
+//	public int chooseGroupPay() {
+//		int result = 0;
+//        while ( true ) {
+//            try {
+//                System.out.print("Input Minimum Total Pay: ");
+//                String choice = nextLine(Message.END_MSG);
+//                if(isNumeric(choice)) {
+//                	result = Integer.parseInt(choice);
+//                }
+//                break;
+//            } catch (InputEndException e) {
+//                System.out.println(Message.ERR_MSG_INPUT_END);
+//                break;
+//            } catch (IllegalArgumentException e) {
+//                System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+//            }
+//        }
+//        return result;
+//    }
+	
+	public static boolean isNumeric(String arg) {
+    	for (int i = 0; i < arg.length(); i++) {
+    		if (!Character.isDigit(arg.charAt(i))) {
+    			return false;
+    		}
+    	}
+    	return true;
     }
 }

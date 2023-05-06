@@ -14,13 +14,13 @@ public interface Menu {
         return scanner.nextLine().toUpperCase();
     }
 
-    default String nextLine(String end) {
-        System.out.println("** Press 'end', if you want to exit! **");
+    default String nextLine(String end) { // END 입력받았을 때.
+        System.out.println("\n** Press 'end', if you want to exit! **");
         String str = scanner.nextLine().toUpperCase();
         if (str.equals(end)) throw new InputEndException();
         return str;
     }
-
+    
     default int chooseMenu(String[] menus) {
         while ( true ) { // 예외 복구 while
             try {
@@ -31,6 +31,7 @@ public interface Menu {
                 System.out.println("===============================");
                 System.out.print("Choose One: ");
                 int choice = Integer.parseInt(nextLine());
+                System.out.println();
                 if (choice >= 1 && choice <= menus.length) return choice;
                 throw new InputRangeException(); // choice 가 범위에 벗어남
 

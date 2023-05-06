@@ -1,5 +1,8 @@
 package smartstore.menu;
 
+import smartstore.group.Group;
+import smartstore.group.GroupType;
+
 public class CustomerMenu implements Menu {
     // singleton
     private static CustomerMenu customerMenu;
@@ -22,6 +25,28 @@ public class CustomerMenu implements Menu {
                     "Update Customer",
                     "Delete Customer",
                     "Back"});
+            
+            if (choice == 1) addCustomer();
+            else if (choice == 2) viewCustomer();
+            else if (choice == 3) updateCustomer();
+            else if (choice == 4) deleteCustomer();
+            else break; // choice == 4
         }
+    }
+    
+    public void addCustomer() {
+    	
+    }
+    
+    public void viewCustomer() {
+    	
+    }
+
+	public void updateCustomer() {
+	
+	}
+	
+	public void deleteCustomer() {
+    	
     }
 }

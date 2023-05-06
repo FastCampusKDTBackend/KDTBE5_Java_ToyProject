@@ -1,9 +1,7 @@
 package smartstore.arrays;
-
 public interface Collections<T> {
     // 데이터를 가지고 있는 객체가 아님
     // 구현 해야하는 메소드의 정보만 가지고 있음 (인터페이스)
-
     int size();
     T get(int index);
     void set(int index, T object);

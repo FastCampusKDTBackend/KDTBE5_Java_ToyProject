@@ -2,6 +2,7 @@ package smartstore.menu;
 
 import smartstore.customer.Customers;
 import smartstore.exception.InputEndException;
+import smartstore.exception.InputTypeException;
 import smartstore.group.Group;
 import smartstore.group.GroupType;
 import smartstore.group.Groups;
@@ -37,7 +38,6 @@ public class GroupMenu implements Menu {
             else if (choice == 3) {}// updateParameter();
             else break; // choice == 4
         }
-
     }
 
     public GroupType chooseGroup() {
@@ -47,7 +47,7 @@ public class GroupMenu implements Menu {
                 String choice = nextLine(Message.END_MSG);
                 // group (str) -> GroupType (enum)
                 // "VIP" -> GroupType.VIP
-
+                
                 GroupType groupType = GroupType.valueOf(choice).replaceFullName();
                 return groupType;
             } catch (InputEndException e) {
@@ -58,23 +58,31 @@ public class GroupMenu implements Menu {
             }
         }
     }
-
+    
     public void setParameter() { // 초기화할 때만 호출 가능
         while ( true ) {
-            GroupType groupType = chooseGroup();
-
+    		GroupType groupType = chooseGroup();
+    		if (groupType == null) break;
             // GroupType에 해당하는 group 객체를 찾아야 함
-            Group group = allGroups.find(groupType);
-            if (group != null && group.getParameter() != null) { // group.getParameter()이 null이 아니면 이미 초기화됨
+            Group group = allGroups.find(groupType); // 고객 등급 찾음.
+            
+            if (group == null) break;	
+        	if (group.getParameter() != null) { // group.getParameter()이 null이 아니면 이미 초기화됨
                 System.out.println("\n" + group.getGroupType() + " group already exists.");
-                System.out.println("\n" + group);
+                System.out.println("\nGroupType: " + group.getGroupType() + "\nParameter: " + group.getParameter());
             } else {
-                Parameter parameter = new Parameter();
+            	Parameter parameter = new Parameter();
                 // time, pay 사용자 입력받은 후, 설정 필요
-
+            	System.out.println();
+                parameter.manage();
+                
                 group.setParameter(parameter);
                 allCustomers.refresh(allGroups); // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
+                if (group.getParameter() != null) {
+                	System.out.println("\nGroupType: " + group.getGroupType() + "\nParameter: " + group.getParameter());
+                }
             }
         }
     }
+    
 }

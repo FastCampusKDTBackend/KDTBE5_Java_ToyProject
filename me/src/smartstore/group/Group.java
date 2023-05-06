@@ -6,7 +6,10 @@ public class Group {
     private Parameter parameter; // 분류기준
     private GroupType groupType; // 그룹 타입
 
-    public Group() {
+    public Group() {}
+    
+    public Group(GroupType groupType) {
+    	this.groupType = groupType;
     }
 
     public Group(Parameter parameter, GroupType groupType) {

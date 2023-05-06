@@ -10,17 +10,25 @@ public class Groups extends DArray<Group> {
         if (allGroups == null) {
             allGroups = new Groups();
         }
+        
+        // 최초 등급 생성
+        allGroups.add(new Group(GroupType.GENERAL));
+        allGroups.add(new Group(GroupType.VIP));
+        allGroups.add(new Group(GroupType.VVIP));
+        
         return allGroups;
     }
 
     private Groups() {}
-
+    
     public Group find(GroupType groupType) {
         for (int i = 0; i < this.size; i++) {
         	if (this.get(i).getGroupType() == groupType) { // enum의 비교는 equals가 아님
-                return this.get(i);
+        		return this.get(i);
             }
         }
         return null;
     }
+    
+    
 }

@@ -1,7 +1,5 @@
 package me.smartstore.domain.menu;
 
-import me.smartstore.utils.constant.Choice;
-
 import static me.smartstore.utils.constant.Choice.MAIN_MENU;
 import static me.smartstore.utils.constant.Message.END_PROGRAM;
 

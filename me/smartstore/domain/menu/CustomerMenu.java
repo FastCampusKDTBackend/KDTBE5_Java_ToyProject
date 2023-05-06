@@ -2,7 +2,6 @@ package me.smartstore.domain.menu;
 
 import me.smartstore.domain.customer.Customer;
 import me.smartstore.domain.customer.Customers;
-import me.smartstore.utils.constant.Choice;
 import me.smartstore.utils.exception.ArrayEmptyException;
 import me.smartstore.utils.exception.InputEndException;
 import me.smartstore.utils.exception.InputRangeException;
@@ -57,7 +56,6 @@ public class CustomerMenu implements Menu {
             try {
                 String inputData = nextLine(END_MSG.getMessage());
                 Integer number = convertInt(inputData);
-                // 최대 등록 인원 지정 조건이 없어서 100명으로 지정
                 if (number <= 0 || number > 100) {
                     throw new InputRangeException();
                 }

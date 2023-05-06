@@ -6,7 +6,7 @@ import me.smartstore.utils.exception.InputRangeException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import static me.smartstore.utils.constant.Message.*;
+import static me.smartstore.utils.constant.Message.ERR_MSG_INVALID_INPUT_FORMAT;
 
 public interface Menu {
     Scanner scanner = new Scanner(System.in);

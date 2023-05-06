@@ -3,11 +3,9 @@ package me.smartstore.domain.menu;
 import me.smartstore.domain.customer.Customer;
 import me.smartstore.domain.customer.Customers;
 import me.smartstore.domain.group.Group;
-import me.smartstore.domain.group.constant.GroupType;
 import me.smartstore.domain.group.Groups;
 import me.smartstore.domain.group.Parameter;
-import me.smartstore.utils.constant.Choice;
-import me.smartstore.utils.constant.Message;
+import me.smartstore.domain.group.constant.GroupType;
 import me.smartstore.utils.exception.InputEndException;
 import me.smartstore.utils.exception.InputRangeException;
 

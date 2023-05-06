@@ -2,10 +2,9 @@ package me.smartstore.domain.menu;
 
 import me.smartstore.domain.customer.Customers;
 import me.smartstore.domain.group.Group;
-import me.smartstore.domain.group.constant.GroupType;
 import me.smartstore.domain.group.Groups;
 import me.smartstore.domain.group.Parameter;
-import me.smartstore.utils.constant.Choice;
+import me.smartstore.domain.group.constant.GroupType;
 import me.smartstore.utils.exception.InputEndException;
 import me.smartstore.utils.exception.InputRangeException;
 
@@ -14,7 +13,6 @@ import java.util.InputMismatchException;
 import static me.smartstore.utils.constant.Choice.GROUP_MENU;
 import static me.smartstore.utils.constant.Choice.GROUP_MENU_SET_PARAMS;
 import static me.smartstore.utils.constant.Message.*;
-import static me.smartstore.utils.constant.Message.END_MSG;
 
 public class GroupMenu implements Menu {
     private static GroupMenu groupMenu;

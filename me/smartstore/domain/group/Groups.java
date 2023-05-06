@@ -9,7 +9,7 @@ public class Groups extends MyArray<Group> {
     public static Groups getInstance() {
         if (allGroups == null) {
             allGroups = new Groups();
-            allGroups.add(new Group(new Parameter(), GroupType.NONE)); // NONE은 초기에 생성
+            allGroups.add(new Group(new Parameter(), GroupType.NONE));
         }
         return allGroups;
     }

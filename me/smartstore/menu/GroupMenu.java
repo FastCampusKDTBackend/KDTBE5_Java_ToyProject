@@ -45,9 +45,9 @@ public class GroupMenu implements Menu {
         while ( true ) {
             try {
                 GroupType groupType = chooseGroup();
-//                if(groupType == null) {
-//                    break;
-//                }
+                if(groupType == null) {
+                    break;
+                }
                 // GroupType에 해당하는 group 객체를 찾아야 함
                 Group group = allGroups.find(groupType);
                 if (group != null && group.getParameter() != null) { // group.getParameter()이 null이 아니면 이미 초기화됨
@@ -58,12 +58,16 @@ public class GroupMenu implements Menu {
                     // time, pay 사용자 입력받은 후, 설정 필요
                     inputParameter(parameter);
 
-                    Group addGroup = new Group();
-                    addGroup.setParameter(parameter);
-                    addGroup.setGroupType(groupType);
-                    allGroups.add(addGroup);
-                    allCustomers.refresh(allGroups); // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
-                    break;
+                    if(parameter.getMinPay() == null || parameter.getMinTime() == null) {
+                        System.out.println(Message.ERR_MSG_INVALID_INPUT_NULL);
+                    }else {
+                        Group addGroup = new Group();
+                        addGroup.setParameter(parameter);
+                        addGroup.setGroupType(groupType);
+                        allGroups.add(addGroup);
+                        allCustomers.refresh(allGroups); // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
+                        break;
+                    }
                 }
             }catch (NullArgumentException e) {
                 System.out.println(Message.ERR_MSG_INVALID_INPUT_NULL);
@@ -125,7 +129,8 @@ public class GroupMenu implements Menu {
                 System.out.println(group);
                 System.out.println("──────────────────────────────────────────");
             } else {
-                System.out.println(Message.ERR_MSG_INVALID_INPUT_NULL);
+                System.out.printf("Please Set Parameter first %s\n", groupType);
+//                System.out.println(Message.ERR_MSG_INVALID_INPUT_EMPTY);
                 System.out.println();
             }
         }

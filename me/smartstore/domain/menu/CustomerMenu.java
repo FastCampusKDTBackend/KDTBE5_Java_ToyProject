@@ -137,48 +137,64 @@ public class CustomerMenu implements Menu {
 
             try {
                 if (choice == 1) {
-                    System.out.println("\nInput Customer's Name:");
-                    customer.setCustomerName(nextLine(END_MSG.getMessage()));
+                    setCustomerName(customer);
                 } else if (choice == 2) {
-                    System.out.println("\nInput Customer's ID:");
-                    customer.setCustomerId(nextLine(END_MSG.getMessage()));
+                    setCustomerId(customer);
                 } else if (choice == 3) {
-                    while (true) {
-                        try {
-                            System.out.println("\nInput Customer's Spent Time:");
-                            Integer usageTime = convertInt(nextLine(END_MSG.getMessage()));
-                            if (usageTime < 0) {
-                                throw new InputRangeException();
-                            }
-                            customer.setSpentTime(usageTime);
-                            break;
-                        } catch (InputMismatchException e) {
-                            System.out.println(ERR_MSG_INVALID_INPUT_TYPE.getMessage());
-                        } catch (InputRangeException e) {
-                            System.out.println(ERR_MSG_INVALID_INPUT_RANGE.getMessage());
-                        }
-                    }
+                    setCustomerSpentTime(customer);
                 } else if (choice == 4) {
-                    while (true) {
-                        try {
-                            System.out.println("\nInput Customer's Total Payment:");
-                            Integer purchaseAmount = convertInt(nextLine(END_MSG.getMessage()));
-                            if (purchaseAmount < 0) {
-                                throw new InputRangeException();
-                            }
-                            customer.setTotalPay(purchaseAmount);
-                            break;
-                        } catch (InputMismatchException e) {
-                            System.out.println(ERR_MSG_INVALID_INPUT_TYPE.getMessage());
-                        } catch (InputRangeException e) {
-                            System.out.println(ERR_MSG_INVALID_INPUT_RANGE.getMessage());
-                        }
-                    }
+                    setCustomerTotalPayment(customer);
                 } else {
                     isNotSaved = false;
                 }
             } catch (InputEndException e) {
                 System.out.println(ERR_MSG_INPUT_END.getMessage());
+            }
+        }
+    }
+
+    private void setCustomerName(Customer customer) throws InputEndException {
+        System.out.println("\nInput Customer's Name:");
+        customer.setCustomerName(nextLine(END_MSG.getMessage()));
+    }
+
+    private void setCustomerId(Customer customer) throws InputEndException {
+        System.out.println("\nInput Customer's ID:");
+        customer.setCustomerId(nextLine(END_MSG.getMessage()));
+    }
+
+    private void setCustomerSpentTime(Customer customer) throws InputEndException {
+        while (true) {
+            try {
+                System.out.println("\nInput Customer's Spent Time:");
+                Integer usageTime = convertInt(nextLine(END_MSG.getMessage()));
+                if (usageTime < 0) {
+                    throw new InputRangeException();
+                }
+                customer.setSpentTime(usageTime);
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println(ERR_MSG_INVALID_INPUT_TYPE.getMessage());
+            } catch (InputRangeException e) {
+                System.out.println(ERR_MSG_INVALID_INPUT_RANGE.getMessage());
+            }
+        }
+    }
+
+    private void setCustomerTotalPayment(Customer customer) throws InputEndException {
+        while (true) {
+            try {
+                System.out.println("\nInput Customer's Total Payment:");
+                Integer purchaseAmount = convertInt(nextLine(END_MSG.getMessage()));
+                if (purchaseAmount < 0) {
+                    throw new InputRangeException();
+                }
+                customer.setTotalPay(purchaseAmount);
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println(ERR_MSG_INVALID_INPUT_TYPE.getMessage());
+            } catch (InputRangeException e) {
+                System.out.println(ERR_MSG_INVALID_INPUT_RANGE.getMessage());
             }
         }
     }

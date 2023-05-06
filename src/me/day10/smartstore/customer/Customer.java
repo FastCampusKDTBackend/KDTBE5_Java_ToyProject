@@ -52,6 +52,10 @@ public class Customer {
         this.spentHours = spentHours;
     }
 
+    public void setTotalAmountPaid(Integer totalAmountPaid) {
+        this.totalAmountPaid = totalAmountPaid;
+    }
+
     public static void checkIfIdIsValid(String id) throws InvalidCustomerIdException {
         if (!isValidId(id))
             throw new InvalidCustomerIdException("Invalid ID input.\n");

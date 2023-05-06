@@ -53,6 +53,10 @@ public class CustomerRepository {
         tempCustomer.setSpentHours(spentHours);
     }
 
+    public void setTempTotalAmountPaid(Integer totalAmountPaid) {
+        tempCustomer.setTotalAmountPaid(totalAmountPaid);
+    }
+
     @Override
     public String toString() {
         if (customerList.isEmpty()) return "No Customers. Please input one first.\n";

@@ -1,6 +1,8 @@
 package me.day10.smartstore.menu.customer;
 
+import me.day10.smartstore.customer.CustomerRepository;
 import me.day10.smartstore.menu.Menu;
+import me.day10.smartstore.menu.topic.CustomerMenu;
 
 public class ViewCustomerMenu extends Menu {
 
@@ -10,6 +12,8 @@ public class ViewCustomerMenu extends Menu {
 
     @Override
     public Menu printAndInputAndGetNextMenu() {
-        return null;
+        print(CustomerRepository.getInstance());
+
+        return CustomerMenu.getInstance();
     }
 }

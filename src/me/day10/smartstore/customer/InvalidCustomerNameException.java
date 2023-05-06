@@ -1,7 +1,5 @@
 package me.day10.smartstore.customer;
 
-import me.day10.smartstore.AppException;
-
-public class InvalidCustomerNameException extends AppException {
+public class InvalidCustomerNameException extends IllegalArgumentException {
     public InvalidCustomerNameException(String msg) { super(msg); }
 }

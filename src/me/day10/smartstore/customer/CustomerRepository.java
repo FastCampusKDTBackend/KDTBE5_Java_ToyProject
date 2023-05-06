@@ -39,7 +39,9 @@ public class CustomerRepository {
         return -1;
     }
 
-    public void setTempId(String id) throws InvalidCustomerIdException {
+    public void setTempId(String id) throws InvalidCustomerIdException, DuplicateCustomerIdException {
+        Customer.checkIfIdIsValid(id);
+        checkIfHasNoDuplicate(id);
         tempCustomer.setId(id);
     }
 

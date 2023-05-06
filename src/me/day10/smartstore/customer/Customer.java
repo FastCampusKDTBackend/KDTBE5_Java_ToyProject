@@ -40,7 +40,6 @@ public class Customer {
     public String getId() { return id; }
 
     public void setId(String id) throws InvalidCustomerIdException {
-        checkIfIdIsValid(id);
         this.id = id;
     }
 

@@ -43,6 +43,10 @@ public class CustomerRepository {
         tempCustomer.setId(id);
     }
 
+    public void setTempName(String name) throws InvalidCustomerNameException {
+        tempCustomer.setName(name);
+    }
+
     @Override
     public String toString() {
         if (customerList.isEmpty()) return "No Customers. Please input one first.\n";

@@ -5,13 +5,13 @@ import me.smartstore.domain.group.Group;
 import me.smartstore.domain.group.constant.GroupType;
 import me.smartstore.domain.group.Groups;
 import me.smartstore.domain.group.Parameter;
-import me.smartstore.exception.InputEndException;
-import me.smartstore.exception.InputRangeException;
+import me.smartstore.utils.exception.InputEndException;
+import me.smartstore.utils.exception.InputRangeException;
 
 import java.util.InputMismatchException;
 
-import static me.smartstore.exception.constant.Message.*;
-import static me.smartstore.exception.constant.Message.END_MSG;
+import static me.smartstore.utils.constant.Message.*;
+import static me.smartstore.utils.constant.Message.END_MSG;
 
 public class GroupMenu implements Menu {
     private static GroupMenu groupMenu;

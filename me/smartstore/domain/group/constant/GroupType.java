@@ -1,7 +1,7 @@
 package me.smartstore.domain.group.constant;
 
 import me.smartstore.domain.group.Group;
-import me.smartstore.exception.InputRangeException;
+import me.smartstore.utils.exception.InputRangeException;
 
 public enum GroupType {
     NONE, GENERAL, VIP, VVIP,

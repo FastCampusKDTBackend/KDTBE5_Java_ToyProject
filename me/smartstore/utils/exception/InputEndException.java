@@ -1,6 +1,6 @@
-package me.smartstore.exception;
+package me.smartstore.utils.exception;
 
-import static me.smartstore.exception.constant.Message.ERR_MSG_INPUT_END;
+import static me.smartstore.utils.constant.Message.ERR_MSG_INPUT_END;
 
 public class InputEndException extends RuntimeException {
     public InputEndException() {

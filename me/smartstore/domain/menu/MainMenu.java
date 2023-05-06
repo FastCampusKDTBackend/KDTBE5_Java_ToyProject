@@ -1,6 +1,6 @@
 package me.smartstore.domain.menu;
 
-import static me.smartstore.exception.constant.Message.END_PROGRAM;
+import static me.smartstore.utils.constant.Message.END_PROGRAM;
 
 public class MainMenu implements Menu {
     private final CustomerMenu customerMenu;

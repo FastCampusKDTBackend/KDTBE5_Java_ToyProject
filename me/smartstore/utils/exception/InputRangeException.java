@@ -1,6 +1,6 @@
-package me.smartstore.exception;
+package me.smartstore.utils.exception;
 
-import static me.smartstore.exception.constant.Message.ERR_MSG_INVALID_INPUT_RANGE;
+import static me.smartstore.utils.constant.Message.ERR_MSG_INVALID_INPUT_RANGE;
 
 public class InputRangeException extends RuntimeException {
     public InputRangeException() {

@@ -1,12 +1,12 @@
 package me.smartstore.domain.menu;
 
-import me.smartstore.exception.InputEndException;
-import me.smartstore.exception.InputRangeException;
+import me.smartstore.utils.exception.InputEndException;
+import me.smartstore.utils.exception.InputRangeException;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import static me.smartstore.exception.constant.Message.*;
+import static me.smartstore.utils.constant.Message.*;
 
 public interface Menu {
     Scanner scanner = new Scanner(System.in);

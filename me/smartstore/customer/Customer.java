@@ -1,6 +1,8 @@
 package me.smartstore.customer;
 
 import me.smartstore.group.Group;
+import me.smartstore.group.GroupType;
+import me.smartstore.group.Parameter;
 
 public class Customer {
     private String cusName;
@@ -10,6 +12,7 @@ public class Customer {
     private Group group;
 
     public Customer() {
+        this.group = new Group(new Parameter(0, 0), GroupType.NONE);
     }
 
     public Customer(String cusId) {

@@ -2,12 +2,15 @@ package me.smartstore.domain.menu;
 
 import me.smartstore.domain.customer.Customer;
 import me.smartstore.domain.customer.Customers;
+import me.smartstore.utils.constant.Choice;
 import me.smartstore.utils.exception.ArrayEmptyException;
 import me.smartstore.utils.exception.InputEndException;
 import me.smartstore.utils.exception.InputRangeException;
 
 import java.util.InputMismatchException;
 
+import static me.smartstore.utils.constant.Choice.CUSTOMER_MENU;
+import static me.smartstore.utils.constant.Choice.CUSTOMER_MENU_SET;
 import static me.smartstore.utils.constant.Message.*;
 
 public class CustomerMenu implements Menu {
@@ -28,13 +31,7 @@ public class CustomerMenu implements Menu {
     @Override
     public void manage() {
         while (true) {
-            int choice = chooseMenu(new String[]{
-                "Add Customer Data",
-                "View Customer Data",
-                "Update Customer Data",
-                "Delete Customer Data",
-                "Back"
-            });
+            int choice = chooseMenu(CUSTOMER_MENU.getChoices());
 
             try {
                 if (choice == 1) {
@@ -138,13 +135,7 @@ public class CustomerMenu implements Menu {
     private void setCustomerInfo(Customer customer) {
         boolean isNotSaved = true;
         while (isNotSaved) {
-            int choice = chooseMenu(new String[] {
-                    "Customer Name",
-                    "Customer ID",
-                    "Customer Spent Time",
-                    "Customer Total Pay",
-                    "Save"
-            });
+            int choice = chooseMenu(CUSTOMER_MENU_SET.getChoices());
 
             try {
                 if (choice == 1) {

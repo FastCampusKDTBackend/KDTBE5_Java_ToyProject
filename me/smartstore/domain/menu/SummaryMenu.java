@@ -6,13 +6,21 @@ import me.smartstore.domain.group.Group;
 import me.smartstore.domain.group.constant.GroupType;
 import me.smartstore.domain.group.Groups;
 import me.smartstore.domain.group.Parameter;
+import me.smartstore.utils.constant.Choice;
+import me.smartstore.utils.constant.Message;
 import me.smartstore.utils.exception.InputEndException;
 import me.smartstore.utils.exception.InputRangeException;
 
 import java.util.Comparator;
 
+import static me.smartstore.domain.group.constant.GroupType.*;
+import static me.smartstore.utils.constant.Choice.SUMMARY_MENU;
+import static me.smartstore.utils.constant.Message.END_MSG;
+
 public class SummaryMenu implements Menu {
     private static final int END_PRESS = 10000;
+    private static final int ASCENDING = 1;
+    private static final int DESCENDING = -1;
     private static SummaryMenu summaryMenu;
     private final Customers allCustomers;
     private final Groups allGroups;
@@ -32,13 +40,7 @@ public class SummaryMenu implements Menu {
     @Override
     public void manage() {
         while (true) {
-            int choice = chooseMenu(new String[]{
-                    "Summary",
-                    "Summary (Sorted By Name)",
-                    "Summary (Sorted By Spent Time)",
-                    "Summary (Sorted By Total Payment)",
-                    "Back"
-            });
+            int choice = chooseMenu(SUMMARY_MENU.getChoices());
 
             if (choice == 1) {
                 getSummary(allCustomers.getCustomers());
@@ -55,10 +57,10 @@ public class SummaryMenu implements Menu {
     }
 
     private void getSummary(Customer[] customers) {
-        printSummary(customers, GroupType.NONE);
-        printSummary(customers, GroupType.GENERAL);
-        printSummary(customers, GroupType.VIP);
-        printSummary(customers, GroupType.VVIP);
+        GroupType[] types = {NONE, GENERAL, VIP, VVIP};
+        for (GroupType type : types) {
+            printSummary(customers, type);
+        }
     }
 
     private void getSummarySortedByName() {
@@ -98,16 +100,16 @@ public class SummaryMenu implements Menu {
         while (true) {
             try {
                 System.out.println("Which order (ASCENDING (A), DESCENDING (D))?");
-                String value = nextLine("END");
+                String value = nextLine(END_MSG.getMessage());
 
                 if (!value.equals("A") && !value.equals("D")) {
                     throw new InputRangeException();
                 }
 
                 if (value.equals("A")) {
-                    return 1; // 오름차순
+                    return ASCENDING;
                 }
-                return -1; // 내림차순
+                return DESCENDING;
             } catch (InputEndException e) {
                 System.out.println(e.getMessage());
                 break;
@@ -115,6 +117,7 @@ public class SummaryMenu implements Menu {
                 System.out.println(e.getMessage());
             }
         }
+
         return END_PRESS;
     }
 

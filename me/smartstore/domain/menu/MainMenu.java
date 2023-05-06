@@ -1,5 +1,8 @@
 package me.smartstore.domain.menu;
 
+import me.smartstore.utils.constant.Choice;
+
+import static me.smartstore.utils.constant.Choice.MAIN_MENU;
 import static me.smartstore.utils.constant.Message.END_PROGRAM;
 
 public class MainMenu implements Menu {
@@ -23,12 +26,8 @@ public class MainMenu implements Menu {
 
     @Override
     public void manage() {
-        while ( true ) { // 프로그램 실행 while
-            int choice = mainMenu.chooseMenu(new String[] {
-                    "Parameter",
-                    "Customer",
-                    "Classification Summary",
-                    "Quit"});
+        while (true) {
+            int choice = mainMenu.chooseMenu(MAIN_MENU.getChoices());
 
             if (choice == 1) {
                 groupMenu.manage();

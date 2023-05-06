@@ -5,11 +5,14 @@ import me.smartstore.domain.group.Group;
 import me.smartstore.domain.group.constant.GroupType;
 import me.smartstore.domain.group.Groups;
 import me.smartstore.domain.group.Parameter;
+import me.smartstore.utils.constant.Choice;
 import me.smartstore.utils.exception.InputEndException;
 import me.smartstore.utils.exception.InputRangeException;
 
 import java.util.InputMismatchException;
 
+import static me.smartstore.utils.constant.Choice.GROUP_MENU;
+import static me.smartstore.utils.constant.Choice.GROUP_MENU_SET_PARAMS;
 import static me.smartstore.utils.constant.Message.*;
 import static me.smartstore.utils.constant.Message.END_MSG;
 
@@ -33,12 +36,7 @@ public class GroupMenu implements Menu {
     @Override
     public void manage() {
         while (true) {
-            int choice = chooseMenu(new String[]{
-                    "Set Parameter",
-                    "View Parameter",
-                    "Update Parameter",
-                    "Back"
-            });
+            int choice = chooseMenu(GROUP_MENU.getChoices());
 
             if (choice == 1) {
                 createParameter();
@@ -137,11 +135,7 @@ public class GroupMenu implements Menu {
 
     private void setParameter(Parameter parameter) {
         while (true) {
-            int choice = chooseMenu(new String[] {
-                    "Minimum Spent Time",
-                    "Minimum Total Pay",
-                    "Back"
-            });
+            int choice = chooseMenu(GROUP_MENU_SET_PARAMS.getChoices());
 
             if (choice == 1) {
                 while (true) {

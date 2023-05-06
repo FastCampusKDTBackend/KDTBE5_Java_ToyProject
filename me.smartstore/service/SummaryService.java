@@ -3,7 +3,6 @@ package service;
 import domain.customer.Customer;
 import domain.customer.Customers;
 import domain.group.Group;
-import domain.group.Groups;
 
 import java.util.*;
 
@@ -46,8 +45,8 @@ public class SummaryService {
         ArrayList<Customer> customerGroup = new ArrayList<>();
 
         for (int i = customerList.size()-1; i >= 0; i--) {
-            if (customerList.get(i).getStoreUsageTime() >= group.getParameter().getMinTime()
-                    && customerList.get(i).getTotalPaymentAmount() >= group.getParameter().getMinPay()) {
+            if (customerList.get(i).getStoreUsageTime() >= group.getMinTime()
+                    && customerList.get(i).getTotalPaymentAmount() >= group.getMinPay()) {
                 customerGroup.add(customerList.remove(i));
             }
         }

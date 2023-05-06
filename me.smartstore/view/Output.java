@@ -17,7 +17,7 @@ public class Output {
 
     public static void printGroup(Group group) {
         System.out.printf("%-7s Group Info : [ Time = %2d | Pay = %6d ]\n",
-                group.getGroupType(), group.getParameter().getMinTime(), group.getParameter().getMinPay());
+                group.getGroupType(), group.getMinTime(), group.getMinPay());
     }
 
     public static void printGroups(Groups groups) {
@@ -41,7 +41,7 @@ public class Output {
 
     public static void customerClassifiedList(ArrayList<Customer> customers, Group group){
         System.out.println("\n==============================");
-        System.out.printf("Group : %s ( Time : %d, Pay : %d )\n", group.getGroupType(), group.getParameter().getMinTime(), group.getParameter().getMinPay());
+        System.out.printf("Group : %s ( Time : %d, Pay : %d )\n", group.getGroupType(), group.getMinTime(), group.getMinPay());
         System.out.println("==============================");
 
         if (customers.isEmpty()) {

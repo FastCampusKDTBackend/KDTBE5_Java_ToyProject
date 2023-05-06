@@ -3,23 +3,41 @@ package domain.group;
 import java.util.Objects;
 
 public class Group {
-    private Parameter parameter; // 분류기준
+
     private GroupType groupType; // 그룹 타입
+    private Integer minTime;
+    private Integer minPay;
 
     public Group() {
+        minTime = 0;
+        minPay = 0;
     }
 
-    public Group(Parameter parameter, GroupType groupType) {
-        this.parameter = parameter;
+    public Group(GroupType groupType) {
+        this();
         this.groupType = groupType;
     }
 
-    public Parameter getParameter() {
-        return parameter;
+    public Group(Integer minTime, Integer minPay, GroupType groupType) {
+        this.minTime = minTime;
+        this.minPay = minPay;
+        this.groupType = groupType;
     }
 
-    public void setParameter(Parameter parameter) {
-        this.parameter = parameter;
+    public Integer getMinTime() {
+        return minTime;
+    }
+
+    public void setMinTime(Integer minTime) {
+        this.minTime = minTime;
+    }
+
+    public Integer getMinPay() {
+        return minPay;
+    }
+
+    public void setMinPay(Integer minPay) {
+        this.minPay = minPay;
     }
 
     public GroupType getGroupType() {
@@ -35,18 +53,18 @@ public class Group {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Group group = (Group) o;
-        return Objects.equals(parameter, group.parameter) && groupType == group.groupType;
+        return groupType == group.groupType && Objects.equals(minTime, group.minTime) && Objects.equals(minPay, group.minPay);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(parameter, groupType);
+        return Objects.hash(groupType, minTime, minPay);
     }
 
     @Override
     public String toString() {
         return groupType + " Group Info [" +
-                "minTime = " + parameter.getMinTime() +
-                ", minPay = " + parameter.getMinPay() + "]";
+                "minTime = " + minTime +
+                ", minPay = " + minPay + "]";
     }
 }

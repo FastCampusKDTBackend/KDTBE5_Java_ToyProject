@@ -2,7 +2,6 @@ package controller.menu;
 
 import domain.group.Group;
 import domain.group.GroupType;
-import domain.group.Parameter;
 import exception.*;
 import service.GroupService;
 import service.SummaryService;
@@ -69,8 +68,8 @@ public class GroupMenu implements Menu {
         GroupType groupType = Input.chooseGroupType();
         try {
             groupService.checkInvalidGroup(groupType);
-            Group group = new Group(new Parameter(), groupType);
-            setParameter(group.getParameter());
+            Group group = new Group(groupType);
+            setParameter(group);
             groupService.insertGroup(group);
 
         } catch (GroupSetAlreadyException exception){
@@ -93,7 +92,7 @@ public class GroupMenu implements Menu {
             GroupType groupType = Input.chooseGroupType();
             Group group = groupService.selectGroupByGroupType(groupType);
             Output.printGroup(group);
-            setParameter(group.getParameter());
+            setParameter(group);
         } catch (ArrayEmptyException | GroupNotFoundException | InputEndException exception) {
             Output.printErrorMessage(exception.getMessage());
         }
@@ -101,24 +100,18 @@ public class GroupMenu implements Menu {
     }
 
     // 이것들도 먼가 컨트롤러에 장착시켜서 처리할 수 있을 거 같은 느낌
-    void setParameter(Parameter parameter){
+    void setParameter(Group group){
         while (true) {
             try {
                 int choiceMenuNumber = chooseSetParameterMenu();
                 if (choiceMenuNumber == 3) break;
-                if (choiceMenuNumber == 1) parameter.setMinTime(Input.inputMinSpentTime());
-                if (choiceMenuNumber == 2) parameter.setMinPay(Input.inputMinTotalPayment());
+                if (choiceMenuNumber == 1) group.setMinTime(Input.inputMinSpentTime());
+                if (choiceMenuNumber == 2) group.setMinPay(Input.inputMinTotalPayment());
             } catch (InputEndException exception) {
                 Output.printErrorMessage(exception.getMessage());
                 break;
             }
         }
-        setParameterEmptyValueToDefault(parameter);
-    }
-
-    private void setParameterEmptyValueToDefault(Parameter parameter){
-        if (Objects.isNull(parameter.getMinTime())) parameter.setMinTime(0);
-        if (Objects.isNull(parameter.getMinPay())) parameter.setMinPay(0);
     }
 
     private int chooseSetParameterMenu(){

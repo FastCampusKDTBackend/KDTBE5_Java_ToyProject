@@ -70,7 +70,7 @@ public class SetParameterMenu extends Menu {
                 if (menu <= 2) {
                     assert menu != 0;
                     print(GROUP_PARAMETER_INPUT[menu]);
-                    groupParameterArguments[menu] = inputIntegerOrEnd();
+                    groupParameterArguments[menu] = inputZeroOrPositiveIntegerOrEnd();
                 } else {
                     group.setGroupParameter(groupParameterArguments);
                     break;
@@ -81,20 +81,6 @@ public class SetParameterMenu extends Menu {
             } catch (InvalidMenuException | InputMismatchException e) {
                 print(e.getMessage());
             }
-        }
-    }
-
-    private Integer inputIntegerOrEnd() throws InputIsEndException {
-        String s = reader.inputString().toUpperCase();
-        checkIfInputIsEnd(s);
-
-        try {
-            int i = Integer.parseInt(s);
-            if (i < 0)
-                throw new InputMismatchException("Invalid Input. Please try again.\n");
-            return i;
-        } catch (NumberFormatException e) {
-            throw new InputMismatchException("Invalid Format for Input. Please try again.\n");
         }
     }
 }

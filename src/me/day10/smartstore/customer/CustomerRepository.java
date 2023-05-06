@@ -49,6 +49,10 @@ public class CustomerRepository {
         tempCustomer.setName(name);
     }
 
+    public void setTempSpentHours(Integer spentHours) {
+        tempCustomer.setSpentHours(spentHours);
+    }
+
     @Override
     public String toString() {
         if (customerList.isEmpty()) return "No Customers. Please input one first.\n";

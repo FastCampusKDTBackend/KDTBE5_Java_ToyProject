@@ -1,25 +1,28 @@
 package me.day10.smartstore.menu.customer;
 
-import me.day10.smartstore.menu.Menu;
-import me.day10.smartstore.menu.topic.AddCustomerMenu;
+import me.day10.smartstore.customer.CustomerRepository;
+import me.day10.smartstore.menu.exception.InputIsEndException;
 
-public class InputCustomerSpentHoursMenu extends Menu {
+import java.util.InputMismatchException;
+
+public class InputCustomerSpentHoursMenu extends InputCustomerPropertyMenu {
 
     private static final String SPENT_HOURS_INPUT =
-                    "Input " + "Customer" + "'s " + "Spent Hours" + ":\n" +
-                    END_INPUT;
+                    "Input " + "Customer" + "'s " + "Spent Hours" + ':';
 
     private static class InstanceHolder {
         private static final InputCustomerSpentHoursMenu INSTANCE = new InputCustomerSpentHoursMenu();
     }
-    private InputCustomerSpentHoursMenu() { super(); }
+    private InputCustomerSpentHoursMenu() { super(SPENT_HOURS_INPUT); }
     public static InputCustomerSpentHoursMenu getInstance() { return InstanceHolder.INSTANCE; }
 
     @Override
-    public Menu printAndInputAndGetNextMenu() { return null; }
+    protected Object inputProperty() throws InputIsEndException, InputMismatchException {
+        return inputZeroOrPositiveIntegerOrEnd();
+    }
 
     @Override
-    protected void setNextMenus() {
-        setNextMenus(null, AddCustomerMenu.getInstance());
+    protected void setTempProperty(Object property) throws IllegalArgumentException, IllegalStateException {
+        CustomerRepository.getInstance().setTempSpentHours((Integer) property);
     }
 }

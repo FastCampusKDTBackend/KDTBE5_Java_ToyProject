@@ -4,6 +4,8 @@ import me.day10.smartstore.menu.Menu;
 import me.day10.smartstore.menu.exception.InputIsEndException;
 import me.day10.smartstore.menu.topic.AddCustomerMenu;
 
+import java.util.InputMismatchException;
+
 public abstract class InputCustomerPropertyMenu extends Menu {
 
     private final String PROPERTY_INPUT;
@@ -31,7 +33,8 @@ public abstract class InputCustomerPropertyMenu extends Menu {
                 Object property = inputProperty();
                 setTempProperty(property);
                 return;
-            } catch (IllegalArgumentException | IllegalStateException | InputIsEndException e) {
+            } catch (InputIsEndException | InputMismatchException |
+                     IllegalArgumentException | IllegalStateException e) {
                 print(e.getMessage());
                 if (e instanceof InputIsEndException)
                     return;
@@ -39,7 +42,7 @@ public abstract class InputCustomerPropertyMenu extends Menu {
         }
     }
 
-    protected abstract Object inputProperty() throws IllegalArgumentException, InputIsEndException;
+    protected abstract Object inputProperty() throws InputIsEndException, InputMismatchException;
 
     protected abstract void setTempProperty(Object property) throws IllegalArgumentException, IllegalStateException;
 }

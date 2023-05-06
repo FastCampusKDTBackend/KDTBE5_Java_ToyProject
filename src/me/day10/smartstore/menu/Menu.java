@@ -61,4 +61,17 @@ public abstract class Menu {
         checkIfInputIsEnd(s.toUpperCase());
         return s;
     }
+
+    protected Integer inputZeroOrPositiveIntegerOrEnd() throws InputIsEndException, InputMismatchException {
+        String s = inputStringOrEnd();
+
+        try {
+            int i = Integer.parseInt(s);
+            if (i < 0)
+                throw new InputMismatchException("Invalid Input. Please try again.\n");
+            return i;
+        } catch (NumberFormatException e) {
+            throw new InputMismatchException("Invalid Format for Input. Please try again.\n");
+        }
+    }
 }

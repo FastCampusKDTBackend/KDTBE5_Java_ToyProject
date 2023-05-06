@@ -48,6 +48,10 @@ public class Customer {
         this.name = name;
     }
 
+    public void setSpentHours(Integer spentHours) {
+        this.spentHours = spentHours;
+    }
+
     public static void checkIfIdIsValid(String id) throws InvalidCustomerIdException {
         if (!isValidId(id))
             throw new InvalidCustomerIdException("Invalid ID input.\n");

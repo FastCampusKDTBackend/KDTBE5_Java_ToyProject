@@ -17,6 +17,16 @@ public abstract class TopicIntroMenu extends Menu {
     @Override
     public Menu printAndInputAndGetNextMenu() {
         setBackMenu();
+        return inputMenuAndMoveToNextMenu();
+    }
+
+    protected void setBackMenu() {
+        StartMenu startMenu = StartMenu.getInstance();
+        if (this != startMenu)
+            setBackMenu(startMenu);
+    }
+
+    protected Menu inputMenuAndMoveToNextMenu() {
         while (true) {
             try {
                 print(TOPIC_OUTPUT);
@@ -26,11 +36,5 @@ public abstract class TopicIntroMenu extends Menu {
                 print(e.getMessage());
             }
         }
-    }
-
-    private void setBackMenu() {
-        StartMenu startMenu = StartMenu.getInstance();
-        if (this != startMenu)
-            nextMenu[nextMenu.length - 1] = startMenu;
     }
 }

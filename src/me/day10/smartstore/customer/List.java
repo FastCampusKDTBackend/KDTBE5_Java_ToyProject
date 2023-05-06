@@ -1,14 +1,14 @@
 package me.day10.smartstore.customer;
 
 
-public abstract class List<E> {
+public class List<E> {
 
-    private static final int DEFAULT_CAPACITY = 16;
-    private static final int MAX_CAPACITY = 100;
+    protected static final int DEFAULT_CAPACITY = 16;
+    protected static final int MAX_CAPACITY = 100;
 
     // list[0] is always null: dummy
-    private E[] list;
-    private int size = 0;
+    protected E[] list;
+    protected int size = 0;
 
     List() {
         this(DEFAULT_CAPACITY);
@@ -19,6 +19,10 @@ public abstract class List<E> {
         if (initCapacity > MAX_CAPACITY)
             initCapacity = MAX_CAPACITY;
         list = (E[]) new Object[initCapacity];
+    }
+
+    public boolean isReachedMaxCapacity() {
+        return list.length == MAX_CAPACITY;
     }
 
     public boolean isEmpty() {

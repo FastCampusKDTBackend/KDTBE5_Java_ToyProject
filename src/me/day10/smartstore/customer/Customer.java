@@ -4,6 +4,8 @@ import me.day10.smartstore.group.Group;
 
 public class Customer {
 
+    public static final String ID_FORMAT =
+            "ID Format: 4~16 letters consisting of alphabets, digits, underscore(_)";
     private static final int DEFAULT_SPENT_HOURS = 0;
     private static final int DEFAULT_TOTAL_AMOUNT_PAID = 0;
     private static final Group DEFAULT_GROUP = Group.GENERAL;
@@ -13,6 +15,8 @@ public class Customer {
     private Integer spentHours;
     private Integer totalAmountPaid;
     private Group group;
+
+    public Customer() {}
 
     public Customer(String id) {
         this(id, null, DEFAULT_SPENT_HOURS, DEFAULT_TOTAL_AMOUNT_PAID, DEFAULT_GROUP);

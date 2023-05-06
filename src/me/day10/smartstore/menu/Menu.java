@@ -25,6 +25,10 @@ public abstract class Menu {
 
     public abstract Menu printAndInputAndGetNextMenu();
 
+    protected final void setBackMenu(Menu backMenu) {
+        nextMenu[nextMenu.length - 1] = backMenu;
+    }
+
     protected void print(Object s) {
         printer.print(s.toString());
     }

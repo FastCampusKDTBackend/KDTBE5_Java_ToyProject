@@ -32,7 +32,7 @@ public interface Menu {
                 );
 
                 for (int i = 0; i < menus.length; i++) {
-                    System.out.printf("     %d. %s\n", i + 1, menus[i]);
+                    System.out.printf("         %d. %s\n", i + 1, menus[i]);
                 }
                 System.out.println(
                         "                              \n" +
@@ -45,10 +45,8 @@ public interface Menu {
                 throw new InputRangeException(); // choice 가 범위에 벗어남
             } catch (InputMismatchException | NumberFormatException e) {
                 System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
-
             } catch (InputRangeException e) {
                 System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
-
             }
         }
     }

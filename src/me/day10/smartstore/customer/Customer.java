@@ -16,20 +16,45 @@ public class Customer {
     private Integer totalAmountPaid;
     private Group group;
 
-    public Customer() {}
+    public Customer() {
+        this(null);
+    }
 
     public Customer(String id) {
         this(id, null, DEFAULT_SPENT_HOURS, DEFAULT_TOTAL_AMOUNT_PAID, DEFAULT_GROUP);
     }
 
     public Customer(String id, String name, Integer spentHours, Integer totalAmountPaid, Group group) {
-        if (id == null)
-            throw new IllegalArgumentException("ID cannot be null.\n");
-
+        this.id = id;
         this.name = name;
         this.spentHours = spentHours;
         this.totalAmountPaid = totalAmountPaid;
         this.group = group;
+    }
+
+    public String getId() { return id; }
+
+    public void setId(String id) throws InvalidCustomerIdException {
+        checkIfIdIsValid(id);
+        this.id = id;
+    }
+
+    public static void checkIfIdIsValid(String id) throws InvalidCustomerIdException {
+        if (!isValidId(id))
+            throw new InvalidCustomerIdException("Invalid ID input.\n");
+    }
+
+    private static boolean isValidId(String id) {
+        throwIfIdIsNull(id);
+        String pattern = "^[0-9a-zA-Z_]{4,16}$";
+        return id.matches(pattern);
+    }
+
+    private static void throwIfIdIsNull(String id) { throwIfNull(id, "ID"); }
+
+    private static void throwIfNull(Object o, String title) {
+        if (o == null)
+            throw new IllegalArgumentException(title + " cannot be null.\n");
     }
 
     @Override

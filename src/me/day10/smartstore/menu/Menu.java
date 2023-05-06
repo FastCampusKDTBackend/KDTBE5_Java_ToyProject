@@ -55,4 +55,10 @@ public abstract class Menu {
         if (s.equals("END"))
             throw new InputIsEndException("'end' is pressed. Exit this menu.\n\n");
     }
+
+    protected final String inputStringOrEnd() throws InputIsEndException {
+        String s = reader.inputString();
+        checkIfInputIsEnd(s.toUpperCase());
+        return s;
+    }
 }

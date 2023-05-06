@@ -7,8 +7,8 @@ public class List<E> {
     protected static final int MAX_CAPACITY = 100;
 
     // list[0] is always null: dummy
-    protected E[] list;
-    protected int size = 0;
+    private E[] list;
+    private int size = 0;
 
     List() {
         this(DEFAULT_CAPACITY);
@@ -28,6 +28,10 @@ public class List<E> {
     public boolean isEmpty() {
         return size == 0;
     }
+
+    public int size() { return size; }
+
+    public E get(int idx) { return list[idx]; }
 
     @Override
     public String toString() {

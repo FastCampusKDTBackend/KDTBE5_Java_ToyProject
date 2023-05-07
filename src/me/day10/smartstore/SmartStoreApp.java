@@ -15,7 +15,12 @@ public class SmartStoreApp {
 
     public void run() {
         Menu menu = StartMenu.getInstance();
-        while (menu != null)
-            menu = menu.printAndInputAndGetNextMenu();
+        do {
+            Menu nextMenu = menu.printAndInputAndGetNextMenu();
+            if (nextMenu == null)
+                return;
+            nextMenu.setPrevMenu(menu);
+            menu = nextMenu;
+        } while (true);
     }
 }

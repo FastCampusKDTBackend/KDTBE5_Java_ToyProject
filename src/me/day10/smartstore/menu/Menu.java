@@ -16,7 +16,8 @@ public abstract class Menu {
                     + END_INPUT;
 
     protected Menu[] nextMenus;
-    protected Menu BACK_MENU;
+    private Menu BACK_MENU;
+    private Menu prevMenu;
 
     protected Menu() {}
 
@@ -73,5 +74,13 @@ public abstract class Menu {
         } catch (NumberFormatException e) {
             throw new InputMismatchException("Invalid Format for Input. Please try again.\n");
         }
+    }
+
+    public void setPrevMenu(Menu menu) {
+        this.prevMenu = menu;
+    }
+
+    protected Menu getPrevMenu() {
+        return this.prevMenu;
     }
 }

@@ -37,7 +37,8 @@ public class AddCustomerMenu extends TopicIntroMenu {
             print(e.getMessage());
             return getBackMenu();
         }
-        repository.resetTempCustomer();
+        if (getPrevMenu() == CustomerMenu.getInstance())
+            repository.resetTempCustomer();
         return inputMenuAndMoveToNextMenu();
     }
 

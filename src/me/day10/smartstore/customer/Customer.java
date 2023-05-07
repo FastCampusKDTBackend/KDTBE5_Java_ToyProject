@@ -83,8 +83,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return String.format("Customer{id='%s', name='%s', spentHours=%d, totalAmountPaid=%d,\n" +
-                                "\tgroup=%s",
-                                id, name, spentHours, totalAmountPaid, group);
+        return String.format("Customer{id='%s', name='%s', spentHours=%d, totalAmountPaid=%d, group=%s}",
+                                id, name, spentHours, totalAmountPaid, group.name());
     }
 }

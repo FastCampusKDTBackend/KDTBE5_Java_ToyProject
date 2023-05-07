@@ -1,6 +1,8 @@
 package me.day10.smartstore.customer;
 
 
+import java.util.Arrays;
+
 public class List<E> {
 
     protected static final int DEFAULT_CAPACITY = 16;
@@ -21,8 +23,13 @@ public class List<E> {
         list = (E[]) new Object[initCapacity];
     }
 
+    public void checkIfReachedMaxCapacity() throws MaxCapacityReachedException {
+        if (isReachedMaxCapacity())
+            throw new MaxCapacityReachedException("The maximum capable number of elements was reached.\n");
+    }
+
     public boolean isReachedMaxCapacity() {
-        return list.length == MAX_CAPACITY;
+        return size == MAX_CAPACITY - 1;
     }
 
     public boolean isEmpty() {
@@ -33,10 +40,32 @@ public class List<E> {
 
     public E get(int idx) { return list[idx]; }
 
+    public void add(E e) throws IllegalArgumentException, MaxCapacityReachedException {
+        checkIfNull(e);
+        checkIfReachedMaxCapacity();
+        if (isFull())
+            increaseCapacity();
+        list[++size] = e;
+    }
+
+    private void checkIfNull(E e) {
+        if (e == null)
+            throw new IllegalArgumentException("Input element is null");
+    }
+
+    private boolean isFull() {
+        return size == list.length;
+    }
+
+    private void increaseCapacity() {
+        int newLength = Math.min(MAX_CAPACITY, list.length << 1);
+        list = Arrays.copyOf(list, newLength);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < size; ++i) {
+        for (int i = 1; i <= size; ++i) {
             String line = String.format("No. %2d => %s\n", i, list[i].toString());
             sb.append(line);
         }

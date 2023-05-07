@@ -12,8 +12,7 @@ public class CustomerRepository {
     private static Customer tempCustomer;
 
     public void checkIfCanAddMore() throws MaxCapacityReachedException {
-        if (customerList.isReachedMaxCapacity())
-            throw new MaxCapacityReachedException("Repository reached the max capacity.\n");
+        customerList.checkIfReachedMaxCapacity();
     }
 
     public void resetTempCustomer() {
@@ -57,9 +56,25 @@ public class CustomerRepository {
         tempCustomer.setTotalAmountPaid(totalAmountPaid);
     }
 
+    public String getTempInfo() {
+        return tempCustomer.toString();
+    }
+
+    public void addTempIntoRepository() {
+        // app logic에 따라 다음 두 구문이 true 임을 보장합니다.
+        assert tempCustomer != null;
+        assert !customerList.isReachedMaxCapacity();
+
+        customerList.add(tempCustomer);
+    }
+
+    public boolean isTempIdNull() {
+        return tempCustomer.getId() == null;
+    }
+
     @Override
     public String toString() {
         if (customerList.isEmpty()) return "No Customers. Please input one first.\n";
-        return super.toString();
+        return customerList.toString();
     }
 }

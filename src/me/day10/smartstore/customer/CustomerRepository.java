@@ -72,6 +72,14 @@ public class CustomerRepository {
         return tempCustomer.getId() == null;
     }
 
+    public int size() {
+        return customerList.size();
+    }
+
+    public String deleteAndGetInfoOf(int num) {
+        return customerList.remove(num).toString();
+    }
+
     @Override
     public String toString() {
         if (customerList.isEmpty()) return "No Customers. Please input one first.\n";

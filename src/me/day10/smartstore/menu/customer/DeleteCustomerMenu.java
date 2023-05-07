@@ -1,8 +1,10 @@
 package me.day10.smartstore.menu.customer;
 
+import me.day10.smartstore.customer.CustomerRepository;
 import me.day10.smartstore.menu.Menu;
-import me.day10.smartstore.menu.topic.AddCustomerMenu;
 import me.day10.smartstore.menu.topic.CustomerMenu;
+
+import java.util.InputMismatchException;
 
 public class DeleteCustomerMenu extends Menu {
 
@@ -14,7 +16,22 @@ public class DeleteCustomerMenu extends Menu {
 
     @Override
     public Menu printAndInputAndGetNextMenu() {
-        return null;
+        setNextMenus();
+        CustomerRepository repository = CustomerRepository.getInstance();
+        int size = repository.size();
+        print('\n' + repository.toString());
+        final String NUM_TO_DELETE_INPUT = "Which customer ( 1 ~ " + size + " )? ";
+        while (true) {
+            print(NUM_TO_DELETE_INPUT);
+            try {
+                int num = inputIntegerRanged(1, size);
+                String deletedCustomerInfo = repository.deleteAndGetInfoOf(num);
+                print('\n' + deletedCustomerInfo + "\n\n" + repository);
+                return getBackMenu();
+            } catch (InputMismatchException e) {
+                print(e.getMessage());
+            }
+        }
     }
 
     @Override

@@ -7,8 +7,8 @@ import java.util.InputMismatchException;
 
 public abstract class Menu {
 
-    protected static final Reader reader = Reader.getInstance();
-    protected static final Printer printer = Printer.getInstance();
+    private static final Reader reader = Reader.getInstance();
+    private static final Printer printer = Printer.getInstance();
     protected static final String END_INPUT = "** Press 'end', if you want to exit! **\n";
     protected static final String GROUP_OUTPUT =
                     '\n' +
@@ -82,5 +82,12 @@ public abstract class Menu {
 
     protected Menu getPrevMenu() {
         return this.prevMenu;
+    }
+
+    protected int inputIntegerRanged(int fromInclusive, int toInclusive) throws InputMismatchException {
+        int i = reader.inputInteger();
+        if (i < fromInclusive || i > toInclusive)
+            throw new InputMismatchException("Invalid Input. Please try again.\n");
+        return i;
     }
 }

@@ -3,6 +3,7 @@ package smartstore.menu;
 import smartstore.customer.Customer;
 import smartstore.customer.Customers;
 import smartstore.exception.InputEndException;
+import smartstore.exception.InputFormatException;
 import smartstore.exception.InputTypeException;
 import smartstore.util.Message;
 
@@ -86,7 +87,19 @@ public class CustomerMenu implements Menu {
     }
 
 	public void updateCustomer() {
-	
+		if (allCustomers.size() == 0) {
+    		System.out.println("No Customers. Please input one first.\n");
+    	} else {
+    		System.out.println("======= Customer Info. =======");
+    		for(int i = 0; i < allCustomers.size(); i++) {
+    			System.out.println("No. " + (i + 1) + " => " + allCustomers.get(i));
+    		}
+    		System.out.println();
+    		
+    		whichCustomer(allCustomers);
+    		
+    	}
+		
 	}
 	
 	public void deleteCustomer() {
@@ -101,4 +114,21 @@ public class CustomerMenu implements Menu {
     	}
     	return true;
     }
+	
+	public void whichCustomer(Customers allCustomers) {
+		while(true) {
+			try {
+				System.out.print("Which customer ( 1 ~ " + allCustomers.size() + " )? ");
+				System.out.println();
+				
+				allCustomers.get(Integer.parseInt(nextLine()) - 1).manage();
+				break;
+			} catch (InputTypeException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
+			} catch (IllegalArgumentException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
+			}
+		}
+		
+	}
 }

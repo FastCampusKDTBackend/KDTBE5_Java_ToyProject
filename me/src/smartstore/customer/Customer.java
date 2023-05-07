@@ -1,6 +1,7 @@
 package smartstore.customer;
 
 import smartstore.exception.InputEndException;
+import smartstore.exception.InputFormatException;
 import smartstore.exception.InputTypeException;
 import smartstore.group.Group;
 import smartstore.menu.Menu;
@@ -15,8 +16,7 @@ public class Customer implements Menu {
     private Integer cusTotalPay;
     private Group group; // 현재 분류 기준에 의해 각 고객을 분류된 결과
 
-    public Customer() {
-    }
+    public Customer() {}
 
     public Customer(String cusId) {
         this.cusId = cusId;
@@ -109,7 +109,9 @@ public class Customer implements Menu {
 				System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
 			} catch (IllegalArgumentException e) {
 				System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
-			}
+			} catch (InputFormatException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
+			} 
             
         }
 		

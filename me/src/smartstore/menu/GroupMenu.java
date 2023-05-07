@@ -41,7 +41,7 @@ public class GroupMenu implements Menu {
         	} catch (InputTypeException e) {
 				System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
 			} catch (IllegalArgumentException e) {
-				System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
 			}
         }
     }
@@ -131,7 +131,7 @@ public class GroupMenu implements Menu {
                 return null;
             } catch (IllegalArgumentException e) {
                 System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
-            }
+			}
         }
     }
 }

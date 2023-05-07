@@ -23,5 +23,9 @@ public class Customers extends DArray<Customer> {
     public void refresh(Groups groups) {
 
     }
+    
+    public Customer deleteCustomer(int choice) {
+    	return pop(choice - 1);
+    }
 
 }

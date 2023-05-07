@@ -108,8 +108,6 @@ public class Customer implements Menu {
 			} catch (InputTypeException e) {
 				System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
 			} catch (IllegalArgumentException e) {
-				System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
-			} catch (InputFormatException e) {
 				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
 			} 
             
@@ -118,34 +116,42 @@ public class Customer implements Menu {
 	}
 
 	private void setCustomerName() {
-		System.out.print("Input Customer's Name: ");
-		this.setCusName(chooseGroupString());
+		this.setCusName(chooseGroupString(Message.MSG_Input_Customer_Name));
 	}
 
 	private void setCustomerID() {
-		System.out.print("Input Customer's ID: ");
-		this.setCusId(chooseGroupString());
+		this.setCusId(chooseGroupString(Message.MSG_Input_Customer_ID));
 	}
 
 	private void setCustomerTime() {
-		System.out.print("Input Customer's Spent Time: ");
-		this.setCusTotalTime(cusTotalTime);
+		while(true) {
+			try {
+				this.setCusTotalTime(chooseGroupInt(Message.MSG_Input_Customer_Time));
+				break;
+			} catch (IndexOutOfBoundsException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+			} catch (IllegalArgumentException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
+			} 
+		}
+		
 	}
 
 	private void setCustomerPay() {
-		System.out.print("Input Customer's Total Payment: ");
-		this.setCusTotalPay(chooseGroupInt());
+		this.setCusTotalPay(chooseGroupInt(Message.MSG_Input_Customer_Pay));
 	}
 	
-	public int chooseGroupInt() {
+	public int chooseGroupInt(String msg) {
 		int resultInt = -1;
         while ( true ) {
             try {
+            	System.out.print(msg);
             	String choice = nextLine(Message.END_MSG);
         		if(isNumeric(choice)) {
                 	resultInt = Integer.parseInt(choice);
                 } 
                 break;
+            
             } catch (InputEndException e) {
                 System.out.println(Message.ERR_MSG_INPUT_END);
                 break;
@@ -156,10 +162,11 @@ public class Customer implements Menu {
         return resultInt;
     }
 	
-	public String chooseGroupString() {
+	public String chooseGroupString(String msg) {
 		String resultStr = null;
         while ( true ) {
             try {
+            	System.out.print(msg);
             	String choice = nextLine(Message.END_MSG);
             	resultStr = choice;
                 break;

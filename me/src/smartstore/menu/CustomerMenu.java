@@ -39,10 +39,11 @@ public class CustomerMenu implements Menu {
                 else if (choice == 3) updateCustomer();
                 else if (choice == 4) deleteCustomer();
                 else break; // choice == 5
+        	
         	} catch (InputTypeException e) {
 				System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
 			} catch (IllegalArgumentException e) {
-				System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
 			}
         }
     }
@@ -70,40 +71,46 @@ public class CustomerMenu implements Menu {
                 System.out.println(Message.ERR_MSG_INPUT_END);
                 break;
             } catch (IllegalArgumentException e) {
-                System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
             } 
     	}
     }
     
     public void viewCustomer() {
     	if (allCustomers.size() == 0) {
-    		System.out.println("No Customers. Please input one first.\n");
+    		System.out.println(Message.No_Customer);
     	} else {
-    		System.out.println("======= Customer Info. =======");
-    		for(int i = 0; i < allCustomers.size(); i++) {
-    			System.out.println("No. " + (i + 1) + " => " + allCustomers.get(i));
-    		}
+    		customerInfo();
     	}
     }
 
 	public void updateCustomer() {
 		if (allCustomers.size() == 0) {
-    		System.out.println("No Customers. Please input one first.\n");
+    		System.out.println(Message.No_Customer);
     	} else {
-    		System.out.println("======= Customer Info. =======");
-    		for(int i = 0; i < allCustomers.size(); i++) {
-    			System.out.println("No. " + (i + 1) + " => " + allCustomers.get(i));
-    		}
-    		System.out.println();
+    		customerInfo();
     		
-    		whichCustomer(allCustomers);
-    		
+//    		whichCustomer(allCustomers).manage();;
+    		allCustomers.get(whichCustomer(allCustomers)).manage();;
     	}
-		
 	}
 	
 	public void deleteCustomer() {
-    	
+		if (allCustomers.size() == 0) {
+    		System.out.println(Message.No_Customer);
+    	} else {
+    		customerInfo();
+    		while(true) {
+    			try {
+    				allCustomers.deleteCustomer(whichCustomer(allCustomers));
+    				customerInfo();
+    			} catch (IndexOutOfBoundsException e) {
+    				System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+    			} catch (IllegalArgumentException e) {
+    				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
+    			} 
+    		}
+    	}
     }
 	
 	public static boolean isNumeric(String arg) {
@@ -115,20 +122,28 @@ public class CustomerMenu implements Menu {
     	return true;
     }
 	
-	public void whichCustomer(Customers allCustomers) {
+	private void customerInfo() {
+		System.out.println("======= Customer Info. =======");
+		for(int i = 0; i < allCustomers.size(); i++) {
+			System.out.println("No. " + (i + 1) + " => " + allCustomers.get(i));
+		}
+		System.out.println();
+	}
+	
+	public int whichCustomer(Customers allCustomers) {
 		while(true) {
 			try {
 				System.out.print("Which customer ( 1 ~ " + allCustomers.size() + " )? ");
 				System.out.println();
 				
-				allCustomers.get(Integer.parseInt(nextLine()) - 1).manage();
-				break;
+				return Integer.parseInt(nextLine());
 			} catch (InputTypeException e) {
 				System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
 			} catch (IllegalArgumentException e) {
-				System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
+			} catch (IndexOutOfBoundsException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
 			}
 		}
-		
 	}
 }

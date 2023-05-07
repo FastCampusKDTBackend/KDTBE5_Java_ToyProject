@@ -17,6 +17,7 @@ public interface Menu {
     default String nextLine(String end) { // END 입력받았을 때.
         System.out.println("\n** Press 'end', if you want to exit! **");
         String str = scanner.nextLine().toUpperCase();
+        System.out.println();
         if (str.equals(end)) throw new InputEndException();
         return str;
     }

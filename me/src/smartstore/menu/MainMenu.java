@@ -41,7 +41,7 @@ public class MainMenu implements Menu {
         	} catch (InputTypeException e) {
 				System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
 			} catch (IllegalArgumentException e) {
-				System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
 			}
         }
     }

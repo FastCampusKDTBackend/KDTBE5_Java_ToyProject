@@ -34,12 +34,53 @@ public class GroupMenu implements Menu {
                     "Back"});
 
             if (choice == 1) setParameter();
-            else if (choice == 2) {}// viewParameter();
+            else if (choice == 2) viewParameter();
             else if (choice == 3) {}// updateParameter();
             else break; // choice == 4
         }
     }
 
+    private void viewParameter() {
+    	 while ( true ) {
+     		GroupType groupType = chooseGroup();
+     		if (groupType == null) break;
+     		Group group = allGroups.find(groupType); // 고객 등급 찾음.
+     		if (group == null) break;
+     		
+            System.out.println("\nGroupType: " + group.getGroupType() +
+            		 	       "\nParameter: " + group.getParameter());
+     		
+    	 }
+	}
+    
+    public void setParameter() { // 초기화할 때만 호출 가능
+        while ( true ) {
+    		GroupType groupType = chooseGroup();
+    		if (groupType == null) break;
+            // GroupType에 해당하는 group 객체를 찾아야 함
+            Group group = allGroups.find(groupType); // 고객 등급 찾음.
+            
+            if (group == null) break;	
+        	if (group.getParameter() != null) { // group.getParameter()이 null이 아니면 이미 초기화됨
+                System.out.println("\n" + group.getGroupType() + " group already exists.");
+                System.out.println("\nGroupType: " + group.getGroupType() +
+                				   "\nParameter: " + group.getParameter());
+            } else {
+            	Parameter parameter = new Parameter();
+                // time, pay 사용자 입력받은 후, 설정 필요
+            	System.out.println();
+                parameter.manage();
+                
+                group.setParameter(parameter);
+                allCustomers.refresh(allGroups); // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
+                if (group.getParameter() != null) {
+                	System.out.println("\nGroupType: " + group.getGroupType() +
+                					   "\nParameter: " + group.getParameter());
+                }
+            }
+        }
+    }
+    
     public GroupType chooseGroup() {
         while ( true ) {
             try {
@@ -58,31 +99,4 @@ public class GroupMenu implements Menu {
             }
         }
     }
-    
-    public void setParameter() { // 초기화할 때만 호출 가능
-        while ( true ) {
-    		GroupType groupType = chooseGroup();
-    		if (groupType == null) break;
-            // GroupType에 해당하는 group 객체를 찾아야 함
-            Group group = allGroups.find(groupType); // 고객 등급 찾음.
-            
-            if (group == null) break;	
-        	if (group.getParameter() != null) { // group.getParameter()이 null이 아니면 이미 초기화됨
-                System.out.println("\n" + group.getGroupType() + " group already exists.");
-                System.out.println("\nGroupType: " + group.getGroupType() + "\nParameter: " + group.getParameter());
-            } else {
-            	Parameter parameter = new Parameter();
-                // time, pay 사용자 입력받은 후, 설정 필요
-            	System.out.println();
-                parameter.manage();
-                
-                group.setParameter(parameter);
-                allCustomers.refresh(allGroups); // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
-                if (group.getParameter() != null) {
-                	System.out.println("\nGroupType: " + group.getGroupType() + "\nParameter: " + group.getParameter());
-                }
-            }
-        }
-    }
-    
 }

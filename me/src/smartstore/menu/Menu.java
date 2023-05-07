@@ -24,11 +24,11 @@ public interface Menu {
     default int chooseMenu(String[] menus) {
         while ( true ) { // 예외 복구 while
             try {
-                System.out.println("===============================");
+                System.out.println("==============================");
                 for (int i = 0; i < menus.length; i++) {
                     System.out.printf(" %d. %s\n", i + 1, menus[i]);
                 }
-                System.out.println("===============================");
+                System.out.println("==============================");
                 System.out.print("Choose One: ");
                 int choice = Integer.parseInt(nextLine());
                 System.out.println();

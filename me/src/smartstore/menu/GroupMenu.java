@@ -27,16 +27,22 @@ public class GroupMenu implements Menu {
     @Override
     public void manage() {
         while ( true ) { // 서브 메뉴 페이지를 유지하기 위한 while
-            int choice = chooseMenu(new String[]{
-                    "Set Parameter",
-                    "View Parameter",
-                    "Update Parameter",
-                    "Back"});
+        	try {
+        		int choice = chooseMenu(new String[]{
+                        "Set Parameter",
+                        "View Parameter",
+                        "Update Parameter",
+                        "Back"});
 
-            if (choice == 1) setParameter();
-            else if (choice == 2) viewParameter();
-            else if (choice == 3) updateParameter();
-            else break; // choice == 4
+                if (choice == 1) setParameter();
+                else if (choice == 2) viewParameter();
+                else if (choice == 3) updateParameter();
+                else break; // choice == 4
+        	} catch (InputTypeException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
+			} catch (IllegalArgumentException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
+			}
         }
     }
 

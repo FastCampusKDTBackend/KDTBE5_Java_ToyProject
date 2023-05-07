@@ -1,5 +1,8 @@
 package smartstore.menu;
 
+import smartstore.exception.InputTypeException;
+import smartstore.util.Message;
+
 public class MainMenu implements Menu {
 
     private final CustomerMenu customerMenu = CustomerMenu.getInstance();
@@ -21,19 +24,25 @@ public class MainMenu implements Menu {
     @Override
     public void manage() {
         while ( true ) { // 프로그램 실행 while
-            int choice = mainMenu.chooseMenu(new String[] {
-                    "Parameter",
-                    "Customer",
-                    "Classification Summary",
-                    "Quit"});
+        	try {
+        		int choice = mainMenu.chooseMenu(new String[] {
+                        "Parameter",
+                        "Customer",
+                        "Classification Summary",
+                        "Quit"});
 
-            if (choice == 1) groupMenu.manage();
-            else if (choice == 2) customerMenu.manage();
-            else if (choice == 3) summaryMenu.manage();
-            else { // choice == 4
-                System.out.println("Program Finished");
-                break;
-            }
+                if (choice == 1) groupMenu.manage();
+                else if (choice == 2) customerMenu.manage();
+                else if (choice == 3) summaryMenu.manage();
+                else { // choice == 4
+                    System.out.println("Program Finished");
+                    break;
+                }
+        	} catch (InputTypeException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
+			} catch (IllegalArgumentException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
+			}
         }
     }
 }

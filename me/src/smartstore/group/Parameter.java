@@ -3,6 +3,7 @@ package smartstore.group;
 import java.util.Objects;
 
 import smartstore.exception.InputEndException;
+import smartstore.exception.InputTypeException;
 import smartstore.menu.Menu;
 import smartstore.util.Message;
 
@@ -60,14 +61,21 @@ public class Parameter implements Menu {
 	@Override
 	public void manage() {
 		while ( true ) {
-            int choice = chooseMenu(new String[]{
-                    "Minimum Spent Time",
-                    "Minimum Total Pay",
-                    "Back"});
+			try {
+				int choice = chooseMenu(new String[]{
+	                    "Minimum Spent Time",
+	                    "Minimum Total Pay",
+	                    "Back"});
 
-            if (choice == 1) setParameterTime(choice);
-            else if (choice == 2) setParameterPay(choice);
-            else break; // choice == 3
+	            if (choice == 1) setParameterTime(choice);
+	            else if (choice == 2) setParameterPay(choice);
+	            else break; // choice == 3
+			} catch (InputTypeException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
+			} catch (IllegalArgumentException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
+			}
+            
         }
 	}
 	
@@ -85,7 +93,7 @@ public class Parameter implements Menu {
 		int result = 0;
         while ( true ) {
             try {
-            	if (choiceMenu == 1) {
+            	if (choiceMenu == 1) { // 이부분을 배열구조로 만들어두면..
             		System.out.print("Input Minimum Spent Time: ");
             	} else if (choiceMenu == 2) {
             		System.out.print("Input Minimum Total Pay: ");
@@ -104,26 +112,6 @@ public class Parameter implements Menu {
         }
         return result;
     }
-	
-//	public int chooseGroupPay() {
-//		int result = 0;
-//        while ( true ) {
-//            try {
-//                System.out.print("Input Minimum Total Pay: ");
-//                String choice = nextLine(Message.END_MSG);
-//                if(isNumeric(choice)) {
-//                	result = Integer.parseInt(choice);
-//                }
-//                break;
-//            } catch (InputEndException e) {
-//                System.out.println(Message.ERR_MSG_INPUT_END);
-//                break;
-//            } catch (IllegalArgumentException e) {
-//                System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
-//            }
-//        }
-//        return result;
-//    }
 	
 	public static boolean isNumeric(String arg) {
     	for (int i = 0; i < arg.length(); i++) {

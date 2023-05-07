@@ -116,11 +116,29 @@ public class Customer implements Menu {
 	}
 
 	private void setCustomerName() {
-		this.setCusName(chooseGroupString(Message.MSG_Input_Customer_Name));
+		while(true) {
+			try {
+				this.setCusName(chooseGroupString(Message.MSG_Input_Customer_Name));
+				break;
+			} catch (IndexOutOfBoundsException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+			} catch (IllegalArgumentException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
+			} 
+		}
 	}
 
 	private void setCustomerID() {
-		this.setCusId(chooseGroupString(Message.MSG_Input_Customer_ID));
+		while(true) {
+			try {
+				this.setCusId(chooseGroupString(Message.MSG_Input_Customer_ID));
+				break;
+			} catch (IndexOutOfBoundsException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+			} catch (IllegalArgumentException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
+			} 
+		}
 	}
 
 	private void setCustomerTime() {
@@ -134,11 +152,19 @@ public class Customer implements Menu {
 				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
 			} 
 		}
-		
 	}
 
 	private void setCustomerPay() {
-		this.setCusTotalPay(chooseGroupInt(Message.MSG_Input_Customer_Pay));
+		while(true) {
+			try {
+				this.setCusTotalPay(chooseGroupInt(Message.MSG_Input_Customer_Pay));;
+				break;
+			} catch (IndexOutOfBoundsException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+			} catch (IllegalArgumentException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
+			} 
+		}
 	}
 	
 	public int chooseGroupInt(String msg) {

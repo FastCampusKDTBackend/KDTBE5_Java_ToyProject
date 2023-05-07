@@ -75,7 +75,14 @@ public class CustomerMenu implements Menu {
     }
     
     public void viewCustomer() {
-    	
+    	if (allCustomers.size() == 0) {
+    		System.out.println("No Customers. Please input one first.\n");
+    	} else {
+    		System.out.println("======= Customer Info. =======");
+    		for(int i = 0; i < allCustomers.size(); i++) {
+    			System.out.println("No. " + (i + 1) + " => " + allCustomers.get(i));
+    		}
+    	}
     }
 
 	public void updateCustomer() {

@@ -10,13 +10,14 @@ public class CustomerRepository {
 
     private final List<Customer> customerList = new List<>();
     private static Customer tempCustomer;
+    private static int tempIdx;
 
     public void checkIfCanAddMore() throws MaxCapacityReachedException {
         customerList.checkIfReachedMaxCapacity();
     }
 
     public void resetTempCustomer() {
-        tempCustomer = new Customer();
+        tempCustomer = new Customer(null, null);
     }
 
     public void checkIfHasNoDuplicate(String id) throws DuplicateCustomerIdException {
@@ -45,6 +46,7 @@ public class CustomerRepository {
     }
 
     public void setTempName(String name) throws InvalidCustomerNameException {
+        Customer.checkIfNameIsValid(name);
         tempCustomer.setName(name);
     }
 
@@ -66,6 +68,7 @@ public class CustomerRepository {
         assert !customerList.isReachedMaxCapacity();
 
         customerList.add(tempCustomer);
+        tempCustomer = null;
     }
 
     public boolean isTempIdNull() {
@@ -78,6 +81,25 @@ public class CustomerRepository {
 
     public String deleteAndGetInfoOf(int num) {
         return customerList.remove(num).toString();
+    }
+
+    public String setTempAndGetInfoOf(int num) {
+        Customer updatingCustomer = customerList.get(num);
+        tempCustomer = new Customer(updatingCustomer);
+        tempIdx = num;
+        return updatingCustomer.toString();
+    }
+
+    public void updateTempInRepository() {
+        customerList.get(tempIdx).copy(tempCustomer);
+    }
+
+    public String getUpdateBeforeAndAfterInfo() {
+        Customer before = customerList.get(tempIdx);
+        Customer after = tempCustomer;
+        return String.format("\nNo. %2d\n", tempIdx) +
+                "Before: " + before.toString() + '\n'+
+                "After : " + after.toString();
     }
 
     @Override

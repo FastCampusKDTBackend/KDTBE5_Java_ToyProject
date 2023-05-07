@@ -27,7 +27,7 @@ public abstract class Menu {
 
     protected abstract void setNextMenus();
 
-    protected final void setNextMenus(Menu... nextMenus) {
+    public final void setNextMenus(Menu... nextMenus) {
         int len = nextMenus.length;
         if (this.nextMenus == null)
             this.nextMenus = new Menu[len];

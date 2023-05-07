@@ -1,8 +1,9 @@
 package me.day10.smartstore.menu.customer;
 
+import me.day10.smartstore.customer.CustomerRepository;
 import me.day10.smartstore.menu.Menu;
 import me.day10.smartstore.menu.exception.InputIsEndException;
-import me.day10.smartstore.menu.topic.AddCustomerMenu;
+import me.day10.smartstore.menu.topic.CustomerMenu;
 
 import java.util.InputMismatchException;
 
@@ -16,15 +17,14 @@ public abstract class InputCustomerPropertyMenu extends Menu {
 
     @Override
     public Menu printAndInputAndGetNextMenu() {
-        setNextMenus();
+        if (getPrevMenu() == UpdateCustomerMenu.getInstance())
+            CustomerRepository.getInstance().resetTempCustomer();
         inputPropertyAndSetItIntoTemp();
         return getBackMenu();
     }
 
     @Override
-    protected void setNextMenus() {
-        setNextMenus(null, AddCustomerMenu.getInstance());
-    }
+    protected void setNextMenus() {}
 
     protected void inputPropertyAndSetItIntoTemp() {
         while (true) {

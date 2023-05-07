@@ -26,7 +26,7 @@ public class DeleteCustomerMenu extends Menu {
             try {
                 int num = inputIntegerRanged(1, size);
                 String deletedCustomerInfo = repository.deleteAndGetInfoOf(num);
-                print('\n' + deletedCustomerInfo + "\n\n" + repository);
+                print("\nDelete\n No. " + num + ' ' + deletedCustomerInfo + "\n\n" + repository);
                 return getBackMenu();
             } catch (InputMismatchException e) {
                 print(e.getMessage());

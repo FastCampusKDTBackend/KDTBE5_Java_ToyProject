@@ -1,6 +1,7 @@
 package me.day10.smartstore.customer;
 
 import me.day10.smartstore.group.Group;
+import me.day10.smartstore.menu.topic.CustomerMenu;
 
 public class Customer {
 
@@ -21,12 +22,8 @@ public class Customer {
     private Integer totalAmountPaid;
     private Group group;
 
-    public Customer() {
-        this(null);
-    }
-
-    public Customer(String id) {
-        this(id, null, DEFAULT_SPENT_HOURS, DEFAULT_TOTAL_AMOUNT_PAID, DEFAULT_GROUP);
+    public Customer(String id, String name) {
+        this(id, name, DEFAULT_SPENT_HOURS, DEFAULT_TOTAL_AMOUNT_PAID, DEFAULT_GROUP);
     }
 
     public Customer(String id, String name, Integer spentHours, Integer totalAmountPaid, Group group) {
@@ -37,6 +34,10 @@ public class Customer {
         this.group = group;
     }
 
+    public Customer(Customer e) {
+        copy(e);
+    }
+
     public String getId() { return id; }
 
     public void setId(String id) throws InvalidCustomerIdException {
@@ -44,7 +45,6 @@ public class Customer {
     }
 
     public void setName(String name) throws InvalidCustomerNameException {
-        checkIfNameIsValid(name);
         this.name = name;
     }
 
@@ -79,6 +79,14 @@ public class Customer {
     private static void throwIfNull(Object o, String title) {
         if (o == null)
             throw new IllegalArgumentException(title + " cannot be null.\n");
+    }
+
+    public void copy(Customer e) {
+        id = e.id;
+        name = e.name;
+        spentHours = e.spentHours;
+        totalAmountPaid = e.totalAmountPaid;
+        group = e.group;
     }
 
     @Override

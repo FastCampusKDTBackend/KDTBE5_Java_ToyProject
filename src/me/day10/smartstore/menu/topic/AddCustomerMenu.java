@@ -44,7 +44,7 @@ public class AddCustomerMenu extends TopicIntroMenu {
 
     @Override
     protected void setNextMenus() {
-        setNextMenus(
+        Menu[] nextMenus = {
                 null,
                 InputCustomerIdMenu.getInstance(),              // id
                 InputCustomerNameMenu.getInstance(),            // name
@@ -52,6 +52,9 @@ public class AddCustomerMenu extends TopicIntroMenu {
                 InputCustomerTotalAmountPaidMenu.getInstance(), // total amount paid
                 AddCustomerConfirmMenu.getInstance(),           // confirm
                 CustomerMenu.getInstance()                      // cancel(back) => CustomerMenu
-        );
+        };
+        for (int i = 1; i <= 4; ++i)
+            nextMenus[i].setNextMenus(null, this);
+        setNextMenus(nextMenus);
     }
 }

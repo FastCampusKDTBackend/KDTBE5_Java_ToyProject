@@ -104,12 +104,6 @@ public class MyArray<T> implements Collections<T>{
 
     @Override
     public T pop() {
-//        if (size == 0) return null;
-//
-//        T popElement = util.arrays[size-1];
-//        util.arrays[size-1] = null;
-//        size--;
-//        return popElement;
         return pop(size-1);
     }
 
@@ -119,7 +113,7 @@ public class MyArray<T> implements Collections<T>{
         if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
 
         T popElement = arrays[index];
-        arrays[index] = null; // 삭제됨을 명시적으로 표현
+        arrays[index] = null;
 
         for (int i = index+1; i < size; i++) {
             arrays[i-1] = arrays[i];
@@ -135,7 +129,7 @@ public class MyArray<T> implements Collections<T>{
     }
 
     protected void grow() {
-        capacity *= 2; // doubling
+        capacity *= 2;
         arrays = java.util.Arrays.copyOf(arrays, capacity);
     }
 

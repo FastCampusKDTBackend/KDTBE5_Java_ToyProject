@@ -1,7 +1,6 @@
 package controller.menu;
 
 import domain.customer.Customer;
-import domain.group.Group;
 import exception.ArrayEmptyException;
 import exception.InputEndException;
 import service.GroupService;
@@ -10,8 +9,6 @@ import view.Input;
 import view.Output;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 
 public class SummaryMenu implements Menu {

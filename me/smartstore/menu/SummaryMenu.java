@@ -28,23 +28,27 @@ public class SummaryMenu implements Menu {
 
     @Override
     public void manage() {
-        while ( true ) { // 서브 메뉴 페이지를 유지하기 위한 while
-            int choice = chooseMenu(new String[]{
-                    "Summary",
-                    "Summary (Sorted By Name)",
-                    "Summary (Sorted By Time)",
-                    "Summary (Sorted By Pay)",
-                    "Back"});
-            if(choice == 1) summary();
-            else if(choice == 2) summaryName();
-            else if(choice == 3) summaryTime();
-            else if(choice == 4) summaryPay();
-            else break;
+        if(allCustomers.size() == 0) {
+            System.out.println(Message.ERR_MSG_INVALID_ARR_EMPTY);
+        }else {
+            while ( true ) { // 서브 메뉴 페이지를 유지하기 위한 while
+                int choice = chooseMenu(new String[]{
+                        "Summary",
+                        "Summary (Sorted By Name)",
+                        "Summary (Sorted By Time)",
+                        "Summary (Sorted By Pay)",
+                        "Back"});
+                if (choice == 1) summary();
+                else if (choice == 2) summaryName();
+                else if (choice == 3) summaryTime();
+                else if (choice == 4) summaryPay();
+                else break;
+            }
         }
     }
 
     private void summary() {
-        for(int i = 0; i < allGroups.size(); i++) {
+        for (int i = 0; i < allGroups.size(); i++) {
             System.out.print("==============================");
             Group findGroup = allGroups.get(i);
             System.out.printf("Group : %s ( Time : %d, Pay : %d )", findGroup.getGroupType(),
@@ -52,8 +56,8 @@ public class SummaryMenu implements Menu {
                     findGroup.getParameter().getMinPay());
             System.out.println("==============================");
             int count = 1;
-            for(int j = 0; j < allCustomers.size(); j++) {
-                if(allCustomers.get(j).getGroup() == findGroup) {
+            for (int j = 0; j < allCustomers.size(); j++) {
+                if (allCustomers.get(j).getGroup() == findGroup) {
                     System.out.printf("No. %3d => %s \n", count++, allCustomers.get(j).toString());
                 }
             }
@@ -66,44 +70,63 @@ public class SummaryMenu implements Menu {
             try {
                 System.out.println("Which order (ASCENDING (A), DESCENDING (D))?");
                 String order = nextLine(Message.END_MSG);
-                for(int i = 0; i < allGroups.size(); i++) {
-                    System.out.print("==============================");
-                    Group findGroup = allGroups.get(i);
-                    System.out.printf("Group : %s ( Time : %d, Pay : %d )", findGroup.getGroupType(),
-                            findGroup.getParameter().getMinTime(),
-                            findGroup.getParameter().getMinPay());
-                    System.out.println("==============================");
-                    int size = 0;
-                    for(int j = 0; j < allCustomers.size(); j++) {
-                        if(allCustomers.get(j).getGroup() == findGroup) {
-                            size++;
-                        }
-                    }
-                    Customer[] customers = new Customer[size];
-                    int index = 0;
-                    for(int j = 0; j < allCustomers.size(); j++) {
-                        if(allCustomers.get(j).getGroup() == findGroup) {
-                            customers[index++] = allCustomers.get(j);
-                        }
-                    }
 
-                    if(order.equals("A") || order.equals("ASCENDING")) {
-                        Arrays.sort(customers, Comparator.comparing(Customer::getCusName));
-                        for(int j = 0; j < customers.length; j++) {
-                            System.out.printf("No. %3d => %s \n", j + 1, customers[j].toString());
+                OrderType orderType = findOrder(order);
+                if(orderType == null) {
+                    System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+                }else {
+                    for(int i = 0; i < allGroups.size(); i++) {
+                        System.out.print("==============================");
+                        Group findGroup = allGroups.get(i);
+                        System.out.printf("Group : %s ( Time : %d, Pay : %d )", findGroup.getGroupType(),
+                                findGroup.getParameter().getMinTime(),
+                                findGroup.getParameter().getMinPay());
+                        System.out.println("==============================");
+                        int size = 0;
+                        for (int j = 0; j < allCustomers.size(); j++) {
+                            if (allCustomers.get(j).getGroup() == findGroup) {
+                                size++;
+                            }
                         }
-                    } else {
-                        Arrays.sort(customers, (o1, o2) -> o2.getCusName().compareTo(o1.getCusName()));
-                        for(int j = 0; j < customers.length; j++) {
-                            System.out.printf("No. %3d => %s \n", j + 1, customers[j].toString());
+                        Customer[] customers = new Customer[size];
+                        int index = 0;
+                        for (int j = 0; j < allCustomers.size(); j++) {
+                            if (allCustomers.get(j).getGroup() == findGroup) {
+                                customers[index++] = allCustomers.get(j);
+                            }
+                        }
+
+                        if (String.valueOf(orderType).equals("ASCENDING")) {
+                            Arrays.sort(customers, Comparator.comparing(Customer::getCusName));
+                            for (int j = 0; j < customers.length; j++) {
+                                System.out.printf("No. %3d => %s \n", j + 1, customers[j].toString());
+                            }
+                        } else {
+                            Arrays.sort(customers, (o1, o2) -> o2.getCusName().compareTo(o1.getCusName()));
+                            for (int j = 0; j < customers.length; j++) {
+                                System.out.printf("No. %3d => %s \n", j + 1, customers[j].toString());
+                            }
                         }
                     }
                 }
             }catch (InputEndException e) {
                 System.out.println(Message.ERR_MSG_INPUT_END);
                 break;
+            }catch (IndexOutOfBoundsException e) {
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_EMPTY);
+                break;
             }
         }
+    }
+
+    private OrderType findOrder(String order) {
+        OrderType[] values = OrderType.values();
+        for(int i = 0; i < values.length; i++) {
+            if(values[i].toString().equals(order)) {
+               return values[i].replaceFullName();
+            }
+        }
+        return null;
     }
 
     private void summaryTime() {
@@ -111,36 +134,42 @@ public class SummaryMenu implements Menu {
             try {
                 System.out.println("Which order (ASCENDING (A), DESCENDING (D))?");
                 String order = nextLine(Message.END_MSG);
-                for(int i = 0; i < allGroups.size(); i++) {
-                    System.out.print("==============================");
-                    Group findGroup = allGroups.get(i);
-                    System.out.printf("Group : %s ( Time : %d, Pay : %d )", findGroup.getGroupType(),
-                            findGroup.getParameter().getMinTime(),
-                            findGroup.getParameter().getMinPay());
-                    System.out.println("==============================");
-                    int size = 0;
-                    for(int j = 0; j < allCustomers.size(); j++) {
-                        if(allCustomers.get(j).getGroup() == findGroup) {
-                            size++;
-                        }
-                    }
-                    Customer[] customers = new Customer[size];
-                    int index = 0;
-                    for(int j = 0; j < allCustomers.size(); j++) {
-                        if(allCustomers.get(j).getGroup() == findGroup) {
-                            customers[index++] = allCustomers.get(j);
-                        }
-                    }
 
-                    if(order.equals("A") || order.equals("ASCENDING")) {
-                        Arrays.sort(customers, Comparator.comparing(Customer::getCusTotalTime));
-                        for(int j = 0; j < customers.length; j++) {
-                            System.out.printf("No. %3d => %s \n", j + 1, customers[j].toString());
+                OrderType orderType = findOrder(order);
+                if(orderType == null) {
+                    System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+                }else {
+                    for(int i = 0; i < allGroups.size(); i++) {
+                        System.out.print("==============================");
+                        Group findGroup = allGroups.get(i);
+                        System.out.printf("Group : %s ( Time : %d, Pay : %d )", findGroup.getGroupType(),
+                                findGroup.getParameter().getMinTime(),
+                                findGroup.getParameter().getMinPay());
+                        System.out.println("==============================");
+                        int size = 0;
+                        for (int j = 0; j < allCustomers.size(); j++) {
+                            if (allCustomers.get(j).getGroup() == findGroup) {
+                                size++;
+                            }
                         }
-                    } else {
-                        Arrays.sort(customers, (o1, o2) -> o2.getCusTotalTime().compareTo(o1.getCusTotalTime()));
-                        for(int j = 0; j < customers.length; j++) {
-                            System.out.printf("No. %3d => %s \n", j + 1, customers[j].toString());
+                        Customer[] customers = new Customer[size];
+                        int index = 0;
+                        for (int j = 0; j < allCustomers.size(); j++) {
+                            if (allCustomers.get(j).getGroup() == findGroup) {
+                                customers[index++] = allCustomers.get(j);
+                            }
+                        }
+
+                        if (String.valueOf(orderType).equals("ASCENDING")) {
+                            Arrays.sort(customers, Comparator.comparing(Customer::getCusTotalTime));
+                            for (int j = 0; j < customers.length; j++) {
+                                System.out.printf("No. %3d => %s \n", j + 1, customers[j].toString());
+                            }
+                        } else {
+                            Arrays.sort(customers, (o1, o2) -> o2.getCusTotalTime().compareTo(o1.getCusTotalTime()));
+                            for (int j = 0; j < customers.length; j++) {
+                                System.out.printf("No. %3d => %s \n", j + 1, customers[j].toString());
+                            }
                         }
                     }
                 }
@@ -156,36 +185,43 @@ public class SummaryMenu implements Menu {
             try {
                 System.out.println("Which order (ASCENDING (A), DESCENDING (D))?");
                 String order = nextLine(Message.END_MSG);
-                for(int i = 0; i < allGroups.size(); i++) {
-                    System.out.print("==============================");
-                    Group findGroup = allGroups.get(i);
-                    System.out.printf("Group : %s ( Time : %d, Pay : %d )", findGroup.getGroupType(),
-                            findGroup.getParameter().getMinTime(),
-                            findGroup.getParameter().getMinPay());
-                    System.out.println("==============================");
-                    int size = 0;
-                    for(int j = 0; j < allCustomers.size(); j++) {
-                        if(allCustomers.get(j).getGroup() == findGroup) {
-                            size++;
-                        }
-                    }
-                    Customer[] customers = new Customer[size];
-                    int index = 0;
-                    for(int j = 0; j < allCustomers.size(); j++) {
-                        if(allCustomers.get(j).getGroup() == findGroup) {
-                            customers[index++] = allCustomers.get(j);
-                        }
-                    }
 
-                    if(order.equals("A") || order.equals("ASCENDING")) {
-                        Arrays.sort(customers, Comparator.comparing(Customer::getCusTotalPay));
-                        for(int j = 0; j < customers.length; j++) {
-                            System.out.printf("No. %3d => %s \n", j + 1, customers[j].toString());
+                OrderType orderType = findOrder(order);
+
+                if(orderType == null) {
+                    System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+                }else {
+                    for(int i = 0; i < allGroups.size(); i++) {
+                        System.out.print("==============================");
+                        Group findGroup = allGroups.get(i);
+                        System.out.printf("Group : %s ( Time : %d, Pay : %d )", findGroup.getGroupType(),
+                                findGroup.getParameter().getMinTime(),
+                                findGroup.getParameter().getMinPay());
+                        System.out.println("==============================");
+                        int size = 0;
+                        for(int j = 0; j < allCustomers.size(); j++) {
+                            if(allCustomers.get(j).getGroup() == findGroup) {
+                                size++;
+                            }
                         }
-                    } else {
-                        Arrays.sort(customers, (o1, o2) -> o2.getCusTotalPay().compareTo(o1.getCusTotalPay()));
-                        for(int j = 0; j < customers.length; j++) {
-                            System.out.printf("No. %3d => %s \n", j + 1, customers[j].toString());
+                        Customer[] customers = new Customer[size];
+                        int index = 0;
+                        for(int j = 0; j < allCustomers.size(); j++) {
+                            if(allCustomers.get(j).getGroup() == findGroup) {
+                                customers[index++] = allCustomers.get(j);
+                            }
+                        }
+
+                        if(String.valueOf(orderType).equals("ASCENDING")) {
+                            Arrays.sort(customers, Comparator.comparing(Customer::getCusTotalPay));
+                            for(int j = 0; j < customers.length; j++) {
+                                System.out.printf("No. %3d => %s \n", j + 1, customers[j].toString());
+                            }
+                        } else {
+                            Arrays.sort(customers, (o1, o2) -> o2.getCusTotalPay().compareTo(o1.getCusTotalPay()));
+                            for(int j = 0; j < customers.length; j++) {
+                                System.out.printf("No. %3d => %s \n", j + 1, customers[j].toString());
+                            }
                         }
                     }
                 }

@@ -43,7 +43,7 @@ public enum Screen {
     public static Screen of(int menuNumber){
         return Arrays.stream(Screen.values())
                 .filter(screen -> screen.isMatchedMenuNumber(menuNumber))
-                .findFirst().orElseThrow(() -> new IllegalArgumentException("Can't Find Function"));
+                .findFirst().orElseThrow(() -> new IllegalArgumentException("Can't Find Menu"));
     }
 
     public String[] getMenus() {

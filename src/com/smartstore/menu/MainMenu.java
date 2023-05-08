@@ -22,14 +22,12 @@ public class MainMenu implements Menu {
         System.out.println(Arrays.toString(Screen.of(-1).getMenus()));
     }
 
+    @Override
     public void run(int menuNumber){
         //print splash screen
-
         printSlashScreen();
-        //print menu
-        displayMenu(Screen.of(menuNumber).getMenus());
-        //get menu number from user until valid menu number
-        runMenuSelectionLoop(Screen.of(menuNumber).getMenus().length);
+        //call run(super)
+        Menu.super.run(menuNumber);
     }
     private static MainMenu instance;
 

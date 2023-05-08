@@ -31,4 +31,14 @@ public class Customers extends Array<Customer> {
 			}
 		}
 	}
+
+	public void refresh(Customer customer) {
+		for (int i = 0; i < allGroups.size(); i++) {
+			Group group = allGroups.get(i);
+
+			if (customer.getUseHours() >= group.getMinHours() && customer.getCustomerPay() >= group.getMinPay()) {
+				customer.setCustomerGroup(group);
+			}
+		}
+	}
 }

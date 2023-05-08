@@ -1,9 +1,8 @@
 package com.smartstore.membership;
 
-import com.smartstore.menu.Menu;
 import com.smartstore.util.CustomList;
 
-public class Memberships implements Menu {
+public class Memberships {
     private CustomList<Membership> membershipList = new CustomList<>();
     private static Memberships instance;
 
@@ -17,17 +16,8 @@ public class Memberships implements Menu {
     public void refresh(){
 
     }
-    Memberships(){
+    private Memberships(){
 
     }
 
-    @Override
-    public void handleChoice(String menuNumber) {
-
-    }
-
-    @Override
-    public void run() {
-
-    }
 }

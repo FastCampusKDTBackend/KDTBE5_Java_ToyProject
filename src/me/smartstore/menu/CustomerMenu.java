@@ -78,13 +78,57 @@ public class CustomerMenu implements Menu {
 			return;
 		}
 		System.out.println("\n======= Customer Info. =======");
-		System.out.println(customers);
+		System.out.print(customers);
 	}
 
 	private void updateCustomer() {
+		if (customers.size() == 0) {
+			System.out.println(Message.ERR_INVALID_ARR_EMPTY);
+			return;
+		}
+
+		viewCustomer();
+
+		while (true) {
+			try {
+				System.out.println("\nWhich customer ( 1 ~ " + customers.size() + " )?");
+				int input = nextInt(Message.EXIT_FLAG);
+
+				Customer customer = customers.get(input - 1);
+				setCustomer(customer);
+				break;
+			} catch (InputExitException e) {
+				System.out.println(Message.INFO_INPUT_EXIT_FLAG);
+				break;
+			} catch (InputFormatException e) {
+				System.out.println(Message.ERR_INVALID_INPUT_FORMAT);
+			}
+		}
 	}
 
 	private void deleteCustomer() {
+		if (customers.size() == 0) {
+			System.out.println(Message.ERR_INVALID_ARR_EMPTY);
+			return;
+		}
+
+		viewCustomer();
+
+		while (true) {
+			try {
+				System.out.println("\nWhich customer ( 1 ~ " + customers.size() + " )?");
+				int input = nextInt(Message.EXIT_FLAG);
+
+				customers.pop(input - 1);
+				break;
+			} catch (InputExitException e) {
+				System.out.println(Message.INFO_INPUT_EXIT_FLAG);
+				break;
+			} catch (InputFormatException e) {
+				System.out.println(Message.ERR_INVALID_INPUT_FORMAT);
+			}
+		}
+
 	}
 
 	/***** 고객 정보 Setting 메서드 (add, update 시 사용) *****/
@@ -152,9 +196,37 @@ public class CustomerMenu implements Menu {
 	}
 
 	private void setCustomerSpentTime(Customer customer) {
+		while (true) {
+			try {
+				System.out.println("\nInput Customer's Spent Time:");
+				int input = nextInt(Message.EXIT_FLAG);
+
+				customer.setSpentTime(input);
+				break;
+			} catch (InputExitException e) {
+				System.out.println(Message.INFO_INPUT_EXIT_FLAG);
+				break;
+			} catch (InputFormatException e) {
+				System.out.println(Message.ERR_INVALID_INPUT_FORMAT);
+			}
+		}
 	}
 
 	private void setCustomerTotalPay(Customer customer) {
+		while (true) {
+			try {
+				System.out.println("\nInput Customer's Total Payment:");
+				int input = nextInt(Message.EXIT_FLAG);
+
+				customer.setTotalPay(input);
+				break;
+			} catch (InputExitException e) {
+				System.out.println(Message.INFO_INPUT_EXIT_FLAG);
+				break;
+			} catch (InputFormatException e) {
+				System.out.println(Message.ERR_INVALID_INPUT_FORMAT);
+			}
+		}
 	}
 
 	/***** Menu enum *****/
@@ -180,14 +252,14 @@ public class CustomerMenu implements Menu {
 				return false;
 			}
 		},
-		DELETE(3, "Delete Customer") {
+		DELETE(4, "Delete Customer") {
 			@Override
 			public Boolean run() {
 				customerMenu.deleteCustomer();
 				return false;
 			}
 		},
-		BACK(4, "Back") {
+		BACK(5, "Back") {
 			@Override
 			public Boolean run() {
 				return Menu.back();
@@ -226,7 +298,7 @@ public class CustomerMenu implements Menu {
 	}
 
 	enum SetInfoMenu {
-		NAME(1, " Customer Name") {
+		NAME(1, "Customer Name") {
 			@Override
 			public Boolean run(Customer customer) {
 				customerMenu.setCustomerName(customer);
@@ -247,14 +319,14 @@ public class CustomerMenu implements Menu {
 				return false;
 			}
 		},
-		TOTAL_PAY(3, "Customer Total Pay") {
+		TOTAL_PAY(4, "Customer Total Pay") {
 			@Override
 			public Boolean run(Customer customer) {
 				customerMenu.setCustomerTotalPay(customer);
 				return false;
 			}
 		},
-		BACK(4, "Back") {
+		BACK(5, "Back") {
 			@Override
 			public Boolean run(Customer customer) {
 				return Menu.back();

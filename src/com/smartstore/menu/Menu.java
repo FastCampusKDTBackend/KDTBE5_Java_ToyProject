@@ -14,13 +14,13 @@ public interface Menu {
         }
     }
 
-    default void runMenuSelectionLoop(int menuSize){
+    default void runMenuSelectionLoop(String[] menus){
         int menu = -1;
         while (true){
             try {
                 System.out.print("Input : ");
                 menu = Integer.parseInt(br.readLine());
-                if (menu <= 0 || menu > menuSize) {
+                if (menu <= 0 || menu > menus.length) {
                     // TODO: 2023-05-08 throw other exception, catch it
                     throw new NumberFormatException("Invalid Menu");
                 }
@@ -40,7 +40,7 @@ public interface Menu {
     default void run(int menuNumber) {
         displayMenu(Screen.of(menuNumber).getMenus());
         //get menu number from user until valid menu number
-        runMenuSelectionLoop(Screen.of(menuNumber).getMenus().length);
+        runMenuSelectionLoop(Screen.of(menuNumber).getMenus());
     }
 
 }

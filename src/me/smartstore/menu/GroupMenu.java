@@ -50,20 +50,25 @@ public class GroupMenu implements Menu{
 	private void setParameter(int updateFlag) {
 		while(true) {
 			try {
-				System.out.println("Which group (GENERAL(G), VIP(V), VVIP(VV))?");
+				System.out.println("Which group (" + GroupType.showGroupType() +  ")?");
 				String inputGroup = nextLine(Message.END_MSG);
+
+				if (!GroupType.isElement(inputGroup)) throw new ElementNotFoundException();
 
 				Group selectGroup = allGroups.findByGroupType(GroupType.getGroupType(inputGroup));
 
-				if (selectGroup == null) throw new ElementNotFoundException();
-
-				if (selectGroup.getMinHours() > 0 && selectGroup.getMinPay() > 0 && updateFlag == 0) {
+				if (selectGroup != null && updateFlag == 0) {
 					System.out.println(selectGroup.getGroupType() + " group already exists.");
 					System.out.println("\n" + selectGroup);
 					continue;
 				}
 
-				System.out.println(selectGroup);
+				if (selectGroup != null) System.out.println(selectGroup);
+
+				if (selectGroup == null) {
+					selectGroup = new Group(GroupType.getGroupType(inputGroup));
+					allGroups.add(selectGroup);
+				}
 
 				showParameterMenu(selectGroup);
 
@@ -98,21 +103,24 @@ public class GroupMenu implements Menu{
 	}
 
 	private void setTimeParameter(Group group) {
-		try {
-			while(true) {
+		while(true) {
+			try {
 				System.out.println("Input Minimum Spent Time: ");
-
 				int time = Integer.parseInt(nextLine(Message.END_MSG));
 
 				if (time < 0) throw new InputRangeException();
+
 				group.setMinHours(time);
+
+				break;
+			} catch (NumberFormatException e){
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
+			} catch (InputRangeException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+			} catch (InputEndException e) {
+				System.out.println(Message.ERR_MSG_INPUT_END);
 				break;
 			}
-
-		} catch (NumberFormatException e){
-			System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
-		} catch (InputRangeException e) {
-			System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
 		}
 	}
 

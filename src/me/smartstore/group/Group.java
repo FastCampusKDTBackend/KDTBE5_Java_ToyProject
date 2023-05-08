@@ -8,6 +8,10 @@ public class Group {
     private int minHours;
     private int minPay;
 
+    public Group(GroupType groupType) {
+        this.groupType = groupType;
+    }
+
     public Group(GroupType groupType, int minHours, int minPay) {
         this.groupType = groupType;
         this.minHours = minHours;

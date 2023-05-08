@@ -18,6 +18,17 @@ public class Customers extends Array<Customer> {
 		return allCustomers;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder output = new StringBuilder();
+		for (int i = 0; i < size(); i++) {
+			output.append("No. " + (i + 1) + " => ");
+			output.append(get(i) + "\n");
+		}
+
+		return output.toString();
+	}
+
 	public void refresh() {
 		for (int i = 0; i < allCustomers.size(); i++) {
 			Customer customer = allCustomers.get(i);

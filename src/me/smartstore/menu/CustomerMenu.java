@@ -38,7 +38,7 @@ public class CustomerMenu implements Menu{
 			if (choice == 1) {
 				addCustomer();
 			} else if (choice == 2) {
-
+				viewCustomers();
 			} else if (choice == 3) {
 
 			} else if (choice == 4) {
@@ -150,5 +150,11 @@ public class CustomerMenu implements Menu{
 		} catch (InputEndException e) {
 			System.out.println(Message.ERR_MSG_INPUT_END);
 		}
+	}
+
+	private void viewCustomers() {
+		System.out.println("======= Customer Info. =======");
+		System.out.println(allCustomers);
+		System.out.println();
 	}
 }

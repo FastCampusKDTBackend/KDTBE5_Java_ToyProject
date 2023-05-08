@@ -1,3 +1,4 @@
+
 package com.smartstore.membership;
 
 public enum MembershipType {
@@ -5,8 +6,12 @@ public enum MembershipType {
     VIP(new String[] {"V", "VIP", "우수"}),
     VVIP(new String[] {"VV", "VVIP", "최우수"});
 
-    String[] grade = new String[3];
+    String[] membershipNames = new String[3];
     MembershipType(String[] grade) {
-        this.grade = grade;
+        this.membershipNames = grade;
+    }
+
+    public String[] getMembership() {
+        return membershipNames;
     }
 }

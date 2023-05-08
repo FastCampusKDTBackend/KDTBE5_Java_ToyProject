@@ -4,7 +4,7 @@ import me.smartstore.group.Group;
 
 import java.util.Objects;
 
-public class Customer{
+public class Customer {
     private String customerName;
     private String customerId;
     private int useHours;

@@ -1,7 +1,6 @@
 package me.day10.smartstore.menu;
 
 import me.day10.smartstore.menu.exception.InputIsEndException;
-import me.day10.smartstore.menu.exception.InvalidMenuException;
 
 import java.util.InputMismatchException;
 
@@ -31,7 +30,7 @@ public abstract class Menu {
         int len = nextMenus.length;
         if (this.nextMenus == null)
             this.nextMenus = new Menu[len];
-        System.arraycopy(nextMenus, 1, this.nextMenus, 1, len - 1);
+        System.arraycopy(nextMenus, 0, this.nextMenus, 0, len);
         BACK_MENU = this.nextMenus[len - 1];
     }
 
@@ -39,11 +38,9 @@ public abstract class Menu {
         printer.print(s.toString());
     }
 
-    protected int inputMenu() throws InputMismatchException, InvalidMenuException {
-        int ret = reader.inputInteger();
-        if (ret <= 0 || ret >= nextMenus.length)
-            throw new InvalidMenuException("Invalid Menu Input." + " Please try again.\n");
-        return ret;
+    protected int inputMenu() throws InputMismatchException {
+        int menu = inputIntegerRanged(1, nextMenus.length);
+        return menu - 1;
     }
 
     protected String inputGroupName() throws InputIsEndException {

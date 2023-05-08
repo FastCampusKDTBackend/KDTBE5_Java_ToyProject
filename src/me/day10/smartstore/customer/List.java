@@ -9,7 +9,6 @@ public class List<E> {
     protected static final int MAX_CAPACITY = 100;
     private static final int MIN_CAPACITY = 16;
 
-    // list[0] is always null: dummy
     private E[] list;
     private int size = 0;
     private int reduceCapacityThreshold;
@@ -32,7 +31,7 @@ public class List<E> {
     }
 
     public boolean isReachedMaxCapacity() {
-        return size == MAX_CAPACITY - 1;
+        return size == MAX_CAPACITY;
     }
 
     public boolean isEmpty() {
@@ -41,7 +40,7 @@ public class List<E> {
 
     public int size() { return size; }
 
-    public E get(int idx) {
+    public E get(int idx) throws ArrayIndexOutOfBoundsException {
         checkIfOutOfBounds(idx);
         return list[idx];
     }
@@ -51,7 +50,7 @@ public class List<E> {
         checkIfReachedMaxCapacity();
         if (isFull())
             increaseCapacity();
-        list[++size] = e;
+        list[size++] = e;
     }
 
     private void checkIfNull(E e) {
@@ -68,7 +67,7 @@ public class List<E> {
         list = Arrays.copyOf(list, newLength);
     }
 
-    public E remove(int idx) {
+    public E remove(int idx) throws ArrayIndexOutOfBoundsException {
         checkIfOutOfBounds(idx);
 
         E ret = list[idx];
@@ -85,16 +84,16 @@ public class List<E> {
         int newCapacity = Math.max(MIN_CAPACITY, list.length >>> 1);
         @SuppressWarnings("unchecked")
         E[] newList = (E[]) new Object[newCapacity];
-        System.arraycopy(list, 0, newList, 0, idx - 1);
-        System.arraycopy(list, idx + 1, newList, idx, size - idx);
+        System.arraycopy(list, 0, newList, 0, idx);
+        System.arraycopy(list, idx + 1, newList, idx, size - 1 - idx);
         list = newList;
         size--;
         reduceCapacityThreshold = newCapacity >>> 2;
     }
 
     private void checkIfOutOfBounds(int idx) {
-        if (idx < 1 || idx > size) {
-            String msg = String.format("Acceptable range: (1~%d), but input: %d", size, idx);
+        if (idx < 0 || idx >= size) {
+            String msg = String.format("Acceptable range: (0~%d), but input: %d", size - 1, idx);
             throw new ArrayIndexOutOfBoundsException(msg);
         }
     }
@@ -102,8 +101,8 @@ public class List<E> {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("======= Stored Customers Info. =======\n");
-        for (int i = 1; i <= size; ++i) {
-            String line = String.format("No. %2d => %s\n", i, list[i].toString());
+        for (int i = 0; i < size; ++i) {
+            String line = String.format("No. %2d => %s\n", i + 1, list[i].toString());
             sb.append(line);
         }
         return sb.toString();

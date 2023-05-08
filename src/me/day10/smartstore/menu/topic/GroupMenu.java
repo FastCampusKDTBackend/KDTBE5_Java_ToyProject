@@ -24,7 +24,6 @@ public class GroupMenu extends TopicIntroMenu {
     @Override
     protected void setNextMenus() {
         setNextMenus(
-                null,
                 SetParameterMenu.getInstance(),     // 1
                 ViewParameterMenu.getInstance(),    // 2
                 UpdateParameterMenu.getInstance(),  // 3

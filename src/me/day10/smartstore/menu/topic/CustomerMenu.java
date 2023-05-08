@@ -25,7 +25,6 @@ public class CustomerMenu extends TopicIntroMenu {
     @Override
     protected void setNextMenus() {
         setNextMenus(
-                null,
                 AddCustomerMenu.getInstance(),
                 ViewCustomerMenu.getInstance(),
                 UpdateCustomerMenu.getInstance(),

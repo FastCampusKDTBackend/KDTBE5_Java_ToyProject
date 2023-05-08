@@ -33,7 +33,7 @@ public class CustomerRepository {
         assert id != null;
 
         int size = customerList.size();
-        for (int i = 1; i <= size; ++i)
+        for (int i = 0; i < size; ++i)
             if (id.equals(customerList.get(i).getId()))
                 return i;
         return -1;
@@ -80,13 +80,15 @@ public class CustomerRepository {
     }
 
     public String deleteAndGetInfoOf(int num) {
-        return customerList.remove(num).toString();
+        int idx = num - 1;
+        return customerList.remove(idx).toString();
     }
 
     public String setTempAndGetInfoOf(int num) {
-        Customer updatingCustomer = customerList.get(num);
+        int idx = num - 1;
+        Customer updatingCustomer = customerList.get(idx);
         tempCustomer = new Customer(updatingCustomer);
-        tempIdx = num;
+        tempIdx = idx;
         return updatingCustomer.toString();
     }
 

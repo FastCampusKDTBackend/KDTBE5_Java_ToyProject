@@ -2,7 +2,6 @@ package me.day10.smartstore.menu.customer;
 
 import me.day10.smartstore.customer.CustomerRepository;
 import me.day10.smartstore.menu.Menu;
-import me.day10.smartstore.menu.exception.InvalidMenuException;
 import me.day10.smartstore.menu.topic.AddCustomerMenu;
 
 import java.util.InputMismatchException;
@@ -37,7 +36,7 @@ public class AddCustomerConfirmMenu extends Menu {
                 print(ADD_CUSTOMER_CONFIRM_OUTPUT);
                 int i = inputMenu();
                 return nextMenus[i];
-            } catch (InputMismatchException | InvalidMenuException e) {
+            } catch (InputMismatchException e) {
                 print(e.getMessage());
             }
         }
@@ -45,7 +44,7 @@ public class AddCustomerConfirmMenu extends Menu {
 
     @Override
     protected void setNextMenus() {
-        setNextMenus(null, AddCustomerIntoRepositoryMenu.getInstance(), AddCustomerMenu.getInstance());
+        setNextMenus(AddCustomerIntoRepositoryMenu.getInstance(), AddCustomerMenu.getInstance());
     }
 
     private String getTempCustomerInfo() {

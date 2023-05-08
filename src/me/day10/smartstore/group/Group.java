@@ -30,8 +30,8 @@ public enum Group {
     }
 
     public void setGroupParameter(Integer[] groupParameterArguments) {
-        this.groupParameter.setMinSpentHours(groupParameterArguments[1]);
-        this.groupParameter.setMinTotalAmountPaid(groupParameterArguments[2]);
+        this.groupParameter.setMinSpentHours(groupParameterArguments[0]);
+        this.groupParameter.setMinTotalAmountPaid(groupParameterArguments[1]);
     }
 
     @Override

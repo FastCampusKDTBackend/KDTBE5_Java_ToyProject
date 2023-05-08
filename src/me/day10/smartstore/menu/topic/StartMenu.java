@@ -23,7 +23,6 @@ public class StartMenu extends TopicIntroMenu {
     @Override
     protected void setNextMenus() {
         setNextMenus(
-            null,
             GroupMenu.getInstance(),            // 1
             CustomerMenu.getInstance(),         // 2
             ClassificationMenu.getInstance(),   // 3

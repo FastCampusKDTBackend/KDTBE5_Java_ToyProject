@@ -36,6 +36,6 @@ public class DeleteCustomerMenu extends Menu {
 
     @Override
     protected void setNextMenus() {
-        setNextMenus(null, CustomerMenu.getInstance());
+        setNextMenus(CustomerMenu.getInstance());
     }
 }

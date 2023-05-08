@@ -27,14 +27,13 @@ public class UpdateCustomerSelectPropertyMenu extends TopicIntroMenu {
     @Override
     protected void setNextMenus() {
         Menu[] nextMenus = {
-                null,
                 InputCustomerNameMenu.getInstance(),            // name
                 InputCustomerSpentHoursMenu.getInstance(),      // spent hours
                 InputCustomerTotalAmountPaidMenu.getInstance(), // total amount paid
-                UpdateCustomerConfirmMenu.getInstance(),               // confirm
+                UpdateCustomerConfirmMenu.getInstance(),        // confirm
                 CustomerMenu.getInstance()                      // cancel(back) => CustomerMenu
         };
-        for (int i = 1; i <= 3; ++i)
+        for (int i = 0; i <= 2; ++i)
             nextMenus[i].setNextMenus(null, this);
         setNextMenus(nextMenus);
     }

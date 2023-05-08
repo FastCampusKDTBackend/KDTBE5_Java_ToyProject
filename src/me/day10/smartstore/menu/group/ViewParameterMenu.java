@@ -34,6 +34,6 @@ public class ViewParameterMenu extends Menu {
 
     @Override
     protected void setNextMenus() {
-        setNextMenus(null, GroupMenu.getInstance());
+        setNextMenus(GroupMenu.getInstance());
     }
 }

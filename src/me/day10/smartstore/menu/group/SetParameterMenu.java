@@ -3,7 +3,6 @@ package me.day10.smartstore.menu.group;
 import me.day10.smartstore.group.Group;
 import me.day10.smartstore.menu.exception.InputIsEndException;
 import me.day10.smartstore.menu.exception.InvalidGroupNameException;
-import me.day10.smartstore.menu.exception.InvalidMenuException;
 import me.day10.smartstore.menu.Menu;
 import me.day10.smartstore.menu.topic.GroupMenu;
 
@@ -54,7 +53,6 @@ public class SetParameterMenu extends Menu {
     @Override
     public void setNextMenus() {
         setNextMenus(
-                null,
                 null,                    // read minSpentHours
                 null,                    // read minTotalAmountPaid
                 GroupMenu.getInstance()  // Back => GroupMenu
@@ -62,7 +60,7 @@ public class SetParameterMenu extends Menu {
     }
 
     private void inputGroupParameter(Group group) {
-        Integer[] groupParameterArguments = { null, null, null }; // null, .., ..
+        Integer[] groupParameterArguments = { null, null };
         while (true) {
             print(SET_GROUP_PARAMETER_OUTPUT);
             try {
@@ -78,7 +76,7 @@ public class SetParameterMenu extends Menu {
             } catch (InputIsEndException e) {
                 print(e.getMessage());
                 break;
-            } catch (InvalidMenuException | InputMismatchException e) {
+            } catch (InputMismatchException e) {
                 print(e.getMessage());
             }
         }

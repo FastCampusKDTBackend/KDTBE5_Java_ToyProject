@@ -21,7 +21,7 @@ public class UpdateCustomerIntoRepositoryMenu extends Menu {
 
     @Override
     protected void setNextMenus() {
-        setNextMenus(null, CustomerMenu.getInstance());
+        setNextMenus(CustomerMenu.getInstance());
     }
 
     private void updateTempCustomerInRepository() {

@@ -1,13 +1,18 @@
-package com.smartstore.menu;
+package com.smartstore.menu.mainmenu;
+
+import com.smartstore.menu.membership.MembershipMenu;
+import com.smartstore.menu.Menu;
+import com.smartstore.menu.customer.CustomerMenu;
+import com.smartstore.menu.report.ReportMenu;
 
 import java.util.Arrays;
 
 public enum MainMenuFunction {
     MAIN_MENU(0, MainMenu.getInstance()),
     MEMBERSHIP_MANAGEMENT(1, MembershipMenu.getInstance()),
-    CUSTOMER_MANAGEMENT(2,CustomerMenu.getInstance()),
-    REPORT_MANAGEMENT(3,ReportMenu.getInstance()),
-    QUIT(4,Quit.getInstance());
+    CUSTOMER_MANAGEMENT(2, CustomerMenu.getInstance()),
+    REPORT_MANAGEMENT(3, ReportMenu.getInstance()),
+    QUIT(4, Quit.getInstance());
 
     private final int menuNumber;
     private final Menu menuController;

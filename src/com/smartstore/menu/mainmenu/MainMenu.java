@@ -1,4 +1,7 @@
-package com.smartstore.menu;
+package com.smartstore.menu.mainmenu;
+
+import com.smartstore.menu.Menu;
+import com.smartstore.menu.Screen;
 
 import java.util.Arrays;
 
@@ -7,8 +10,9 @@ public class MainMenu implements Menu {
     @Override
     public void handleChoice(int menuNumber) {
         System.out.println("Handel called");
-        Screen screen = Screen.of(menuNumber);
-        System.out.println(Arrays.toString(screen.getMenus()));
+        //call Menu with menuNumber
+        MainMenuFunction function = MainMenuFunction.of(menuNumber);
+        function.run();
     }
 
     public static MainMenu getInstance() {

@@ -1,6 +1,8 @@
-package com.smartstore.menu;
+package com.smartstore.menu.customer;
 
-public class CustomerMenu implements Menu, MenuController {
+import com.smartstore.menu.Menu;
+
+public class CustomerMenu implements Menu {
     @Override
     public void handleChoice(int menuNumber) {
 
@@ -16,7 +18,7 @@ public class CustomerMenu implements Menu, MenuController {
     private static CustomerMenu instance;
 
     @Override
-    public void run() {
+    public void run(int menuNumber) {
 
     }
 }

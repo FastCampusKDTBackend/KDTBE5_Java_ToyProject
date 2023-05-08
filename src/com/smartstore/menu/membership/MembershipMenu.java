@@ -1,4 +1,6 @@
-package com.smartstore.menu;
+package com.smartstore.menu.membership;
+
+import com.smartstore.menu.Menu;
 
 public class MembershipMenu implements Menu {
     @Override

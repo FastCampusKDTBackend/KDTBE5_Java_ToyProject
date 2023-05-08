@@ -48,9 +48,7 @@ public class Group {
 
     @Override
     public String toString() {
-        return "Group{" +
-                "parameter=" + parameter +
-                ", groupType=" + groupType +
-                '}';
+        return "GroupType: " + groupType + 
+                "\nParameter: " + parameter;
     }
 }

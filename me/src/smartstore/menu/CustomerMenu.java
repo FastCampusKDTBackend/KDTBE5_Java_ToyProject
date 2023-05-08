@@ -48,7 +48,7 @@ public class CustomerMenu implements Menu {
         }
     }
     
-    public void addCustomer() {
+    private void addCustomer() {
     	while ( true ) {
             try {
             	System.out.print("How many customers to input? ");
@@ -76,34 +76,35 @@ public class CustomerMenu implements Menu {
     	}
     }
     
-    public void viewCustomer() {
+    private void viewCustomer() {
     	if (allCustomers.size() == 0) {
     		System.out.println(Message.No_Customer);
     	} else {
-    		customerInfo();
+    		allCustomers.customerInfo();
     	}
     }
 
-	public void updateCustomer() {
+	private void updateCustomer() {
 		if (allCustomers.size() == 0) {
     		System.out.println(Message.No_Customer);
     	} else {
-    		customerInfo();
+    		allCustomers.customerInfo();
     		
 //    		whichCustomer(allCustomers).manage();;
     		allCustomers.get(whichCustomer(allCustomers)).manage();;
+    		
     	}
 	}
 	
-	public void deleteCustomer() {
+	private void deleteCustomer() {
 		if (allCustomers.size() == 0) {
     		System.out.println(Message.No_Customer);
     	} else {
-    		customerInfo();
+    		allCustomers.customerInfo();
     		while(true) {
     			try {
     				allCustomers.deleteCustomer(whichCustomer(allCustomers));
-    				customerInfo();
+    				allCustomers.customerInfo();
     			} catch (IndexOutOfBoundsException e) {
     				System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
     			} catch (IllegalArgumentException e) {
@@ -113,7 +114,7 @@ public class CustomerMenu implements Menu {
     	}
     }
 	
-	public static boolean isNumeric(String arg) {
+	private static boolean isNumeric(String arg) {
     	for (int i = 0; i < arg.length(); i++) {
     		if (!Character.isDigit(arg.charAt(i))) {
     			return false;
@@ -122,15 +123,15 @@ public class CustomerMenu implements Menu {
     	return true;
     }
 	
-	private void customerInfo() {
-		System.out.println("======= Customer Info. =======");
-		for(int i = 0; i < allCustomers.size(); i++) {
-			System.out.println("No. " + (i + 1) + " => " + allCustomers.get(i));
-		}
-		System.out.println();
-	}
+//	public void customerInfo() {
+//		System.out.println("======= Customer Info. =======");
+//		for(int i = 0; i < allCustomers.size(); i++) {
+//			System.out.println("No. " + (i + 1) + " => " + allCustomers.get(i));
+//		}
+//		System.out.println();
+//	}
 	
-	public int whichCustomer(Customers allCustomers) {
+	private int whichCustomer(Customers allCustomers) {
 		while(true) {
 			try {
 				System.out.print("Which customer ( 1 ~ " + allCustomers.size() + " )? ");

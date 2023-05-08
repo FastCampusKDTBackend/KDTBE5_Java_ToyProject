@@ -1,7 +1,6 @@
 package smartstore.customer;
 
 import smartstore.exception.InputEndException;
-import smartstore.exception.InputFormatException;
 import smartstore.exception.InputTypeException;
 import smartstore.group.Group;
 import smartstore.menu.Menu;
@@ -65,8 +64,16 @@ public class Customer implements Menu {
     public void setCusTotalPay(Integer cusTotalPay) {
         this.cusTotalPay = cusTotalPay;
     }
+    
+    public Group getGroup() {
+		return group;
+	}
 
-    @Override
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -86,6 +93,7 @@ public class Customer implements Menu {
                 ", cusId='" + cusId + '\'' +
                 ", cusTotalTime=" + cusTotalTime +
                 ", cusTotalPay=" + cusTotalPay +
+                ", group=" + group +
                 '}';
     }
 
@@ -110,7 +118,6 @@ public class Customer implements Menu {
 			} catch (IllegalArgumentException e) {
 				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
 			} 
-            
         }
 		
 	}
@@ -167,7 +174,7 @@ public class Customer implements Menu {
 		}
 	}
 	
-	public int chooseGroupInt(String msg) {
+	private int chooseGroupInt(String msg) {
 		int resultInt = -1;
         while ( true ) {
             try {
@@ -188,7 +195,7 @@ public class Customer implements Menu {
         return resultInt;
     }
 	
-	public String chooseGroupString(String msg) {
+	private String chooseGroupString(String msg) {
 		String resultStr = null;
         while ( true ) {
             try {
@@ -206,7 +213,7 @@ public class Customer implements Menu {
         return resultStr;
     }
 	
-	public static boolean isNumeric(String arg) {
+	private static boolean isNumeric(String arg) {
     	for (int i = 0; i < arg.length(); i++) {
     		if (!Character.isDigit(arg.charAt(i))) {
     			return false;

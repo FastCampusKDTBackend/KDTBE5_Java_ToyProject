@@ -9,7 +9,7 @@ public interface Message {
     String ERR_MSG_INVALID_INPUT_TYPE = "Invalid Type for Input. Please try again.\n";
     String ERR_MSG_INVALID_INPUT_FORMAT = "Invalid Format for Input. Please try again.\n";
     String ERR_MSG_INPUT_END = "END is pressed. Exit this menu.\n";
-//    String ERR_MSG_IDEX_OUT_OF_BOUNDS = "Index Out Of Bounds. Please try again.\n";
+    String ERR_MSG_IDEX_OUT_OF_BOUNDS = "Index Out Of Bounds. Please try again.\n";
     String END_MSG = "END";
     
     String MSG_Input_Customer_Time = "Input Customer's Spent Time: ";

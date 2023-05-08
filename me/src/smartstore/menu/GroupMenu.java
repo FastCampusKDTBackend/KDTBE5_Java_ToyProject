@@ -46,7 +46,7 @@ public class GroupMenu implements Menu {
         }
     }
 
-    public void setParameter() { // 초기화할 때만 호출 가능
+    private void setParameter() { // 초기화할 때만 호출 가능
         while ( true ) {
     		GroupType groupType = chooseGroup();
     		if (groupType == null) break;
@@ -116,7 +116,7 @@ public class GroupMenu implements Menu {
 				   "\nParameter: " + group.getParameter() + "\n");
 	}
     
-    public GroupType chooseGroup() {
+    private GroupType chooseGroup() {
         while ( true ) {
             try {
                 System.out.print("Which group (GENERAL (G), VIP (V), VVIP (VV))? ");

@@ -9,12 +9,13 @@ public class Groups extends DArray<Group> {
     public static Groups getInstance() {
         if (allGroups == null) {
             allGroups = new Groups();
+            
+            // 최초 등급 생성
+            allGroups.add(new Group(new Parameter(), GroupType.NONE));
+//            allGroups.add(new Group(new Parameter(), GroupType.GENERAL));
+//            allGroups.add(new Group(new Parameter(), GroupType.VIP));
+//            allGroups.add(new Group(new Parameter(), GroupType.VVIP));
         }
-        
-        // 최초 등급 생성
-        allGroups.add(new Group(GroupType.GENERAL));
-        allGroups.add(new Group(GroupType.VIP));
-        allGroups.add(new Group(GroupType.VVIP));
         
         return allGroups;
     }

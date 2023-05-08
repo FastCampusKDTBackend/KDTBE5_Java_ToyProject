@@ -22,7 +22,7 @@ public class Memberships implements Menu {
     }
 
     @Override
-    public void handleChoice(int menuNumber) {
+    public void handleChoice(String menuNumber) {
 
     }
 

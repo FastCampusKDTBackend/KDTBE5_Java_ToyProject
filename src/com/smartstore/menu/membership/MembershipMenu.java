@@ -6,8 +6,8 @@ import com.smartstore.util.Function;
 
 public class MembershipMenu implements Menu {
     @Override
-    public void handleChoice(int menuNumber) {
-        Function.of(menuNumber, MembershipFunction.class).run();
+    public void handleChoice(String menuNumber) {
+        Function.of(Integer.parseInt(menuNumber), MembershipFunction.class).run();
     }
 
     @Override

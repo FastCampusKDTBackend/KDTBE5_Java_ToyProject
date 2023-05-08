@@ -8,9 +8,9 @@ import java.util.Arrays;
 
 public class MainMenu implements Menu {
     @Override
-    public void handleChoice(int menuNumber) {
+    public void handleChoice(String menuNumber) {
         //call Menu with menuNumber
-        Function.of(menuNumber, MainMenuFunction.class).run();
+        Function.of(Integer.parseInt(menuNumber), MainMenuFunction.class).run();
     }
 
     @Override

@@ -4,7 +4,7 @@ import com.smartstore.menu.Menu;
 
 public class DeleteMembershipRequirement implements Menu {
     @Override
-    public void handleChoice(int menuNumber) {
+    public void handleChoice(String menuNumber) {
 
     }
 

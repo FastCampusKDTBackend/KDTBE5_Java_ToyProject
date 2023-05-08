@@ -12,7 +12,7 @@ public class ViewMembershipRequirement implements Menu {
     }
 
     @Override
-    public void handleChoice(int menuNumber) {
+    public void handleChoice(String menuNumber) {
 
     }
 }

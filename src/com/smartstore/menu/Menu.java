@@ -30,10 +30,10 @@ public interface Menu {
                 System.out.println("Invalid Menu");
             }
         }
-        handleChoice(menu);
+        handleChoice(String.valueOf(menu));
     }
 
-    void handleChoice(int menuNumber);
+    void handleChoice(String menuNumber);
 
     void run();
 

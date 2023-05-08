@@ -17,7 +17,7 @@ public class Customers extends DArray<Customer> {
 
 	public Customer findById(String id) {
 		for (int i = 0; i < this.size; i++) {
-			if (this.get(i).getId().equals(id)) {
+			if (id.equals(this.get(i).getId())) {
 				return this.get(i);
 			}
 		}
@@ -26,7 +26,7 @@ public class Customers extends DArray<Customer> {
 
 	public Boolean ispresent(String id) {
 		for (int i = 0; i < this.size; i++) {
-			if (this.get(i).getId().equals(id)) {
+			if (id.equals(this.get(i).getId())) {
 				return true;
 			}
 		}
@@ -44,7 +44,7 @@ public class Customers extends DArray<Customer> {
 	public String toString() {
 		String toStr = "";
 		for (int i = 0; i < this.size; i++) {
-			toStr += ("No. " + i + 1 + " => " + this.get(i) + "\n");
+			toStr += ("No. " + (i + 1) + " => " + this.get(i) + "\n");
 		}
 		return toStr;
 	}

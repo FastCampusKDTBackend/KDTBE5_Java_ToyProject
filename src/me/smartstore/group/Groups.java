@@ -1,6 +1,7 @@
 package me.smartstore.group;
 
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 import me.smartstore.collections.DArray;
 
@@ -34,8 +35,13 @@ public class Groups extends DArray<Group> {
 
 		for (int i = 0; i < this.size; i++) {
 			Group group = this.get(i);
-			int minTime = group.getParameter().getMinimumSpentTime();
-			int minPay = group.getParameter().getMinimumTotalPay();
+			Parameter groupParam = group.getParameter();
+			if (groupParam == null) {
+				continue;
+			}
+
+			int minTime = Objects.requireNonNullElse(groupParam.getMinimumSpentTime(), 0);
+			int minPay = Objects.requireNonNullElse(groupParam.getMinimumTotalPay(), 0);
 
 			if (param.getMinimumSpentTime() >= minTime && param.getMinimumTotalPay() >= minPay) {
 				find = group;

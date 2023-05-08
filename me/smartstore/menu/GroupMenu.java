@@ -99,9 +99,9 @@ public class GroupMenu implements Menu {
                         System.out.println(Message.ERR_MSG_INVALID_INPUT_NULL);
                     }else {
                         System.out.printf(
-                                "＿人人人人人人人人人人人人人人人人人人人人人人人人人人＿\n" +
+                                "＿人人人人人人人人人人人人人人人人人人人人人人人人人人人人人人＿\n" +
                                 "＞　Success !!! %s  ＜\n" +
-                                "￣^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y￣\n" +
+                                "￣^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y￣\n" +
                                 "       .A__A    ✨\uD83C\uDF82✨    A__A\n" +
                                 "       ( •⩊•)  _______ (•⩊• )\n" +
                                 "       (>\uD83C\uDF70>)   |   |   (<\uD83D\uDD2A<)\n", parameter);
@@ -148,7 +148,7 @@ public class GroupMenu implements Menu {
                 inputParameter(group.getParameter());
                 allCustomers.refresh(allGroups);
             } else {
-                System.out.println(Message.ERR_MSG_INVALID_INPUT_EMPTY);
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_NULL);
                 System.out.println();
             }
         }

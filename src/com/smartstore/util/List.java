@@ -11,4 +11,5 @@ public interface List<T> {
     boolean remove(T object);
 
     Object[] toArray();
+    Object[] toArray(Class<T[]> type);
 }

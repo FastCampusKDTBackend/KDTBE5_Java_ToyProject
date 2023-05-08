@@ -43,10 +43,16 @@ public class CustomList<T> implements List<T> {
     }
 
     @Override
-    public Object[] toArray(){
-        return Arrays.copyOf(elements, size);
+    @SuppressWarnings("unchked")
+    public T[] toArray(Class<T[]> type){
+        return (T[])Arrays.copyOf(elements, size, type);
     }
 
+    @Override
+    @SuppressWarnings("unchked")
+    public T[] toArray(){
+        return (T[])Arrays.copyOf(elements, size);
+    }
     @Override
     public void add(T object) {
         if(size == elements.length){

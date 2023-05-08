@@ -37,7 +37,7 @@ public class SetParameterMenu extends Menu {
         while (true) {
             print(GROUP_OUTPUT);
             try {
-                String groupName = inputGroupName();
+                String groupName = inputStringOrEnd();
                 Group group = Group.getGroupByString(groupName);
                 print(group);
                 inputGroupParameter(group);
@@ -64,7 +64,7 @@ public class SetParameterMenu extends Menu {
         while (true) {
             print(SET_GROUP_PARAMETER_OUTPUT);
             try {
-                int menu = inputMenu();
+                int menu = inputMenuIdx();
                 if (menu <= 2) {
                     assert menu != 0;
                     print(GROUP_PARAMETER_INPUT[menu]);

@@ -20,8 +20,8 @@ public abstract class TopicIntroMenu extends Menu {
         while (true) {
             try {
                 print(TOPIC_OUTPUT);
-                int i = inputMenu();
-                return nextMenus[i];
+                int menuIdx = inputMenuIdx();
+                return getNextMenu(menuIdx);
             } catch (InputMismatchException e) {
                 print(e.getMessage());
             }

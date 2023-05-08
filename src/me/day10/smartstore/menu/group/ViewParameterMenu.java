@@ -20,7 +20,7 @@ public class ViewParameterMenu extends Menu {
         while (true) {
             print(GROUP_OUTPUT);
             try {
-                String groupName = inputGroupName();
+                String groupName = inputStringOrEnd();
                 Group group = Group.getGroupByString(groupName);
                 print(group);
             } catch (InputIsEndException e) {

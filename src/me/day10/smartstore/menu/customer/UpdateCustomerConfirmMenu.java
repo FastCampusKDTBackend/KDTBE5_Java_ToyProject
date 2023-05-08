@@ -29,8 +29,8 @@ public class UpdateCustomerConfirmMenu extends Menu {
             try {
                 print(updateBeforeAndAfterInfo);
                 print(UPDATE_CUSTOMER_CONFIRM_OUTPUT);
-                int i = inputMenu();
-                return nextMenus[i];
+                int menuIdx = inputMenuIdx();
+                return getNextMenu(menuIdx);
             } catch (InputMismatchException e) {
                 print(e.getMessage());
             }

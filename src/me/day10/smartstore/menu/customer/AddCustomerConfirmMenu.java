@@ -34,8 +34,8 @@ public class AddCustomerConfirmMenu extends Menu {
                     return getBackMenu();
                 }
                 print(ADD_CUSTOMER_CONFIRM_OUTPUT);
-                int i = inputMenu();
-                return nextMenus[i];
+                int menuIdx = inputMenuIdx();
+                return getNextMenu(menuIdx);
             } catch (InputMismatchException e) {
                 print(e.getMessage());
             }

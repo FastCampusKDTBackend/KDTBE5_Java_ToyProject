@@ -1,5 +1,8 @@
 package me.smartstore.customer;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 import me.smartstore.array.Array;
 import me.smartstore.group.Group;
 import me.smartstore.group.Groups;
@@ -63,5 +66,74 @@ public class Customers extends Array<Customer> {
 		}
 
 		return findCustomres;
+	}
+
+	public Customer[] parseToArray(Customers customers) {
+		Customer[] array = new Customer[customers.size()];
+
+		for (int i = 0; i < customers.size(); i++) {
+			array[i] = customers.get(i);
+		}
+
+		return array;
+	}
+
+	public Customers sort(Customers customers, Comparator<Customer> comparator, String type) {
+		Customer[] customerArray = parseToArray(customers);
+
+		if (type.equals("A") || type.equals("ASCENDING")) {
+			customerArray = Arrays.stream(customerArray).sorted(comparator).toArray(Customer[]::new);
+		} else {
+			customerArray = Arrays.stream(customerArray).sorted(comparator.reversed())
+				.toArray(Customer[]::new);
+		}
+		customers.arrays = customerArray;
+
+		return customers;
+	}
+
+	public Comparator<Customer> comparatorByName() {
+		Comparator<Customer> comparator = new Comparator<Customer>() {
+			@Override
+			public int compare(Customer o1, Customer o2) {
+				return o1.getCustomerName().compareTo(o2.getCustomerName());
+			}
+		};
+
+		return comparator;
+	}
+
+	public Comparator<Customer> comparatorByTime() {
+		Comparator<Customer> comparator = new Comparator<Customer>() {
+			@Override
+			public int compare(Customer o1, Customer o2) {
+				int returnValue = o1.getUseHours() - o2.getUseHours();
+
+				if (returnValue == 0) {
+					return o1.getCustomerName().compareTo(o2.getCustomerName());
+				} else {
+					return returnValue;
+				}
+			}
+		};
+
+		return comparator;
+	}
+
+	public Comparator<Customer> comparatorByPay() {
+		Comparator<Customer> comparator = new Comparator<Customer>() {
+			@Override
+			public int compare(Customer o1, Customer o2) {
+				int returnValue = o1.getCustomerPay() - o2.getCustomerPay();
+
+				if (returnValue == 0) {
+					return o1.getCustomerName().compareTo(o2.getCustomerName());
+				} else {
+					return returnValue;
+				}
+			}
+		};
+
+		return comparator;
 	}
 }

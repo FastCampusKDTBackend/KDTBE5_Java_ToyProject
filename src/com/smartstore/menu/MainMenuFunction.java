@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public enum MainMenuFunction {
     MAIN_MENU(0, MainMenu.getInstance()),
-    GRADE_MANAGEMENT(1, GradeMenu.getInstance()),
+    MEMBERSHIP_MANAGEMENT(1, MembershipMenu.getInstance()),
     CUSTOMER_MANAGEMENT(2,CustomerMenu.getInstance()),
     REPORT_MANAGEMENT(3,ReportMenu.getInstance()),
     QUIT(4,Quit.getInstance());

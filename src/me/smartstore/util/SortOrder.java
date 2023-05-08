@@ -1,17 +1,15 @@
-package me.smartstore.group;
+package me.smartstore.util;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
-public enum GroupType {
-	NONE("N"),
-	GENERAL("G"),
-	VIP("V"),
-	VVIP("VV");
+public enum SortOrder {
+	ASCENDING("A"),
+	DESCENDING("D");
 
 	private String label;
 
-	GroupType(String label) {
+	SortOrder(String label) {
 		this.label = label;
 	}
 
@@ -24,9 +22,8 @@ public enum GroupType {
 		return this.name() + "(" + this.label + ")";
 	}
 
-	public static GroupType findByInput(String input) {
-		return Arrays.stream(GroupType.values())
-			.skip(1)    // NONE은 건너뜀
+	public static SortOrder findByInput(String input) {
+		return Arrays.stream(SortOrder.values())
 			.filter(t -> t.name().equals(input) || t.getLabel().equals(input))
 			.findAny()
 			.orElseThrow(NoSuchElementException::new);

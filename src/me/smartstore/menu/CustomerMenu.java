@@ -159,7 +159,7 @@ public class CustomerMenu implements Menu {
 			System.out.println(e);
 		}
 
-		customer.classifyGroupType(groups);    // 그룹 지정
+		customer.assignGroupType(groups);    // 그룹 지정
 		return true;
 	}
 

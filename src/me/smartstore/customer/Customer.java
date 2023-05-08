@@ -3,7 +3,6 @@ package me.smartstore.customer;
 import java.lang.reflect.Field;
 import java.util.Objects;
 
-import me.smartstore.group.Group;
 import me.smartstore.group.GroupType;
 import me.smartstore.group.Groups;
 import me.smartstore.group.Parameter;
@@ -39,13 +38,8 @@ public class Customer {
 		return true;
 	}
 
-	public void classifyGroupType(Groups groups) {
-		Group group = groups.findByParameter(new Parameter(this.spentTime, this.totalPay));
-		if (group == null) {
-			this.groupType = null;
-		} else {
-			this.groupType = group.getGroupType();
-		}
+	public void assignGroupType(Groups groups) {
+		this.groupType = groups.findByParameter(new Parameter(this.spentTime, this.totalPay)).getGroupType();
 	}
 
 	public String getName() {

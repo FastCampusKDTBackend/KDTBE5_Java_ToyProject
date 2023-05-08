@@ -2,19 +2,21 @@ package domain.group;
 
 import util.arrays.MyArray;
 
+import java.util.Objects;
+
 public class Groups extends MyArray<Group> {
     // singleton
     private static Groups allGroups;
 
     public static Groups getInstance() {
-        if (allGroups == null) {
+        if (Objects.isNull(allGroups)) {
             allGroups = new Groups();
+            allGroups.add(new Group(0, 0, GroupType.NONE));
         }
         return allGroups;
     }
 
     private Groups() {
-
     }
 
     public Group find(GroupType groupType) {

@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Console {
 
-    public static Scanner scanner;
+    private static Scanner scanner;
 
     private Console() {
 

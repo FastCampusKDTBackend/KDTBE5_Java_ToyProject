@@ -2,11 +2,13 @@ package com.smartstore.menu;
 
 import java.util.Arrays;
 
-public class MainMenu<T> implements Menu<T>, MenuController{
+public class MainMenu implements Menu {
 
     @Override
     public void handleChoice(int menuNumber) {
         System.out.println("Handel called");
+        Screen screen = Screen.of(menuNumber);
+        System.out.println(Arrays.toString(screen.getMenus()));
     }
 
     public static MainMenu getInstance() {
@@ -16,16 +18,18 @@ public class MainMenu<T> implements Menu<T>, MenuController{
         return instance;
     }
 
-
-    // TODO: 2023-05-04 make awesome splash screen
-    private void printSplashScreen(){
-        System.out.println(Arrays.toString(Screen.SPLASH.getMenus()));
+    private void printSlashScreen(){
+        System.out.println(Arrays.toString(Screen.of(-1).getMenus()));
     }
 
-    public void run(){
-        printSplashScreen();
-        displayMenu(Screen.MAIN_MENU.getMenus());
-        runMenuSelectionLoop();
+    public void run(int menuNumber){
+        //print splash screen
+
+        printSlashScreen();
+        //print menu
+        displayMenu(Screen.of(menuNumber).getMenus());
+        //get menu number from user until valid menu number
+        runMenuSelectionLoop(Screen.of(menuNumber).getMenus().length);
     }
     private static MainMenu instance;
 

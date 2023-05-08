@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-interface Menu<T> {
+interface Menu {
     StringBuilder sb = new StringBuilder();
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -14,14 +14,14 @@ interface Menu<T> {
         }
     }
 
-    default void runMenuSelectionLoop(){
+    default void runMenuSelectionLoop(int menuSize){
         int menu = -1;
         while (true){
             try {
                 System.out.print("Input : ");
                 menu = Integer.parseInt(br.readLine());
-                if (menu <= 0 || menu > Screen.MAIN_MENU.getMenus().length) {
-                    // TODO: 2023-05-08 trow other exception, catch it
+                if (menu <= 0 || menu > menuSize) {
+                    // TODO: 2023-05-08 throw other exception, catch it
                     throw new NumberFormatException("Invalid Menu");
                 }
                 break;
@@ -34,5 +34,11 @@ interface Menu<T> {
     }
 
     void handleChoice(int menuNumber);
+
+    default void run(int menuNumber){
+        displayMenu(Screen.of(menuNumber).getMenus());
+        //get menu number from user until valid menu number
+        runMenuSelectionLoop(Screen.of(menuNumber).getMenus().length);
+    };
 
 }

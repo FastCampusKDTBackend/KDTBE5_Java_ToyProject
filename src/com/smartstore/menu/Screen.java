@@ -11,7 +11,7 @@ public enum Screen {
             "Customer Management",
             "Report",
             "Quit"}, 0),
-    GRADE(new String[]{
+    MEMBERSHIP(new String[]{
             "Set Membership Requirement",
             "View Membership Requirement",
             "Update Membership Requirement",

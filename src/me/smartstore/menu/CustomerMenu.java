@@ -42,7 +42,7 @@ public class CustomerMenu implements Menu{
 			} else if (choice == 3) {
 				updateCustomer();
 			} else if (choice == 4) {
-
+				deleteCustomer();
 			} else if (choice == 5) {
 				break;
 			}
@@ -171,6 +171,27 @@ public class CustomerMenu implements Menu{
 				showParameterMenu(allCustomers.get(customerIndex));
 
 				allCustomers.refresh(allCustomers.get(customerIndex));
+				break;
+			} catch (NumberFormatException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
+			} catch (InputRangeException e){
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+			}
+		}
+	}
+
+	private void deleteCustomer() {
+		while(true) {
+			try {
+				System.out.print("Which Customer ( 1 ~ " + allCustomers.size() + " )? ");
+				int customerIndex = Integer.parseInt(nextLine()) - 1;
+
+				if (customerIndex < 0 || customerIndex > allCustomers.size()) throw new InputRangeException();
+
+				Customer deleteCustomer = allCustomers.remove(customerIndex);
+
+				System.out.println(deleteCustomer + "\n");
+				viewCustomers();
 				break;
 			} catch (NumberFormatException e) {
 				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);

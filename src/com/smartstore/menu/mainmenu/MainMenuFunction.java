@@ -11,7 +11,7 @@ public enum MainMenuFunction implements Function {
     MEMBERSHIP_MANAGEMENT(1, MembershipMenu.getInstance()),
     CUSTOMER_MANAGEMENT(2, CustomerMenu.getInstance()),
     REPORT_MANAGEMENT(3, ReportMenu.getInstance()),
-    QUIT(4, Quit.getInstance());
+    QUIT(4, new Quit());
 
     private final int menuNumber;
     private final Menu menuController;

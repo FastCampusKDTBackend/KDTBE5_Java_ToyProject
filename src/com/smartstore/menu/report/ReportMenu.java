@@ -8,6 +8,11 @@ public class ReportMenu implements Menu {
 
     }
 
+    @Override
+    public void run() {
+
+    }
+
     public static ReportMenu getInstance() {
         if(instance == null){
             instance = new ReportMenu();
@@ -17,9 +22,4 @@ public class ReportMenu implements Menu {
 
     private static ReportMenu instance;
 
-
-    @Override
-    public void run(int menuNumber) {
-
-    }
 }

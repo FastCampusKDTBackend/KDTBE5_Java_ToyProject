@@ -35,10 +35,12 @@ public interface Menu {
 
     void handleChoice(int menuNumber);
 
-    default void run(int menuNumber){
+    void run();
+
+    default void run(int menuNumber) {
         displayMenu(Screen.of(menuNumber).getMenus());
         //get menu number from user until valid menu number
         runMenuSelectionLoop(Screen.of(menuNumber).getMenus().length);
-    };
+    }
 
 }

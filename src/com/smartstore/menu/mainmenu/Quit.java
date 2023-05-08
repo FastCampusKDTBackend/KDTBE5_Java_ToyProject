@@ -12,17 +12,13 @@ public class Quit implements Menu {
     }
 
     @Override
+    public void run() {
+
+    }
+
+    @Override
     public void run(int menuNumber) {
         System.out.println(Arrays.toString(Screen.QUIT.getMenus()));
         System.exit(1);
     }
-
-    public static Quit getInstance() {
-        if(instance == null){
-            instance = new Quit();
-        }
-        return instance;
-    }
-
-    private static Quit instance;
 }

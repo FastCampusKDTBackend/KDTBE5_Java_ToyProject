@@ -1,18 +1,33 @@
 package com.smartstore.membership;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.smartstore.menu.Menu;
+import com.smartstore.util.CustomList;
 
-public class Memberships {
-    private List<Membership> membershipList = new ArrayList<>();
+public class Memberships implements Menu {
+    private CustomList<Membership> membershipList = new CustomList<>();
+    private static Memberships instance;
 
-
-    public Memberships getInstance(){
-        return this;
+    public static Memberships getInstance(){
+        if(instance == null){
+            instance = new Memberships();
+        }
+        return instance;
     }
 
     public void refresh(){
 
     }
+    Memberships(){
 
+    }
+
+    @Override
+    public void handleChoice(int menuNumber) {
+
+    }
+
+    @Override
+    public void run() {
+
+    }
 }

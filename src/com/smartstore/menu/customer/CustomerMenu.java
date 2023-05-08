@@ -8,6 +8,11 @@ public class CustomerMenu implements Menu {
 
     }
 
+    @Override
+    public void run() {
+
+    }
+
     public static CustomerMenu getInstance() {
         if(instance == null){
             instance = new CustomerMenu();
@@ -16,9 +21,4 @@ public class CustomerMenu implements Menu {
     }
 
     private static CustomerMenu instance;
-
-    @Override
-    public void run(int menuNumber) {
-
-    }
 }

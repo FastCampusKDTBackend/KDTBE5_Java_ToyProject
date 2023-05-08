@@ -1,6 +1,6 @@
 package com.smartstore.customer;
 
-import com.smartstore.grade.Membership;
+import com.smartstore.membership.Membership;
 
 public class Customer {
     private int customerId;

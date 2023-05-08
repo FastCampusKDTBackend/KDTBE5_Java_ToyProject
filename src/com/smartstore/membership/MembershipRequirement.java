@@ -1,4 +1,4 @@
-package com.smartstore.grade;
+package com.smartstore.membership;
 
 public class MembershipRequirement {
     private int minUsageTime;

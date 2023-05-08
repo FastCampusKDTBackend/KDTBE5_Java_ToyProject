@@ -1,4 +1,4 @@
-package com.smartstore.grade;
+package com.smartstore.membership;
 
 public enum MembershipType {
     GENERAL(new String[] {"G", "GENERAL", "일반"}),

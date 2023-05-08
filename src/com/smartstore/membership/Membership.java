@@ -1,4 +1,4 @@
-package com.smartstore.grade;
+package com.smartstore.membership;
 
 import java.util.Map;
 

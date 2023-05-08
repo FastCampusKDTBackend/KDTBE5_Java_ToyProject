@@ -1,19 +1,19 @@
 package com.smartstore.menu;
 
-public class CustomerMenu implements Menu, MenuController {
+public class ReportMenu implements Menu, MenuController{
     @Override
     public void handleChoice(int menuNumber) {
 
     }
 
-    public static CustomerMenu getInstance() {
+    public static ReportMenu getInstance() {
         if(instance == null){
-            instance = new CustomerMenu();
+            instance = new ReportMenu();
         }
         return instance;
     }
 
-    private static CustomerMenu instance;
+    private static ReportMenu instance;
 
     @Override
     public void run() {

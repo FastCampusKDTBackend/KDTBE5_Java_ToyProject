@@ -1,16 +1,22 @@
 package com.smartstore.menu;
 
-public class GradeMenu implements Menu {
+public class GradeMenu implements Menu, MenuController{
     @Override
-    public void runMenuSelectionLoop() {
-        boolean isExit = false;
-        while (isExit){
+    public void handleChoice(int menuNumber) {
 
-        }
     }
 
+    public static GradeMenu getInstance() {
+        if(instance == null){
+            instance = new GradeMenu();
+        }
+        return instance;
+    }
+
+    private static GradeMenu instance;
+
     @Override
-    public void handleChoice(String menuNumber) {
+    public void run() {
 
     }
 }

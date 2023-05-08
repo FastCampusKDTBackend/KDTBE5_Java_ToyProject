@@ -9,8 +9,9 @@ import java.util.*;
 public class SummaryService {
 
     private static SummaryService summaryService;
-    private static final Customers customers = Customers.getInstance();
-    private static final GroupService groupService = GroupService.getInstance();
+
+    private final Customers customers;
+    private final GroupService groupService;
 
     private ArrayList<ArrayList<Customer>> allCustomers;
 
@@ -22,6 +23,8 @@ public class SummaryService {
     }
 
     private SummaryService() {
+        customers = Customers.getInstance();
+        groupService = GroupService.getInstance();
         initClassifiedCustomers();
     }
 
@@ -50,7 +53,6 @@ public class SummaryService {
                 customerGroup.add(customerList.remove(i));
             }
         }
-
         return customerGroup;
     }
 

@@ -52,4 +52,16 @@ public class Customers extends Array<Customer> {
 			}
 		}
 	}
+
+	public Customers findByGroup(Group group) {
+		Customers findCustomres = new Customers();
+
+		for (int i = 0; i < size(); i++) {
+			if (get(i).getCustomerGroup().equals(group)) {
+				findCustomres.add(get(i));
+			}
+		}
+
+		return findCustomres;
+	}
 }

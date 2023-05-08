@@ -1,16 +1,19 @@
 package com.smartstore.membership;
 
-import com.smartstore.menu.Menu;
+import com.smartstore.util.CustomList;
 
-public class SetMembershipRequirement implements Menu {
+public class SetMembershipRequirement implements MembershipMenuController {
     @Override
     public void run() {
         //Do something
-        System.out.println("Which one?");
-        for(MembershipType key : MembershipType.values()){
-            System.out.printf("%s | ",key.name());
-
+        CustomList<String> keyList = new CustomList<>();
+        for(MembershipType membershipType : MembershipType.values()){
+            keyList.add(membershipType.name());
         }
+        String[] keyArray = keyList.toArray(String[].class);
+        displayMenu(keyArray);
+
+        runMenuSelectionLoop(keyArray);
 
     }
 
@@ -19,7 +22,7 @@ public class SetMembershipRequirement implements Menu {
     }
 
     @Override
-    public void handleChoice(int menuNumber) {
+    public void handleChoice(String menu) {
 
     }
 }

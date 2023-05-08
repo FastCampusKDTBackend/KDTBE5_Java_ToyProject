@@ -38,7 +38,7 @@ public class GroupMenu implements Menu{
 			if (choice == 1) {
 				setParameter(0);
 			} else if (choice == 2) {
-
+				viewParameter();
 			} else if (choice == 3) {
 				setParameter(1);
 			} else if (choice == 4) {
@@ -133,6 +133,26 @@ public class GroupMenu implements Menu{
 			System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
 		} catch (InputRangeException e) {
 			System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+		}
+	}
+
+	private void viewParameter() {
+		while(true) {
+			try {
+				System.out.println("Which group (GENERAL(G), VIP(V), VVIP(V))?");
+				String groupType = nextLine(Message.END_MSG);
+
+				Group findGroup = allGroups.findByGroupType(GroupType.getGroupType(groupType));
+
+				if (findGroup == null) throw new ElementNotFoundException();
+
+				System.out.println(findGroup);
+			} catch (InputEndException e){
+				System.out.println(Message.ERR_MSG_INPUT_END);
+				break;
+			} catch (ElementNotFoundException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+			}
 		}
 	}
 }

@@ -43,7 +43,7 @@ public class SmartStoreApp {
                     ((int) (Math.random() * 5) + 1) * 100000));
         }
 
-        //allCustomers.refresh();
+        allCustomers.refresh();
 
         System.out.println("================== TEST CUSTOMERS ==================");
         System.out.println(allCustomers);

@@ -17,17 +17,15 @@ public class GroupMenu implements Menu {
     private static final int MENU_ITEMS_MAX_NUM;
     private static final int MENU_ITEMS_MIN_NUM;
 
-    private static GroupService groupService;
-
     private static GroupMenu parameterMenu;
 
+    private final GroupService groupService;
 
     static {
         GROUP_MAIN_MENU_ITEMS = new String[]{"Set Parameter", "View Parameter", "Update Parameter", "Back"};
         GROUP_SET_MENU_ITEMS = new String[]{"Minimum Spent Time", "Minimum Total Pay", "Back"};
         MENU_ITEMS_MAX_NUM = GROUP_MAIN_MENU_ITEMS.length;
         MENU_ITEMS_MIN_NUM = 1;
-        groupService = GroupService.getInstance();
     }
 
     public static GroupMenu getInstance() {
@@ -38,7 +36,7 @@ public class GroupMenu implements Menu {
     }
 
     private GroupMenu() {
-
+        groupService = GroupService.getInstance();
     }
 
     @Override

@@ -19,9 +19,9 @@ public class CustomerMenu implements Menu {
     private static final int MENU_ITEMS_MAX_NUM;
     private static final int MENU_ITEMS_MIN_NUM;
 
-    private static CustomerService customerService;
-
     private static CustomerMenu customerMenu;
+
+    private final CustomerService customerService;
 
     static {
         CUSTOMER_MAIN_MENU_ITEMS = new String[]{"Add Customer Data", "View Customer Data",
@@ -32,7 +32,6 @@ public class CustomerMenu implements Menu {
 
         MENU_ITEMS_MAX_NUM = CUSTOMER_MAIN_MENU_ITEMS.length;
         MENU_ITEMS_MIN_NUM = 1;
-        customerService = CustomerService.getInstance();
     }
 
     public static CustomerMenu getInstance() {
@@ -43,7 +42,7 @@ public class CustomerMenu implements Menu {
     }
 
     private CustomerMenu() {
-
+        customerService = CustomerService.getInstance();
     }
 
     @Override

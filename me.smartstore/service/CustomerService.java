@@ -9,10 +9,10 @@ import java.util.Objects;
 public class CustomerService {
 
     private static CustomerService customerService;
-    private static final Customers customers = Customers.getInstance();
+    private final Customers customers;
 
     private CustomerService() {
-
+        customers = Customers.getInstance();
     }
 
     public static CustomerService getInstance() {

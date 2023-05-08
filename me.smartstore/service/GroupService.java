@@ -15,7 +15,7 @@ import java.util.Objects;
 public class GroupService {
 
     private static GroupService groupService;
-    private static final Groups groups = Groups.getInstance();
+    private final Groups groups;
 
     public static GroupService getInstance() {
         if (Objects.isNull(groupService)){
@@ -25,7 +25,7 @@ public class GroupService {
     }
 
     private GroupService() {
-
+        groups = Groups.getInstance();
     }
 
     public void checkInvalidGroup(GroupType groupType) throws GroupSetAlreadyException {

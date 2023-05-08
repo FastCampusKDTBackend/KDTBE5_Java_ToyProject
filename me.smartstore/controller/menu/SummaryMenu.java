@@ -18,16 +18,15 @@ public class SummaryMenu implements Menu {
     private static final int MENU_ITEMS_MIN_NUM;
 
     private static SummaryMenu summaryMenu;
-    private static final SummaryService summaryService;
-    private static final GroupService groupService;
+
+    private final SummaryService summaryService;
+    private final GroupService groupService;
 
     static {
         MENU_ITEMS = new String[]{"Summary", "Summary (Sorted By Name)",
                 "Summary (Sorted By Spent Time)", "Summary (Sorted By Total Payment)", "Back"};
         MENU_ITEMS_MAX_NUM = MENU_ITEMS.length;
         MENU_ITEMS_MIN_NUM = 1;
-        summaryService = SummaryService.getInstance();
-        groupService = GroupService.getInstance();
     }
 
     public static SummaryMenu getInstance() {
@@ -38,7 +37,8 @@ public class SummaryMenu implements Menu {
     }
 
     private SummaryMenu() {
-
+        summaryService = SummaryService.getInstance();
+        groupService = GroupService.getInstance();
     }
 
     @Override

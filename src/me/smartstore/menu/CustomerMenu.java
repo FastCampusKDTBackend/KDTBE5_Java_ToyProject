@@ -40,7 +40,7 @@ public class CustomerMenu implements Menu{
 			} else if (choice == 2) {
 				viewCustomers();
 			} else if (choice == 3) {
-
+				updateCustomer();
 			} else if (choice == 4) {
 
 			} else if (choice == 5) {
@@ -156,5 +156,27 @@ public class CustomerMenu implements Menu{
 		System.out.println("======= Customer Info. =======");
 		System.out.println(allCustomers);
 		System.out.println();
+	}
+
+	private void updateCustomer() {
+		viewCustomers();
+
+		while(true) {
+			try {
+				System.out.print("Which Customer ( 1 ~ " + allCustomers.size() + " )? ");
+				int customerIndex = Integer.parseInt(nextLine()) - 1;
+
+				if (customerIndex < 0 || customerIndex > allCustomers.size()) throw new InputRangeException();
+
+				showParameterMenu(allCustomers.get(customerIndex));
+
+				allCustomers.refresh(allCustomers.get(customerIndex));
+				break;
+			} catch (NumberFormatException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
+			} catch (InputRangeException e){
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+			}
+		}
 	}
 }

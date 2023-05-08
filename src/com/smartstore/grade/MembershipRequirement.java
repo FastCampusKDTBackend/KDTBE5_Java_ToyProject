@@ -1,10 +1,10 @@
 package com.smartstore.grade;
 
-public class GradeRequirement {
+public class MembershipRequirement {
     private int minUsageTime;
     private int minPaymentAmount;
 
-    public GradeRequirement getGradeRequirement() {
+    public MembershipRequirement getGradeRequirement() {
 
         return null;
     }

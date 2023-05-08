@@ -3,11 +3,11 @@ package com.smartstore.grade;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Grades {
-    private List<Grade> gradeList = new ArrayList<>();
+public class Memberships {
+    private List<Membership> membershipList = new ArrayList<>();
 
 
-    public Grades getInstance(){
+    public Memberships getInstance(){
         return this;
     }
 

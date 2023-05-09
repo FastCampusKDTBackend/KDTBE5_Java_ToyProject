@@ -1,10 +1,10 @@
 package domain.menu.main.parameter;
 
 import domain.group.GroupType;
-import domain.group.Parameter;
-import util.common.ViewMessage;
+import util.common.ErrorMessage;
 import util.view.InputScanner;
 import util.view.OutputView;
+import util.view.ViewMessage;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;

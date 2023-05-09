@@ -22,4 +22,12 @@ public class Groups extends DArray<Group> {
         }
         return null;
     }
+
+    public Group[] findAllGroup() {
+        Group[] result = new Group[this.size];
+        for(int i = 0; i < this.size; i++) {
+            result[i] = this.get(i);
+        }
+        return result;
+    }
 }

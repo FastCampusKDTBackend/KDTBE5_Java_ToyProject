@@ -5,8 +5,6 @@ import me.smartstore.group.Group;
 import me.smartstore.group.GroupType;
 import me.smartstore.group.Parameter;
 
-import java.util.EmptyStackException;
-
 public class Customer {
     private String cusName;
     private String cusId;

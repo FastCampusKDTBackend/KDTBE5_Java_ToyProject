@@ -1,7 +1,9 @@
 package com.smartstore.membership;
 
 import com.smartstore.menu.Menu;
+import com.smartstore.menu.mainmenu.MainMenuFunction;
 import com.smartstore.util.CustomList;
+import com.smartstore.util.Function;
 
 import java.io.IOException;
 import java.util.NoSuchElementException;
@@ -61,5 +63,17 @@ public interface MembershipMenuController extends Menu {
         return null;
     }
 
+    default void returnToPrevMenu(){
+        MainMenuFunction mainMenuFunction = Function.of(1, MainMenuFunction.class);
+        mainMenuFunction.run();
+    }
+
+    default void run(){
+        //get values from enum by string array
+        String[] values = getEnumValues();
+        displayMenu(values);
+
+        runMenuSelectionLoop(values);
+    }
 
 }

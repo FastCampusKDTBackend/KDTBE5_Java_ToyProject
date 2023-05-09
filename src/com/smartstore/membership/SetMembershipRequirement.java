@@ -1,19 +1,6 @@
 package com.smartstore.membership;
 
-import com.smartstore.menu.mainmenu.MainMenuFunction;
-import com.smartstore.util.Function;
-
 public class SetMembershipRequirement implements MembershipMenuController {
-    @Override
-    public void run() {
-        //get values from enum by string array
-        String[] values = getEnumValues();
-        displayMenu(values);
-
-        runMenuSelectionLoop(values);
-
-    }
-
     private void setMembershipRequirement(MembershipType membershipType) {
         Memberships.getInstance().setMembershipRequirement(membershipType);
         System.out.printf("Set %s Successfully\n\n\n",membershipType.name());
@@ -35,8 +22,4 @@ public class SetMembershipRequirement implements MembershipMenuController {
         returnToPrevMenu();
     }
 
-    public void returnToPrevMenu(){
-        MainMenuFunction mainMenuFunction = Function.of(1, MainMenuFunction.class);
-        mainMenuFunction.run();
-    }
 }

@@ -1,10 +1,6 @@
 package com.smartstore.membership;
 
-import com.smartstore.menu.Menu;
-
-public class UpdateMembershipRequirement extends SetMembershipRequirement implements Menu {
-
-
+public class UpdateMembershipRequirement implements MembershipMenuController {
     @Override
     public void handleChoice(String membershipName) {
         MembershipType membershipType = getMembershipType(membershipName);
@@ -17,7 +13,7 @@ public class UpdateMembershipRequirement extends SetMembershipRequirement implem
             updateMembershipRequirement(membershipType, requirement);
         }
         //Back to prev Menu
-        super.returnToPrevMenu();
+        returnToPrevMenu();
     }
 
     private void updateMembershipRequirement(MembershipType membershipType, MembershipRequirement requirement){

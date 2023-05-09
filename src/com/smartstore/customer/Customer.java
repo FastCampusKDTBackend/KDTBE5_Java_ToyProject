@@ -1,16 +1,16 @@
 package com.smartstore.customer;
 
-import com.smartstore.membership.Membership;
+import com.smartstore.membership.MembershipType;
 
 public class Customer {
     private int customerId;
     private String customerName;
-    private Membership membership;
+    private MembershipType membership;
 
 
 
     //TODO: 2023-04-30  constructor to builder
-    Customer(int customerId, String customerName, Membership membership){
+    Customer(int customerId, String customerName, MembershipType membership){
         this.customerId = customerId;
         this.customerName = customerName;
         this.membership = membership;

@@ -1,8 +1,7 @@
 package domain.group;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 public enum GroupType {
     NONE("N"),
@@ -16,6 +15,10 @@ public enum GroupType {
     GroupType(String symbol) {
         this.symbol = symbol;
         this.parameter = null;
+        if (symbol.equals("N")) {
+            this.parameter = new Parameter();
+        }
+
     }
 
     public String getSymbol() {
@@ -30,7 +33,11 @@ public enum GroupType {
         parameter = new Parameter();
     }
 
-//    public void updateParameter
+    public static boolean isGroupParameterSet() {
+        return Arrays.stream(GroupType.values())
+                .map(GroupType::getParameter)
+                .allMatch(Objects::nonNull);
+    }
 
     public static GroupType getBySymbolOrName(String groupName) {
         return Arrays.stream(GroupType.values())
@@ -40,22 +47,17 @@ public enum GroupType {
     }
 
     public static GroupType findGroupType(int spentTime, int totalPay) {
-        List<GroupType> findGroupList = Arrays.stream(GroupType.values())
-                .filter(param -> {
-                    int paramTime = param.getParameter().getMinimumSpentTime();
-                    int paramPay = param.getParameter().getMinimumTotalPay();
-                    if (spentTime >= paramTime && totalPay >= paramPay) {
-                        return true;
-                    }
-                    return false;
-                })
-                .collect(Collectors.toList());
-
-        return findGroupList.get(findGroupList.size() - 1);
+        return Arrays.stream(GroupType.values())
+                .reduce(NONE, (prevType, currentType) -> {
+                            if (spentTime >= currentType.getParameter().getMinimumSpentTime() && totalPay >= currentType.getParameter().getMinimumTotalPay()) {
+                                return currentType;
+                            }
+                            return prevType;
+                        }
+                );
     }
 
     public static String generateFormatForView() {
-//        GENERAL (G), VIP (V), VVIP (VV)
         StringBuilder stringBuilder = new StringBuilder();
         GroupType[] groupTypes = GroupType.values();
         for (int i = 1; i < groupTypes.length; i++) {
@@ -76,6 +78,7 @@ public enum GroupType {
 
         return stringBuilder.toString();
     }
+
     @Override
     public String toString() {
         return "GroupType{" +

@@ -63,6 +63,11 @@ public class GroupMenu implements Menu{
 					continue;
 				}
 
+				if (selectGroup == null && updateFlag == 1) {
+					System.out.println("No parameter. Set the parameter first.");
+					break;
+				}
+
 				if (selectGroup != null) System.out.println(selectGroup);
 
 				if (selectGroup == null) {

@@ -21,10 +21,17 @@ public enum MainMenuFunction implements Function {
         this.menuController = menuController;
     }
 
-    public boolean isMatchedMenuNumber(int menuNumber){
-        return this.menuNumber == menuNumber;
+    @Override
+    public int getMenuNumber() {
+        return menuNumber;
     }
 
+    @Override
+    public MenuController getMenuController() {
+        return menuController;
+    }
+
+    @Override
     public void run() {
         menuController.run(menuNumber);
     }

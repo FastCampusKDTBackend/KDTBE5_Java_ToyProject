@@ -1,4 +1,4 @@
-package com.smartstore.function.membership;
+package com.smartstore.function.customer;
 
 import com.smartstore.function.MenuController;
 import com.smartstore.membership.MembershipRequirement;
@@ -6,13 +6,13 @@ import com.smartstore.membership.MembershipType;
 import com.smartstore.membership.Memberships;
 import com.smartstore.util.CustomList;
 
-import java.io.IOException;
 import java.util.NoSuchElementException;
 
-public interface MembershipMenuController extends MenuController {
+public interface CustomerMenuController extends MenuController {
     @Override
     default void runMenuSelectionLoop(String[] memberships) {
-        String memberTypeName="";
+        //implement for customer function later
+        /*String memberTypeName="";
         boolean isExit = false;
         if(memberships.length > 0) {
             while (!isExit) {
@@ -34,7 +34,7 @@ public interface MembershipMenuController extends MenuController {
                 }
             }
             handleChoice(memberTypeName);
-        }
+        }*/
     }
 
     @Override
@@ -79,9 +79,7 @@ public interface MembershipMenuController extends MenuController {
     @Override
     default void handleChoice(String membershipName){
         if(!"end".equalsIgnoreCase(membershipName)){
-            //get enum_value using string from MembershipType
             MembershipType membershipType = getMembershipType(membershipName);
-            //find requirement using type from enum_map
             MembershipRequirement requirement = Memberships.getInstance().findByType(membershipType);
 
             //run each function's method

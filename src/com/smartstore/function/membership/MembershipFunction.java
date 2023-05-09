@@ -19,17 +19,13 @@ public enum MembershipFunction implements Function {
     }
 
     @Override
-    public void run() {
-        System.out.println(menuController.getClass());
-        if(menuController.getClass().equals(Back.class)){
-            menuController.run(0);
-        }else{
-            menuController.run();
-        }
+    public int getMenuNumber() {
+        return this.menuNumber;
     }
 
     @Override
-    public boolean isMatchedMenuNumber(int menuNumber){
-        return this.menuNumber == menuNumber;
+    public MenuController getMenuController() {
+        return this.menuController;
     }
+
 }

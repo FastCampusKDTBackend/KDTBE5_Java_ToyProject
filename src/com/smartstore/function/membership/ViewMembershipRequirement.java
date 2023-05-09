@@ -6,7 +6,6 @@ import com.smartstore.membership.MembershipType;
 public class ViewMembershipRequirement implements MembershipMenuController {
     @Override
     public void run(MembershipType membershipType, MembershipRequirement requirement) {
-        //find requirement using type in enum_map
         //if not found in enum_map
         if(requirement == null ){
             System.out.printf("Membership '%s' Not Defined Yet\n", membershipType.name());

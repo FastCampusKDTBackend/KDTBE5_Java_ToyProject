@@ -2,6 +2,7 @@ package me.smartstore.domain.menu;
 
 import me.smartstore.domain.customer.Customer;
 import me.smartstore.domain.customer.Customers;
+import me.smartstore.utils.constant.SortType;
 import me.smartstore.domain.group.Group;
 import me.smartstore.domain.group.Groups;
 import me.smartstore.domain.group.Parameter;
@@ -9,8 +10,7 @@ import me.smartstore.domain.group.constant.GroupType;
 import me.smartstore.utils.exception.InputEndException;
 import me.smartstore.utils.exception.InputRangeException;
 
-import java.util.Comparator;
-
+import static me.smartstore.utils.constant.SortType.*;
 import static me.smartstore.domain.group.constant.GroupType.*;
 import static me.smartstore.utils.constant.Choice.SUMMARY_MENU;
 import static me.smartstore.utils.constant.Message.END_MSG;
@@ -43,11 +43,11 @@ public class SummaryMenu implements Menu {
             if (choice == 1) {
                 getSummary(allCustomers.getCustomers());
             } else if (choice == 2) {
-                getSummarySortedByName();
+                getSortedSummary(CUSTOMER_NAME);
             } else if (choice == 3) {
-                getSummarySortedByTime();
+                getSortedSummary(CUSTOMER_TIME);
             } else if (choice == 4) {
-                getSummarySortedByTotalPayment();
+                getSortedSummary(CUSTOMER_PAYMENT);
             } else {
                 break;
             }
@@ -61,36 +61,11 @@ public class SummaryMenu implements Menu {
         }
     }
 
-    private void getSummarySortedByName() {
+    private void getSortedSummary(SortType type) {
         while (true) {
             int classificationVal = getClassificationValue();
             if (classificationVal == END_PRESS) return;
-            Comparator<Customer> comparator = (customer1, customer2) -> {
-                return (classificationVal) * customer1.getCustomerName().compareTo(customer2.getCustomerName());
-            };
-            getSummary(allCustomers.getSortedCustomers(comparator));
-        }
-    }
-
-    private void getSummarySortedByTime() {
-        while (true) {
-            int classificationVal = getClassificationValue();
-            if (classificationVal == END_PRESS) return;
-            Comparator<Customer> comparator = (customer1, customer2) -> {
-                return (classificationVal) * customer1.getSpentTime().compareTo(customer2.getSpentTime());
-            };
-            getSummary(allCustomers.getSortedCustomers(comparator));
-        }
-    }
-
-    private void getSummarySortedByTotalPayment() {
-        while (true) {
-            int classificationVal = getClassificationValue();
-            if (classificationVal == END_PRESS) return;
-            Comparator<Customer> comparator = (customer1, customer2) -> {
-                return (classificationVal) * customer1.getTotalPay().compareTo(customer2.getTotalPay());
-            };
-            getSummary(allCustomers.getSortedCustomers(comparator));
+            getSummary(allCustomers.getSortedCustomers(type.getCustomerComparator(classificationVal)));
         }
     }
 

@@ -1,12 +1,16 @@
 package domain.menu.main.classification;
 
-import domain.menu.Menu;
+import domain.customer.ClassifiedCustomers;
+import domain.customer.Customer;
+import domain.group.GroupType;
+import domain.menu.type.SortType;
+import util.common.ViewMessage;
+import util.common.exception.NotFoundException;
 import util.view.InputScanner;
 import util.view.OutputView;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Scanner;
 
 public interface ClassificationMenuExecute {
     static Runnable getMethod(Comparator<Customer> comparator) {

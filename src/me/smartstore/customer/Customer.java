@@ -1,5 +1,6 @@
 package me.smartstore.customer;
 
+import me.smartstore.exception.DuplicateValueException;
 import me.smartstore.group.Group;
 
 import java.util.Objects;
@@ -35,6 +36,7 @@ public class Customer {
     }
 
     public void setCustomerId(String customerId) {
+        if (Customers.getInstance().checkId(customerId)) throw new DuplicateValueException();
         this.customerId = customerId;
     }
 

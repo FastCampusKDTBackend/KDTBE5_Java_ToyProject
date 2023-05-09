@@ -149,4 +149,14 @@ public class Customers extends Array<Customer> {
 
 		return true;
 	}
+
+	public boolean checkId(String customerId) {
+		for (int i = 0; i < allCustomers.size(); i++) {
+			if (allCustomers.get(i).getCustomerId() == null) return false;
+
+			if (allCustomers.get(i).getCustomerId().equals(customerId)) return true;
+		}
+
+		return false;
+	}
 }

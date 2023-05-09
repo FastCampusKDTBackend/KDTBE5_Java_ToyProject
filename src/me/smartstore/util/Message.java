@@ -11,5 +11,6 @@ public interface Message {
     String ERR_MSG_INVALID_INPUT_FORMAT = "Invalid Format for Input. Please try again.";
     String ERR_MSG_NULL_ELEMENT = "No Element. Please try again";
     String ERR_MSG_INPUT_END = "END is pressed. Exit this menu.";
+    String ERR_MSG_DUPLICATED_CUSTOMERID = "This ID is duplicate. Please input other ID";
     String END_MSG = "END";
 }

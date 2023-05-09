@@ -2,6 +2,7 @@ package me.smartstore.menu;
 
 import me.smartstore.customer.Customer;
 import me.smartstore.customer.Customers;
+import me.smartstore.exception.DuplicateValueException;
 import me.smartstore.exception.ElementEmptyException;
 import me.smartstore.exception.InputEndException;
 import me.smartstore.exception.InputRangeException;
@@ -129,6 +130,8 @@ public class CustomerMenu implements Menu{
 			} catch(InputEndException e) {
 				System.out.println(e.getMessage());
 				break;
+			} catch (DuplicateValueException e) {
+				System.out.println(e.getMessage());
 			}
 		}
 	}

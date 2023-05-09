@@ -1,14 +1,17 @@
 package customer;
 
 import group.Group;
+import jdk.jfr.Description;
 
 import java.util.Objects;
 
-public class Customer {
+public class Customer implements Comparable<Customer> {
     private String cName;
     private String cId;
     private Integer totalTime;
     private Integer totalPay;
+
+
     private Group group;
     //refresh 함수가 호출되는 경우 -> 분류기준이 바뀔때, 새로운 고객이 들어올때
 
@@ -25,6 +28,13 @@ public class Customer {
         this.cId = cId;
         this.totalTime = totalTime;
         this.totalPay = totalPay;
+    }
+    public Customer(String cName, String cId, Integer totalTime, Integer totalPay, Group group) {
+        this.cName = cName;
+        this.cId = cId;
+        this.totalTime = totalTime;
+        this.totalPay = totalPay;
+        this.group = group;
     }
 
     public String getcName() {
@@ -58,6 +68,14 @@ public class Customer {
     public void setTotalPay(Integer totalPay) {
         this.totalPay = totalPay;
     }
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -78,6 +96,14 @@ public class Customer {
                 ", cId='" + cId + '\'' +
                 ", totalTime=" + totalTime +
                 ", totalPay=" + totalPay +
+                ", group=" + group+
                 '}';
+    }
+    /**
+     * 정렬을 위한 메소드
+     */
+    @Override
+    public int compareTo(Customer o) {
+        return this.cName.compareTo(o.cName);
     }
 }

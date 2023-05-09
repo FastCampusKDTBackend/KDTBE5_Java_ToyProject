@@ -24,7 +24,6 @@ public class Customers extends MyArray<Customer> {
         this.allGroups = Groups.getInstance();
     }
 
-    // TODO: Refresh 메서드 구현 (새로운 고객 추가, 분류기준 변경시 작동)
     public void refresh() {
         for (int i = 0; i < allCustomers.size(); i++) {
             Customer customer = allCustomers.get(i);
@@ -34,7 +33,7 @@ public class Customers extends MyArray<Customer> {
     }
 
     public Group findGroupOfCustomer(int usageTime, int purchaseAmount) {
-        Group group = allGroups.get(0); // 처음에는 NONE
+        Group group = allGroups.get(0);
         for (int i = 1; i < allGroups.size(); i++) {
             Group pickedGroup = allGroups.get(i);
             int minUsageTime = pickedGroup.getParameter().getMinUsageTime();
@@ -59,7 +58,7 @@ public class Customers extends MyArray<Customer> {
 
     /**
      * 원하는 정렬 기준을 가진 Comparator를 파라미터로 받아 정렬된 Customer 배열을 얻어내는 메서드
-     * @param comparator: 정렬하고자 하는 기준으로 Comparator를 만들어 파라미터로 입력하세요.
+     * @param comparator 정렬하고자 하는 기준으로 Comparator를 만들어 파라미터로 입력하세요.
      * @return 원하는 정렬 기준으로 정렬된 Customer 배열을 리턴합니다.
      */
     public Customer[] getSortedCustomers(Comparator<Customer> comparator) {

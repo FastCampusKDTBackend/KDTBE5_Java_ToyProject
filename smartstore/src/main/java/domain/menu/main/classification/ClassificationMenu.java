@@ -1,6 +1,6 @@
 package domain.menu.main.classification;
 
-import domain.customer.Customer;
+import domain.group.GroupType;
 import domain.menu.Menu;
 import util.comparator.customer.ComparatorByName;
 import util.comparator.customer.ComparatorBySpentTime;
@@ -10,10 +10,38 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public enum ClassificationMenu implements Menu {
-    SUMMARY(1, "Summary", SummaryExecute.getMethod(null)),
-    SORTED_BY_NAME(2, "Summary (Sorted By Name)", SummaryExecute.getMethod(new ComparatorByName<>())),
-    SORTED_BY_SPENT_TIME(3, "Summary (Sorted By Spent Time)", SummaryExecute.getMethod(new ComparatorBySpentTime<>())),
-    SORTED_BY_TOTAL_PAYMENT(4, "Summary (Sorted By Total Payment)",SummaryExecute.getMethod(new ComparatorByTotalPayment<>()));
+    SUMMARY(
+            1,
+            "Summary",
+            SummaryExecute.getMethod(
+                    null,
+                    GroupType.values()
+            )
+    ),
+    SORTED_BY_NAME(
+            2,
+            "Summary (Sorted By Name)",
+            SummaryExecute.getMethod(
+                    new ComparatorByName<>(),
+                    GroupType.values()
+            )
+    ),
+    SORTED_BY_SPENT_TIME(
+            3,
+            "Summary (Sorted By Spent Time)",
+            SummaryExecute.getMethod(
+                    new ComparatorBySpentTime<>(),
+                    GroupType.values()
+            )
+    ),
+    SORTED_BY_TOTAL_PAYMENT(
+            4,
+            "Summary (Sorted By Total Payment)",
+            SummaryExecute.getMethod(
+                    new ComparatorByTotalPayment<>(),
+                    GroupType.values()
+            )
+    );
 
     private final int menuNumber;
     private final String menuName;

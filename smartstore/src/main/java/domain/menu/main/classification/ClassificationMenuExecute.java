@@ -15,38 +15,49 @@ import java.util.Comparator;
 public interface ClassificationMenuExecute {
     static Runnable getMethod(Comparator<Customer> comparator) {
         return () -> {
-            while (true) {
-                if (comparator == null) {
-                    executeView(null);
-                    return;
-                }
-
-                OutputView.chooseGroup(SortType.generateFormatForView());
-                String command = InputScanner.get().nextLine();
-
-                if (command.equals(ViewMessage.EXIT_CHOICE)) {
-                    return;
-                }
-
-                try {
-                    SortType sortType = getSortOrder(command);
-                    if (sortType.equals(SortType.ASCENDING)) {
-                        executeView(comparator);
-                        return;
-                    }
-
-                    executeView(comparator.reversed());
-
-                } catch (NotFoundException notFoundException) {
-                    OutputView.viewErrorMessage(notFoundException.getMessage());
-                }
-
+            if (isPureSummary(comparator)) {
+                executeView(null);
+                return;
             }
+
+            sortSummaryExecute(comparator);
         };
     }
 
+    private static boolean isPureSummary(Comparator<Customer> comparator) {
+        return comparator == null;
+    }
+
+    private static boolean isQuit(String command) {
+        return command.equals(ViewMessage.EXIT_CHOICE);
+    }
+
+    private static void sortSummaryExecute(Comparator<Customer> comparator) {
+        while (true) {
+            OutputView.chooseType(SortType.generateFormatForView());
+            String command = InputScanner.get().nextLine();
+
+            if (isQuit(command)) {
+                return;
+            }
+
+            if (SortType.isAscending(getSortOrder(command))) {
+                executeView(comparator);
+                return;
+            }
+
+            executeView(comparator.reversed());
+        }
+    }
+
     private static SortType getSortOrder(String command) {
-        return SortType.findOrder(command);
+        while (true) {
+            try {
+                return SortType.findOrder(command);
+            } catch (NotFoundException notFoundException) {
+                OutputView.viewErrorMessage(notFoundException.getMessage());
+            }
+        }
     }
 
     private static void executeView(Comparator<Customer> comparator) {

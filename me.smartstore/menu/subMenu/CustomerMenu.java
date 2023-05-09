@@ -84,13 +84,14 @@ public class CustomerMenu implements SubMenu {
         while (true) {
             try {
                 int choiceMenuNumber = MenuManager.chooseMenu(SUB_MENU_ITEMS);
-                if (choiceMenuNumber == 5) break;
                 if (choiceMenuNumber == 1) customer.setName(Input.inputCustomerName());
                 if (choiceMenuNumber == 2) customer.setId(Input.inputCustomerId());
                 if (choiceMenuNumber == 3) customer.setStoreUsageTime(Input.inputCustomerStoreUsageTime());
                 if (choiceMenuNumber == 4) customer.setTotalPaymentAmount(Input.inputCustomerTotalPaymentAmount());
             } catch (InputEndException | InputRangeException | IndexOutOfBoundsException | ArrayEmptyException exception) {
                 System.out.println(exception.getMessage());
+            } catch (InputNumOfEndMenuException exception) {
+                break;
             }
         }
     }

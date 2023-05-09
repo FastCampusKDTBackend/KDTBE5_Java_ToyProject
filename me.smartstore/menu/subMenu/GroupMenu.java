@@ -81,11 +81,12 @@ public class GroupMenu implements SubMenu {
         while (true) {
             try {
                 int choiceMenuNumber = MenuManager.chooseMenu(SUB_MENU_ITEMS);
-                if (choiceMenuNumber == 3) break;
                 if (choiceMenuNumber == 1) group.setMinTime(Input.inputMinSpentTime());
                 if (choiceMenuNumber == 2) group.setMinPay(Input.inputMinTotalPayment());
             } catch (InputEndException exception) {
                 Output.printErrorMessage(exception.getMessage());
+                break;
+            } catch (InputNumOfEndMenuException exception) {
                 break;
             }
         }

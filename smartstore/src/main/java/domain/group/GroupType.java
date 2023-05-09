@@ -29,6 +29,10 @@ public enum GroupType {
         return parameter;
     }
 
+    public boolean isParameterExist() {
+        return parameter != null;
+    }
+
     public void initParameter() {
         parameter = new Parameter();
     }

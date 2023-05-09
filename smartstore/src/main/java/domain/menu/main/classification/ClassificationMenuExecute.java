@@ -4,45 +4,50 @@ import domain.menu.Menu;
 import util.view.InputScanner;
 import util.view.OutputView;
 
-import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Scanner;
 
 public interface ClassificationMenuExecute {
+    static Runnable getMethod(Comparator<Customer> comparator) {
+        return () -> {
+            while (true) {
+                if (comparator == null) {
+                    executeView(null);
+                    return;
+                }
 
-//    static <T> Runnable getMethod(int menuIndex) {
-//        Runnable[] methods = new Runnable[]{
-//                getAddCustomerExecuteMethod(),
-//                getViewCustomerExecuteMethod(),
-//                getUpdateCustomerExecuteMethod(),
-//                getDeleteCustomerExecuteMethod(),
-//        };
-//        return methods[menuIndex];
-//    }
-//    static <T> Runnable getMethod(Comparator<T> comparator) {
-//        return () -> {
-//            Scanner scanner = InputScanner.get();
-//
-//            while (true) {
-//                try {
-//                    Menu[] menus = (Menu[]) getResult(clazz, "values", null, null);
-//                    OutputView.viewMenus(menus);
-//                    OutputView.chooseMenu();
-//
-//                    int menuNumber = Integer.parseInt(scanner.nextLine());
-//                    boolean isQuit = (boolean) getResult(clazz, "isQuit", null, new Object[]{menuNumber}, new Class[]{int.class});
-//                    System.out.println(isQuit);
-//                    if (isQuit) {
-//                        return;
-//                    }
-//
-//                    findMenuAndExecution(clazz, menuNumber);
-//
-//                } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException |
-//                         NoSuchMethodException e) {
-//                    System.out.println(e);
-//                }
-//            }
-//        };
-//    }
+                OutputView.chooseGroup(SortType.generateFormatForView());
+                String command = InputScanner.get().nextLine();
+
+                if (command.equals(ViewMessage.EXIT_CHOICE)) {
+                    return;
+                }
+
+                try {
+                    SortType sortType = getSortOrder(command);
+                    if (sortType.equals(SortType.ASCENDING)) {
+                        executeView(comparator);
+                        return;
+                    }
+
+                    executeView(comparator.reversed());
+
+                } catch (NotFoundException notFoundException) {
+                    OutputView.viewErrorMessage(notFoundException.getMessage());
+                }
+
+            }
+        };
+    }
+
+    private static SortType getSortOrder(String command) {
+        return SortType.findOrder(command);
+    }
+
+    private static void executeView(Comparator<Customer> comparator) {
+        Arrays.stream(GroupType.values()).forEach(groupType -> {
+            ClassifiedCustomers.getInstance().viewByClassifiedGroup(groupType, comparator);
+        });
+    }
 }

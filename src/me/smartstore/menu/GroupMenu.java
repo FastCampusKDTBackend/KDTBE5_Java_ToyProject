@@ -31,7 +31,7 @@ public class GroupMenu implements Menu {
     public void manage() {
         while ( true ) {
             int choice = chooseMenu(Board.GROUP_MENU.getBoard());
-            System.out.println(allGroups);
+
             if (choice == 1) setParameter();
             else if (choice == 2) viewParameter();
             else if (choice == 3) updateParameter();
@@ -63,8 +63,6 @@ public class GroupMenu implements Menu {
                 } else {
                     Parameter parameter = new Parameter();
                     setParameterValue(parameter, groupType);
-                    System.out.println(allGroups);
-
                     allCustomers.refresh(allGroups);
                 }
                 System.out.println("\nGroupType: " + groupType);

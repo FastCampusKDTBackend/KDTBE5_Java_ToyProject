@@ -1,6 +1,5 @@
 package util.view;
 
-import domain.group.GroupType;
 import domain.menu.Menu;
 import util.common.ViewMessage;
 
@@ -18,8 +17,8 @@ public class OutputView {
     public static void viewExitGuide() {
         System.out.println("** Press '" +ViewMessage.EXIT_CHOICE+"', if you want to exit! **");
     }
-    public static void chooseGroup() {
-        System.out.println("Which group ("+ GroupType.generateFormatForView() +")?  \n");
+    public static void chooseGroup(String format) {
+        System.out.println("Which type ("+ format +")?  \n");
         viewExitGuide();
     }
 

@@ -68,28 +68,59 @@ public class GroupMenu implements Menu {
         while ( true ) {
 
             GroupType groupType = chooseGroup();
-
+            if (groupType == null) { // InputEndException 발생 시 GroupMenu으로 이동
+                break;
+            }
             // GroupType에 해당하는 group 객체를 찾아야 함
             Group group = allGroups.find(groupType);
             if (group != null && group.getParameter() != null) { // group.getParameter()이 null이 아니면 이미 초기화됨
                 System.out.println("\n" + group.getGroupType() + " group already exists.");
                 System.out.println("\n" + group);
             } else {
-                Parameter parameter = new Parameter();
-
-
-                // time, pay 사용자 입력받은 후, 설정 필요
-
-//                 group.setParameter(parameter);
-//                allCustomers.refresh(allGroups); // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
-
-                if (groupType == null) { // InputEndException 발생 시 GroupMenu으로 이동
-                    groupMenu.manage();
-                    return;
-                }
+                setPaywithTime(allGroups.find(groupType).getParameter());
+                allCustomers.refresh(allGroups); // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
             }
         }
     }
+
+    public void setPaywithTime(Parameter parameter) { //
+        while(true) {
+            int choice = chooseMenu(new String[]{
+                    "Minimum Spent Time",
+                    "Minimum Total Pay",
+                    "Back",
+                    });
+            if (choice == 1) {
+                System.out.println("Input Minimum Spent Time:");
+                String input = nextLine(Message.END_MSG);
+                if (input.equalsIgnoreCase("end")) {
+                    System.out.println(Message.ERR_MSG_INPUT_END);
+                    break;
+                }
+                try {
+                    parameter.setMinTime(Integer.valueOf(input));
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a valid number or 'end'.");
+                }
+            }
+            else if (choice == 2) {
+                System.out.println("Input Minimum Total Pay:");
+                String input = nextLine(Message.END_MSG);
+                if (input.equalsIgnoreCase("end")) {
+                    System.out.println(Message.ERR_MSG_INPUT_END);
+                   break;
+                }
+                try {
+                    parameter.setMinPay(Integer.valueOf(input));
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a valid number or 'end'.");
+                }
+            }else
+                break;
+            }
+
+        }
+
 
 
     public void viewParameter() {
@@ -99,8 +130,6 @@ public class GroupMenu implements Menu {
                 break;
             }
             Group group = allGroups.find(groupType);
-
-
             System.out.println("GroupType: " + groupType);
             System.out.println("Parameter: " + group.getParameter());
 
@@ -110,6 +139,9 @@ public class GroupMenu implements Menu {
 
     public void updateParameter() {
         while(true) {
+            GroupType groupType = chooseGroup();
+            if(groupType ==null) break;
+            setPaywithTime(allGroups.find(groupType).getParameter());
 
         }
     }

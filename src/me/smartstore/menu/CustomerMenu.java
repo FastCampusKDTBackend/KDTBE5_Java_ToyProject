@@ -131,11 +131,16 @@ public class CustomerMenu implements Menu{
 			System.out.println("Input Customer's Spent Time:");
 
 			int time = Integer.parseInt(nextLine(Message.END_MSG));
+
+			if (time < 0) throw new InputRangeException();
+
 			customer.setUseHours(time);
 		} catch (NumberFormatException e){
 			System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
 		} catch (InputEndException e) {
 			System.out.println(Message.ERR_MSG_INPUT_END);
+		} catch (InputRangeException e) {
+			System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
 		}
 	}
 
@@ -144,11 +149,16 @@ public class CustomerMenu implements Menu{
 			System.out.println("Input Customer's Total Pay:");
 
 			int pay = Integer.parseInt(nextLine(Message.END_MSG));
+
+			if (pay < 0) throw new InputRangeException();
+
 			customer.setCustomerPay(pay);
 		} catch (NumberFormatException e){
 			System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
 		} catch (InputEndException e) {
 			System.out.println(Message.ERR_MSG_INPUT_END);
+		} catch (InputRangeException e) {
+			System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
 		}
 	}
 

@@ -30,7 +30,7 @@ public interface MainMenuExecute {
 
                 } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException |
                          NoSuchMethodException e) {
-                    System.out.println(e);
+                    OutputView.viewErrorMessage(e.getMessage());
                 }
             }
         };
@@ -40,7 +40,7 @@ public interface MainMenuExecute {
         try {
             return clazz.getMethod(methodName, parameterTypes).invoke(target, args);
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            System.out.println(e);
+            OutputView.viewErrorMessage(e.getMessage());
         }
         return null;
     }
@@ -48,7 +48,6 @@ public interface MainMenuExecute {
     private static <T> void findMenuAndExecution(Class<T> clazz, int menuNumber) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         findByNumber(clazz, menuNumber).ifPresent(
                 (menu) -> {
-//                    getResult(clazz, "execute", menu, null);
                     execute(clazz, menu);
                 }
         );
@@ -64,17 +63,5 @@ public interface MainMenuExecute {
 
     private static <T> Optional<T> findByNumber(Class<T> clazz, int menuNumber) {
         return (Optional<T>) getResult(clazz, "findByNumber", null, new Object[]{menuNumber}, int.class);
-//        return (Optional<T>) (clazz.getDeclaredMethod("findByNumber", int.class).invoke(null, menuNumber));
     }
-
-
-
-    //    private static <T> T[] getValues(Class<T> clazz, Object target, Object[] args, Class<?>... parameterTypes) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-//        return (T[]) clazz.getMethod("values", parameterTypes).invoke(target, args);
-//    }
-//
-//    private static <T> boolean isQuit(Class<T> clazz, int menuNumber) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-//        return (boolean) clazz.getDeclaredMethod("isQuit", int.class).invoke(null, menuNumber);
-//    }
-
 }

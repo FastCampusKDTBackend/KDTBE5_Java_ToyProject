@@ -23,6 +23,10 @@ public class OutputView {
         viewExitGuide();
     }
 
+    public static void viewErrorMessage(String errorMessage) {
+        System.out.println(errorMessage);
+    }
+
     public static void chooseParameterForSetting() {
         System.out.println("==============================\n" +
                 " 1. Minimum Spent Time\n" +

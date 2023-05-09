@@ -4,13 +4,23 @@ public class MembershipRequirement {
     private int minUsageTime;
     private int minPaymentAmount;
 
-    public MembershipRequirement getGradeRequirement() {
-
-        return null;
+    public MembershipRequirement(int minUsageTime, int minPaymentAmount) {
+        this.minUsageTime = minUsageTime;
+        this.minPaymentAmount = minPaymentAmount;
     }
 
-    //TODO: 2023-04-30  constructor to builder
-    public void setGradeRequirement(int a, int b){
-
+    //for unregister customer
+    public MembershipRequirement() {
+        this.minUsageTime = 0;
+        this.minPaymentAmount = 0;
     }
+
+    public int getMinUsageTime() {
+        return minUsageTime;
+    }
+
+    public int getMinPaymentAmount() {
+        return minPaymentAmount;
+    }
+
 }

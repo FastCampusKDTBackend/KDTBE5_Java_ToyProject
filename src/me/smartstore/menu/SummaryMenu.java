@@ -54,6 +54,7 @@ public class SummaryMenu implements Menu {
 			try {
 				System.out.println("\nWhich order (ASCENDING (A), DESCENDING (D))?");
 				String choice = nextUpperLine(Message.EXIT_FLAG);
+
 				return SortOrder.findByInput(choice);
 			} catch (InputExitException e) {
 				System.out.println(Message.INFO_INPUT_EXIT_FLAG);
@@ -69,13 +70,17 @@ public class SummaryMenu implements Menu {
 		for (int i = 0; i < groups.size(); i++) {
 			Group group = groups.get(i);
 			System.out.println(group.toSummaryTitle());
+
+			// Summary
 			Customer[] customerArray = customers.arrayByGroupType(group.getGroupType());
 
+			// Null Print
 			if (customerArray.length == 0) {
 				System.out.println("Null.");
 				continue;
 			}
 
+			// Summary Print
 			Arrays.stream(customerArray).forEach(System.out::println);
 		}
 	}
@@ -84,13 +89,17 @@ public class SummaryMenu implements Menu {
 		for (int i = 0; i < groups.size(); i++) {
 			Group group = groups.get(i);
 			System.out.println(group.toSummaryTitle());
+
+			// Summary
 			Customer[] customerArray = customers.arrayByGroupType(group.getGroupType());
 
+			// Null Print
 			if (customerArray.length == 0) {
 				System.out.println("Null.");
 				continue;
 			}
 
+			// Summary Sort&Print
 			Arrays.stream(customerArray)
 				.sorted(comparator)
 				.forEach(System.out::println);

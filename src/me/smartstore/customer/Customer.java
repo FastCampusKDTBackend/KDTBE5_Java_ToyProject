@@ -32,12 +32,13 @@ public class Customer {
 	public Boolean isEmpty() throws IllegalAccessException {
 		for (Field f : getClass().getDeclaredFields()) {
 			if (f.get(this) != null) {
-				return false; // 하나라도 null이 아니면
+				return false;
 			}
 		}
-		return true;
+		return true;    //모든 파라미터가 null이면 빈 객체
 	}
 
+	// GroupType 지정 메서드. customer 등록, 수정 시 / Group 등록,수정으로 인한 refresh 과정에서 호출
 	public void assignGroupType(Groups groups) {
 		this.groupType = groups.findByParameter(new Parameter(this.spentTime, this.totalPay)).getGroupType();
 	}
@@ -76,10 +77,6 @@ public class Customer {
 
 	public GroupType getGroupType() {
 		return groupType;
-	}
-
-	public void setGroupType(GroupType groupType) {
-		this.groupType = groupType;
 	}
 
 	@Override

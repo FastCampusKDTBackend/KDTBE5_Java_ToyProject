@@ -37,6 +37,7 @@ public class Groups extends DArray<Group> {
 		for (int i = this.size - 1; -1 < i; i--) {
 			Group group = this.get(i);
 			Parameter groupParam = group.getParameter();
+
 			if (groupParam == null) {
 				continue;
 			}

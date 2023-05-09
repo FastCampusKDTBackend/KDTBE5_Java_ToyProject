@@ -30,7 +30,6 @@ public class MainMenu implements Menu {
 				int choice = chooseMenu(Stream.of(RootMenu.values()).map(RootMenu::toString).toArray(String[]::new));
 
 				Boolean isQuit = RootMenu.findByCode(choice).run();
-
 				if (isQuit) {
 					System.out.println("\nProgram Finished");
 					break;
@@ -80,10 +79,6 @@ public class MainMenu implements Menu {
 
 		public int getCode() {
 			return code;
-		}
-
-		public String getLabel() {
-			return label;
 		}
 
 		public static RootMenu findByCode(int code) {

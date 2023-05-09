@@ -17,9 +17,11 @@ public interface Menu {
 	default String nextLine(String exitFlag) {
 		System.out.println("** Press '" + exitFlag + "', if you want to exit! **");
 		String str = scanner.nextLine();
+
 		if (str.toUpperCase().equals(exitFlag.toUpperCase())) {
 			throw new InputExitException();
 		}
+
 		return str;
 	}
 
@@ -30,9 +32,11 @@ public interface Menu {
 	default String nextUpperLine(String exitFlag) {
 		System.out.println("** Press '" + exitFlag + "', if you want to exit! **");
 		String str = scanner.nextLine().toUpperCase();
+
 		if (str.equals(exitFlag.toUpperCase())) {
 			throw new InputExitException();
 		}
+
 		return str;
 	}
 
@@ -48,9 +52,11 @@ public interface Menu {
 		try {
 			System.out.println("** Press '" + exitFlag + "', if you want to exit! **");
 			String str = scanner.nextLine().toUpperCase();
+
 			if (str.equals(exitFlag.toUpperCase())) {
 				throw new InputExitException();
 			}
+
 			return Integer.parseInt(str);
 		} catch (NumberFormatException e) {
 			throw new InputFormatException();

@@ -67,6 +67,7 @@ public class GroupMenu implements Menu {
 			try {
 				int choice = chooseMenu(
 					Stream.of(ParameterMenu.values()).map(ParameterMenu::toString).toArray(String[]::new));
+
 				Boolean isBack = ParameterMenu.findByCode(choice).run(group);
 				if (isBack) {
 					break;
@@ -87,8 +88,7 @@ public class GroupMenu implements Menu {
 				}
 
 				Group group = groups.findByGroupType(groupType);
-
-				if (group.getParameter() != null) { // 이미 초기화 됨
+				if (group.getParameter() != null) { // 이미 초기화 됨. 그룹 다시 선택
 					System.out.println("\n" + group.getGroupType() + " group already exists.");
 					System.out.println(group);
 					continue;
@@ -122,8 +122,7 @@ public class GroupMenu implements Menu {
 				}
 
 				Group group = groups.findByGroupType(groupType);
-
-				if (group.getParameter() == null) { // 설정 안했으면 루트 메뉴로 돌아감
+				if (group.getParameter() == null) { // 초기화 안함. 루트 메뉴로 돌아감
 					System.out.println(Message.ERR_INVALID_PARAMETER_EMPTY);
 					break;
 				}
@@ -140,10 +139,9 @@ public class GroupMenu implements Menu {
 		while (true) {
 			try {
 				System.out.println("\nInput Minimum Spent Time");
-
 				int input = groupMenu.nextInt(Message.EXIT_FLAG);
 
-				if (group.getParameter() == null) {
+				if (group.getParameter() == null) {    // 초기 등록 시
 					group.setParameter(new Parameter());
 				}
 
@@ -167,7 +165,7 @@ public class GroupMenu implements Menu {
 				System.out.println("\nInput Minimum Total Pay");
 				int input = groupMenu.nextInt(Message.EXIT_FLAG);
 
-				if (group.getParameter() == null) {
+				if (group.getParameter() == null) { // 초기 등록 시
 					group.setParameter(new Parameter());
 				}
 
@@ -227,10 +225,6 @@ public class GroupMenu implements Menu {
 			return code;
 		}
 
-		public String getLabel() {
-			return label;
-		}
-
 		public static RootMenu findByCode(int code) {
 			return Arrays.stream(RootMenu.values())
 				.filter(t -> t.getCode() == code)
@@ -279,10 +273,6 @@ public class GroupMenu implements Menu {
 
 		public int getCode() {
 			return code;
-		}
-
-		public String getLabel() {
-			return label;
 		}
 
 		public static ParameterMenu findByCode(int code) {

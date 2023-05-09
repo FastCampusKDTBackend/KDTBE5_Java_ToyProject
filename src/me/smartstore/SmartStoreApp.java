@@ -8,53 +8,54 @@ import me.smartstore.group.Parameter;
 import me.smartstore.menu.MainMenu;
 
 public class SmartStoreApp {
-    private static SmartStoreApp smartStoreApp;
-    private final MainMenu mainMenu = MainMenu.getInstance();
-    private static final Groups groups = Groups.getInstance();
-    private static final Customers customers = Customers.getInstance();
+	private static final MainMenu mainMenu = MainMenu.getInstance();
+	private static final Groups groups = Groups.getInstance();
+	private static final Customers customers = Customers.getInstance();
 
-    private SmartStoreApp() {
-    }
+	private static SmartStoreApp smartStoreApp;
 
-    public static SmartStoreApp getInstance() {
-        if (smartStoreApp == null) {
-            smartStoreApp = new SmartStoreApp();
-        }
-        return smartStoreApp;
-    }
+	private SmartStoreApp() {
+	}
 
-    public void details() {
-        System.out.println("\n\n===========================================");
-        System.out.println(" Title : SmartStore Customer Classification");
-        System.out.println(" Release Date : 23.04.27");
-        System.out.println(" Copyright 2023 Chaewon Eom All rights reserved.");
-        System.out.println("===========================================\n");
-    }
+	public static SmartStoreApp getInstance() {
+		if (smartStoreApp == null) {
+			smartStoreApp = new SmartStoreApp();
+		}
+		return smartStoreApp;
+	}
 
-    public SmartStoreApp test() {
-        groups.findByGroupType(GroupType.GENERAL).setParameter(new Parameter(10, 100000));
-        groups.findByGroupType(GroupType.VIP).setParameter(new Parameter(20, 200000));
-        groups.findByGroupType(GroupType.VVIP).setParameter(new Parameter(30, 300000));
+	public void details() {
+		System.out.println("\n\n===========================================");
+		System.out.println(" Title : SmartStore Customer Classification");
+		System.out.println(" Release Date : 23.05.09");
+		System.out.println(" Copyright 2023 Chaewon Eom All rights reserved.");
+		System.out.println("===========================================\n");
+	}
 
-        for (int i = 0; i < 26; i++) {
-            customers.add(new Customer(
-                Character.toString((char)('a' + i)),
-                (char)('a' + i) + "123",
-                ((int)(Math.random() * 5) + 1) * 10,
-                ((int)(Math.random() * 5) + 1) * 100000));
-        }
+	public SmartStoreApp test() {
+		groups.findByGroupType(GroupType.GENERAL).setParameter(new Parameter(10, 100000));
+		groups.findByGroupType(GroupType.VIP).setParameter(new Parameter(20, 200000));
+		groups.findByGroupType(GroupType.VVIP).setParameter(new Parameter(30, 300000));
 
-        customers.refreshGroupType(groups);
+		for (int i = 0; i < 26; i++) {
+			customers.add(new Customer(
+				Character.toString((char)('a' + i)),
+				(char)('a' + i) + "123",
+				((int)(Math.random() * 5) + 1) * 10,
+				((int)(Math.random() * 5) + 1) * 100000));
+		}
 
-        System.out.println("Customers \n" + customers);
-        System.out.println("Groups \n" + groups);
+		customers.refreshGroupType(groups);
 
-        return this; // smartStoreApp
-    }
+		System.out.println("Customers \n" + customers);
+		System.out.println("Groups \n" + groups);
 
-    public void run() {
-        details();
-        mainMenu.root();
-    }
+		return this; // smartStoreApp
+	}
+
+	public void run() {
+		details();
+		mainMenu.root();
+	}
 
 }

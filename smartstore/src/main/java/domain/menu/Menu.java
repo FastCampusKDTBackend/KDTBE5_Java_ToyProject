@@ -1,5 +1,6 @@
 package domain.menu;
 
 public interface Menu {
-    void execute();
+    default void execute() {
+    }
 }

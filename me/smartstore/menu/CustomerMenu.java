@@ -2,6 +2,7 @@ package me.smartstore.menu;
 
 import me.smartstore.customer.Customer;
 import me.smartstore.customer.Customers;
+import me.smartstore.exception.InputEmptyException;
 import me.smartstore.exception.InputEndException;
 import me.smartstore.group.Groups;
 import me.smartstore.util.Message;
@@ -30,7 +31,8 @@ public class CustomerMenu implements Menu {
                     "View Customer",
                     "Update Customer",
                     "Delete Customer",
-                    "Back"});
+                    "Back"
+            });
             if(choice == 1) addCustomer();
             else if(choice == 2) viewCustomer();
             else if(choice == 3) updateCustomer();
@@ -52,55 +54,58 @@ public class CustomerMenu implements Menu {
                 System.out.println(Message.ERR_MSG_INPUT_END);
                 System.out.println();
                 break;
-            }catch (NumberFormatException e) {
-                System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
-                System.out.println();
             }
-
         }
     }
 
     private void customerInfoInput(int count) {
         Customer addCustomer = new Customer();
         while(true) {
-            System.out.printf("=============== Customer %d Info. ===============\n", count);
-            int choice = chooseMenu(new String[]{
-                    "Customer Name",
-                    "Customer ID",
-                    "Customer Spent Time",
-                    "Customer Total Pay",
-                    "Back"
-            });
-            if(choice == 1) {
-                System.out.print("Input Customer Name : ");
-                String customerName = nextLine();
-                addCustomer.setCusName(customerName);
-            }else if (choice == 2) {
-                System.out.print("Input Customer ID : ");
-                String customerId = nextLine();
-                addCustomer.setCusId(customerId);
-            }else if(choice == 3) {
-                System.out.print("Input Customer Spent Time : ");
-                int customerSpentTime = Integer.parseInt(nextLine());
-                addCustomer.setCusTotalTime(customerSpentTime);
-            }else if(choice == 4) {
-                System.out.print("Input Customer Total Pay : ");
-                int customerTotalPay = Integer.parseInt(nextLine());
-                addCustomer.setCusTotalPay(customerTotalPay);
-            }else {
-                if(addCustomer.getCusId() == null || addCustomer.getCusName() == null ||
-                        addCustomer.getCusTotalTime() == null || addCustomer.getCusTotalPay() == null) {
-                    System.out.println(Message.ERR_MSG_INVALID_INPUT_NULL);
+            try {
+                System.out.printf("=============== Customer %d Info. ===============\n", count);
+                int choice = chooseMenu(new String[]{
+                        "Customer Name",
+                        "Customer ID",
+                        "Customer Spent Time",
+                        "Customer Total Pay",
+                        "Back"
+                });
+                if(choice == 1) {
+                    System.out.print("Input Customer Name : ");
+                    String customerName = nextLine(Message.END_MSG);
+                    addCustomer.setCusName(customerName);
+                }else if (choice == 2) {
+                    System.out.print("Input Customer ID : ");
+                    String customerId = nextLine(Message.END_MSG);
+                    addCustomer.setCusId(customerId);
+                }else if(choice == 3) {
+                    System.out.print("Input Customer Spent Time : ");
+                    int customerSpentTime = Integer.parseInt(nextLine(Message.END_MSG));
+                    addCustomer.setCusTotalTime(customerSpentTime);
+                }else if(choice == 4) {
+                    System.out.print("Input Customer Total Pay : ");
+                    int customerTotalPay = Integer.parseInt(nextLine(Message.END_MSG));
+                    addCustomer.setCusTotalPay(customerTotalPay);
                 }else {
-                    allCustomers.add(addCustomer);
-                    allCustomers.refresh(allGroups);
-                    System.out.printf(
-                            "＞　Success !!! %s  ＜\n" +
-                                    "       .A__A    ✨\uD83C\uDF82✨    A__A\n" +
-                                    "       ( •⩊•)  _______ (•⩊• )\n" +
-                                    "       (>\uD83C\uDF70>)   |   |   (<\uD83D\uDD2A<)\n", addCustomer);
-                    break;
+                    if(addCustomer.getCusId() == null || addCustomer.getCusName() == null ||
+                            addCustomer.getCusTotalTime() == null || addCustomer.getCusTotalPay() == null) {
+                        System.out.println(Message.ERR_MSG_INVALID_INPUT_NULL);
+                    }else {
+                        allCustomers.add(addCustomer);
+                        allCustomers.refresh(allGroups);
+                        System.out.printf(
+                                "＞　Success !!! %s  ＜\n" +
+                                        "           .A__A    ✨\uD83C\uDF82✨    A__A\n" +
+                                        "           ( •⩊•)  _______ (•⩊• )\n" +
+                                        "           (>\uD83C\uDF70>)   |   |   (<\uD83D\uDD2A<)\n", addCustomer);
+                        break;
+                    }
                 }
+            }catch (InputEmptyException e){
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_EMPTY);
+            }catch (NumberFormatException e) {
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
+                System.out.println();
             }
         }
     }
@@ -158,11 +163,11 @@ public class CustomerMenu implements Menu {
                             allCustomers.refresh(allGroups);
                             System.out.printf(
                                     "SUCCESS UPDATE!!\n" +
-                                            "%s\n" +
-                                            "두다다다다다다다\n" +
-                                            "　(∩`・ω・)\n" +
-                                            "＿/_ミつ/￣￣￣/\n" +
-                                            "　　＼/＿＿＿/\n", updateCustomer);
+                                    "%s\n" +
+                                    "두다다다다다다다\n" +
+                                    "　(∩`・ω・)\n" +
+                                    "＿/_ミつ/￣￣￣/\n" +
+                                    "　　＼/＿＿＿/\n", updateCustomer);
                             break;
                         }
                     }

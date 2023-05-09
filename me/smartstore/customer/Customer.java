@@ -1,8 +1,11 @@
 package me.smartstore.customer;
 
+import me.smartstore.exception.InputEmptyException;
 import me.smartstore.group.Group;
 import me.smartstore.group.GroupType;
 import me.smartstore.group.Parameter;
+
+import java.util.EmptyStackException;
 
 public class Customer {
     private String cusName;
@@ -37,7 +40,11 @@ public class Customer {
     }
 
     public void setCusName(String cusName) {
-        this.cusName = cusName;
+        if(cusName.equals("")){
+            throw new InputEmptyException();
+        }else {
+            this.cusName = cusName;
+        }
     }
 
     public String getCusId() {
@@ -45,7 +52,11 @@ public class Customer {
     }
 
     public void setCusId(String cusId) {
-        this.cusId = cusId;
+        if(cusId.equals("")){
+            throw new InputEmptyException();
+        }else {
+            this.cusId = cusId;
+        }
     }
 
     public Integer getCusTotalTime() {

@@ -2,6 +2,8 @@ package me.smartstore.menu;
 
 import me.smartstore.collections.MyArrayList;
 import me.smartstore.customer.Customer;
+import me.smartstore.customer.Customers;
+
 import java.io.IOException;
 
 public class CustomerMenu extends Menu implements DataCRUD {
@@ -16,6 +18,7 @@ public class CustomerMenu extends Menu implements DataCRUD {
         }
     }
 
+    //@Todo 예외처리
     private Customer inputCustomerData() throws IOException {
         //이름, id, 누적 시간, 누적 결제 금액을 차례로 입력받도록 함.
         System.out.println("이름을 입력하세요");
@@ -30,9 +33,13 @@ public class CustomerMenu extends Menu implements DataCRUD {
         return new Customer(name, id, hour, totalAmount);
     }
 
+
     @Override
     public void viewData() {
-
+        MyArrayList<Customer> customerList = customers.getCustomers();
+        for(Customer customer : customerList){
+            System.out.println(customer);
+        }
     }
 
     @Override

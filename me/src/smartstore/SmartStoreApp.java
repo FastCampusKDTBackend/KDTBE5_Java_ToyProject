@@ -2,14 +2,11 @@ package smartstore;
 
 import smartstore.customer.Customer;
 import smartstore.customer.Customers;
-import smartstore.exception.InputEndException;
-import smartstore.exception.InputTypeException;
 import smartstore.group.Group;
 import smartstore.group.GroupType;
 import smartstore.group.Groups;
 import smartstore.group.Parameter;
 import smartstore.menu.*;
-import smartstore.util.Message;
 
 public class SmartStoreApp {
 	private final Groups allGroups = Groups.getInstance();

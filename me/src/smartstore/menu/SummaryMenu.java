@@ -1,5 +1,11 @@
 package smartstore.menu;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import smartstore.customer.Customer;
 import smartstore.customer.Customers;
 import smartstore.exception.InputTypeException;
 import smartstore.group.GroupType;
@@ -8,7 +14,6 @@ import smartstore.util.Message;
 
 public class SummaryMenu implements Menu {
 	
-	private final CustomerMenu customerMenu = CustomerMenu.getInstance();
 	private final Groups allGroups = Groups.getInstance();
 	private final Customers allCustomers = Customers.getInstance();
 	
@@ -36,7 +41,7 @@ public class SummaryMenu implements Menu {
                         "Back"});
                 
                 if (choice == 1) summary();
-//                else if (choice == 2) summary(Sorted By Name)();
+                else if (choice == 2) summarySortedByName();
 //                else if (choice == 3) summary(Sorted By Time)();
 //                else if (choice == 4) summary(Sorted By Pay)();
                 else break; // choice == 4
@@ -51,31 +56,45 @@ public class SummaryMenu implements Menu {
     public void summary() {
     	while(true) {
     		try {
-    			for(int i = 0; i < GroupType.values().length/2; i++) { // 4
+    			List<Customer> customersBuilder = new ArrayList<>(); 
+	    		for(int c = 0; c < allCustomers.size(); c++) {
+	    			customersBuilder.add(allCustomers.get(c));
+	    		}
+	    		
+    			for(int i = 0; i < GroupType.values().length/2; i++) { 
     				Integer minTime = null;
     				Integer minPay = null;
-//    				System.out.println(i); // 0 1 2 3
+    				
+    				GroupType groupType = GroupType.values()[i];
     				
     				if(allGroups.get(i).getParameter().getMinTime() != null) {
-    					minTime = allGroups.get(i).getParameter().getMinTime(); // 0 1 2
+    					minTime = allGroups.get(i).getParameter().getMinTime();
     				}
     				
     				if(allGroups.get(i).getParameter().getMinPay() != null) {
-    					minPay = allGroups.get(i).getParameter().getMinPay(); // 0 1 2
+    					minPay = allGroups.get(i).getParameter().getMinPay(); 
     				}
     				
     	    		System.out.println("==============================");
-    	    		System.out.println("Group : " + GroupType.values()[i] +
+    	    		System.out.println("Group : " + groupType +
     	    						   " ( Time : " + minTime +
     	    						   ", Pay : " + minPay + " )");
     	    		System.out.println("==============================");
     	    		
-    	    		for(int j = 0; j < allCustomers.size(); j++) { // 26
-    	    			if (GroupType.values()[i] == allCustomers.get(j).getGroup().getGroupType()) {
-    	    				System.out.println("No. " + j + " => " + allCustomers.get(j));
-    	    			}
+    	    		// 그룹타입에 따른 분류 스트림
+    	    		List<Customer> customerList = customersBuilder.stream()
+			 			 			.filter(customer -> customer.getGroup().getGroupType() == groupType)
+			 			 			.collect(Collectors.toList());
+    	    		
+    	    		// 그룹에 해당하는 Customer 없으면 Null. 출력
+    	    		if(customerList.size() != 0) {
+    	    			for (Customer customer : customerList) {
+        	    			System.out.println(customer);
+        	    		}
+    	    			System.out.println("==============================\n");
+    	    		} else {
+    	    			System.out.println("Null.\n");
     	    		}
-    	    		System.out.println("==============================\n");
     	    	}
     	    	System.out.println();
     			break;
@@ -90,18 +109,18 @@ public class SummaryMenu implements Menu {
     	}
     }
     
-//    // Summary (Sorted By Name)
-//    public void summary(String name) {
+    // Summary (Sorted By Name)
+    public void summarySortedByName() {
+    	
+    }
+    
+    // Summary (Sorted By Time)
+//    public void summarySortedByTime() {
 //    	
 //    }
 //    
-//    // Summary (Sorted By Time)
-//    public void summary(int time) {
-//    	
-//    }
-//    
-// // Summary (Sorted By Pay)
-//    public void summary(int pay) {
+    // Summary (Sorted By Pay)
+//    public void summarySortedByPay() {
 //    	
 //    }
 }

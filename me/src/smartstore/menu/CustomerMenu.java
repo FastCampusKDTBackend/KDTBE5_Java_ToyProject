@@ -3,7 +3,6 @@ package smartstore.menu;
 import smartstore.customer.Customer;
 import smartstore.customer.Customers;
 import smartstore.exception.InputEndException;
-import smartstore.exception.InputFormatException;
 import smartstore.exception.InputTypeException;
 import smartstore.util.Message;
 
@@ -90,7 +89,6 @@ public class CustomerMenu implements Menu {
     	} else {
     		allCustomers.customerInfo();
     		
-//    		whichCustomer(allCustomers).manage();;
     		allCustomers.get(whichCustomer(allCustomers)).manage();;
     		
     	}
@@ -113,23 +111,6 @@ public class CustomerMenu implements Menu {
     		}
     	}
     }
-	
-	private static boolean isNumeric(String arg) {
-    	for (int i = 0; i < arg.length(); i++) {
-    		if (!Character.isDigit(arg.charAt(i))) {
-    			return false;
-    		}
-    	}
-    	return true;
-    }
-	
-//	public void customerInfo() {
-//		System.out.println("======= Customer Info. =======");
-//		for(int i = 0; i < allCustomers.size(); i++) {
-//			System.out.println("No. " + (i + 1) + " => " + allCustomers.get(i));
-//		}
-//		System.out.println();
-//	}
 	
 	private int whichCustomer(Customers allCustomers) {
 		while(true) {

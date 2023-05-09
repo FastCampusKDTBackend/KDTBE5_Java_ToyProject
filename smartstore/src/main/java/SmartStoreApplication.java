@@ -48,7 +48,7 @@ public class SmartStoreApplication {
                             }
                     );
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            OutputView.viewErrorMessage(e.getMessage());
         }
     }
 }

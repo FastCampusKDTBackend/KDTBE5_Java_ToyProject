@@ -6,8 +6,10 @@ import Group.GroupType;
 import Group.Groups;
 import Group.Parameter;
 
+import javax.swing.plaf.IconUIResource;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Objects;
 
 public class Customers extends MyArray<Customer> {
     private static Group general;
@@ -51,7 +53,12 @@ public class Customers extends MyArray<Customer> {
     public void refresh() {
         refreshGroupsInfo();
         for (int i = 0; i < allCustomers.size; i++) {
-            classifyCustomers(allCustomers.get(i));
+            try {
+                classifyCustomers(allCustomers.get(i));
+            } catch (NullPointerException e) {
+                System.err.println("No. " + (i+1) + " Customer cannot be classified. Please enter more information.");
+                continue;
+            }
         }
     }
 
@@ -73,7 +80,6 @@ public class Customers extends MyArray<Customer> {
             }
         }
         return groupArray;
-
     }
 
     public void sortByPaySummary(Customer[] value, int mark) {

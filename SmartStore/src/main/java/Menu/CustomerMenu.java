@@ -59,7 +59,6 @@ public class CustomerMenu implements Menu {
                     //setCustomerData 메소드로 사용자 정보 추가
                     setJoiner = setCustomerData(setJoiner);
                     allCustomers.add(setJoiner);
-                    allCustomers.refresh();
                 }
                 return;
 
@@ -108,6 +107,7 @@ public class CustomerMenu implements Menu {
 
     private void viewCustomerData() {
         try {
+            allCustomers.refresh();
             System.out.println("\n======= Customer Info. =======");
             for (int i = 0; i < allCustomers.size(); i++) {
                 System.out.print("No. " + (i + 1) + "=> ");

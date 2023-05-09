@@ -44,7 +44,8 @@ public class Groups extends DArray<Group> {
 			int minTime = Objects.requireNonNullElse(groupParam.getMinimumSpentTime(), 0);
 			int minPay = Objects.requireNonNullElse(groupParam.getMinimumTotalPay(), 0);
 
-			if (param.getMinimumSpentTime() >= minTime && param.getMinimumTotalPay() >= minPay) {
+			if (Objects.requireNonNullElse(param.getMinimumSpentTime(), 0) >= minTime
+				&& Objects.requireNonNullElse(param.getMinimumTotalPay(), 0) >= minPay) {
 				find = group;
 				break;
 			}

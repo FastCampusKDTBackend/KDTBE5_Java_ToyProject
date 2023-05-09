@@ -13,7 +13,6 @@ public enum MainMenu implements Menu {
     CUSTOMER(2, "Customer Data", MainMenuExecute.getMethod(CustomerMenu.class)),
     CLASSIFICATION(3, "Classification Summary", MainMenuExecute.getMethod(ClassificationMenu.class));
 
-
     private final int menuNumber;
     private final String menuName;
     private final Runnable runnable;

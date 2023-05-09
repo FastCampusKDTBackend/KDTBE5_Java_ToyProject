@@ -86,7 +86,6 @@ public class CustomerMenu extends Menu implements DataCRUD {
         System.out.println("5. 수정 취소");
         System.out.println("==============================");
         System.out.print("수정할 정보를 선택해주세요(1~5): ");
-
     }
 
     private void inputNewData(int updateMenuNumber, int customerNumber) throws IOException {
@@ -118,7 +117,24 @@ public class CustomerMenu extends Menu implements DataCRUD {
 
     @Override
     public void deleteData() {
-
+        viewData();
+        MyArrayList<Customer> customerList = customers.getCustomers();
+        int listSize = customerList.size();
+        if (listSize < 1) {
+            System.out.println("고객이 존재하지 않습니다.");
+            return;
+        }
+        //@Todo 뒤로가기 추가
+        System.out.print("삭제할 고객 번호를 입력해주세요");
+        System.out.print(listSize >= 2 ? "(1~" + listSize + ")" : "");
+        int customerNumber = 0;
+        try {
+            customerNumber = Integer.parseInt(br.readLine());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            //@Todo: 숫자 입력 받는 부분에서 문자열 등 입력 시 날 수 있는 예외 테스트로 파악, 예외처리 할 것.
+        }
+        customerList.remove(customerNumber);
     }
 
     @Override

@@ -38,7 +38,7 @@ public class SmartStoreApp {
         allGroups.add(new Group(new Parameter(20, 200000), GroupType.VIP));
         allGroups.add(new Group(new Parameter(30, 300000), GroupType.VVIP));
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             allCustomers.add(new Customer(
                     Character.toString((char) ('a' + i)),
                     (char) ('a' + i) + "123",

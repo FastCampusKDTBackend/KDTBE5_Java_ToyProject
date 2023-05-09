@@ -50,7 +50,8 @@ public class SummaryMenu implements Menu {
                 "Pay : " + allGroups.find(GroupType.GENERAL).getParameter().getMinPay() + " )"
         );
         System.out.println("==============================");
-        allCustomers.viewCustomerData(GroupType.GENERAL);
+        allCustomers.viewCustomerData();
+//        allCustomers.viewCustomerData(GroupType.GENERAL);
 
 //        System.out.println("Group : " + GroupType.NONE + "( Time" + allGroups.get(GroupType.NONE) + "");
     }

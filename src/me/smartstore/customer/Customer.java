@@ -70,6 +70,10 @@ public class Customer {
         return group;
     }
 
+    public void setGroup(GroupType group) {
+        this.group = group;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

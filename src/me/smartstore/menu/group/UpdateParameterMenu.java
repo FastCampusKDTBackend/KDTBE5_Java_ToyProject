@@ -8,28 +8,28 @@ import me.smartstore.menu.topic.GroupMenu;
 
 import java.util.InputMismatchException;
 
-public class SetParameterMenu extends Menu {
+public class UpdateParameterMenu extends Menu {
 
     private static final String SET_GROUP_PARAMETER_OUTPUT =
-            "===== Set Group Parameter ====" + '\n' +
-                    " 1. " + "Minimum Spent Hours" + '\n' +
-                    " 2. " + "Minimum Total Paid Amount" + '\n' +
+                    '\n' +
+                    "===== Set Group Parameter ====" + '\n' +
+                    " 1. " + "Minimum " + "Spent Hours" + '\n' +
+                    " 2. " + "Minimum " + "Total Paid Amount" + '\n' +
                     " 3. " + "Back" + '\n' +
                     "==============================" + '\n' +
                     "Choose One: ";
     private static final String[] GROUP_PARAMETER_INPUT = {
-            null,
-            "\n" + "Input " + "Minimum Spent Hours" + ":\n" + END_INPUT,
-            "\n" + "Input " + "Minimum Total Paid Amount" + ":\n" + END_INPUT
+            '\n' + "Input " + "Minimum " + "Spent Hours" + ":\n" + END_INPUT,
+            '\n' + "Input " + "Minimum " + "Total Paid Amount" + ":\n" + END_INPUT
     };
 
     private static class InstanceHolder {
-        private static final SetParameterMenu INSTANCE = new SetParameterMenu();
+        private static final UpdateParameterMenu INSTANCE = new UpdateParameterMenu();
     }
 
-    private SetParameterMenu() { super(); }
+    private UpdateParameterMenu() { super(); }
 
-    public static SetParameterMenu getInstance() { return InstanceHolder.INSTANCE; }
+    public static UpdateParameterMenu getInstance() { return InstanceHolder.INSTANCE; }
 
     @Override
     public Menu printAndInputAndGetNextMenu() {
@@ -64,11 +64,10 @@ public class SetParameterMenu extends Menu {
         while (true) {
             print(SET_GROUP_PARAMETER_OUTPUT);
             try {
-                int menu = inputMenuIdx();
-                if (menu <= 2) {
-                    assert menu != 0;
-                    print(GROUP_PARAMETER_INPUT[menu]);
-                    groupParameterArguments[menu] = inputZeroOrPositiveIntegerOrEnd();
+                int menuIdx = inputMenuIdx();
+                if (menuIdx <= 1) {
+                    print(GROUP_PARAMETER_INPUT[menuIdx]);
+                    groupParameterArguments[menuIdx] = inputZeroOrPositiveIntegerOrEnd();
                 } else {
                     group.setGroupParameter(groupParameterArguments);
                     break;

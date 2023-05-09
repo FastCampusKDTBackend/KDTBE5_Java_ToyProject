@@ -81,28 +81,19 @@ public class SummaryMenu implements Menu {
 	}
 
 	public void sortedSummary(Comparator comparator) {
-		while (true) {
-			SortOrder choosedOrder = chooseSortOrder();
-			if (choosedOrder == null) {    // input 'end'
-				break;
+		for (int i = 0; i < groups.size(); i++) {
+			Group group = groups.get(i);
+			System.out.println(group.toSummaryTitle());
+			Customer[] customerArray = customers.arrayByGroupType(group.getGroupType());
+
+			if (customerArray.length == 0) {
+				System.out.println("Null.");
+				continue;
 			}
 
-			for (int i = 0; i < groups.size(); i++) {
-				Group group = groups.get(i);
-				System.out.println(group.toSummaryTitle());
-				Customer[] customerArray = customers.arrayByGroupType(group.getGroupType());
-
-				if (customerArray.length == 0) {
-					System.out.println("Null.");
-					continue;
-				}
-
-				if (choosedOrder == SortOrder.ASCENDING) {
-					Arrays.stream(customerArray).sorted(comparator).forEach(System.out::println);
-				} else {
-					Arrays.stream(customerArray).sorted(comparator.reversed()).forEach(System.out::println);
-				}
-			}
+			Arrays.stream(customerArray)
+				.sorted(comparator)
+				.forEach(System.out::println);
 		}
 	}
 
@@ -118,21 +109,45 @@ public class SummaryMenu implements Menu {
 		BY_NAME(2, "Summary (Sorted By Name)") {
 			@Override
 			public Boolean run() {
-				summaryMenu.sortedSummary(new ComparatorByName());
+				while (true) {
+					SortOrder choosedOrder = summaryMenu.chooseSortOrder();
+					if (choosedOrder == null) {    // input 'end'
+						break;
+					}
+
+					summaryMenu.sortedSummary(new ComparatorByName(choosedOrder));
+				}
+
 				return false;
 			}
 		},
 		BY_SPENT_TIME(3, "Summary (Sorted By Spent Time)") {
 			@Override
 			public Boolean run() {
-				summaryMenu.sortedSummary(new ComparatorBySpentTime());
+				while (true) {
+					SortOrder choosedOrder = summaryMenu.chooseSortOrder();
+					if (choosedOrder == null) {    // input 'end'
+						break;
+					}
+
+					summaryMenu.sortedSummary(new ComparatorBySpentTime(choosedOrder));
+				}
+
 				return false;
 			}
 		},
 		BY_TOTAL_PAYMENT(4, "Summary (Sorted By Total Payment)") {
 			@Override
 			public Boolean run() {
-				summaryMenu.sortedSummary(new ComparatorByTotalPayment());
+				while (true) {
+					SortOrder choosedOrder = summaryMenu.chooseSortOrder();
+					if (choosedOrder == null) {    // input 'end'
+						break;
+					}
+
+					summaryMenu.sortedSummary(new ComparatorByTotalPayment(choosedOrder));
+				}
+
 				return false;
 			}
 		},
@@ -153,10 +168,6 @@ public class SummaryMenu implements Menu {
 
 		public int getCode() {
 			return code;
-		}
-
-		public String getLabel() {
-			return label;
 		}
 
 		public static RootMenu findByCode(int code) {

@@ -6,13 +6,15 @@ import util.view.OutputView;
 
 public interface ViewCustomerExecute {
     static Runnable getMethod() {
-        return () -> {
-            Customers customerRepository = Customers.getInstance();
-            try {
-                customerRepository.viewCustomersInfo();
-            } catch (NotFoundException notFoundException) {
-                OutputView.viewErrorMessage(notFoundException.getMessage());
-            }
-        };
+        return ViewCustomerExecute::run;
+    }
+
+    private static void run() {
+        Customers customerRepository = Customers.getInstance();
+        try {
+            customerRepository.viewCustomersInfo();
+        } catch (NotFoundException notFoundException) {
+            OutputView.showErrorMessage(notFoundException.getMessage());
+        }
     }
 }

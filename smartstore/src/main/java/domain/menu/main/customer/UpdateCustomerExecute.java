@@ -3,17 +3,19 @@ package domain.menu.main.customer;
 import domain.customer.Customer;
 import domain.customer.Customers;
 import domain.group.GroupType;
+import util.common.ErrorMessage;
 import util.common.exception.NotFoundException;
 import util.view.InputScanner;
 import util.view.OutputView;
-
-import java.util.Scanner;
+import util.view.ViewMessage;
 
 public interface UpdateCustomerExecute {
     static Runnable getMethod() {
-        return () -> {
-            Scanner scanner = InputScanner.get();
-            Customers customerRepository = Customers.getInstance();
+        return UpdateCustomerExecute::run;
+    }
+
+    private static void run() {
+        Customers customerRepository = Customers.getInstance();
 
             if (!GroupType.isGroupParameterSet()) {
                 return;

@@ -10,14 +10,8 @@ import java.util.Scanner;
 
 public interface AddCustomerExecute {
     static Runnable getMethod() {
-        return () -> {
-            Scanner scanner = InputScanner.get();
-            Customers customerRepository = Customers.getInstance();
-
-            if (!GroupType.isGroupParameterSet()) {
-                System.out.println("Please all groups set parameter");
-                return;
-            }
+        return AddCustomerExecute::run;
+    }
 
             while (true) {
                 System.out.println("How many customers to input?");

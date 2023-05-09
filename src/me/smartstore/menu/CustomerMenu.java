@@ -56,10 +56,12 @@ public class CustomerMenu implements Menu {
 				while (num <= count) {
 					System.out.println("\n====== Customer " + num + " Info. ======");
 					Customer customer = new Customer();
+
 					Boolean isSet = setCustomer(customer);
 					if (isSet) {
 						customers.add(customer);
 					}
+
 					num++;
 				}
 				break;
@@ -77,6 +79,7 @@ public class CustomerMenu implements Menu {
 			System.out.println(Message.ERR_INVALID_ARR_EMPTY);
 			return;
 		}
+
 		System.out.println("\n======= Customer Info. =======");
 		System.out.print(customers);
 	}
@@ -102,6 +105,8 @@ public class CustomerMenu implements Menu {
 				break;
 			} catch (InputFormatException e) {
 				System.out.println(Message.ERR_INVALID_INPUT_FORMAT);
+			} catch (IndexOutOfBoundsException e) {
+				System.out.println(Message.ERR_INVALID_INPUT_RANGE);
 			}
 		}
 	}
@@ -126,6 +131,8 @@ public class CustomerMenu implements Menu {
 				break;
 			} catch (InputFormatException e) {
 				System.out.println(Message.ERR_INVALID_INPUT_FORMAT);
+			} catch (IndexOutOfBoundsException e) {
+				System.out.println(Message.ERR_INVALID_INPUT_RANGE);
 			}
 		}
 
@@ -180,12 +187,13 @@ public class CustomerMenu implements Menu {
 				System.out.println("\nInput Customer's ID:");
 				String input = nextLine(Message.EXIT_FLAG);
 
+				// id 중복 검사
 				if (customers.ispresent(input)) {
 					throw new ElementDuplicateException();
-				} else {
-					customer.setId(input);
-					break;
 				}
+
+				customer.setId(input);
+				break;
 			} catch (InputExitException e) {
 				System.out.println(Message.INFO_INPUT_EXIT_FLAG);
 				break;
@@ -278,10 +286,6 @@ public class CustomerMenu implements Menu {
 			return code;
 		}
 
-		public String getLabel() {
-			return label;
-		}
-
 		public static RootMenu findByCode(int code) {
 			return Arrays.stream(RootMenu.values())
 				.filter(t -> t.getCode() == code)
@@ -345,10 +349,6 @@ public class CustomerMenu implements Menu {
 			return code;
 		}
 
-		public String getLabel() {
-			return label;
-		}
-
 		public static SetInfoMenu findByCode(int code) {
 			return Arrays.stream(SetInfoMenu.values())
 				.filter(t -> t.getCode() == code)
@@ -363,5 +363,4 @@ public class CustomerMenu implements Menu {
 
 		public abstract Boolean run(Customer customer);
 	}
-
 }

@@ -1,14 +1,13 @@
 package me.smartstore.menu;
 
-import me.smartstore.customer.Customer;
-
-public class MainMenu implements Menu{
+public class MainMenu implements Menu {
 	private static MainMenu mainMenu;
-	private static GroupMenu groupMenu = GroupMenu.getInstance();
-	private static CustomerMenu customerMenu = CustomerMenu.getInstance();
-	private static SummaryMenu summaryMenu = SummaryMenu.getInstance();
+	private final GroupMenu groupMenu = GroupMenu.getInstance();
+	private final CustomerMenu customerMenu = CustomerMenu.getInstance();
+	private final SummaryMenu summaryMenu = SummaryMenu.getInstance();
 
-	private MainMenu() {}
+	private MainMenu() {
+	}
 
 	public static MainMenu getInstance() {
 		if (mainMenu == null) {
@@ -20,8 +19,8 @@ public class MainMenu implements Menu{
 
 	@Override
 	public void show() {
-		while(true) {
-			int choice = chooseMenu(new String[]{
+		while (true) {
+			int choice = chooseMenu(new String[] {
 				"Parameter",
 				"Customer Data",
 				"Classification Summary",

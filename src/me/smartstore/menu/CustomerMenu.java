@@ -9,7 +9,7 @@ import me.smartstore.exception.InputRangeException;
 import me.smartstore.util.Message;
 
 public class CustomerMenu implements Menu {
-	private static Customers allCustomers = Customers.getInstance();
+	private final Customers allCustomers = Customers.getInstance();
 
 	private static CustomerMenu customerMenu;
 

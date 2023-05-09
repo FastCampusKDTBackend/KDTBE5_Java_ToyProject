@@ -9,13 +9,14 @@ import me.smartstore.group.GroupType;
 import me.smartstore.group.Groups;
 import me.smartstore.util.Message;
 
-public class GroupMenu implements Menu{
+public class GroupMenu implements Menu {
 	private final Groups allGroups = Groups.getInstance();
 	private final Customers allCustomers = Customers.getInstance();
 
 	private static GroupMenu groupMenu;
 
-	private GroupMenu() {}
+	private GroupMenu() {
+	}
 
 	public static GroupMenu getInstance() {
 		if (groupMenu == null) {
@@ -28,7 +29,7 @@ public class GroupMenu implements Menu{
 	@Override
 	public void show() {
 		while (true) {
-			int choice = chooseMenu(new String[]{
+			int choice = chooseMenu(new String[] {
 				"Set Parameter",
 				"View Parameter",
 				"Update Parameter",
@@ -48,14 +49,17 @@ public class GroupMenu implements Menu{
 	}
 
 	private void setParameter(int updateFlag) {
-		while(true) {
+		while (true) {
 			try {
-				System.out.println("Which group (" + GroupType.showGroupType() +  ")?");
+				System.out.println("Which group (" + GroupType.showGroupType() + ")?");
 				String inputGroup = nextLine(Message.END_MSG);
 
-				if (!GroupType.isElement(inputGroup)) throw new ElementNotFoundException();
+				if (!GroupType.isElement(inputGroup))
+					throw new ElementNotFoundException();
 
-				Group selectGroup = allGroups.findByGroupType(GroupType.getGroupType(inputGroup));
+				GroupType selectGroupType = GroupType.getGroupType(inputGroup);
+
+				Group selectGroup = allGroups.findByGroupType(selectGroupType);
 
 				if (selectGroup != null && updateFlag == 0) {
 					System.out.println(selectGroup.getGroupType() + " group already exists.");
@@ -68,10 +72,11 @@ public class GroupMenu implements Menu{
 					break;
 				}
 
-				if (selectGroup != null) System.out.println(selectGroup);
+				if (selectGroup != null)
+					System.out.println(selectGroup);
 
 				if (selectGroup == null) {
-					selectGroup = new Group(GroupType.getGroupType(inputGroup));
+					selectGroup = new Group(selectGroupType);
 					allGroups.add(selectGroup);
 				}
 
@@ -89,8 +94,8 @@ public class GroupMenu implements Menu{
 	}
 
 	private void showParameterMenu(Group group) {
-		while(true) {
-			int choice = chooseMenu(new String[]{
+		while (true) {
+			int choice = chooseMenu(new String[] {
 				"Minimum Spent Time",
 				"Minimum Total Pay",
 				"Back"
@@ -108,7 +113,7 @@ public class GroupMenu implements Menu{
 	}
 
 	private void setTimeParameter(Group group) {
-		while(true) {
+		while (true) {
 			try {
 				System.out.println("Input Minimum Spent Time: ");
 
@@ -116,7 +121,7 @@ public class GroupMenu implements Menu{
 				group.setMinHours(time);
 
 				break;
-			} catch (NumberFormatException | InputRangeException e){
+			} catch (NumberFormatException | InputRangeException e) {
 				System.out.println(e.getMessage());
 			} catch (InputEndException e) {
 				System.out.println(e.getMessage());
@@ -126,7 +131,7 @@ public class GroupMenu implements Menu{
 	}
 
 	private void setPayParameter(Group group) {
-		while(true) {
+		while (true) {
 			try {
 				System.out.println("Input Minimum Total Pay: ");
 
@@ -144,17 +149,18 @@ public class GroupMenu implements Menu{
 	}
 
 	private void viewParameter() {
-		while(true) {
+		while (true) {
 			try {
 				System.out.println("Which group (" + GroupType.showGroupType() + ")?");
 				String groupType = nextLine(Message.END_MSG);
 
 				Group findGroup = allGroups.findByGroupType(GroupType.getGroupType(groupType));
 
-				if (findGroup == null) throw new ElementNotFoundException();
+				if (findGroup == null)
+					throw new ElementNotFoundException();
 
 				System.out.println(findGroup);
-			} catch (InputEndException e){
+			} catch (InputEndException e) {
 				System.out.println(e.getMessage());
 				break;
 			} catch (ElementNotFoundException e) {

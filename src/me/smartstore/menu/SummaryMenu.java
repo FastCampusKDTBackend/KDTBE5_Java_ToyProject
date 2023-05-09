@@ -10,10 +10,10 @@ import me.smartstore.group.Group;
 import me.smartstore.group.Groups;
 import me.smartstore.util.Message;
 
-public class SummaryMenu implements Menu{
+public class SummaryMenu implements Menu {
 	private static SummaryMenu summaryMenu;
-	private static Groups allGroups = Groups.getInstance();
-	private static Customers allCustomers = Customers.getInstance();
+	private final Groups allGroups = Groups.getInstance();
+	private final Customers allCustomers = Customers.getInstance();
 
 	private SummaryMenu() {
 
@@ -29,8 +29,8 @@ public class SummaryMenu implements Menu{
 
 	@Override
 	public void show() {
-		while(true) {
-			int choice = chooseMenu(new String[]{
+		while (true) {
+			int choice = chooseMenu(new String[] {
 				"Summary",
 				"Summary (Sorted By Name)",
 				"Summary (Sorted By Spent Time)",
@@ -71,7 +71,9 @@ public class SummaryMenu implements Menu{
 				System.out.println("Which order (ASCENDING(A), DESCENDING (D))?");
 				String sortType = nextLine(Message.END_MSG);
 
-				if (!sortType.equals("A") && !sortType.equals("D") && !sortType.equals("ASCENDING") && !sortType.equals("DESCENDING")) throw new InputValidException();
+				if (!sortType.equals("A") && !sortType.equals("D") && !sortType.equals("ASCENDING") &&
+					!sortType.equals("DESCENDING"))
+					throw new InputValidException();
 
 				Group selectGroup;
 				for (int i = 0; i < allGroups.size(); i++) {
@@ -88,8 +90,7 @@ public class SummaryMenu implements Menu{
 			} catch (InputEndException e) {
 				System.out.println(e.getMessage());
 				break;
-			}
-			catch (InputValidException e) {
+			} catch (InputValidException e) {
 				System.out.println(e.getMessage());
 			}
 		}

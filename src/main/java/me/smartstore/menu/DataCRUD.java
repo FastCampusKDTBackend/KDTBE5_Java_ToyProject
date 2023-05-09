@@ -8,5 +8,5 @@ public interface DataCRUD {
 
     void updateData();
 
-    void DeleteData();
+    void deleteData();
 }

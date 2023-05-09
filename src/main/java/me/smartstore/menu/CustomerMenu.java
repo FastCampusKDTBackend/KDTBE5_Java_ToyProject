@@ -117,7 +117,7 @@ public class CustomerMenu extends Menu implements DataCRUD {
     }
 
     @Override
-    public void DeleteData() {
+    public void deleteData() {
 
     }
 

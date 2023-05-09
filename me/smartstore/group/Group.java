@@ -1,5 +1,7 @@
 package me.smartstore.group;
 
+import me.smartstore.exception.NullArgumentException;
+
 import java.util.Objects;
 
 public class Group {
@@ -10,8 +12,12 @@ public class Group {
     }
 
     public Group(Parameter parameter, GroupType groupType) {
-        this.parameter = parameter;
-        this.groupType = groupType;
+        if(parameter.getMinTime() == null || parameter.getMinPay() == null || groupType == null){
+            throw new NullArgumentException();
+        }else {
+            this.parameter = parameter;
+            this.groupType = groupType;
+        }
     }
 
     public Parameter getParameter() {

@@ -103,56 +103,68 @@ public class CustomerMenu implements Menu{
 	}
 
 	private void setCustomerName(Customer customer) {
-		try {
-			System.out.println("Input Customer's Name:");
-			String customerName = nextLine(Message.END_MSG);
+		while (true) {
+			try {
+				System.out.println("Input Customer's Name:");
+				String customerName = nextLine(Message.END_MSG);
 
-			customer.setCustomerName(customerName);
-		} catch(InputEndException e) {
-			System.out.println(e.getMessage());
+				customer.setCustomerName(customerName);
+			} catch(InputEndException e) {
+				System.out.println(e.getMessage());
+				break;
+			}
 		}
 	}
 
 	private void setCustomerID(Customer customer) {
-		try {
-			System.out.println("Input Customer's ID:");
-			String customerId = nextLine(Message.END_MSG);
+		while (true) {
+			try {
+				System.out.println("Input Customer's ID:");
+				String customerId = nextLine(Message.END_MSG);
 
-			customer.setCustomerId(customerId);
-		} catch(InputEndException e) {
-			System.out.println(e.getMessage());
+				customer.setCustomerId(customerId);
+			} catch(InputEndException e) {
+				System.out.println(e.getMessage());
+				break;
+			}
 		}
 	}
 
 	private void setTimeParameter(Customer customer) {
-		try {
-			System.out.println("Input Customer's Spent Time:");
+		while (true) {
+			try {
+				System.out.println("Input Customer's Spent Time:");
 
-			int time = Integer.parseInt(nextLine(Message.END_MSG));
+				int time = Integer.parseInt(nextLine(Message.END_MSG));
 
-			if (time < 0) throw new InputRangeException();
+				if (time < 0) throw new InputRangeException();
 
-			customer.setUseHours(time);
-		} catch (NumberFormatException | InputRangeException e){
-			System.out.println(e.getMessage());
-		} catch (InputEndException e) {
-			System.out.println(e.getMessage());
+				customer.setUseHours(time);
+			} catch (NumberFormatException | InputRangeException e){
+				System.out.println(e.getMessage());
+			} catch (InputEndException e) {
+				System.out.println(e.getMessage());
+				break;
+			}
 		}
 	}
 
 	private void setPayParameter(Customer customer) {
-		try {
-			System.out.println("Input Customer's Total Pay:");
+		while (true) {
+			try {
+				System.out.println("Input Customer's Total Pay:");
 
-			int pay = Integer.parseInt(nextLine(Message.END_MSG));
+				int pay = Integer.parseInt(nextLine(Message.END_MSG));
 
-			if (pay < 0) throw new InputRangeException();
+				if (pay < 0) throw new InputRangeException();
 
-			customer.setCustomerPay(pay);
-		} catch (NumberFormatException | InputRangeException e){
-			System.out.println(e.getMessage());
-		} catch (InputEndException e) {
-			System.out.println(e.getMessage());
+				customer.setCustomerPay(pay);
+			} catch (NumberFormatException | InputRangeException e){
+				System.out.println(e.getMessage());
+			} catch (InputEndException e) {
+				System.out.println(e.getMessage());
+				break;
+			}
 		}
 	}
 

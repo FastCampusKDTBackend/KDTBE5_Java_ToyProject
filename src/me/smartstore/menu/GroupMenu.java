@@ -146,7 +146,7 @@ public class GroupMenu implements Menu{
 	private void viewParameter() {
 		while(true) {
 			try {
-				System.out.println("Which group (GENERAL(G), VIP(V), VVIP(V))?");
+				System.out.println("Which group (" + GroupType.showGroupType() + ")?");
 				String groupType = nextLine(Message.END_MSG);
 
 				Group findGroup = allGroups.findByGroupType(GroupType.getGroupType(groupType));

@@ -69,13 +69,13 @@ public enum MainMenu implements Menu {
         }
     }
 
-    public static Optional<MainMenu> findByNumber(int menuNumber) {
+    private static Optional<MainMenu> findByNumber(int menuNumber) {
         return Arrays.stream(MainMenu.values())
                 .filter(mainMenu -> mainMenu.menuNumber == menuNumber)
                 .findFirst();
     }
 
-    public static boolean isQuit(int menuNumber) {
+    private static boolean isQuit(int menuNumber) {
         return MainMenu.values().length + 1 == menuNumber;
     }
 

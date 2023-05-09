@@ -35,7 +35,7 @@ public class SetMembershipRequirement implements MembershipMenuController {
         returnToPrevMenu();
     }
 
-    private void returnToPrevMenu(){
+    public void returnToPrevMenu(){
         MainMenuFunction mainMenuFunction = Function.of(1, MainMenuFunction.class);
         mainMenuFunction.run();
     }

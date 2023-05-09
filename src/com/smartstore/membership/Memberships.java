@@ -56,7 +56,7 @@ public class Memberships {
                 break;
 
             } catch (IOException | NumberFormatException e) {
-                System.out.println("Invalid Range of Input try 1 ~ Integer.Max");
+                System.out.println("Invalid Range of Input try 0 ~ Integer.Max");
             }
         }
         return value;

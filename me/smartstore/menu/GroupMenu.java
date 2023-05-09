@@ -7,8 +7,12 @@ import me.smartstore.group.GroupType;
 import me.smartstore.group.Groups;
 import me.smartstore.group.Parameter;
 import me.smartstore.util.Message;
+import java.util.Scanner;
+
 
 public class GroupMenu implements Menu {
+    Scanner sc = new Scanner(System.in);
+
     private final Groups allGroups = Groups.getInstance();
     private final Customers allCustomers = Customers.getInstance();
     // singleton
@@ -33,8 +37,9 @@ public class GroupMenu implements Menu {
                     "Back"});
 
             if (choice == 1) setParameter();
-            else if (choice == 2) {}// viewParameter();
-            else if (choice == 3) {}// updateParameter();
+            else if (choice == 2) { viewParameter(); }
+            else if (choice == 3) { updateParameter();}
+            //else if (choice == 4) {MainMenu.getInstance().manage();}
             else break; // choice == 4
         }
 
@@ -43,7 +48,7 @@ public class GroupMenu implements Menu {
     public GroupType chooseGroup() {
         while ( true ) {
             try {
-                System.out.print("Which group (GENERAL (G), VIP (V), VVIP (VV))? ");
+                System.out.println("Which group (GENERAL (G), VIP (V), VVIP (VV))? ");
                 String choice = nextLine(Message.END_MSG);
                 // group (str) -> GroupType (enum)
                 // "VIP" -> GroupType.VIP
@@ -61,6 +66,7 @@ public class GroupMenu implements Menu {
 
     public void setParameter() { // 초기화할 때만 호출 가능
         while ( true ) {
+
             GroupType groupType = chooseGroup();
 
             // GroupType에 해당하는 group 객체를 찾아야 함
@@ -70,11 +76,41 @@ public class GroupMenu implements Menu {
                 System.out.println("\n" + group);
             } else {
                 Parameter parameter = new Parameter();
+
+
                 // time, pay 사용자 입력받은 후, 설정 필요
 
-                group.setParameter(parameter);
-                allCustomers.refresh(allGroups); // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
+//                 group.setParameter(parameter);
+//                allCustomers.refresh(allGroups); // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
+
+                if (groupType == null) { // InputEndException 발생 시 GroupMenu으로 이동
+                    groupMenu.manage();
+                    return;
+                }
             }
+        }
+    }
+
+
+    public void viewParameter() {
+        while (true) {
+            GroupType groupType = chooseGroup();
+            if (groupType == null) { //end입력시 이동
+                break;
+            }
+            Group group = allGroups.find(groupType);
+
+
+            System.out.println("GroupType: " + groupType);
+            System.out.println("Parameter: " + group.getParameter());
+
+
+        }
+    }
+
+    public void updateParameter() {
+        while(true) {
+
         }
     }
 }

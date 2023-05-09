@@ -21,7 +21,6 @@ public enum ParameterMenu implements Menu {
     }
 
     public static void view() {
-
     }
 
     public static Optional<ParameterMenu> findByNumber(int menuNumber) {

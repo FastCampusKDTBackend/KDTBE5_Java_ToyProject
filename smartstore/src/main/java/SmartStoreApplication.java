@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class SmartStoreApplication {
     private static SmartStoreApplication smartStoreApplication = null;
     private final Scanner scanner = InputScanner.get();
+
     private SmartStoreApplication() {
     }
 

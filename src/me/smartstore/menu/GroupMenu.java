@@ -49,9 +49,7 @@ public class GroupMenu implements Menu{
                 String choice = nextLine(Message.END_MSG);
                 // group (str) -> GroupType (enum)
                 // "VIP" -> GroupType.VIP
-
-                GroupType groupType = GroupType.valueOf(choice).replaceFullName();
-                return groupType;
+                return GroupType.valueOf(choice).replaceFullName();
             } catch (InputEndException e) {
                 System.out.println(Message.ERR_MSG_INPUT_END);
                 return null;
@@ -71,11 +69,9 @@ public class GroupMenu implements Menu{
                 System.out.println("\n" + group.getGroupType() + " group already exists.");
                 System.out.println("\n" + group);
             } else {
-                Parameter parameter = new Parameter();
-                // time, pay 사용자 입력받은 후, 설정 필요
                 inputTimeAndPay(groupType);
-
-                allCustomers.refresh(allGroups); // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
+                // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
+                allCustomers.refresh(allGroups);
             }
         }
     }
@@ -96,18 +92,13 @@ public class GroupMenu implements Menu{
             else if (choice == 2) minimumPay = setMinimumPay();
             else manage(); // choice == 3
 
-
-
-
             Group group = allGroups.find(groupType);
             group.setParameter(new Parameter(minimumTime, minimumPay));
             allGroups.set(allGroups.indexOf(group), group);
 
-
-            // Group 내에 있는 다른 그룹 파라미터와 비교
+            // Group 내에 있는 다른 그룹 파라미터와 비교?
             // allGroups.checkGroupParameter(group);
 
-            //
             allCustomers.refresh(allGroups);
         }
     }
@@ -159,7 +150,20 @@ public class GroupMenu implements Menu{
     }
 
     public void updateParameter() {
-        System.out.println("updateParameter 생성중");
-        manage();
+
+        while ( true ) {
+            GroupType groupType = chooseGroup();
+            // GroupType 에 해당하는 group 객체를 찾아야 함
+            Group group = allGroups.find(groupType);
+            if (group != null && group.getParameter() != null) { // group.getParameter()이 null이 아니면 이미 초기화됨
+                inputTimeAndPay(groupType);
+                // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
+                allCustomers.refresh(allGroups);
+            } else {
+                System.out.println(Message.ERR_MSG_INVALID_PARAMETER_ARR_EMPTY);
+                manage();
+            }
+        }
+
     }
 }

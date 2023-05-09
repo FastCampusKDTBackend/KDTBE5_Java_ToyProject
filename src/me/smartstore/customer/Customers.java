@@ -1,8 +1,6 @@
 package me.smartstore.customer;
 
 import me.smartstore.arrays.DArray;
-import me.smartstore.exception.NullArgumentException;
-import me.smartstore.group.Group;
 import me.smartstore.group.GroupType;
 import me.smartstore.group.Groups;
 
@@ -22,7 +20,6 @@ public class Customers extends DArray<Customer> {
     // 1. 분류기준 바뀔 때
     // 2. 새로운 고객이 들어올 때
     public void refresh(Groups groups) {
-        System.out.println("refresh()");
         int cusMinTime;
         int cusMinPay;
 
@@ -48,58 +45,51 @@ public class Customers extends DArray<Customer> {
             cnt += 1;
         }
 
-        System.out.println(cnt);
 
         for (int i = 0; i < allCustomers.size; i++) {
-            Customer customer = allCustomers.get(i);
-            System.out.println("customer = " + customer);
             cusMinTime = allCustomers.get(i).getCusTotalTime();
             cusMinPay = allCustomers.get(i).getCusTotalPay();
 
-
-            switch (cnt) {
-                case 7:
-                    if (cusMinTime > VVIPMinTime && cusMinPay > VVIPMinPay)
-                        allCustomers.get(i).setGroup(GroupType.VVIP);
-                    else if (cusMinTime > VIPMinTime && cusMinPay > VIPMinPay)
-                        allCustomers.get(i).setGroup(GroupType.VIP);
-                    else if (cusMinTime > GENERALMinTime && cusMinPay > GENERALMInPay)
-                        allCustomers.get(i).setGroup(GroupType.GENERAL);
-//                    else allCustomers.get(i).setGroup(GroupType.NONE);
-                case 6:
-                    if (cusMinTime > VVIPMinTime && cusMinPay > VVIPMinPay)
-                        allCustomers.get(i).setGroup(GroupType.VVIP);
-                    else if (cusMinTime > VIPMinTime && cusMinPay > VIPMinPay)
-                        allCustomers.get(i).setGroup(GroupType.VIP);
-                    else allCustomers.get(i).setGroup(GroupType.NONE);
-                case 5:
-                    if (cusMinTime > VVIPMinTime && cusMinPay > VVIPMinPay)
-                        allCustomers.get(i).setGroup(GroupType.VVIP);
-                    else if (cusMinTime > GENERALMinTime && cusMinPay > GENERALMInPay)
-                        allCustomers.get(i).setGroup(GroupType.GENERAL);
-                    else allCustomers.get(i).setGroup(GroupType.NONE);
-                case 4:
-                    if (cusMinTime > VVIPMinTime && cusMinPay > VVIPMinPay)
-                        allCustomers.get(i).setGroup(GroupType.VVIP);
-                    else allCustomers.get(i).setGroup(GroupType.NONE);
-                case 3:
-                    if (cusMinTime > VIPMinTime && cusMinPay > VIPMinPay)
-                        allCustomers.get(i).setGroup(GroupType.VIP);
-                    else if (cusMinTime > GENERALMinTime && cusMinPay > GENERALMInPay)
-                        allCustomers.get(i).setGroup(GroupType.GENERAL);
-                    else allCustomers.get(i).setGroup(GroupType.NONE);
-                case 2:
-                    if (cusMinTime > VIPMinTime && cusMinPay > VIPMinPay)
-                        allCustomers.get(i).setGroup(GroupType.VIP);
-                    else allCustomers.get(i).setGroup(GroupType.NONE);
-                case 1:
-                    if (cusMinTime > GENERALMinTime && cusMinPay > GENERALMInPay)
-                        allCustomers.get(i).setGroup(GroupType.GENERAL);
-                    else allCustomers.get(i).setGroup(GroupType.NONE);
-
+            if( cnt == 7 ) {
+                if (cusMinTime >= VVIPMinTime && cusMinPay >= VVIPMinPay)
+                    allCustomers.get(i).setGroup(GroupType.VVIP);
+                else if (cusMinTime >= VIPMinTime && cusMinPay >= VIPMinPay)
+                    allCustomers.get(i).setGroup(GroupType.VIP);
+                else if (cusMinTime >= GENERALMinTime && cusMinPay >= GENERALMInPay)
+                    allCustomers.get(i).setGroup(GroupType.GENERAL);
+                else allCustomers.get(i).setGroup(GroupType.NONE);
+            } else if ( cnt == 6 ){
+                if (cusMinTime >= VVIPMinTime && cusMinPay >= VVIPMinPay)
+                    allCustomers.get(i).setGroup(GroupType.VVIP);
+                else if (cusMinTime >= VIPMinTime && cusMinPay >= VIPMinPay)
+                    allCustomers.get(i).setGroup(GroupType.VIP);
+                else allCustomers.get(i).setGroup(GroupType.NONE);
+            } else if ( cnt == 5 ){
+                if (cusMinTime >= VVIPMinTime && cusMinPay >= VVIPMinPay)
+                    allCustomers.get(i).setGroup(GroupType.VVIP);
+                else if (cusMinTime >= GENERALMinTime && cusMinPay >= GENERALMInPay)
+                    allCustomers.get(i).setGroup(GroupType.GENERAL);
+                else allCustomers.get(i).setGroup(GroupType.NONE);
+            } else if ( cnt == 4 ){
+                if (cusMinTime >= VVIPMinTime && cusMinPay >= VVIPMinPay)
+                    allCustomers.get(i).setGroup(GroupType.VVIP);
+                else allCustomers.get(i).setGroup(GroupType.NONE);
+            } else if ( cnt == 3 ){
+                if (cusMinTime >= VIPMinTime && cusMinPay >= VIPMinPay)
+                    allCustomers.get(i).setGroup(GroupType.VIP);
+                else if (cusMinTime >= GENERALMinTime && cusMinPay >= GENERALMInPay)
+                    allCustomers.get(i).setGroup(GroupType.GENERAL);
+                else allCustomers.get(i).setGroup(GroupType.NONE);
+            } else if ( cnt == 2 ){
+                if (cusMinTime >= VIPMinTime && cusMinPay >= VIPMinPay)
+                    allCustomers.get(i).setGroup(GroupType.VIP);
+                else allCustomers.get(i).setGroup(GroupType.NONE);
+            } else if ( cnt == 1 ){
+                if (cusMinTime >= GENERALMinTime && cusMinPay >= GENERALMInPay)
+                    allCustomers.get(i).setGroup(GroupType.GENERAL);
+                else allCustomers.get(i).setGroup(GroupType.NONE);
             }
         }
-
         System.out.println(allCustomers);
     }
 

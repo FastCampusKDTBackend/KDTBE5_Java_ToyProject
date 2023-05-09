@@ -1,7 +1,7 @@
 package me.smartstore.menu;
 
 import me.smartstore.customer.Customers;
-import me.smartstore.exception.ArrayEmptyException;
+import me.smartstore.exception.CustomerArrayEmptyException;
 import me.smartstore.utils.Message;
 
 public class CustomerMenu implements Menu {
@@ -70,7 +70,7 @@ public class CustomerMenu implements Menu {
                 int choiceNum = nextLine(allCustomers.size());
 //                return choiceNum;
                 //고객 선택 후 변경 add 할 때의 Customer 내용 셀렉이 또 필요
-            } catch (ArrayEmptyException e){
+            } catch (CustomerArrayEmptyException e){
                 System.out.println(e.getMessage());
             }
         }

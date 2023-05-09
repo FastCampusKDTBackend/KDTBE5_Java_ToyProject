@@ -28,8 +28,8 @@ public class SmartStoreApp {
     public void details() {
         System.out.println("\n\n===========================================");
         System.out.println(" Title : SmartStore Customer Classification");
-        System.out.println(" Release Date : 23.04.27");
-        System.out.println(" Copyright 2023 Eunbin All rights reserved.");
+        System.out.println(" Release Date : 23.05.10");
+        System.out.println(" Copyright 2023 taeHyoung All rights reserved.");
         System.out.println("===========================================\n");
     }
 

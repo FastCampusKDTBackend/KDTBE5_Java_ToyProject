@@ -2,7 +2,7 @@ package util;
 
 import exception.InputEndException;
 import exception.InputFormatException;
-import view.Message;
+import util.view.Message;
 
 import java.util.Objects;
 import java.util.Scanner;

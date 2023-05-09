@@ -1,4 +1,4 @@
-package view;
+package util.view;
 
 public interface Message {
     String ERR_MSG_INVALID_ARR_EMPTY = "No Customers. Please input one first.";

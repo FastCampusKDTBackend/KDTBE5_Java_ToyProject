@@ -4,22 +4,12 @@ import domain.customer.Customer;
 import domain.customer.Customers;
 import exception.ArrayEmptyException;
 
-import java.util.Objects;
-
 public class CustomerService {
 
-    private static CustomerService customerService;
     private final Customers customers;
 
-    private CustomerService() {
-        customers = Customers.getInstance();
-    }
-
-    public static CustomerService getInstance() {
-        if (Objects.isNull(customerService)){
-            customerService = new CustomerService();
-        }
-        return customerService;
+    public CustomerService(Customers customers) {
+        this.customers = customers;
     }
 
     public void insertCustomer(Customer customer){

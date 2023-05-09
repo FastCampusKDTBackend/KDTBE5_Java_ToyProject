@@ -8,23 +8,14 @@ import java.util.*;
 
 public class SummaryService {
 
-    private static SummaryService summaryService;
-
-    private final Customers customers;
+    private final CustomerService customerService;
     private final GroupService groupService;
 
     private ArrayList<ArrayList<Customer>> allCustomers;
 
-    public static SummaryService getInstance() {
-        if (Objects.isNull(summaryService)){
-            summaryService = new SummaryService();
-        }
-        return summaryService;
-    }
-
-    private SummaryService() {
-        customers = Customers.getInstance();
-        groupService = GroupService.getInstance();
+    public SummaryService(CustomerService customerService, GroupService groupService) {
+        this.customerService = customerService;
+        this.groupService = groupService;
         initClassifiedCustomers();
     }
 
@@ -34,7 +25,7 @@ public class SummaryService {
 
     private void initClassifiedCustomers() {
         List<Group> sortGroups = groupService.sortGroup();
-        List<Customer> customerList = customers.toList();
+        List<Customer> customerList = customerService.selectAllCustomer().toList();
 
         allCustomers = new ArrayList<>();
 

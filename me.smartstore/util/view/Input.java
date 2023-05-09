@@ -1,4 +1,4 @@
-package view;
+package util.view;
 
 import domain.customer.Customers;
 import domain.group.GroupType;

@@ -7,24 +7,11 @@
                    Smart Store 
 ==================================================
 │   Main.java
-│   README.md
 │   SmartStore.java
-│   tree.txt
 │   
 ├───controller
-│       MenuController.java
-│       
-├───domain
-│   ├───customer
-│   │       Customer.java
-│   │       Customers.java
-│   │       
-│   ├───group
-│   │       Group.java
-│   │       Groups.java
-│   │       GroupType.java
-│   │       Parameter.java
-│   │       
+│   │   MenuController.java
+│   │   
 │   └───menu
 │           CustomerMenu.java
 │           GroupMenu.java
@@ -32,8 +19,20 @@
 │           Menu.java
 │           SummaryMenu.java
 │           
+├───domain
+│   ├───customer
+│   │       Customer.java
+│   │       Customers.java
+│   │       
+│   └───group
+│           Group.java
+│           Groups.java
+│           GroupType.java
+│           
 ├───exception
 │       ArrayEmptyException.java
+│       GroupNotFoundException.java
+│       GroupSetAlreadyException.java
 │       InputEmptyException.java
 │       InputEndException.java
 │       InputFormatException.java
@@ -45,35 +44,29 @@
 │       GroupService.java
 │       SummaryService.java
 │       
-├───util
-│   │   Console.java
-│   │   Filter.java
+└───util
+├  Console.java
+│   
+├───arrays
+│   │   Collections.java
+│   │   MyArray.java
 │   │   
-│   └───arrays
-│       │   Collections.java
-│       │   MyArray.java
-│       │   
-│       └───exception
-│               ElementNotFoundException.java
-│               EmptyArrayException.java
-│               NullArgumentException.java
-│               
+│   └───exception
+│           ElementNotFoundException.java
+│           EmptyArrayException.java
+│           NullArgumentException.java
+│           
 └───view
-    │   Message.java
-    │   Output.java
-    │   
-    └───input
-            CustomerInput.java
-            GroupInput.java
-            Input.java
-            MenuInput.java
+    Input.java
+    Message.java
+    Output.java
 ```
 
 - `controller`: MenuController (Main, Parameter, Customer, Summary)
 - `domain`: DTO, Local Storage, Menu
 - `exception`: Custom Exception
 - `service`: Local Storage Access Service (Customers, Groups)
-- `view`: Input, Output View
+- `util.view`: Input, Output View
 
 ---
 ### ClassDiagram

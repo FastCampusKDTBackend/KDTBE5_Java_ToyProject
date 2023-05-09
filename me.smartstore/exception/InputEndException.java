@@ -1,6 +1,6 @@
 package exception;
 
-import view.Message;
+import util.view.Message;
 
 public class InputEndException extends RuntimeException {
     public InputEndException() {

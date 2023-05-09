@@ -1,10 +1,12 @@
-import controller.MenuController;
-import domain.customer.Customer;
 import domain.customer.Customers;
-import domain.group.Group;
-import domain.group.GroupType;
 import domain.group.Groups;
-import controller.menu.MainMenu;
+import menu.MainMenu;
+import menu.subMenu.CustomerMenu;
+import menu.subMenu.GroupMenu;
+import menu.subMenu.SummaryMenu;
+import service.CustomerService;
+import service.GroupService;
+import service.SummaryService;
 import util.Console;
 
 import java.util.Objects;
@@ -12,6 +14,9 @@ import java.util.Objects;
 public class SmartStore {
 
     private static SmartStore smartStore;
+
+    private final MainMenu mainMenu;
+
 
     public static SmartStore getInstance() {
         if (Objects.isNull(smartStore)){
@@ -21,7 +26,16 @@ public class SmartStore {
     }
 
     private SmartStore() {
+        // inject Dependency
+        CustomerService customerService = new CustomerService(Customers.getInstance());
+        GroupService groupService = new GroupService(Groups.getInstance());
+        SummaryService summaryService = new SummaryService(customerService, groupService);
 
+        CustomerMenu customerMenu = new CustomerMenu(customerService, summaryService);
+        GroupMenu groupMenu = new GroupMenu(groupService, summaryService);
+        SummaryMenu summaryMenu = new SummaryMenu(summaryService, groupService);
+
+        mainMenu = new MainMenu(groupMenu, customerMenu, summaryMenu);
     }
 
     private void details() {
@@ -33,8 +47,7 @@ public class SmartStore {
 
     public void run() {
         details();
-        MenuController mainMenuController = new MenuController();
-        mainMenuController.setMenu(MainMenu.getInstance()).start();
+        mainMenu.service();
         System.out.println("Program Finished.");
         Console.close();
     }

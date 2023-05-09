@@ -1,6 +1,6 @@
 package exception;
 
-import view.Message;
+import util.view.Message;
 
 public class InputFormatException extends RuntimeException {
     public InputFormatException() {

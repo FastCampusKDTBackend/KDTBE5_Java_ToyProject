@@ -1,7 +1,7 @@
 package exception;
 
 
-import view.Message;
+import util.view.Message;
 
 public class InputEmptyException extends RuntimeException {
 

@@ -1,10 +1,9 @@
-package view;
+package util.view;
 
 import domain.customer.Customer;
 import domain.customer.Customers;
 import domain.group.Group;
 import domain.group.Groups;
-import exception.ArrayEmptyException;
 
 import java.util.ArrayList;
 import java.util.List;

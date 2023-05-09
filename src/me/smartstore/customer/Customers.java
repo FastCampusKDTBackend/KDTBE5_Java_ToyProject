@@ -34,17 +34,13 @@ public class Customers extends Array<Customer> {
 	}
 
 	public void refresh() {
-		for (int i = 0; i < allCustomers.size(); i++) {
-			Customer customer = allCustomers.get(i);
-
+		for (Customer customer : allCustomers) {
 			refresh(customer);
 		}
 	}
 
 	public void refresh(Customer customer) {
-		for (int i = 0; i < allGroups.size(); i++) {
-			Group group = allGroups.get(i);
-
+		for (Group group : allGroups) {
 			if (customer.getUseHours() >= group.getMinHours() && customer.getCustomerPay() >= group.getMinPay()) {
 				customer.setCustomerGroup(group);
 			}
@@ -54,10 +50,9 @@ public class Customers extends Array<Customer> {
 	public Customers findByGroup(Group group) {
 		Customers findCustomres = new Customers();
 
-		for (int i = 0; i < size(); i++) {
-			if (get(i).getCustomerGroup().equals(group)) {
-				findCustomres.add(get(i));
-			}
+		for (Customer customer : allCustomers) {
+			if (customer.getCustomerGroup().equals(group))
+				findCustomres.add(customer);
 		}
 
 		return findCustomres;
@@ -144,11 +139,19 @@ public class Customers extends Array<Customer> {
 	}
 
 	public boolean checkId(String customerId) {
-		for (int i = 0; i < allCustomers.size(); i++) {
-			if (allCustomers.get(i).getCustomerId() == null)
+		// for (int i = 0; i < allCustomers.size(); i++) {
+		// 	if (allCustomers.get(i).getCustomerId() == null)
+		// 		return false;
+		//
+		// 	if (allCustomers.get(i).getCustomerId().equals(customerId))
+		// 		return true;
+		// }
+
+		for (Customer customer : allCustomers) {
+			if (customer.getCustomerId() == null)
 				return false;
 
-			if (allCustomers.get(i).getCustomerId().equals(customerId))
+			if (customer.getCustomerId().equals(customerId))
 				return true;
 		}
 

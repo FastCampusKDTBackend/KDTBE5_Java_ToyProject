@@ -2,7 +2,7 @@ package com.smartstore.menu;
 
 import com.smartstore.function.MenuController;
 
-public class ReportMenu implements MenuController {
+public class SummaryMenu implements MenuController {
     @Override
     public void handleChoice(String menuNumber) {
 
@@ -13,13 +13,13 @@ public class ReportMenu implements MenuController {
 
     }
 
-    public static ReportMenu getInstance() {
+    public static SummaryMenu getInstance() {
         if(instance == null){
-            instance = new ReportMenu();
+            instance = new SummaryMenu();
         }
         return instance;
     }
 
-    private static ReportMenu instance;
+    private static SummaryMenu instance;
 
 }

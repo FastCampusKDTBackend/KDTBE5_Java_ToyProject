@@ -8,6 +8,7 @@ public class Customers {
     private static Customers instance;
     private MyArrayList<Customer> customers;
 
+    private Customers(){}
     public static Customers getInstance() {
         if (instance == null) {
             instance = new Customers();

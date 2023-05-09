@@ -1,8 +1,8 @@
-package com.smartstore.menu.report;
+package com.smartstore.menu;
 
-import com.smartstore.menu.Menu;
+import com.smartstore.function.MenuController;
 
-public class ReportMenu implements Menu {
+public class ReportMenu implements MenuController {
     @Override
     public void handleChoice(String menuNumber) {
 

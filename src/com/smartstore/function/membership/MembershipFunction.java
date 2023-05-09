@@ -1,8 +1,8 @@
-package com.smartstore.membership;
+package com.smartstore.function.membership;
 
-import com.smartstore.menu.Back;
-import com.smartstore.menu.Menu;
-import com.smartstore.util.Function;
+import com.smartstore.function.menu.Back;
+import com.smartstore.function.MenuController;
+import com.smartstore.function.Function;
 
 public enum MembershipFunction implements Function {
     SET(1, new SetMembershipRequirement()),
@@ -12,8 +12,8 @@ public enum MembershipFunction implements Function {
 
 
     private final int menuNumber;
-    private final Menu menuController;
-    MembershipFunction(int menuNumber, Menu menuController) {
+    private final MenuController menuController;
+    MembershipFunction(int menuNumber, MenuController menuController) {
         this.menuNumber = menuNumber;
         this.menuController = menuController;
     }

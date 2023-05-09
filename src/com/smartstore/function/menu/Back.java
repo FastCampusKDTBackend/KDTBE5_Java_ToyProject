@@ -1,9 +1,9 @@
-package com.smartstore.menu;
+package com.smartstore.function.menu;
 
-import com.smartstore.menu.mainmenu.MainMenuFunction;
-import com.smartstore.util.Function;
+import com.smartstore.function.Function;
+import com.smartstore.function.MenuController;
 
-public class Back implements Menu {
+public class Back implements MenuController {
 
     public boolean isExit(){
         return true;

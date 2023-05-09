@@ -1,10 +1,10 @@
-package com.smartstore.menu.membership;
+package com.smartstore.menu;
 
-import com.smartstore.membership.MembershipFunction;
-import com.smartstore.menu.Menu;
-import com.smartstore.util.Function;
+import com.smartstore.function.membership.MembershipFunction;
+import com.smartstore.function.MenuController;
+import com.smartstore.function.Function;
 
-public class MembershipMenu implements Menu {
+public class MembershipMenu implements MenuController {
     @Override
     public void handleChoice(String menuNumber) {
         Function.of(Integer.parseInt(menuNumber), MembershipFunction.class).run();

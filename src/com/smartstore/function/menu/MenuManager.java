@@ -1,12 +1,11 @@
-package com.smartstore.menu.mainmenu;
+package com.smartstore.function.menu;
 
-import com.smartstore.menu.Menu;
-import com.smartstore.menu.Screen;
-import com.smartstore.util.Function;
+import com.smartstore.function.Function;
+import com.smartstore.function.MenuController;
 
 import java.util.Arrays;
 
-public class MainMenu implements Menu {
+public class MenuManager implements MenuController {
     @Override
     public void handleChoice(String menuNumber) {
         //call Menu with menuNumber
@@ -18,9 +17,9 @@ public class MainMenu implements Menu {
         //Do nothing
     }
 
-    public static MainMenu getInstance() {
+    public static MenuManager getInstance() {
         if(instance == null){
-            instance = new MainMenu();
+            instance = new MenuManager();
         }
         return instance;
     }
@@ -31,12 +30,12 @@ public class MainMenu implements Menu {
     public void run(int menuNumber){
         //print splash screen
         printSlashScreen();
-        Menu.super.run(menuNumber);
+        MenuController.super.run(menuNumber);
     }
 
-    private static MainMenu instance;
+    private static MenuManager instance;
 
-    private MainMenu(){
+    private MenuManager(){
 
     }
 }

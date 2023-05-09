@@ -18,9 +18,6 @@ public class Memberships {
         return instance;
     }
 
-    public void refresh(){
-
-    }
     private Memberships(){
 
     }

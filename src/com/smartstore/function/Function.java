@@ -1,4 +1,4 @@
-package com.smartstore.util;
+package com.smartstore.function;
 
 import java.util.Arrays;
 

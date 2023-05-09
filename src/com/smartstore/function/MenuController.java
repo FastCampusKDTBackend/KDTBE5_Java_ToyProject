@@ -1,10 +1,12 @@
-package com.smartstore.menu;
+package com.smartstore.function;
+
+import com.smartstore.function.menu.Screen;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public interface Menu {
+public interface MenuController {
     StringBuilder sb = new StringBuilder();
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 

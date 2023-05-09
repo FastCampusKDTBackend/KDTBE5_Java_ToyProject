@@ -1,11 +1,10 @@
-package com.smartstore.menu.mainmenu;
+package com.smartstore.function.menu;
 
-import com.smartstore.menu.Menu;
-import com.smartstore.menu.Screen;
+import com.smartstore.function.MenuController;
 
 import java.util.Arrays;
 
-public class Quit implements Menu {
+public class Quit implements MenuController {
     @Override
     public void handleChoice(String menuNumber) {
 

@@ -1,4 +1,8 @@
-package com.smartstore.membership;
+package com.smartstore.function.membership;
+
+import com.smartstore.membership.MembershipRequirement;
+import com.smartstore.membership.MembershipType;
+import com.smartstore.membership.Memberships;
 
 public class UpdateMembershipRequirement implements MembershipMenuController {
     @Override

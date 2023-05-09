@@ -1,14 +1,15 @@
-package com.smartstore.membership;
+package com.smartstore.function.membership;
 
-import com.smartstore.menu.Menu;
-import com.smartstore.menu.mainmenu.MainMenuFunction;
+import com.smartstore.function.MenuController;
+import com.smartstore.membership.MembershipType;
+import com.smartstore.function.menu.MainMenuFunction;
 import com.smartstore.util.CustomList;
-import com.smartstore.util.Function;
+import com.smartstore.function.Function;
 
 import java.io.IOException;
 import java.util.NoSuchElementException;
 
-public interface MembershipMenuController extends Menu {
+public interface MembershipMenuController extends MenuController {
     @Override
     default void runMenuSelectionLoop(String[] memberships) {
         String memberTypeName="";

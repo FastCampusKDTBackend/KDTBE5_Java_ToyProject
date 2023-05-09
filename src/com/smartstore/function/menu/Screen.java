@@ -1,4 +1,4 @@
-package com.smartstore.menu;
+package com.smartstore.function.menu;
 
 import java.util.Arrays;
 

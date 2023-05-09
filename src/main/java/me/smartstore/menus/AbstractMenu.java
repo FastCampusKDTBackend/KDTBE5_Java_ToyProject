@@ -1,6 +1,8 @@
 package me.smartstore.menus;
 
-import me.smartstore.exceptions.ErrorCode;
+import static me.smartstore.exceptions.StoreErrorCode.INVALID_FORMAT;
+import static me.smartstore.exceptions.StoreErrorCode.INVALID_INPUT;
+
 import me.smartstore.exceptions.StoreException;
 import me.smartstore.utils.ScannerHolder;
 
@@ -39,11 +41,11 @@ public abstract class AbstractMenu {
     int selection = ScannerHolder.getIntegerInputSafely();
 
     if (selection == -1) {
-      throw new StoreException(ErrorCode.INVALID_FORMAT);
+      throw new StoreException(INVALID_FORMAT);
     }
 
     if (selection < 1 || selection > items.length) {
-      throw new StoreException(ErrorCode.INVALID_INPUT);
+      throw new StoreException(INVALID_INPUT);
     }
 
     return selection;

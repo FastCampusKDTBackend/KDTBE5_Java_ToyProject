@@ -1,10 +1,12 @@
 package me.smartstore.utils;
 
-import me.smartstore.exceptions.ErrorCode;
 import me.smartstore.exceptions.StoreException;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+
+import static me.smartstore.exceptions.StoreErrorCode.EMPTY_INPUT;
+import static me.smartstore.exceptions.StoreErrorCode.INTERNAL_ERROR;
 
 public class ScannerHolder {
   private static final Scanner scanner = new Scanner(System.in);
@@ -18,9 +20,9 @@ public class ScannerHolder {
     try {
       return scanner.nextLine();
     } catch (NoSuchElementException e) {
-      throw new StoreException(ErrorCode.EMPTY_INPUT);
+      throw new StoreException(EMPTY_INPUT);
     } catch (IllegalStateException e) {
-      throw new StoreException(ErrorCode.INTERNAL_ERROR);
+      throw new StoreException(INTERNAL_ERROR);
     }
   }
 }

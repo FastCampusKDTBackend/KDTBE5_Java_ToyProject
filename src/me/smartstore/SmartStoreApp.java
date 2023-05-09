@@ -51,6 +51,7 @@ public class SmartStoreApp {
     }
 
     public void run() {
+        allGroups.add(new Group(GroupType.N));
         details();
         MainMenu.getInstance().show();
     }

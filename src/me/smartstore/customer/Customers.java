@@ -11,7 +11,8 @@ public class Customers extends Array<Customer> {
 	private static Customers allCustomers;
 	private static Groups allGroups = Groups.getInstance();
 
-	private Customers() {}
+	private Customers() {
+	}
 
 	public static Customers getInstance() {
 		if (allCustomers == null) {
@@ -36,13 +37,7 @@ public class Customers extends Array<Customer> {
 		for (int i = 0; i < allCustomers.size(); i++) {
 			Customer customer = allCustomers.get(i);
 
-			for (int j = 0; j < allGroups.size(); j++) {
-				Group group = allGroups.get(j);
-
-				if (customer.getUseHours() >= group.getMinHours() && customer.getCustomerPay() >= group.getMinPay()) {
-					customer.setCustomerGroup(group);
-				}
-			}
+			refresh(customer);
 		}
 	}
 
@@ -95,7 +90,8 @@ public class Customers extends Array<Customer> {
 		Comparator<Customer> comparator = new Comparator<Customer>() {
 			@Override
 			public int compare(Customer o1, Customer o2) {
-				if (o1.getCustomerName() == null) return -1;
+				if (o1.getCustomerName() == null)
+					return -1;
 
 				return o1.getCustomerName().compareTo(o2.getCustomerName());
 			}
@@ -112,7 +108,8 @@ public class Customers extends Array<Customer> {
 				int returnValue = o1.getUseHours() - o2.getUseHours();
 
 				if (returnValue == 0) {
-					if (o1.getCustomerName() == null) return returnValue;
+					if (o1.getCustomerName() == null)
+						return returnValue;
 
 					return o1.getCustomerName().compareTo(o2.getCustomerName());
 				} else {
@@ -128,12 +125,14 @@ public class Customers extends Array<Customer> {
 		Comparator<Customer> comparator = new Comparator<Customer>() {
 			@Override
 			public int compare(Customer o1, Customer o2) {
-				if (o1 == null || o2 == null) return -1;
+				if (o1 == null || o2 == null)
+					return -1;
 
 				int returnValue = o1.getCustomerPay() - o2.getCustomerPay();
 
 				if (returnValue == 0) {
-					if (o1.getCustomerName() == null) return returnValue;
+					if (o1.getCustomerName() == null)
+						return returnValue;
 					return o1.getCustomerName().compareTo(o2.getCustomerName());
 				} else {
 					return returnValue;
@@ -145,16 +144,19 @@ public class Customers extends Array<Customer> {
 	}
 
 	public boolean isEmpty() {
-		if (size() > 0) return false;
+		if (size() > 0)
+			return false;
 
 		return true;
 	}
 
 	public boolean checkId(String customerId) {
 		for (int i = 0; i < allCustomers.size(); i++) {
-			if (allCustomers.get(i).getCustomerId() == null) return false;
+			if (allCustomers.get(i).getCustomerId() == null)
+				return false;
 
-			if (allCustomers.get(i).getCustomerId().equals(customerId)) return true;
+			if (allCustomers.get(i).getCustomerId().equals(customerId))
+				return true;
 		}
 
 		return false;

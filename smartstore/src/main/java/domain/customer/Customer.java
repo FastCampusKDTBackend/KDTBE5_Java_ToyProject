@@ -1,12 +1,9 @@
 package domain.customer;
 
 import domain.group.GroupType;
-import domain.group.Parameter;
 import util.random.RandomStringGenerator;
 
-import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 public class Customer {
     private String userId;
@@ -16,7 +13,7 @@ public class Customer {
     private GroupType groupType;
 
     public Customer(){
-        this.userId = UUID.randomUUID().toString().split("-")[0];
+        this.userId = RandomStringGenerator.getRandomUserId();
         this.name = RandomStringGenerator.getRandomAlphabetString();
         this.spentTime = 0;
         this.totalPay = 0;

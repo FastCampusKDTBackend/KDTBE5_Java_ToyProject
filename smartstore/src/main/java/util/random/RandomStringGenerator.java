@@ -1,6 +1,7 @@
 package util.random;
 
 import java.util.Random;
+import java.util.UUID;
 
 public interface RandomStringGenerator {
     static String getRandomAlphabetString() {
@@ -12,4 +13,7 @@ public interface RandomStringGenerator {
         return stringBuilder.toString();
     }
 
+    static String getRandomUserId() {
+        return UUID.randomUUID().toString().split("-")[0];
+    }
 }

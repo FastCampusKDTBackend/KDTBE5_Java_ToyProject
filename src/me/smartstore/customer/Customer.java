@@ -98,6 +98,10 @@ public class Customer {
 
     public Group getGroup() { return group; }
 
+    public void updateGroup() {
+        group = Group.calculate(spentHours, totalPaidAmount);
+    }
+
     @Override
     public String toString() {
         return String.format("Customer{id='%s', name='%s', spentHours=%d, totalAmountPaid=%d, group=%s}",

@@ -63,6 +63,7 @@ public class CustomerRepository {
     }
 
     public String getTempInfo() {
+        updateGroupOfTempCustomer();
         return tempCustomer.toString();
     }
 
@@ -103,9 +104,14 @@ public class CustomerRepository {
     public String getUpdateBeforeAndAfterInfo() {
         Customer before = customerList.get(tempIdx);
         Customer after = tempCustomer;
+        updateGroupOfTempCustomer();
         return String.format("\nNo. %2d\n", tempIdx) +
-                "Before: " + before.toString() + '\n'+
-                "After : " + after.toString();
+                "Before: " + before + '\n'+
+                "After : " + after;
+    }
+
+    public void updateGroupOfTempCustomer() {
+        tempCustomer.updateGroup();
     }
 
     public String getSummary() {

@@ -14,6 +14,10 @@ public class GroupParameter {
         this.minTotalPaidAmount = minTotalPaidAmount;
     }
 
+    public Integer getMinSpentHours() { return minSpentHours; }
+
+    public Integer getMinTotalPaidAmount() { return minTotalPaidAmount; }
+
     @Override
     public String toString() {
         return String.format("Parameter{minSpentHours=%d, minTotalPaidAmount=%d}",

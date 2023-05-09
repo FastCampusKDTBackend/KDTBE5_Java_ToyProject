@@ -36,6 +36,26 @@ public enum Group {
         this.groupParameter.setMinTotalPaidAmount(groupParameterArguments[1]);
     }
 
+    public static Group calculate(Integer spentHours, Integer totalPaidAmount) {
+        Group[] groups = values();
+        Group ret = NONE;
+        int i = 1;
+        for (; i < groups.length; ++i) {
+            Group group = groups[i];
+            GroupParameter parameter = group.groupParameter;
+            Integer minSpentHours = parameter.getMinSpentHours();
+            Integer minTotalPaidAmount = parameter.getMinTotalPaidAmount();
+            if (minSpentHours == null && minTotalPaidAmount == null)
+                continue;
+            if (minSpentHours != null)
+                if (spentHours == null || spentHours < minSpentHours) break;
+            if (minTotalPaidAmount != null)
+                if (totalPaidAmount == null || totalPaidAmount < minTotalPaidAmount) break;
+            ret = group;
+        }
+        return ret;
+    }
+
     @Override
     public String toString() {
         return "\nGroupType: " + this.name() + '\n'

@@ -6,6 +6,7 @@ import util.common.ViewMessage;
 import util.view.InputScanner;
 import util.view.OutputView;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public interface ViewParameterExecute {
@@ -21,15 +22,21 @@ public interface ViewParameterExecute {
                 if (groupName.equals(ViewMessage.EXIT_CHOICE)) {
                     break;
                 }
-                GroupType groupType = GroupType.getBySymbolOrName(groupName);
+                try {
+                    GroupType groupType = GroupType.getBySymbolOrName(groupName);
 
-                Parameter parameterOfGroup = groupType.getParameter();
-                if (parameterOfGroup == null) {
-                    System.out.println("현재 분류 기준이 정의되어있지 않습니다. 설정해주세용");
+                    Parameter parameterOfGroup = groupType.getParameter();
+
+                    if (parameterOfGroup == null) {
+                        System.out.println("현재 분류 기준이 정의되어있지 않습니다. 설정해주세용");
+                        continue;
+                    }
+
+                    System.out.println(groupType.getParameter());
+                } catch (NoSuchElementException noSuchElementException) {
+                    System.out.println(noSuchElementException.getMessage());
                     continue;
                 }
-
-                System.out.println(groupType.getParameter());
             }
         };
     }

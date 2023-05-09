@@ -75,10 +75,10 @@ public class GroupMenu implements Menu{
 				allCustomers.refresh();
 
 			} catch (InputEndException e) {
-				System.out.println(Message.ERR_MSG_INPUT_END);
+				System.out.println(e.getMessage());
 				break;
 			} catch (ElementNotFoundException e) {
-				System.out.println(Message.ERR_MSG_NULL_ELEMENT);
+				System.out.println(e.getMessage());
 			}
 		}
 	}
@@ -113,12 +113,10 @@ public class GroupMenu implements Menu{
 				group.setMinHours(time);
 
 				break;
-			} catch (NumberFormatException e){
-				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
-			} catch (InputRangeException e) {
-				System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+			} catch (NumberFormatException | InputRangeException e){
+				System.out.println(e.getMessage());
 			} catch (InputEndException e) {
-				System.out.println(Message.ERR_MSG_INPUT_END);
+				System.out.println(e.getMessage());
 				break;
 			}
 		}
@@ -136,12 +134,10 @@ public class GroupMenu implements Menu{
 
 				break;
 
-			} catch (NumberFormatException e) {
-				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
-			} catch (InputRangeException e) {
-				System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+			} catch (NumberFormatException | InputRangeException e) {
+				System.out.println(e.getMessage());
 			} catch (InputEndException e) {
-				System.out.println(Message.ERR_MSG_INPUT_END);
+				System.out.println(e.getMessage());
 				break;
 			}
 		}
@@ -159,10 +155,10 @@ public class GroupMenu implements Menu{
 
 				System.out.println(findGroup);
 			} catch (InputEndException e){
-				System.out.println(Message.ERR_MSG_INPUT_END);
+				System.out.println(e.getMessage());
 				break;
 			} catch (ElementNotFoundException e) {
-				System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+				System.out.println(e.getMessage());
 			}
 		}
 	}

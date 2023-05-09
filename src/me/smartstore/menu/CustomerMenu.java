@@ -69,12 +69,10 @@ public class CustomerMenu implements Menu{
 				}
 
 				break;
-			} catch(NumberFormatException e) {
-				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
-			} catch (InputRangeException e) {
-				System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+			} catch(NumberFormatException | InputRangeException e) {
+				System.out.println(e.getMessage());
 			} catch (InputEndException e) {
-				System.out.println(Message.ERR_MSG_INPUT_END);
+				System.out.println(e.getMessage());
 				break;
 			}
 		}
@@ -111,7 +109,7 @@ public class CustomerMenu implements Menu{
 
 			customer.setCustomerName(customerName);
 		} catch(InputEndException e) {
-			System.out.println(Message.ERR_MSG_INPUT_END);
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -122,7 +120,7 @@ public class CustomerMenu implements Menu{
 
 			customer.setCustomerId(customerId);
 		} catch(InputEndException e) {
-			System.out.println(Message.ERR_MSG_INPUT_END);
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -135,12 +133,10 @@ public class CustomerMenu implements Menu{
 			if (time < 0) throw new InputRangeException();
 
 			customer.setUseHours(time);
-		} catch (NumberFormatException e){
-			System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
+		} catch (NumberFormatException | InputRangeException e){
+			System.out.println(e.getMessage());
 		} catch (InputEndException e) {
-			System.out.println(Message.ERR_MSG_INPUT_END);
-		} catch (InputRangeException e) {
-			System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -153,12 +149,10 @@ public class CustomerMenu implements Menu{
 			if (pay < 0) throw new InputRangeException();
 
 			customer.setCustomerPay(pay);
-		} catch (NumberFormatException e){
-			System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
+		} catch (NumberFormatException | InputRangeException e){
+			System.out.println(e.getMessage());
 		} catch (InputEndException e) {
-			System.out.println(Message.ERR_MSG_INPUT_END);
-		} catch (InputRangeException e) {
-			System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -182,10 +176,8 @@ public class CustomerMenu implements Menu{
 
 				allCustomers.refresh(allCustomers.get(customerIndex));
 				break;
-			} catch (NumberFormatException e) {
-				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
-			} catch (InputRangeException e){
-				System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+			} catch (NumberFormatException | InputRangeException e) {
+				System.out.println(e.getMessage());
 			}
 		}
 	}
@@ -203,10 +195,8 @@ public class CustomerMenu implements Menu{
 				System.out.println(deleteCustomer + "\n");
 				viewCustomers();
 				break;
-			} catch (NumberFormatException e) {
-				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
-			} catch (InputRangeException e){
-				System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+			} catch (NumberFormatException | InputRangeException e) {
+				System.out.println(e.getMessage());
 			}
 		}
 	}

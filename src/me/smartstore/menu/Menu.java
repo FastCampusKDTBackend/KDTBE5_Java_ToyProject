@@ -35,10 +35,8 @@ public interface Menu {
                 if (inputNum < 0 || inputNum > menuText.length) throw new InputRangeException();
 
                 return inputNum;
-            } catch (NumberFormatException e) {
-                System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
-            } catch (InputRangeException e) {
-                System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+            } catch (NumberFormatException | InputRangeException e) {
+                System.out.println(e.getMessage());
             }
         }
     }

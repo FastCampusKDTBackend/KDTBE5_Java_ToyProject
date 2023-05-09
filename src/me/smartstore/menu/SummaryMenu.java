@@ -88,11 +88,11 @@ public class SummaryMenu implements Menu{
 
 				break;
 			} catch (InputEndException e) {
-				System.out.println(Message.ERR_MSG_INPUT_END);
+				System.out.println(e.getMessage());
 				break;
 			}
 			catch (InputValidException e) {
-				System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+				System.out.println(e.getMessage());
 			}
 		}
 	}

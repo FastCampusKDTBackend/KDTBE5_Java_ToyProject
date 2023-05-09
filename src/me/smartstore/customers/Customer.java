@@ -1,5 +1,7 @@
 package me.smartstore.customers;
 
+import me.smartstore.groups.Group;
+
 import java.util.Objects;
 
 public class Customer {
@@ -7,6 +9,7 @@ public class Customer {
     private String cId;
     private Integer totalTime;
     private Integer totalPay;
+    private Group group;
 
     public Customer() {
     }
@@ -55,17 +58,25 @@ public class Customer {
         this.totalPay = totalPay;
     }
 
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(cId, customer.cId);
+        return Objects.equals(cName, customer.cName) && Objects.equals(cId, customer.cId) && Objects.equals(totalTime, customer.totalTime) && Objects.equals(totalPay, customer.totalPay) && Objects.equals(group, customer.group);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cId);
+        return Objects.hash(cName, cId, totalTime, totalPay, group);
     }
 
     @Override
@@ -75,6 +86,7 @@ public class Customer {
                 ", cId='" + cId + '\'' +
                 ", totalTime=" + totalTime +
                 ", totalPay=" + totalPay +
+                ", group=" + group +
                 '}';
     }
 }

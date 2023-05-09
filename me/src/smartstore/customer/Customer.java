@@ -1,14 +1,14 @@
 package smartstore.customer;
 
+import java.util.Objects;
+
 import smartstore.exception.InputEndException;
 import smartstore.exception.InputTypeException;
 import smartstore.group.Group;
 import smartstore.menu.Menu;
 import smartstore.util.Message;
 
-import java.util.Objects;
-
-public class Customer implements Menu {
+public class Customer implements Menu{
     private String cusName;
     private String cusId;
     private Integer cusTotalTime;
@@ -221,4 +221,9 @@ public class Customer implements Menu {
     	}
     	return true;
     }
+//
+//	@Override
+//	public int compareTo(Customer c) {
+//		return this.getCusName().compareTo(c.getCusName());
+//	}
 }

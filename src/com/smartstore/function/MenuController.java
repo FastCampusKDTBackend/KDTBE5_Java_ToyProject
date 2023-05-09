@@ -1,5 +1,6 @@
 package com.smartstore.function;
 
+import com.smartstore.function.menu.MainMenuFunction;
 import com.smartstore.function.menu.Screen;
 
 import java.io.BufferedReader;
@@ -9,6 +10,7 @@ import java.io.InputStreamReader;
 public interface MenuController {
     StringBuilder sb = new StringBuilder();
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    int currentMenuNumber = 0;
 
     default void displayMenu(String[] menus){
         for(int i = 0 ; i < menus.length ; i++){
@@ -43,6 +45,10 @@ public interface MenuController {
         displayMenu(Screen.of(menuNumber).getMenus());
         //get menu number from user until valid menu number
         runMenuSelectionLoop(Screen.of(menuNumber).getMenus());
+    }
+
+    default void returnToPrevMenu(int menuNumber){
+        Function.of(menuNumber, MainMenuFunction.class).run();
     }
 
 }

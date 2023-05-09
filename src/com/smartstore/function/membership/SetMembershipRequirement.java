@@ -5,25 +5,14 @@ import com.smartstore.membership.MembershipType;
 import com.smartstore.membership.Memberships;
 
 public class SetMembershipRequirement implements MembershipMenuController {
-    private void setMembershipRequirement(MembershipType membershipType) {
-        Memberships.getInstance().setMembershipRequirement(membershipType);
-        System.out.printf("Set %s Successfully\n\n\n",membershipType.name());
-    }
-
     @Override
-    public void handleChoice(String membershipName) {
-        MembershipType membershipType = getMembershipType(membershipName);
-        //find requirement using type in enum_map
-        MembershipRequirement requirement = Memberships.getInstance().findByType(membershipType);
-        //if not found in enum_map
-        if(requirement == null ){
-            setMembershipRequirement(membershipType);
-        } else{
+    public void run(MembershipType membershipType, MembershipRequirement requirement) {
+        if(requirement == null){
+            Memberships.getInstance().setMembershipRequirement(membershipType);
+            System.out.printf("Set %s Successfully\n\n\n",membershipType.name());
+        }else {
             System.out.printf("Membership '%s' Already Defined\n", membershipType.name());
-
         }
-        //Back to prev Menu
-        returnToPrevMenu();
     }
 
 }

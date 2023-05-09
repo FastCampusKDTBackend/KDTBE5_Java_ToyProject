@@ -2,27 +2,18 @@ package com.smartstore.function.membership;
 
 import com.smartstore.membership.MembershipRequirement;
 import com.smartstore.membership.MembershipType;
-import com.smartstore.membership.Memberships;
 
 public class ViewMembershipRequirement implements MembershipMenuController {
-    public void viewMembershipRequirement(MembershipType membershipType, MembershipRequirement requirement) {
-        System.out.printf("%s Info\n", membershipType.name());
-        System.out.printf("Min Usage time : %d\n",requirement.getMinUsageTime());
-        System.out.printf("Min Payment Amount: %d\n\n",requirement.getMinPaymentAmount());
-    }
-
     @Override
-    public void handleChoice(String membershipName) {
-        MembershipType membershipType = getMembershipType(membershipName);
+    public void run(MembershipType membershipType, MembershipRequirement requirement) {
         //find requirement using type in enum_map
-        MembershipRequirement requirement = Memberships.getInstance().findByType(membershipType);
         //if not found in enum_map
         if(requirement == null ){
             System.out.printf("Membership '%s' Not Defined Yet\n", membershipType.name());
         } else{
-            viewMembershipRequirement(membershipType, requirement);
+            System.out.printf("%s Info\n", membershipType.name());
+            System.out.printf("Min Usage time : %d\n",requirement.getMinUsageTime());
+            System.out.printf("Min Payment Amount: %d\n\n",requirement.getMinPaymentAmount());
         }
-        //Back to prev Menu
-        returnToPrevMenu();
     }
 }

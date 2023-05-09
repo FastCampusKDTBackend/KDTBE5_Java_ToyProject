@@ -16,8 +16,7 @@ public interface SetParameterExecute {
             Scanner scanner = InputScanner.get();
             while (true) {
 
-                OutputView.chooseGroup();
-
+                OutputView.chooseGroup(GroupType.generateFormatForView());
                 String groupName = scanner.nextLine();
                 if (groupName.equals(ViewMessage.EXIT_CHOICE)) {
                     break;

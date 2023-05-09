@@ -192,17 +192,17 @@ public class CustomerMenu implements Menu{
 
 		while(true) {
 			try {
-				System.out.print("Which Customer ( 1 ~ " + allCustomers.size() + " )? ");
-				int customerIndex = Integer.parseInt(nextLine()) - 1;
-
-				if (customerIndex < 0 || customerIndex > allCustomers.size()) throw new InputRangeException();
+				int customerIndex = selectCustomer();
 
 				showParameterMenu(allCustomers.get(customerIndex));
-
 				allCustomers.refresh(allCustomers.get(customerIndex));
+
 				break;
 			} catch (NumberFormatException | InputRangeException e) {
 				System.out.println(e.getMessage());
+			} catch (InputEndException e) {
+				System.out.println(e.getMessage());
+				break;
 			}
 		}
 	}
@@ -212,10 +212,7 @@ public class CustomerMenu implements Menu{
 
 		while(true) {
 			try {
-				System.out.println("Which Customer ( 1 ~ " + allCustomers.size() + " )? ");
-				int customerIndex = Integer.parseInt(nextLine(Message.END_MSG)) - 1;
-
-				if (customerIndex < 0 || customerIndex > allCustomers.size()) throw new InputRangeException();
+				int customerIndex = selectCustomer();
 
 				Customer deleteCustomer = allCustomers.remove(customerIndex);
 
@@ -229,5 +226,14 @@ public class CustomerMenu implements Menu{
 				break;
 			}
 		}
+	}
+
+	private int selectCustomer() {
+		System.out.println("Which Customer ( 1 ~ " + allCustomers.size() + " )?");
+		int customerIndex = Integer.parseInt(nextLine(Message.END_MSG)) - 1;
+
+		if (customerIndex < 0 || customerIndex > allCustomers.size()) throw new InputRangeException();
+
+		return customerIndex;
 	}
 }

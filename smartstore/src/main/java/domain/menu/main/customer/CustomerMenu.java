@@ -31,6 +31,7 @@ public enum CustomerMenu implements Menu {
         return CustomerMenu.values().length + 1 == menuNumber;
     }
 
+    @Override
     public void execute() {
         runnable.run();
     }

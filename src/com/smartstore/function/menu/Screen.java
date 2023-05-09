@@ -7,7 +7,7 @@ public enum Screen {
     SPLASH(new String[]{"this is splash screen"}, -1),
 
     MAIN_MENU(new String[]{
-            "Grade Management",
+            "Membership Management",
             "Customer Management",
             "Report",
             "Quit"}, 0),

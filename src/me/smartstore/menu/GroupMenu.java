@@ -50,7 +50,7 @@ public class GroupMenu implements Menu {
     * @ E -> GroupType.E : Error
     * => IllegalArgumentException
     * */
-    public void setParameter() {
+    private void setParameter() {
         while (true) {
             try {
                 System.out.println("Which group (GENERAL (G), VIP (V), VVIP (VV))? ");
@@ -88,7 +88,7 @@ public class GroupMenu implements Menu {
         }
     }
 
-    public void setParameterValue(Parameter parameter, GroupType groupType) {
+    private void setParameterValue(Parameter parameter, GroupType groupType) {
         while (true) {
 
             int choice = chooseMenu(Board.PARAMETER_MENU.getBoard());
@@ -150,7 +150,7 @@ public class GroupMenu implements Menu {
         }
     }
 
-    public void viewParameter() {
+    private void viewParameter() {
         while ( true ) {
             try {
                 System.out.println("Which group (GENERAL (G), VIP (V), VVIP (VV))? ");
@@ -178,7 +178,7 @@ public class GroupMenu implements Menu {
         }
     }
 
-    public void updateParameter() {
+    private void updateParameter() {
         while ( true ) {
             try {
                 System.out.println("Which group (GENERAL (G), VIP (V), VVIP (VV))? ");

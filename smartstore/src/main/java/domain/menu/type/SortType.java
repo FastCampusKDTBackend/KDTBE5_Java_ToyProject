@@ -43,4 +43,8 @@ public enum SortType {
                 .findAny()
                 .orElseThrow(NotFoundException::new);
     }
+
+    public static boolean isAscending(SortType sortType) {
+        return sortType.equals(ASCENDING);
+    }
 }

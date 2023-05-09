@@ -76,11 +76,11 @@ public class Customers extends Array<Customer> {
 	public Customers sort(Customers customers, Comparator<Customer> comparator, String type) {
 		Customer[] customerArray = parseToArray(customers);
 
-		if (type.equals("A") || type.equals("ASCENDING")) {
-			Arrays.sort(customerArray, comparator);
-		} else {
+		Arrays.sort(customerArray, comparator);
+
+		if (type.equals("D") || type.equals("DSCENDING"))
 			Arrays.sort(customerArray, comparator.reversed());
-		}
+
 		customers.arrays = customerArray;
 
 		return customers;
@@ -107,14 +107,10 @@ public class Customers extends Array<Customer> {
 
 				int returnValue = o1.getUseHours() - o2.getUseHours();
 
-				if (returnValue == 0) {
-					if (o1.getCustomerName() == null)
-						return returnValue;
-
+				if (returnValue == 0 && o1.getCustomerName() != null)
 					return o1.getCustomerName().compareTo(o2.getCustomerName());
-				} else {
-					return returnValue;
-				}
+
+				return returnValue;
 			}
 		};
 
@@ -130,13 +126,10 @@ public class Customers extends Array<Customer> {
 
 				int returnValue = o1.getCustomerPay() - o2.getCustomerPay();
 
-				if (returnValue == 0) {
-					if (o1.getCustomerName() == null)
-						return returnValue;
+				if (returnValue == 0 && o1.getCustomerName() != null)
 					return o1.getCustomerName().compareTo(o2.getCustomerName());
-				} else {
-					return returnValue;
-				}
+
+				return returnValue;
 			}
 		};
 

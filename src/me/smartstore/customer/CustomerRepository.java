@@ -1,4 +1,8 @@
-package me.day10.smartstore.customer;
+package me.smartstore.customer;
+
+import me.smartstore.group.Group;
+
+import java.util.Comparator;
 
 public class CustomerRepository {
 
@@ -104,9 +108,65 @@ public class CustomerRepository {
                 "After : " + after.toString();
     }
 
+    public String getSummary() {
+        Group[] groups = Group.values();
+        int len = groups.length;
+        StringBuilder[] stringBuilders = new StringBuilder[len];
+        int[] cnt = new int[len];
+        for (int i = 0; i < len; ++i) {
+            StringBuilder sb = new StringBuilder();
+            sb.append('\n').append("==============================")
+                    .append(groups[i])
+                    .append("==============================").append('\n');
+            stringBuilders[i] = sb;
+        }
+
+        int size = customerList.size();
+        for (int i = 0; i < size; ++i) {
+            Customer customer = customerList.get(i);
+            Group group = customer.getGroup();
+            for (int j = 0; j < len; ++j) {
+                if (group == groups[j]) {
+                    stringBuilders[j].append(customer).append('\n');
+                    cnt[j]++;
+                    break;
+                }
+            }
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < len; ++i) {
+            sb.append(stringBuilders[i]);
+            if (cnt[i] == 0)
+                sb.append("No Customers.").append('\n');
+        }
+        return sb.append('\n').toString();
+    }
+
+    public String getSummaryByName(Order order) {
+        Comparator<Customer> cmp = order == Order.ASCENDING ? Customer.ORDER_NAME_ASC
+                                                            : Customer.ORDER_NAME_DEC;
+        customerList.sort(cmp);
+        return getSummary();
+    }
+
+    public String getSummaryBySpentHours(Order order) {
+        Comparator<Customer> cmp = order == Order.ASCENDING ? Customer.ORDER_SPENT_HOURS_ASC
+                                                            : Customer.ORDER_SPENT_HOURS_DEC;
+        customerList.sort(cmp);
+        return getSummary();
+    }
+
+    public String getSummaryByTotalPaidAmount(Order order) {
+        Comparator<Customer> cmp = order == Order.ASCENDING ? Customer.ORDER_TOTAL_PAID_AMOUNT_ASC
+                                                            : Customer.ORDER_TOTAL_PAID_AMOUNT_DEC;
+        customerList.sort(cmp);
+        return getSummary();
+    }
+
     @Override
     public String toString() {
-        if (customerList.isEmpty()) return "No Customers. Please input one first.\n";
+        if (customerList.isEmpty()) return "No Customers." + " Please input one first.\n";
         return customerList.toString();
     }
 }

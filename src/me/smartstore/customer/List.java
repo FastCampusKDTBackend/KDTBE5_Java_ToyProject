@@ -1,7 +1,8 @@
-package me.day10.smartstore.customer;
+package me.smartstore.customer;
 
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class List<E> {
 
@@ -95,6 +96,18 @@ public class List<E> {
         if (idx < 0 || idx >= size) {
             String msg = String.format("Acceptable range: (0~%d), but input: %d", size - 1, idx);
             throw new ArrayIndexOutOfBoundsException(msg);
+        }
+    }
+
+    public void sort(Comparator<E> comparator) {
+        for (int i = 1; i < size; ++i) {
+            int j = i;
+            E src = list[j--];
+            while (j >= 0 && comparator.compare(list[j], src) > 0) {
+                list[j + 1] = list[j];
+                j--;
+            }
+            list[j + 1] = src;
         }
     }
 

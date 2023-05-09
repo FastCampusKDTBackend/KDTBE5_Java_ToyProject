@@ -1,10 +1,16 @@
-package me.day10.smartstore.customer;
+package me.smartstore.customer;
 
-import me.day10.smartstore.group.Group;
-import me.day10.smartstore.menu.topic.CustomerMenu;
+import me.smartstore.group.Group;
+import java.util.Comparator;
 
 public class Customer {
 
+    public static final Comparator<Customer> ORDER_NAME_ASC = Comparator.comparing(e -> e.name);
+    public static final Comparator<Customer> ORDER_NAME_DEC = (e1, e2) -> e2.name.compareTo(e1.name);
+    public static final Comparator<Customer> ORDER_SPENT_HOURS_ASC = Comparator.comparing(e -> e.spentHours);
+    public static final Comparator<Customer> ORDER_SPENT_HOURS_DEC = (e1, e2) -> e2.spentHours.compareTo(e1.spentHours);
+    public static final Comparator<Customer> ORDER_TOTAL_PAID_AMOUNT_ASC = Comparator.comparing(e -> e.totalAmountPaid);
+    public static final Comparator<Customer> ORDER_TOTAL_PAID_AMOUNT_DEC = (e1, e2) -> e2.totalAmountPaid.compareTo(e1.totalAmountPaid);
     public static final String ID_FORMAT =
             "ID Format: 4~16 letters consisting of alphabets, digits, underscore(_)";
     public static final String NAME_FORMAT =
@@ -14,7 +20,8 @@ public class Customer {
     private static final String NAME_PATTERN = '^' + NAME_CHUCK + "( " + NAME_CHUCK + "){0,3}$";
     private static final int DEFAULT_SPENT_HOURS = 0;
     private static final int DEFAULT_TOTAL_AMOUNT_PAID = 0;
-    private static final Group DEFAULT_GROUP = Group.GENERAL;
+    private static final Group DEFAULT_GROUP = Group.NONE;
+
 
     private String id;
     private String name;
@@ -88,6 +95,8 @@ public class Customer {
         totalAmountPaid = e.totalAmountPaid;
         group = e.group;
     }
+
+    public Group getGroup() { return group; }
 
     @Override
     public String toString() {

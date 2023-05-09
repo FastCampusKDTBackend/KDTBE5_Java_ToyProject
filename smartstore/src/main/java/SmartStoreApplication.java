@@ -1,4 +1,5 @@
 import domain.menu.main.MainMenu;
+import util.common.ErrorMessage;
 import util.view.InputScanner;
 import util.view.OutputView;
 
@@ -31,6 +32,16 @@ public class SmartStoreApplication {
             }
 
             executeMenu(menuNumber);
+        }
+    }
+
+    private int getMenuNumber() {
+        while (true) {
+            try {
+                return Integer.parseInt(scanner.nextLine());
+            } catch (RuntimeException runtimeException) {
+                OutputView.viewErrorMessage(ErrorMessage.INVALID_INPUT);
+            }
         }
     }
 

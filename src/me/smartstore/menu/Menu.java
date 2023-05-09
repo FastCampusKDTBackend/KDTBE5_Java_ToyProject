@@ -39,7 +39,8 @@ public interface Menu {
 
             } catch (InputRangeException e) {
                 System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
-
+            } catch (NumberFormatException e){
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
             }
         }
     }

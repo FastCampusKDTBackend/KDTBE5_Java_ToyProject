@@ -42,18 +42,7 @@ public class Menu {
         return newInt;
     }
 
-    void addData() {
-    }
+    protected void back(){
 
-    void viewData() {
-    }
-
-    void updateData() {
-    }
-
-    void DeleteData() {
-    }
-
-    void back() {
     }
 }

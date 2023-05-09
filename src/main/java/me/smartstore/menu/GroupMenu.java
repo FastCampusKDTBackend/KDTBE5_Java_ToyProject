@@ -1,6 +1,6 @@
 package me.smartstore.menu;
 
-public class GroupMenu extends Menu{
+public class GroupMenu extends Menu implements DataCRUD{
     @Override
     public void addData() {
 

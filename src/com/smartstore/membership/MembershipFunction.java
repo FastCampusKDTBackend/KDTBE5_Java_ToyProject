@@ -20,8 +20,9 @@ public enum MembershipFunction implements Function {
 
     @Override
     public void run() {
+        System.out.println(menuController.getClass());
         if(menuController.getClass().equals(Back.class)){
-            //((Back) menuController).isExit();
+            menuController.run(0);
         }else{
             menuController.run();
         }

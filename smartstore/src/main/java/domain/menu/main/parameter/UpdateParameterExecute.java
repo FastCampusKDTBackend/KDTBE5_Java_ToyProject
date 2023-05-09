@@ -2,6 +2,7 @@ package domain.menu.main.parameter;
 
 import domain.group.GroupType;
 import util.common.ViewMessage;
+import util.common.exception.NotFoundException;
 import util.view.InputScanner;
 import util.view.OutputView;
 
@@ -29,26 +30,19 @@ public interface UpdateParameterExecute {
                 }
 
 
-                OutputView.chooseParameterForSetting();
+                while (true) {
+                    OutputView.chooseParameterForSetting();
+                    try {
+                        int menuNumber = Integer.parseInt(scanner.nextLine());
 
+                        if (ModifyParameterMenu.isQuit(menuNumber)) {
+                            break;
+                        }
 
-                String menu = scanner.nextLine();
-                if (menu.equals("1")) {
-                    System.out.println("Input Minimum Spent Time:\n");
-                    OutputView.viewExitGuide();
-                    String minimumSpentTime = scanner.nextLine();
-                    groupType.getParameter().setMinimumSpentTime(Integer.parseInt(minimumSpentTime));
-                    return;
-                } else if (menu.equals("2")) {
-                    System.out.println("Input Minimum Total Pay:\n");
-                    OutputView.viewExitGuide();
-                    String minimumSpentTime = scanner.nextLine();
-                    groupType.getParameter().setMinimumTotalPay(Integer.parseInt(minimumSpentTime));
-                    return;
-                } else if (menu.equals("3")) {
-                    return;
-                } else {
-                    continue;
+                        ModifyParameterMenu.findMenuAndExecution(menuNumber, groupType);
+                    } catch (NotFoundException | NumberFormatException exception) {
+                        OutputView.viewErrorMessage(exception.getMessage());
+                    }
                 }
             }
         };

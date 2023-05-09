@@ -2,6 +2,7 @@ package domain.menu.main.customer;
 
 import domain.customer.Customer;
 import domain.customer.Customers;
+import domain.group.GroupType;
 import util.view.InputScanner;
 import util.view.OutputView;
 
@@ -12,6 +13,11 @@ public interface AddCustomerExecute {
         return () -> {
             Scanner scanner = InputScanner.get();
             Customers customerRepository = Customers.getInstance();
+
+            if (!GroupType.isGroupParameterSet()) {
+                System.out.println("Please all groups set parameter");
+                return;
+            }
 
             while (true) {
                 System.out.println("How many customers to input?");

@@ -2,6 +2,8 @@ package domain.menu.main.customer;
 
 import domain.customer.Customer;
 import domain.customer.Customers;
+import domain.group.GroupType;
+import util.common.exception.NotFoundException;
 import util.view.InputScanner;
 import util.view.OutputView;
 
@@ -14,7 +16,6 @@ public interface UpdateCustomerExecute {
             Customers customerRepository = Customers.getInstance();
 
             if (!GroupType.isGroupParameterSet()) {
-                System.out.println("Please all groups set parameter");
                 return;
             }
 

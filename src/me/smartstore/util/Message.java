@@ -9,7 +9,7 @@ public interface Message {
     String ERR_MSG_INVALID_INPUT_RANGE = "Invalid Input. Please try again.";
     String ERR_MSG_INVALID_INPUT_TYPE = "Invalid Type for Input. Please try again.";
     String ERR_MSG_INVALID_INPUT_FORMAT = "Invalid Format for Input. Please try again.";
-    String ERR_MSG_NULL_ELEMENT = "Invalid Input. Please try again";
+    String ERR_MSG_NULL_ELEMENT = "No Element. Please try again";
     String ERR_MSG_INPUT_END = "END is pressed. Exit this menu.";
     String END_MSG = "END";
 }

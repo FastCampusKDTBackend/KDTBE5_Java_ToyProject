@@ -136,4 +136,10 @@ public class Customers extends Array<Customer> {
 
 		return comparator;
 	}
+
+	public boolean isEmpty() {
+		if (size() > 0) return false;
+
+		return true;
+	}
 }

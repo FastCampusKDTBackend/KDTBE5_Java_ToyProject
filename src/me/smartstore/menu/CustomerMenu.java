@@ -2,6 +2,7 @@ package me.smartstore.menu;
 
 import me.smartstore.customer.Customer;
 import me.smartstore.customer.Customers;
+import me.smartstore.exception.ElementEmptyException;
 import me.smartstore.exception.InputEndException;
 import me.smartstore.exception.InputRangeException;
 import me.smartstore.util.Message;
@@ -168,14 +169,22 @@ public class CustomerMenu implements Menu{
 		}
 	}
 
-	private void viewCustomers() {
-		System.out.println("======= Customer Info. =======");
-		System.out.println(allCustomers);
-		System.out.println();
+	private boolean viewCustomers() {
+		try {
+			if (allCustomers.isEmpty()) throw new ElementEmptyException();
+
+			System.out.println("======= Customer Info. =======");
+			System.out.println(allCustomers);
+			System.out.println();
+			return true;
+		} catch (ElementEmptyException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
 	}
 
 	private void updateCustomer() {
-		viewCustomers();
+		if (!viewCustomers()) return;
 
 		while(true) {
 			try {
@@ -195,6 +204,8 @@ public class CustomerMenu implements Menu{
 	}
 
 	private void deleteCustomer() {
+		if (!viewCustomers()) return;
+		
 		while(true) {
 			try {
 				System.out.print("Which Customer ( 1 ~ " + allCustomers.size() + " )? ");

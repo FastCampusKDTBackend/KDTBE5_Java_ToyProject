@@ -10,7 +10,7 @@ public class UpdateCustomerSelectPropertyMenu extends TopicIntroMenu {
                     "===== Property to update =====" + '\n' +
                     " 1. " + "Customer " + "Name" + '\n' +
                     " 2. " + "Customer " + "Spent Hours" + '\n' +
-                    " 3. " + "Customer " + "Total Amount Paid" + '\n' +
+                    " 3. " + "Customer " + "Total Paid Amount" + '\n' +
                     " 4. " + "Confirm" + '\n' +
                     " 5. " + "Cancel(Back)" + '\n' +
                     "==============================" + '\n' +
@@ -29,7 +29,7 @@ public class UpdateCustomerSelectPropertyMenu extends TopicIntroMenu {
         Menu[] nextMenus = {
                 InputCustomerNameMenu.getInstance(),            // name
                 InputCustomerSpentHoursMenu.getInstance(),      // spent hours
-                InputCustomerTotalAmountPaidMenu.getInstance(), // total amount paid
+                InputCustomerTotalPaidAmountMenu.getInstance(), // total paid amount
                 UpdateCustomerConfirmMenu.getInstance(),        // confirm
                 CustomerMenu.getInstance()                      // cancel(back) => CustomerMenu
         };

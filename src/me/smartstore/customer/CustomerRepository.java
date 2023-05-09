@@ -58,8 +58,8 @@ public class CustomerRepository {
         tempCustomer.setSpentHours(spentHours);
     }
 
-    public void setTempTotalAmountPaid(Integer totalAmountPaid) {
-        tempCustomer.setTotalAmountPaid(totalAmountPaid);
+    public void setTempTotalPaidAmount(Integer totalPaidAmount) {
+        tempCustomer.setTotalPaidAmount(totalPaidAmount);
     }
 
     public String getTempInfo() {

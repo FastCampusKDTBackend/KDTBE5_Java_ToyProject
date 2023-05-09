@@ -48,7 +48,7 @@ public class AddCustomerMenu extends TopicIntroMenu {
                 InputCustomerIdMenu.getInstance(),              // id
                 InputCustomerNameMenu.getInstance(),            // name
                 InputCustomerSpentHoursMenu.getInstance(),      // spent hours
-                InputCustomerTotalAmountPaidMenu.getInstance(), // total amount paid
+                InputCustomerTotalPaidAmountMenu.getInstance(), // total amount paid
                 AddCustomerConfirmMenu.getInstance(),           // confirm
                 CustomerMenu.getInstance()                      // cancel(back) => CustomerMenu
         };

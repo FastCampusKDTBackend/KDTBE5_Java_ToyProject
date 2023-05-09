@@ -3,7 +3,6 @@ package me.smartstore.menu.customer;
 import me.smartstore.customer.CustomerRepository;
 import me.smartstore.menu.Menu;
 import me.smartstore.menu.exception.InputIsEndException;
-import me.smartstore.menu.topic.CustomerMenu;
 
 import java.util.InputMismatchException;
 

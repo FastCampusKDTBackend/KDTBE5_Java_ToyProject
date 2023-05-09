@@ -2,7 +2,7 @@ package me.smartstore.group;
 
 public class GroupParameter {
     private Integer minSpentHours;
-    private Integer minTotalAmountPaid;
+    private Integer minTotalPaidAmount;
 
     public GroupParameter() {}
 
@@ -10,13 +10,13 @@ public class GroupParameter {
         this.minSpentHours = minSpentHours;
     }
 
-    public void setMinTotalAmountPaid(Integer minTotalAmountPaid) {
-        this.minTotalAmountPaid = minTotalAmountPaid;
+    public void setMinTotalPaidAmount(Integer minTotalPaidAmount) {
+        this.minTotalPaidAmount = minTotalPaidAmount;
     }
 
     @Override
     public String toString() {
-        return String.format("Parameter{minSpentHours=%d, minTotalAmountPaid=%d}",
-                minSpentHours, minTotalAmountPaid);
+        return String.format("Parameter{minSpentHours=%d, minTotalPaidAmount=%d}",
+                minSpentHours, minTotalPaidAmount);
     }
 }

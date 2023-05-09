@@ -5,16 +5,16 @@ import me.smartstore.menu.exception.InputIsEndException;
 
 import java.util.InputMismatchException;
 
-public class InputCustomerTotalAmountPaidMenu extends InputCustomerPropertyMenu {
+public class InputCustomerTotalPaidAmountMenu extends InputCustomerPropertyMenu {
 
-    private static final String TOTAL_AMOUNT_PAID =
+    private static final String TOTAL_PAID_AMOUNT_INPUT =
                     "Input " + "Customer" + "'s " + "Total Amount Paid" + ':';
 
     private static class InstanceHolder {
-        private static final InputCustomerTotalAmountPaidMenu INSTANCE = new InputCustomerTotalAmountPaidMenu();
+        private static final InputCustomerTotalPaidAmountMenu INSTANCE = new InputCustomerTotalPaidAmountMenu();
     }
-    private InputCustomerTotalAmountPaidMenu() { super(TOTAL_AMOUNT_PAID); }
-    public static InputCustomerTotalAmountPaidMenu getInstance() { return InstanceHolder.INSTANCE; }
+    private InputCustomerTotalPaidAmountMenu() { super(TOTAL_PAID_AMOUNT_INPUT); }
+    public static InputCustomerTotalPaidAmountMenu getInstance() { return InstanceHolder.INSTANCE; }
 
     @Override
     protected Object inputProperty() throws InputIsEndException, InputMismatchException {
@@ -23,6 +23,6 @@ public class InputCustomerTotalAmountPaidMenu extends InputCustomerPropertyMenu 
 
     @Override
     protected void setTempProperty(Object property) throws IllegalArgumentException, IllegalStateException {
-        CustomerRepository.getInstance().setTempTotalAmountPaid((Integer) property);
+        CustomerRepository.getInstance().setTempTotalPaidAmount((Integer) property);
     }
 }

@@ -13,14 +13,14 @@ public class SetParameterMenu extends Menu {
     private static final String SET_GROUP_PARAMETER_OUTPUT =
             "===== Set Group Parameter ====" + '\n' +
                     " 1. " + "Minimum Spent Hours" + '\n' +
-                    " 2. " + "Minimum Total Amount Paid" + '\n' +
+                    " 2. " + "Minimum Total Paid Amount" + '\n' +
                     " 3. " + "Back" + '\n' +
                     "==============================" + '\n' +
                     "Choose One: ";
     private static final String[] GROUP_PARAMETER_INPUT = {
             null,
             "\n" + "Input " + "Minimum Spent Hours" + ":\n" + END_INPUT,
-            "\n" + "Input " + "Minimum Total Amount Paid" + ":\n" + END_INPUT
+            "\n" + "Input " + "Minimum Total Paid Amount" + ":\n" + END_INPUT
     };
 
     private static class InstanceHolder {
@@ -54,7 +54,7 @@ public class SetParameterMenu extends Menu {
     public void setNextMenus() {
         setNextMenus(
                 null,                    // read minSpentHours
-                null,                    // read minTotalAmountPaid
+                null,                    // read minTotalPaidAmount
                 GroupMenu.getInstance()  // Back => GroupMenu
         );
     }

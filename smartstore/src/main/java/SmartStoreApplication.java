@@ -21,18 +21,7 @@ public class SmartStoreApplication {
     }
 
     public void run() {
-        while (true) {
-            OutputView.viewMenus(MainMenu.values());
-            OutputView.chooseMenu();
-
-            int menuNumber = getMenuNumber();
-
-            if (isFinish(menuNumber)) {
-                return;
-            }
-
-            executeMenu(menuNumber);
-        }
+        MainMenu.executeMain();
     }
 
     private int getMenuNumber() {

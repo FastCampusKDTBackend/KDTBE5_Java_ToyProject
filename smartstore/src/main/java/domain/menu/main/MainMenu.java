@@ -4,6 +4,9 @@ import domain.menu.Menu;
 import domain.menu.main.classification.ClassificationMenu;
 import domain.menu.main.customer.CustomerMenu;
 import domain.menu.main.parameter.ParameterMenu;
+import util.common.ErrorMessage;
+import util.view.InputScanner;
+import util.view.OutputView;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -21,6 +24,49 @@ public enum MainMenu implements Menu {
         this.menuNumber = menuNumber;
         this.menuName = menuName;
         this.runnable = runnable;
+    }
+
+    public static void executeMain() {
+        while (true) {
+            OutputView.viewMenus(MainMenu.values());
+            OutputView.chooseMenu();
+
+            int menuNumber = getMenuNumber();
+
+            if (isFinish(menuNumber)) {
+                return;
+            }
+
+            executeMenu(menuNumber);
+        }
+    }
+
+    private static int getMenuNumber() {
+        while (true) {
+            try {
+                return Integer.parseInt(InputScanner.get().nextLine());
+            } catch (RuntimeException runtimeException) {
+                OutputView.viewErrorMessage(ErrorMessage.INVALID_INPUT);
+            }
+        }
+    }
+
+    private static boolean isFinish(int menuNumber) {
+        return MainMenu.isQuit(menuNumber);
+    }
+
+    private static void executeMenu(int menuNumber) {
+        try {
+            MainMenu.findByNumber(menuNumber)
+                    .ifPresentOrElse(
+                            MainMenu::execute,
+                            () -> {
+                                throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT);
+                            }
+                    );
+        } catch (IllegalArgumentException e) {
+            OutputView.viewErrorMessage(e.getMessage());
+        }
     }
 
     public static Optional<MainMenu> findByNumber(int menuNumber) {

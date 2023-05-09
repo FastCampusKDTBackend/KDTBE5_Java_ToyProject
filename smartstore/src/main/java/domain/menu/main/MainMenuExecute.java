@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public interface MainMenuExecute {
 
-    static <T> Runnable getMethod(Class<T> clazz) {
+    static <T extends Menu> Runnable getMethod(Class<T> clazz) {
         return () -> {
             Scanner scanner = InputScanner.get();
 
@@ -37,7 +37,7 @@ public interface MainMenuExecute {
         };
     }
 
-    private static <T> Object getResult(Class<T> clazz, String methodName, Object target, Object[] args, Class<?>... parameterTypes) {
+    private static <T extends Menu> Object getResult(Class<T> clazz, String methodName, Object target, Object[] args, Class<?>... parameterTypes) {
         try {
             return clazz.getMethod(methodName, parameterTypes).invoke(target, args);
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
@@ -46,7 +46,7 @@ public interface MainMenuExecute {
         return null;
     }
 
-    private static <T> void findMenuAndExecution(Class<T> clazz, int menuNumber) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    private static <T extends Menu> void findMenuAndExecution(Class<T> clazz, int menuNumber) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         findByNumber(clazz, menuNumber).ifPresent(
                 (menu) -> {
                     execute(clazz, menu);
@@ -54,7 +54,7 @@ public interface MainMenuExecute {
         );
     }
 
-    private static <T> void execute(Class<T> clazz, T menu) {
+    private static <T extends Menu> void execute(Class<T> clazz, T menu) {
         try {
             clazz.getDeclaredMethod("execute").invoke(menu);
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
@@ -62,7 +62,7 @@ public interface MainMenuExecute {
         }
     }
 
-    private static <T> Optional<T> findByNumber(Class<T> clazz, int menuNumber) {
+    private static <T extends Menu> Optional<T> findByNumber(Class<T> clazz, int menuNumber) {
         return (Optional<T>) getResult(clazz, "findByNumber", null, new Object[]{menuNumber}, int.class);
     }
 }

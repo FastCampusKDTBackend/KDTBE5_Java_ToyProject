@@ -9,6 +9,7 @@ import me.smartstore.domain.group.Parameter;
 import me.smartstore.domain.group.constant.GroupType;
 import me.smartstore.utils.exception.InputEndException;
 import me.smartstore.utils.exception.InputRangeException;
+import me.smartstore.utils.exception.InvalidSortTypeException;
 
 import static me.smartstore.utils.constant.SortType.*;
 import static me.smartstore.domain.group.constant.GroupType.*;
@@ -65,7 +66,12 @@ public class SummaryMenu implements Menu {
         while (true) {
             int classificationVal = getClassificationValue();
             if (classificationVal == END_PRESS) return;
-            getSummary(allCustomers.getSortedCustomers(type.getCustomerComparator(classificationVal)));
+            try {
+                getSummary(allCustomers.getSortedCustomers(type.getCustomerComparator(classificationVal)));
+            } catch (InvalidSortTypeException e) {
+                System.out.println(e.getMessage());
+                return;
+            }
         }
     }
 

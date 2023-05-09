@@ -8,6 +8,9 @@ import util.view.OutputView;
 import java.util.Scanner;
 
 public interface SetParameterExecute {
+    enum SubMenus {
+
+    }
     static Runnable getMethod() {
         return () -> {
             Scanner scanner = InputScanner.get();
@@ -19,6 +22,7 @@ public interface SetParameterExecute {
                 if (groupName.equals(ViewMessage.EXIT_CHOICE)) {
                     break;
                 }
+
                 GroupType groupType = GroupType.getBySymbolOrName(groupName);
 
                 if (groupType.getParameter() != null) {

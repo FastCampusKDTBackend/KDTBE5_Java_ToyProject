@@ -1,15 +1,18 @@
 package me.smartstore.menu;
 
+import me.smartstore.customer.Customers;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.InputMismatchException;
 
 public class Menu {
     protected BufferedReader br;
+    protected Customers customers;
 
     public Menu() {
         br = new BufferedReader(new InputStreamReader(System.in));
+        customers=Customers.getInstance();
     }
 
     protected void initMenu() {

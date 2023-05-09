@@ -1,6 +1,8 @@
 package me.smartstore.customer;
 
 import me.smartstore.arrays.DArray;
+import me.smartstore.group.Group;
+import me.smartstore.group.GroupType;
 import me.smartstore.group.Groups;
 
 public class Customers extends DArray<Customer> {
@@ -22,5 +24,24 @@ public class Customers extends DArray<Customer> {
 
 
     }
+
+    public void viewCustomerData(){
+        int num = 1;
+        for (int i = 0; i < allCustomers.size; i++){
+            System.out.println("No. " + num + " => "+ allCustomers.get(i));
+            num++;
+        }
+    }
+
+    public void viewCustomerData(GroupType groupType) {
+        int num = 1;
+        for (int i = 0; i < allCustomers.size; i++){
+            if( allCustomers.get(i).getGroup() == groupType) {
+                System.out.println("No. " + num + " => " + allCustomers.get(i));
+                num++;
+            }
+        }
+    }
+
 
 }

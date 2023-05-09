@@ -1,6 +1,7 @@
 package me.smartstore.customer;
 
 import me.smartstore.group.Group;
+import me.smartstore.group.GroupType;
 
 import java.util.Objects;
 
@@ -9,9 +10,11 @@ public class Customer {
     private String cusId;
     private Integer cusTotalTime;
     private Integer cusTotalPay;
-    private Group group; // 현재 분류 기준에 의해 각 고객을 분류된 결과
+    private GroupType group; // 현재 분류 기준에 의해 각 고객을 분류된 결과
 
     public Customer() {
+        //초기 값 설정
+        group = GroupType.NONE;
     }
 
     public Customer(String cusId) {
@@ -24,6 +27,7 @@ public class Customer {
     }
 
     public Customer(String cusName, String cusId, Integer cusTotalTime, Integer cusTotalPay) {
+        this();
         this.cusName = cusName;
         this.cusId = cusId;
         this.cusTotalTime = cusTotalTime;
@@ -62,6 +66,10 @@ public class Customer {
         this.cusTotalPay = cusTotalPay;
     }
 
+    public GroupType getGroup() {
+        return group;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -82,6 +90,7 @@ public class Customer {
                 ", cusId='" + cusId + '\'' +
                 ", cusTotalTime=" + cusTotalTime +
                 ", cusTotalPay=" + cusTotalPay +
+                ", group=" + group +
                 '}';
     }
 }

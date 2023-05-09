@@ -58,8 +58,7 @@ public class SummaryMenu implements Menu{
 			selectGroup = allGroups.get(i);
 
 			System.out.println("==============================");
-			System.out.println("Group : " + selectGroup.getGroupType() +
-				"( Time : " + selectGroup.getMinHours() + ", Pay : " + selectGroup.getMinPay());
+			System.out.println(selectGroup.toStringByOneLine());
 			System.out.println("==============================");
 			System.out.println(allCustomers.findByGroup(selectGroup));
 			System.out.println();
@@ -79,8 +78,7 @@ public class SummaryMenu implements Menu{
 					selectGroup = allGroups.get(i);
 
 					System.out.println("==============================");
-					System.out.println("Group : " + selectGroup.getGroupType() +
-						"( Time : " + selectGroup.getMinHours() + ", Pay : " + selectGroup.getMinPay());
+					System.out.println(selectGroup.toStringByOneLine());
 					System.out.println("==============================");
 					System.out.println(allCustomers.sort(allCustomers.findByGroup(selectGroup), comparator, sortType));
 					System.out.println();

@@ -60,4 +60,8 @@ public class Group {
         return "GroupType: " + groupType + "\n" +
                 "minimumSpentTime: " + minHours + ", minimumTotalPay: " + minPay;
     }
+
+    public String toStringByOneLine() {
+        return "Group : " + groupType + " ( Time : " + minHours + ", Pay : " + minPay + " )";
+    }
 }

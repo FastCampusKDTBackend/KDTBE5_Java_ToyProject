@@ -82,10 +82,9 @@ public class Customers extends Array<Customer> {
 		Customer[] customerArray = parseToArray(customers);
 
 		if (type.equals("A") || type.equals("ASCENDING")) {
-			customerArray = Arrays.stream(customerArray).sorted(comparator).toArray(Customer[]::new);
+			Arrays.sort(customerArray, comparator);
 		} else {
-			customerArray = Arrays.stream(customerArray).sorted(comparator.reversed())
-				.toArray(Customer[]::new);
+			Arrays.sort(customerArray, comparator.reversed());
 		}
 		customers.arrays = customerArray;
 
@@ -96,6 +95,8 @@ public class Customers extends Array<Customer> {
 		Comparator<Customer> comparator = new Comparator<Customer>() {
 			@Override
 			public int compare(Customer o1, Customer o2) {
+				if (o1.getCustomerName() == null) return -1;
+
 				return o1.getCustomerName().compareTo(o2.getCustomerName());
 			}
 		};
@@ -107,9 +108,12 @@ public class Customers extends Array<Customer> {
 		Comparator<Customer> comparator = new Comparator<Customer>() {
 			@Override
 			public int compare(Customer o1, Customer o2) {
+
 				int returnValue = o1.getUseHours() - o2.getUseHours();
 
 				if (returnValue == 0) {
+					if (o1.getCustomerName() == null) return returnValue;
+
 					return o1.getCustomerName().compareTo(o2.getCustomerName());
 				} else {
 					return returnValue;
@@ -124,9 +128,12 @@ public class Customers extends Array<Customer> {
 		Comparator<Customer> comparator = new Comparator<Customer>() {
 			@Override
 			public int compare(Customer o1, Customer o2) {
+				if (o1 == null || o2 == null) return -1;
+
 				int returnValue = o1.getCustomerPay() - o2.getCustomerPay();
 
 				if (returnValue == 0) {
+					if (o1.getCustomerName() == null) return returnValue;
 					return o1.getCustomerName().compareTo(o2.getCustomerName());
 				} else {
 					return returnValue;

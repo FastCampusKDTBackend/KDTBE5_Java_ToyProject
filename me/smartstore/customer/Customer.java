@@ -1,5 +1,7 @@
 package me.smartstore.customer;
 
+import me.smartstore.group.Group;
+
 import java.util.Objects;
 
 public class Customer {

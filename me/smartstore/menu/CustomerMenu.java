@@ -22,6 +22,11 @@ public class CustomerMenu implements Menu {
                     "Update Customer",
                     "Delete Customer",
                     "Back"});
+
+//            if (choice == 1)  setParameter();
+//            else if (choice == 2) //{ viewParameter(); }
+//            else if (choice == 3) //{ updateParameter();}
+//            else break; // choice == 4
         }
     }
 }

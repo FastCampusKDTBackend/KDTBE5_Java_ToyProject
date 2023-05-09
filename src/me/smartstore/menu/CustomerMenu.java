@@ -110,6 +110,7 @@ public class CustomerMenu implements Menu{
 				String customerName = nextLine(Message.END_MSG);
 
 				customer.setCustomerName(customerName);
+				break;
 			} catch(InputEndException e) {
 				System.out.println(e.getMessage());
 				break;
@@ -124,6 +125,7 @@ public class CustomerMenu implements Menu{
 				String customerId = nextLine(Message.END_MSG);
 
 				customer.setCustomerId(customerId);
+				break;
 			} catch(InputEndException e) {
 				System.out.println(e.getMessage());
 				break;
@@ -141,6 +143,7 @@ public class CustomerMenu implements Menu{
 				if (time < 0) throw new InputRangeException();
 
 				customer.setUseHours(time);
+				break;
 			} catch (NumberFormatException | InputRangeException e){
 				System.out.println(e.getMessage());
 			} catch (InputEndException e) {
@@ -160,6 +163,7 @@ public class CustomerMenu implements Menu{
 				if (pay < 0) throw new InputRangeException();
 
 				customer.setCustomerPay(pay);
+				break;
 			} catch (NumberFormatException | InputRangeException e){
 				System.out.println(e.getMessage());
 			} catch (InputEndException e) {
@@ -205,7 +209,7 @@ public class CustomerMenu implements Menu{
 
 	private void deleteCustomer() {
 		if (!viewCustomers()) return;
-		
+
 		while(true) {
 			try {
 				System.out.print("Which Customer ( 1 ~ " + allCustomers.size() + " )? ");

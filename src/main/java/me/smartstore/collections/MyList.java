@@ -6,5 +6,6 @@ public interface MyList<T> extends MyCollection<T> {
 
     int indexOf(T t);
 
+    boolean remove(int index);
     T get(int index);
 }

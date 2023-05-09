@@ -67,6 +67,17 @@ public class MyArrayList<T> implements MyList<T> {
         return false;
     }
 
+    public boolean remove(int index) {
+        if (index < 0 || index > size - 1) {
+            return false;
+        }
+        for (int i = index; i < size-1; i++) {
+            elements[i] = elements[i+1];
+        }
+        size--;
+        return true;
+    }
+
     @Override
     public int size() {
         return size;

@@ -125,8 +125,8 @@ public class GroupMenu implements Menu{
 	}
 
 	private void setPayParameter(Group group) {
-		try {
-			while(true) {
+		while(true) {
+			try {
 				System.out.println("Input Minimum Total Pay: ");
 
 				int pay = Integer.parseInt(nextLine(Message.END_MSG));
@@ -135,12 +135,15 @@ public class GroupMenu implements Menu{
 				group.setMinPay(pay);
 
 				break;
-			}
 
-		} catch (NumberFormatException e){
-			System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
-		} catch (InputRangeException e) {
-			System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+			} catch (NumberFormatException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
+			} catch (InputRangeException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+			} catch (InputEndException e) {
+				System.out.println(Message.ERR_MSG_INPUT_END);
+				break;
+			}
 		}
 	}
 

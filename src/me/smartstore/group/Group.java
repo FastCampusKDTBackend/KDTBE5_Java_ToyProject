@@ -9,6 +9,11 @@ public class Group {
     public Group() {
     }
 
+    public Group(GroupType groupType){
+        this.groupType = groupType;
+
+    }
+
     public Group(Parameter parameter, GroupType groupType) {
         this.parameter = parameter;
         this.groupType = groupType;

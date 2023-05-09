@@ -17,14 +17,14 @@ public interface Menu {
     default String nextLine(String end){
         System.out.println("** Press 'end', if you want to exit! **");
         String str = scanner.nextLine().toUpperCase();
-        if (str.equals(end)) throw new InputEndException();
+        if (str.equals(end) || str.equals("END")) throw new InputEndException();
         return str;
     }
 
     default int chooseMenu(String[] menus) {
         while ( true ) { // 예외 복구 while
             try {
-                System.out.println("===============================");
+                System.out.println("\n===============================");
                 for (int i = 0; i < menus.length; i++) {
                     System.out.printf(" %d. %s\n", i + 1, menus[i]);
                 }

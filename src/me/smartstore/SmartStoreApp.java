@@ -50,11 +50,14 @@ public class SmartStoreApp {
                     ((int) (Math.random() * 5) + 1) * 100000));
         }
 
+        allCustomers.add(new Customer("test1","test1",9,90000));
+        allCustomers.add(new Customer("test2","test2",9,3100000));
+        allCustomers.refresh(allGroups);
+
         System.out.println("allCustomers = " + allCustomers);
         System.out.println("allGroups = " + allGroups);
 
-        // @TODO: refresh do not implemented yet.
-        allCustomers.refresh(allGroups);
+
 
         return this; // smartStoreApp
     }

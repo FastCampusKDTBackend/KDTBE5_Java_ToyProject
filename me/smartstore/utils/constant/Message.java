@@ -9,6 +9,7 @@ public enum Message {
     ERR_MSG_INVALID_INPUT_TYPE("Invalid Type for Input. Please try again."),
     ERR_MSG_INVALID_INPUT_FORMAT("Invalid Format for Input. Please try again."),
     ERR_MSG_INPUT_END("END is pressed. Exit this menu."),
+    ERR_MSG_INVALID_INPUT_SORT_TYPE("Sort Type does not exist."),
     END_MSG("END"),
     END_PROGRAM("Program Finished");
 

@@ -13,7 +13,18 @@ public interface UpdateCustomerExecute {
             Scanner scanner = InputScanner.get();
             Customers customerRepository = Customers.getInstance();
 
-            customerRepository.viewCustomersInfo();
+            if (!GroupType.isGroupParameterSet()) {
+                System.out.println("Please all groups set parameter");
+                return;
+            }
+
+            try {
+                customerRepository.viewCustomersInfo();
+            } catch (NotFoundException notFoundException) {
+                OutputView.viewErrorMessage(notFoundException.getMessage());
+                return;
+            }
+
 
             System.out.print("Which customer ( 1 ~ " + customerRepository.size() + " )?");
             int customerNumber = Integer.parseInt(scanner.nextLine());

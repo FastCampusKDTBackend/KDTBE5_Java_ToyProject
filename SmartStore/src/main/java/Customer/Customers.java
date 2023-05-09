@@ -56,8 +56,7 @@ public class Customers extends MyArray<Customer> {
             try {
                 classifyCustomers(allCustomers.get(i));
             } catch (NullPointerException e) {
-                System.err.println("No. " + (i+1) + " Customer cannot be classified. Please enter more information.");
-                continue;
+                System.err.println("No. " + (i + 1) + " Customer cannot be classified. Please enter more information.");
             }
         }
     }
@@ -67,6 +66,7 @@ public class Customers extends MyArray<Customer> {
     public Customer[] separateOfRank(GroupType groupType) {
         int cnt = 0;
         for (int i = 0; i < allCustomers.size; i++) {
+            if (allCustomers.get(i).getGroup() == null) continue;
             if (allCustomers.get(i).getGroup().getGroupType().equals(groupType)) cnt++;
         }
 
@@ -74,7 +74,8 @@ public class Customers extends MyArray<Customer> {
         int index = 0;
 
         for (int i = 0; i < allCustomers.size; i++) {
-            if (allCustomers.get(i).getGroup().getGroupType().equals(groupType)){
+            if (allCustomers.get(i).getGroup() == null) continue;
+            if (allCustomers.get(i).getGroup().getGroupType().equals(groupType)) {
                 groupArray[index] = allCustomers.get(i);
                 index++;
             }

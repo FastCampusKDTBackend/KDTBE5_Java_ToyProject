@@ -11,6 +11,13 @@ public class CustomList<T> implements List<T> {
 
     @Override
     @SuppressWarnings("unchecked")
+    public T get(T object) {
+        return (T) elements[findIndex(object)];
+    }
+
+
+    @Override
+    @SuppressWarnings("unchecked")
     public T get(int index) {
         isValidIndex(index);
         return (T) elements[index];

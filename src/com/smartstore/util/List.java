@@ -2,6 +2,7 @@ package com.smartstore.util;
 
 public interface List<T> {
     int size();
+    T get(T object);
     T get(int index);
     void set(int index, T object);
     int indexOf(T object);

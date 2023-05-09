@@ -4,10 +4,10 @@ import domain.customer.ClassifiedCustomers;
 import domain.customer.Customer;
 import domain.group.GroupType;
 import domain.menu.type.SortType;
-import util.common.ViewMessage;
 import util.common.exception.NotFoundException;
 import util.view.InputScanner;
 import util.view.OutputView;
+import util.view.ViewMessage;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -29,7 +29,7 @@ public interface ClassificationMenuExecute {
     }
 
     private static boolean isQuit(String command) {
-        return command.equals(ViewMessage.EXIT_CHOICE);
+        return command.equals(ViewMessage.EXIT_CHOICE.getMessage());
     }
 
     private static void sortSummaryExecute(Comparator<Customer> comparator) {
@@ -55,14 +55,14 @@ public interface ClassificationMenuExecute {
             try {
                 return SortType.findOrder(command);
             } catch (NotFoundException notFoundException) {
-                OutputView.viewErrorMessage(notFoundException.getMessage());
+                OutputView.showErrorMessage(notFoundException.getMessage());
             }
         }
     }
 
     private static void executeView(Comparator<Customer> comparator) {
-        Arrays.stream(GroupType.values()).forEach(groupType -> {
-            ClassifiedCustomers.getInstance().viewByClassifiedGroup(groupType, comparator);
-        });
+        Arrays.stream(GroupType.values()).forEach(groupType ->
+                ClassifiedCustomers.getInstance().viewByClassifiedGroup(groupType, comparator)
+        );
     }
 }

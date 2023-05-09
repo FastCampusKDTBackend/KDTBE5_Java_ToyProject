@@ -1,6 +1,7 @@
 package domain.customer;
 
 import domain.group.GroupType;
+import util.common.exception.NotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +44,7 @@ public class Customers {
     public void viewCustomersInfo() {
 
         if (customerRepository.size() == 0) {
-            System.out.println("No Customers. Please input one first.");
-            return;
+            throw new NotFoundException("No Customers. Please input one first.");
         }
 
         for (int i = 0; i < customerRepository.size(); i++) {

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ClassifiedCustomers {
     private static ClassifiedCustomers classifiedCustomers = null;
-    private static Customers customerRepository = Customers.getInstance();
+    private static final Customers customerRepository = Customers.getInstance();
 
     private ClassifiedCustomers() {
     }
@@ -24,7 +24,9 @@ public class ClassifiedCustomers {
 
         if (comparator == null) {
             System.out.println(groupType);
-            System.out.println(customerList);
+            for (int i = 0; i < customerList.size(); i++) {
+                System.out.println("No " + i + ". " + customerList.get(i));
+            }
             return;
         }
 

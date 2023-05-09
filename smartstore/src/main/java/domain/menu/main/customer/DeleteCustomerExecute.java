@@ -1,9 +1,11 @@
 package domain.menu.main.customer;
 
 import domain.customer.Customers;
+import domain.group.GroupType;
+import util.common.ErrorMessage;
+import util.common.exception.NotFoundException;
 import util.view.InputScanner;
-
-import java.util.Scanner;
+import util.view.OutputView;
 
 public interface DeleteCustomerExecute {
     static Runnable getMethod() {
@@ -13,12 +15,30 @@ public interface DeleteCustomerExecute {
     private static void run() {
         Customers customerRepository = Customers.getInstance();
 
+        if (!GroupType.isGroupParameterSet()) {
+            OutputView.showErrorMessage(ErrorMessage.SET_PARAMETER);
+            return;
+        }
+
+        try {
             customerRepository.viewCustomersInfo();
-            System.out.print("Which customer ( 1 ~ " + customerRepository.size() + " )?");
+        } catch (NotFoundException notFoundException) {
+            OutputView.showErrorMessage(notFoundException.getMessage());
+            return;
+        }
 
-            int customerNumber = Integer.parseInt(scanner.nextLine());
+        while (true) {
+            try {
+                System.out.print("Which customer ( 1 ~ " + customerRepository.size() + " )?");
+                int customerNumber = Integer.parseInt(InputScanner.get().nextLine());
+                customerRepository.deleteByCustomerNumber(customerNumber);
+                break;
+            } catch (NumberFormatException numberFormatException) {
+                OutputView.showErrorMessage(numberFormatException.getMessage());
+            }
 
-            customerRepository.deleteByCustomerNumber(customerNumber);
-        };
+        }
+
+
     }
 }

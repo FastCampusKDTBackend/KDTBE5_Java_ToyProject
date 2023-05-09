@@ -3,6 +3,7 @@ package domain.menu.main;
 import domain.menu.Menu;
 import util.view.InputScanner;
 import util.view.OutputView;
+import util.view.ViewMessage;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
@@ -17,8 +18,8 @@ public interface MainMenuExecute {
             while (true) {
                 try {
                     Menu[] menus = (Menu[]) getResult(clazz, "values", null, null);
-                    OutputView.viewMenus(menus);
-                    OutputView.chooseMenu();
+                    OutputView.showMenus(menus);
+                    OutputView.showMessage(ViewMessage.INPUT_MENU);
 
                     int menuNumber = Integer.parseInt(scanner.nextLine());
                     boolean isQuit = (boolean) getResult(clazz, "isQuit", null, new Object[]{menuNumber}, new Class[]{int.class});
@@ -30,7 +31,7 @@ public interface MainMenuExecute {
 
                 } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException |
                          NoSuchMethodException e) {
-                    OutputView.viewErrorMessage(e.getMessage());
+                    OutputView.showErrorMessage(e.getMessage());
                 }
             }
         };
@@ -40,7 +41,7 @@ public interface MainMenuExecute {
         try {
             return clazz.getMethod(methodName, parameterTypes).invoke(target, args);
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            OutputView.viewErrorMessage(e.getMessage());
+            OutputView.showErrorMessage(e.getMessage());
         }
         return null;
     }

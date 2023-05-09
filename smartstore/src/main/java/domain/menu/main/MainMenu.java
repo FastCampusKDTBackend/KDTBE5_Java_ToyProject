@@ -7,6 +7,7 @@ import domain.menu.main.parameter.ParameterMenu;
 import util.common.ErrorMessage;
 import util.view.InputScanner;
 import util.view.OutputView;
+import util.view.ViewMessage;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -28,8 +29,8 @@ public enum MainMenu implements Menu {
 
     public static void executeMain() {
         while (true) {
-            OutputView.viewMenus(MainMenu.values());
-            OutputView.chooseMenu();
+            OutputView.showMenus(MainMenu.values());
+            OutputView.showMessage(ViewMessage.INPUT_MENU);
 
             int menuNumber = getMenuNumber();
 
@@ -46,7 +47,7 @@ public enum MainMenu implements Menu {
             try {
                 return Integer.parseInt(InputScanner.get().nextLine());
             } catch (RuntimeException runtimeException) {
-                OutputView.viewErrorMessage(ErrorMessage.INVALID_INPUT);
+                OutputView.showErrorMessage(ErrorMessage.INVALID_INPUT);
             }
         }
     }
@@ -65,7 +66,7 @@ public enum MainMenu implements Menu {
                             }
                     );
         } catch (IllegalArgumentException e) {
-            OutputView.viewErrorMessage(e.getMessage());
+            OutputView.showErrorMessage(e.getMessage());
         }
     }
 

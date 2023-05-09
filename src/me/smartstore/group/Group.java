@@ -2,6 +2,8 @@ package me.smartstore.group;
 
 import java.util.Objects;
 
+import me.smartstore.exception.InputRangeException;
+
 public class Group {
 
     private GroupType groupType;
@@ -31,6 +33,7 @@ public class Group {
     }
 
     public void setMinHours(int minHours) {
+        if (minHours < 0) throw new InputRangeException();
         this.minHours = minHours;
     }
 
@@ -39,6 +42,8 @@ public class Group {
     }
 
     public void setMinPay(int minPay) {
+        if (minPay < 0) throw new InputRangeException();
+
         this.minPay = minPay;
     }
 

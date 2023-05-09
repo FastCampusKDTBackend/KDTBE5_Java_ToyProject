@@ -8,7 +8,7 @@ import me.smartstore.exception.InputEndException;
 import me.smartstore.exception.InputRangeException;
 import me.smartstore.util.Message;
 
-public class CustomerMenu implements Menu{
+public class CustomerMenu implements Menu {
 	private static Customers allCustomers = Customers.getInstance();
 
 	private static CustomerMenu customerMenu;
@@ -25,11 +25,10 @@ public class CustomerMenu implements Menu{
 		return customerMenu;
 	}
 
-
 	@Override
 	public void show() {
 		while (true) {
-			int choice = chooseMenu(new String[]{
+			int choice = chooseMenu(new String[] {
 				"Add Customer Data",
 				"View Customer Data",
 				"Update Customer Data",
@@ -52,12 +51,13 @@ public class CustomerMenu implements Menu{
 	}
 
 	private void addCustomer() {
-		while(true) {
+		while (true) {
 			try {
 				System.out.println("How many customers to input?");
 				int addCnt = Integer.parseInt(nextLine(Message.END_MSG));
 
-				if (addCnt <= 0) throw new InputRangeException();
+				if (addCnt <= 0)
+					throw new InputRangeException();
 
 				for (int i = 0; i < addCnt; i++) {
 					System.out.println("====== Customer " + (i + 1) + " Info. ======");
@@ -71,7 +71,7 @@ public class CustomerMenu implements Menu{
 				}
 
 				break;
-			} catch(NumberFormatException | InputRangeException e) {
+			} catch (NumberFormatException | InputRangeException e) {
 				System.out.println(e.getMessage());
 			} catch (InputEndException e) {
 				System.out.println(e.getMessage());
@@ -81,8 +81,8 @@ public class CustomerMenu implements Menu{
 	}
 
 	private void showParameterMenu(Customer customer) {
-		while(true) {
-			int choice = chooseMenu(new String[]{
+		while (true) {
+			int choice = chooseMenu(new String[] {
 				"Customer Name",
 				"Customer ID",
 				"Customer Spent Time",
@@ -112,7 +112,7 @@ public class CustomerMenu implements Menu{
 
 				customer.setCustomerName(customerName);
 				break;
-			} catch(InputEndException e) {
+			} catch (InputEndException e) {
 				System.out.println(e.getMessage());
 				break;
 			}
@@ -127,7 +127,7 @@ public class CustomerMenu implements Menu{
 
 				customer.setCustomerId(customerId);
 				break;
-			} catch(InputEndException e) {
+			} catch (InputEndException e) {
 				System.out.println(e.getMessage());
 				break;
 			} catch (DuplicateValueException e) {
@@ -143,11 +143,9 @@ public class CustomerMenu implements Menu{
 
 				int time = Integer.parseInt(nextLine(Message.END_MSG));
 
-				if (time < 0) throw new InputRangeException();
-
 				customer.setUseHours(time);
 				break;
-			} catch (NumberFormatException | InputRangeException e){
+			} catch (NumberFormatException | InputRangeException e) {
 				System.out.println(e.getMessage());
 			} catch (InputEndException e) {
 				System.out.println(e.getMessage());
@@ -163,11 +161,9 @@ public class CustomerMenu implements Menu{
 
 				int pay = Integer.parseInt(nextLine(Message.END_MSG));
 
-				if (pay < 0) throw new InputRangeException();
-
 				customer.setCustomerPay(pay);
 				break;
-			} catch (NumberFormatException | InputRangeException e){
+			} catch (NumberFormatException | InputRangeException e) {
 				System.out.println(e.getMessage());
 			} catch (InputEndException e) {
 				System.out.println(e.getMessage());
@@ -178,7 +174,8 @@ public class CustomerMenu implements Menu{
 
 	private boolean viewCustomers() {
 		try {
-			if (allCustomers.isEmpty()) throw new ElementEmptyException();
+			if (allCustomers.isEmpty())
+				throw new ElementEmptyException();
 
 			System.out.println("======= Customer Info. =======");
 			System.out.println(allCustomers);
@@ -191,9 +188,10 @@ public class CustomerMenu implements Menu{
 	}
 
 	private void updateCustomer() {
-		if (!viewCustomers()) return;
+		if (!viewCustomers())
+			return;
 
-		while(true) {
+		while (true) {
 			try {
 				int customerIndex = selectCustomer();
 
@@ -211,9 +209,10 @@ public class CustomerMenu implements Menu{
 	}
 
 	private void deleteCustomer() {
-		if (!viewCustomers()) return;
+		if (!viewCustomers())
+			return;
 
-		while(true) {
+		while (true) {
 			try {
 				int customerIndex = selectCustomer();
 
@@ -235,7 +234,8 @@ public class CustomerMenu implements Menu{
 		System.out.println("Which Customer ( 1 ~ " + allCustomers.size() + " )?");
 		int customerIndex = Integer.parseInt(nextLine(Message.END_MSG)) - 1;
 
-		if (customerIndex < 0 || customerIndex > allCustomers.size()) throw new InputRangeException();
+		if (customerIndex < 0 || customerIndex > allCustomers.size())
+			throw new InputRangeException();
 
 		return customerIndex;
 	}

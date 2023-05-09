@@ -111,10 +111,8 @@ public class GroupMenu implements Menu{
 		while(true) {
 			try {
 				System.out.println("Input Minimum Spent Time: ");
+
 				int time = Integer.parseInt(nextLine(Message.END_MSG));
-
-				if (time < 0) throw new InputRangeException();
-
 				group.setMinHours(time);
 
 				break;
@@ -133,12 +131,9 @@ public class GroupMenu implements Menu{
 				System.out.println("Input Minimum Total Pay: ");
 
 				int pay = Integer.parseInt(nextLine(Message.END_MSG));
-
-				if (pay < 0) throw new InputRangeException();
 				group.setMinPay(pay);
 
 				break;
-
 			} catch (NumberFormatException | InputRangeException e) {
 				System.out.println(e.getMessage());
 			} catch (InputEndException e) {

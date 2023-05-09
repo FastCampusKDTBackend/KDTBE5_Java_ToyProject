@@ -25,7 +25,7 @@ public class SmartStoreApplication {
             OutputView.viewMenus(MainMenu.values());
             OutputView.chooseMenu();
 
-            int menuNumber = Integer.parseInt(scanner.nextLine());
+            int menuNumber = getMenuNumber();
 
             if (isFinish(menuNumber)) {
                 return;
@@ -55,7 +55,7 @@ public class SmartStoreApplication {
                     .ifPresentOrElse(
                             MainMenu::execute,
                             () -> {
-                                throw new IllegalArgumentException("존재하지 않는 메뉴 번호입니다.");
+                                throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT);
                             }
                     );
         } catch (IllegalArgumentException e) {

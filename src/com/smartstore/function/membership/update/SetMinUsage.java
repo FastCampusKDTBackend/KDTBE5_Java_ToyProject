@@ -22,7 +22,7 @@ public class SetMinUsage implements MembershipMenuHandler, IntegerValidator {
     @Override
     public void processMembership(MembershipType membershipType, MembershipRequirement requirement) {
         if(requirement != null){
-            Memberships.getInstance().setMembershipRequirement(membershipType, Memberships.getInstance().setMinUsage(membershipType), requirement.getMinPaymentAmount());
+            Memberships.getInstance().setMembershipRequirement(membershipType, Memberships.getInstance().setMinUsage(), requirement.getMinPaymentAmount());
             System.out.printf("Set %s Minimum Usage Successfully\n\n\n",membershipType.name());
         }else {
             System.out.printf("Membership '%s' Defined Yet\n", membershipType.name());

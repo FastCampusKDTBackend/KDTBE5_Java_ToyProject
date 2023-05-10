@@ -1,20 +1,14 @@
 package com.smartstore.function.customer;
 
 import com.smartstore.function.EnumValueProvider;
+import com.smartstore.function.MenuPrintable;
+import com.smartstore.function.MenuValidator;
 import com.smartstore.membership.MembershipType;
 import com.smartstore.util.CustomList;
 
 import java.io.IOException;
 
-public interface CustomerMenuHandler extends EnumValueProvider {
-
-    default String[] getEnumValues(){
-        CustomList<String> keyList = new CustomList<>();
-        for(MembershipType enumKey : MembershipType.values()){
-            keyList.add(enumKey.name());
-        }
-        return keyList.toArray(String[].class);
-    }
+public interface CustomerMenuHandler extends EnumValueProvider, MenuPrintable, MenuValidator {
 
     default void run() {
         boolean isExit = false;
@@ -25,15 +19,6 @@ public interface CustomerMenuHandler extends EnumValueProvider {
             isExit = handleChoice(getMenuNumber(new String[]{}));
         }
     }
-
-    @Override
-    default void printMenu(String[] menus){
-        for(int i = 0 ; i < menus.length ; i++){
-            System.out.printf("| %s",menus[i]);
-        }
-        System.out.println(" | or 'end'");
-    }
-
 
     @Override
     default boolean handleChoice(String membershipName){

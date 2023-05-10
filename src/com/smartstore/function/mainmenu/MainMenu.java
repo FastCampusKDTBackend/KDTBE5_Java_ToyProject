@@ -1,9 +1,6 @@
-package com.smartstore.menu;
+package com.smartstore.function.mainmenu;
 
 import com.smartstore.function.Function;
-import com.smartstore.function.mainmenu.MainMenuHandler;
-import com.smartstore.function.mainmenu.MainMenuFunction;
-import com.smartstore.function.mainmenu.Screen;
 
 import java.util.Arrays;
 

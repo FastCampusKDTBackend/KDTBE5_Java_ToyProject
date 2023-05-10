@@ -21,7 +21,7 @@ public class SetMinPaymentAmount implements MembershipMenuHandler {
     @Override
     public void processMembership(MembershipType membershipType, MembershipRequirement requirement) {
         if(requirement != null){
-            Memberships.getInstance().setMembershipRequirement(membershipType, requirement.getMinUsageTime(), Memberships.getInstance().setMinPaymentAmount(membershipType));
+            Memberships.getInstance().setMembershipRequirement(membershipType, requirement.getMinUsageTime(), Memberships.getInstance().setMinPaymentAmount());
             System.out.printf("Set %s Minimum Payment Amount Successfully\n\n\n",membershipType.name());
         }else {
             System.out.printf("Membership '%s' Defined Yet\n", membershipType.name());

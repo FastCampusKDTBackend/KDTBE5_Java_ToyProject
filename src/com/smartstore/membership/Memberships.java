@@ -38,8 +38,8 @@ public class Memberships {
         int minUsageTime;
         int minPaymentAmount;
 
-        minUsageTime = setMinUsage(membershipType);
-        minPaymentAmount = setMinPaymentAmount(membershipType);
+        minUsageTime = setMinUsage();
+        minPaymentAmount = setMinPaymentAmount();
         membershipList.put(membershipType, new MembershipRequirement(minUsageTime, minPaymentAmount));
     }
 
@@ -47,11 +47,11 @@ public class Memberships {
         membershipList.put(membershipType, new MembershipRequirement(minUsage, minPaymentAmount));
     }
 
-    public int setMinUsage(MembershipType membershipType){
+    public int setMinUsage(){
         return getInputFromConsole("Input minUsageTime : ");
     }
 
-    public int setMinPaymentAmount(MembershipType membershipType){
+    public int setMinPaymentAmount(){
         return getInputFromConsole("Input minPaymentAmount : ");
     }
 
@@ -65,7 +65,7 @@ public class Memberships {
                 //check value overflowed or negative
                 if (value < 0) {
                     // TODO: 2023-05-08 throw other exception, catch it
-                    throw new NumberFormatException("Invalid Menu");
+                    throw new NumberFormatException("");
                 }
                 break;
 

@@ -1,7 +1,6 @@
-package com.smartstore.menu;
+package com.smartstore.function.mainmenu;
 
 import com.smartstore.function.membership.MembershipFunction;
-import com.smartstore.function.mainmenu.MainMenuHandler;
 import com.smartstore.function.Function;
 
 public class MembershipMenu implements MainMenuHandler {

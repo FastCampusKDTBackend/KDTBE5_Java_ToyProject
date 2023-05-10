@@ -2,9 +2,6 @@ package com.smartstore.function.mainmenu;
 
 import com.smartstore.function.Back;
 import com.smartstore.function.MenuHandler;
-import com.smartstore.menu.CustomerMenu;
-import com.smartstore.menu.MainMenu;
-import com.smartstore.menu.MembershipMenu;
 import com.smartstore.function.Function;
 
 public enum MainMenuFunction implements Function {

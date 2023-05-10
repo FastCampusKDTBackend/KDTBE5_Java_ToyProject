@@ -3,6 +3,7 @@ package me.smartstore.menu;
 import me.smartstore.customer.SortBy;
 
 public enum OrderType {
+    NONE,
     ACSENDING,
     DESCENDING;
 

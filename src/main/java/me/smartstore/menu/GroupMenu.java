@@ -17,7 +17,7 @@ public class GroupMenu extends Menu implements DataCRUD{
     }
 
     @Override
-    public void DeleteData() {
+    public void deleteData() {
 
     }
 

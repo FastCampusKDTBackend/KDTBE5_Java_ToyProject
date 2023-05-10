@@ -20,7 +20,7 @@ import static me.smartstore.utils.StoreUtility.convertInputStrToCustomerType;
  * @since 2023-05-10
  */
 public class ParameterMenu extends AbstractMenu {
-  private static final ParameterMenu parameterMenu = new ParameterMenu();
+  private static ParameterMenu parameterMenu = new ParameterMenu();
   private static final ParameterSubMenu parameterSubMenu = ParameterSubMenu.getInstance();
   private static final CustomerGroupService customerGroupService =
       CustomerGroupService.getInstance();
@@ -29,7 +29,13 @@ public class ParameterMenu extends AbstractMenu {
     super(new String[] {"Set Parameter", "View Parameter", "Update Parameter", "Back"});
   }
 
-  public static void launch() {
+  public static ParameterMenu getInstance() {
+    if (parameterMenu == null) {
+      parameterMenu = new ParameterMenu();
+    }
+    return parameterMenu;
+  }
+  public void launch() {
     loop:
     while (true) {
       parameterMenu.show();

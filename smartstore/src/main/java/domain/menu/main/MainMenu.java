@@ -38,7 +38,7 @@ public enum MainMenu implements Menu {
                 return;
             }
 
-            executeMenu(menuNumber);
+            executeSubMenu(menuNumber);
         }
     }
 
@@ -56,7 +56,7 @@ public enum MainMenu implements Menu {
         return MainMenu.isQuit(menuNumber);
     }
 
-    private static void executeMenu(int menuNumber) {
+    private static void executeSubMenu(int menuNumber) {
         try {
             MainMenu.findByNumber(menuNumber)
                     .ifPresentOrElse(

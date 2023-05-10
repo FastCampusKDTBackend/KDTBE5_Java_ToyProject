@@ -8,8 +8,6 @@ import me.smartstore.group.Groups;
 import me.smartstore.group.Parameter;
 import me.smartstore.utils.Message;
 
-import java.util.Objects;
-
 public class GroupMenu implements Menu{
 
     private final Groups allGroups = Groups.getInstance();
@@ -47,8 +45,6 @@ public class GroupMenu implements Menu{
             try {
                 System.out.println("Which group (GENERAL (G), VIP (V), VVIP (VV))? ");
                 String choice = nextLine(Message.END_MSG);
-                // group (str) -> GroupType (enum)
-                // "VIP" -> GroupType.VIP
                 return GroupType.valueOf(choice).replaceFullName();
             } catch (InputEndException e) {
                 System.out.println(Message.ERR_MSG_INPUT_END);
@@ -64,7 +60,7 @@ public class GroupMenu implements Menu{
             GroupType groupType = chooseGroup();
 
             // GroupType 에 해당하는 group 객체를 찾아야 함
-            Group group = allGroups.find(groupType);
+            Group group = allGroups.findGroupByGroupType(groupType);
             if (group != null && group.getParameter() != null) { // group.getParameter()이 null이 아니면 이미 초기화됨
                 System.out.println("\n" + group.getGroupType() + " group already exists.");
                 System.out.println("\n" + group);
@@ -77,10 +73,21 @@ public class GroupMenu implements Menu{
     }
 
     public void inputTimeAndPay(GroupType groupType) {
-        // 함수 진입 시 해당 groupType 으로 Group 생성
-        allGroups.add(new Group(new Parameter(null, null), groupType));
+
+        Group group = null;
+
         int minimumTime = 0;
         int minimumPay = 0;
+
+        if (allGroups.findGroupByGroupType(groupType) != null) {
+            group = allGroups.findGroupByGroupType(groupType);
+            minimumTime = group.getParameter().getMinTime();
+            minimumPay = group.getParameter().getMinPay();
+        } else {
+            // add Parameter - 함수 진입 시 해당 groupType 으로 Group 생성
+            allGroups.add(new Group(new Parameter(null, null), groupType));
+        }
+
         while ( true ) { // 서브 메뉴 페이지를 유지하기 위한 while
 
             int choice = chooseMenu(new String[]{
@@ -90,16 +97,23 @@ public class GroupMenu implements Menu{
 
             if (choice == 1) minimumTime = setMinimumTime();
             else if (choice == 2) minimumPay = setMinimumPay();
-            else manage(); // choice == 3
+            else {
+                System.out.println("\n" + group);
+                manage(); // choice == 3
+            }
 
-            Group group = allGroups.find(groupType);
+            group = allGroups.findGroupByGroupType(groupType);
             group.setParameter(new Parameter(minimumTime, minimumPay));
             allGroups.set(allGroups.indexOf(group), group);
 
+            // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
+            allCustomers.refresh(allGroups);
+
+            // 삭제
+            System.out.println("\n" + group);
+
             // Group 내에 있는 다른 그룹 파라미터와 비교?
             // allGroups.checkGroupParameter(group);
-
-            allCustomers.refresh(allGroups);
         }
     }
 
@@ -109,7 +123,7 @@ public class GroupMenu implements Menu{
 
             if (groupType == null) manage();
 
-            Group group = allGroups.find(groupType);
+            Group group = allGroups.findGroupByGroupType(groupType);
 
             if (group != null && group.getParameter() != null) { // group.getParameter()이 null이 아니면 이미 초기화됨
                 System.out.println(group);
@@ -154,12 +168,13 @@ public class GroupMenu implements Menu{
         while ( true ) {
             GroupType groupType = chooseGroup();
             // GroupType 에 해당하는 group 객체를 찾아야 함
-            Group group = allGroups.find(groupType);
+            Group group = allGroups.findGroupByGroupType(groupType);
+
             if (group != null && group.getParameter() != null) { // group.getParameter()이 null이 아니면 이미 초기화됨
+                System.out.println("\n" + group);
                 inputTimeAndPay(groupType);
-                // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
-                allCustomers.refresh(allGroups);
             } else {
+                // 파라미터가 없는경우
                 System.out.println(Message.ERR_MSG_INVALID_PARAMETER_ARR_EMPTY);
                 manage();
             }

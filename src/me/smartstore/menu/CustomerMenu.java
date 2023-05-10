@@ -3,11 +3,13 @@ package me.smartstore.menu;
 import me.smartstore.customer.Customer;
 import me.smartstore.customer.Customers;
 import me.smartstore.exception.InputEndException;
+import me.smartstore.group.Groups;
 import me.smartstore.utils.Message;
 
 public class CustomerMenu implements Menu {
     private static CustomerMenu customerMenu;
     private final Customers allCustomers = Customers.getInstance();
+    private final Groups allGroups = Groups.getInstance();
 
     public static CustomerMenu getInstance() {
         if(customerMenu == null) {
@@ -77,6 +79,7 @@ public class CustomerMenu implements Menu {
                     allCustomers.add(customer);
                     System.out.println(customer);
                     cnt++;
+                    allCustomers.refresh(allGroups);
                     break;
                 }
             }
@@ -184,9 +187,11 @@ public class CustomerMenu implements Menu {
             } else {
                 System.out.println(customer);
                 allCustomers.set(saveIdx, customer);
+                allCustomers.refresh(allGroups);
                 manage();
             }
         }
+
     }
 
     private void deleteCustomer() {

@@ -93,10 +93,21 @@ public class Customers extends DArray<Customer> {
         System.out.println(allCustomers);
     }
 
+    public int findCustomerDataByCusNo(int customerIdx){
+
+        int idx = -1;
+        for (int i = 0; i < allCustomers.size(); i++) {
+            if(allCustomers.get(i).getCusNo() == customerIdx){
+                idx = allCustomers.indexOf(allCustomers.get(i));
+            }
+        }
+        return idx;
+    }
+
     public void viewCustomerData(){
         int num = 1;
         for (int i = 0; i < allCustomers.size; i++){
-            System.out.println("No. " + num + " => "+ allCustomers.get(i));
+            System.out.println(allCustomers.get(i));
             num++;
         }
     }
@@ -105,11 +116,9 @@ public class Customers extends DArray<Customer> {
         int num = 1;
         for (int i = 0; i < allCustomers.size; i++){
             if( allCustomers.get(i).getGroup() == groupType) {
-                System.out.println("No. " + num + " => " + allCustomers.get(i));
+                System.out.println(allCustomers.get(i));
                 num++;
             }
         }
     }
-
-
 }

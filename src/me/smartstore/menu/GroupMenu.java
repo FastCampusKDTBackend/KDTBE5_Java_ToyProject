@@ -125,8 +125,8 @@ public class GroupMenu implements Menu{
         while ( true ) {
             try {
                 System.out.println("Input Minimum Spent Time: ");
-                String choice = nextLine(Message.END_MSG);
-                return Integer.parseInt(choice);
+                String minTime = nextLine(Message.END_MSG);
+                return Integer.parseInt(minTime);
             } catch (InputEndException e) {
                 System.out.println(Message.ERR_MSG_INPUT_END);
             } catch (IllegalArgumentException e) {
@@ -139,8 +139,8 @@ public class GroupMenu implements Menu{
         while ( true ) {
             try {
                 System.out.println("Input Minimum Total Pay : ");
-                String choice = nextLine(Message.END_MSG);
-                return Integer.parseInt(choice);
+                String minPay = nextLine(Message.END_MSG);
+                return Integer.parseInt(minPay);
             } catch (InputEndException e) {
                 System.out.println(Message.ERR_MSG_INPUT_END);
             } catch (IllegalArgumentException e) {

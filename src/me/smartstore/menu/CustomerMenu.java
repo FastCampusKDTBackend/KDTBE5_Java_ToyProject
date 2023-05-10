@@ -1,7 +1,8 @@
 package me.smartstore.menu;
 
+import me.smartstore.customer.Customer;
 import me.smartstore.customer.Customers;
-import me.smartstore.exception.CustomerArrayEmptyException;
+import me.smartstore.exception.InputEndException;
 import me.smartstore.utils.Message;
 
 public class CustomerMenu implements Menu {
@@ -39,21 +40,106 @@ public class CustomerMenu implements Menu {
         System.out.println("How many customers to input?");
         int addCustomer = Integer.parseInt(nextLine(Message.END_MSG));
         int cnt = 1;
-        while ( cnt <= addCustomer ){
-            System.out.println("====== Customer " + cnt + " Info. ======");
-            int choice = chooseMenu(new String[]{
-                    "Customer Name",
-                    "Customer ID",
-                    "Customer Spent Time",
-                    "Customer Total Pay",
-                    "Back"});
 
-            // Customer 에 새로운 고객 추가
-            if (choice == 1) addCustomerName();
-            else if (choice == 2) addCustomerID();
-            else if (choice == 3) addCustomerSpentTime();
-            else if (choice == 4) addCustomerTotalPay();
-            else cnt++;
+        while ( cnt <= addCustomer ){
+
+            String cusName = null;
+            String cusId = null;
+            int cusTotalTime = 0;
+            int cusTotalPay = 0;
+
+            Customer customer = new Customer(cusName, cusId, cusTotalTime, cusTotalPay);
+
+            while ( true ) {
+
+                System.out.println("====== Customer " + cnt + " Info. ======");
+                int choice = chooseMenu(new String[]{
+                        "Customer Name",
+                        "Customer ID",
+                        "Customer Spent Time",
+                        "Customer Total Pay",
+                        "Back"});
+
+                // Customer 에 새로운 고객 추가
+                if (choice == 1) {
+                    cusName = setCustomerName();
+                    customer.setCusName(cusName);
+                } else if (choice == 2) {
+                    cusId = setCustomerID();
+                    customer.setCusId(cusId);
+                } else if (choice == 3) {
+                    cusTotalTime = setCustomerSpentTime();
+                    customer.setCusTotalTime(cusTotalTime);
+                } else if (choice == 4) {
+                    cusTotalPay = setCustomerTotalPay();
+                    customer.setCusTotalPay(cusTotalPay);
+                } else {
+                    allCustomers.add(customer);
+                    System.out.println(customer);
+                    cnt++;
+                    break;
+                }
+            }
+        }
+    }
+
+    private String setCustomerName() {
+        while ( true ) {
+            try {
+                System.out.println("Input Customer`s Name: ");
+                String cusName = nextLine(Message.END_MSG);
+                return cusName;
+            } catch (InputEndException e) {
+                System.out.println(Message.ERR_MSG_INPUT_END);
+                return null;
+            } catch (IllegalArgumentException e) {
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+            }
+        }
+    }
+
+    private String setCustomerID() {
+        while ( true ) {
+            try {
+                System.out.println("Input Customer`s Id: ");
+                String cusName = nextLine(Message.END_MSG);
+                return cusName;
+            } catch (InputEndException e) {
+                System.out.println(Message.ERR_MSG_INPUT_END);
+                return null;
+            } catch (IllegalArgumentException e) {
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+            }
+        }
+    }
+
+    private int setCustomerSpentTime() {
+        while ( true ) {
+            try {
+                System.out.println("Input Customer`s Spent Time: ");
+                String minTime = nextLine(Message.END_MSG);
+                return Integer.parseInt(minTime);
+            } catch (InputEndException e) {
+                System.out.println(Message.ERR_MSG_INPUT_END);
+                return 0;
+            } catch (IllegalArgumentException e) {
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+            }
+        }
+    }
+
+    private int setCustomerTotalPay() {
+        while ( true ) {
+            try {
+                System.out.println("Input Customer`s Total Pay: ");
+                String minPay = nextLine(Message.END_MSG);
+                return Integer.parseInt(minPay);
+            } catch (InputEndException e) {
+                System.out.println(Message.ERR_MSG_INPUT_END);
+                return 0;
+            } catch (IllegalArgumentException e) {
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+            }
         }
     }
 
@@ -63,37 +149,51 @@ public class CustomerMenu implements Menu {
     }
 
     private void updateCustomer() {
-        System.out.println("updateCustomer 생성중");
         allCustomers.viewCustomerData();
+        int customerIdx = nextLine(allCustomers.size());
+
+        int saveIdx = allCustomers.findCustomerDataByCusNo(customerIdx);
+        Customer customer = allCustomers.get(saveIdx);
+
+        String cusName = null;
+        String cusId = null;
+        int cusTotalTime = 0;
+        int cusTotalPay = 0;
+
         while ( true ) {
-            try{
-                int choiceNum = nextLine(allCustomers.size());
-//                return choiceNum;
-                //고객 선택 후 변경 add 할 때의 Customer 내용 셀렉이 또 필요
-            } catch (CustomerArrayEmptyException e){
-                System.out.println(e.getMessage());
+
+            int choice = chooseMenu(new String[]{
+                    "Customer Name",
+                    "Customer ID",
+                    "Customer Spent Time",
+                    "Customer Total Pay",
+                    "Back"});
+
+            if (choice == 1) {
+                cusName = setCustomerName();
+                customer.setCusName(cusName);
+            } else if (choice == 2) {
+                cusId = setCustomerID();
+                customer.setCusId(cusId);
+            } else if (choice == 3) {
+                cusTotalTime = setCustomerSpentTime();
+                customer.setCusTotalTime(cusTotalTime);
+            } else if (choice == 4) {
+                cusTotalPay = setCustomerTotalPay();
+                customer.setCusTotalPay(cusTotalPay);
+            } else {
+                System.out.println(customer);
+                allCustomers.set(saveIdx, customer);
+                manage();
             }
         }
-//        if( allCustomers.size() > 1) {        }
     }
 
     private void deleteCustomer() {
-        System.out.println("deleteCustomer 생성중");
-    }
+        allCustomers.viewCustomerData();
+        int customerIdx = nextLine(allCustomers.size());
+        int saveIdx = allCustomers.findCustomerDataByCusNo(customerIdx);
 
-    private void addCustomerName() {
-        System.out.println("addCustomerName 생성중");
-    }
-
-    private void addCustomerID() {
-        System.out.println("addCustomerID 생성중");
-    }
-
-    private void addCustomerSpentTime() {
-        System.out.println("addCustomerSpentTime 생성중");
-    }
-
-    private void addCustomerTotalPay() {
-        System.out.println("addCustomerTotalPay 생성중");
+        allCustomers.pop(saveIdx);
     }
 }

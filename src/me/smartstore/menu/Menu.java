@@ -2,9 +2,7 @@ package me.smartstore.menu;
 
 import me.smartstore.exception.InputEndException;
 import me.smartstore.exception.InputRangeException;
-import me.smartstore.group.GroupType;
 import me.smartstore.utils.Message;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -23,19 +21,18 @@ public interface Menu {
     }
 
     default Integer nextLine(Integer size){
-        while ( true ) {
+        while( true ) {
             try {
                 System.out.println("Which customer ( 1 ~ " + size + " )?");
-                Integer num = scanner.nextInt();
-                if(num <= 0 || num > size) throw new InputRangeException();
-                return num;
-                // chooseMenu 로 통합하고 출력문만 변경?
-            } catch (InputEndException e) {
-                System.out.println(Message.ERR_MSG_INPUT_END);
-                return null;
-            } catch (IllegalArgumentException e) {
+                int customerIdx = Integer.parseInt(nextLine());
+                if (customerIdx > 0 && customerIdx <= size) return customerIdx;
+                throw new InputRangeException();
+            } catch (InputMismatchException | NumberFormatException e) {
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
+            } catch (InputRangeException e) {
                 System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
             }
+
         }
     }
 

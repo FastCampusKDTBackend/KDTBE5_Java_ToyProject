@@ -1,20 +1,24 @@
 package me.smartstore.customer;
 
-import me.smartstore.group.Group;
 import me.smartstore.group.GroupType;
 
 import java.util.Objects;
 
 public class Customer {
-    private String cusName;
+    private int cusNo;
     private String cusId;
+    private String cusName;
     private Integer cusTotalTime;
     private Integer cusTotalPay;
     private GroupType group; // 현재 분류 기준에 의해 각 고객을 분류된 결과
 
+    private static int seqNum = 1;
+
     public Customer() {
         //초기 값 설정
+        cusNo = seqNum;
         group = GroupType.NONE;
+        seqNum++;
     }
 
     public Customer(String cusId) {
@@ -32,6 +36,10 @@ public class Customer {
         this.cusId = cusId;
         this.cusTotalTime = cusTotalTime;
         this.cusTotalPay = cusTotalPay;
+    }
+
+    public int getCusNo() {
+        return cusNo;
     }
 
     public String getCusName() {
@@ -89,7 +97,8 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" +
+        return "No. " + cusNo + " => " +
+                "Customer{" +
                 "cusName='" + cusName + '\'' +
                 ", cusId='" + cusId + '\'' +
                 ", cusTotalTime=" + cusTotalTime +

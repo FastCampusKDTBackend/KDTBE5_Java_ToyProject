@@ -1,6 +1,7 @@
 package domain.menu.main.customer;
 
 import domain.customer.Customer;
+import domain.customer.Customers;
 import domain.group.GroupType;
 import util.common.ErrorMessage;
 import util.common.exception.NotFoundException;
@@ -13,6 +14,24 @@ import java.util.stream.IntStream;
 public interface AddCustomerExecute {
     static Runnable getMethod() {
         return AddCustomerExecute::run;
+    }
+
+    private static void run() {
+        if (!GroupType.isGroupParameterSet()) {
+            OutputView.showErrorMessage(ErrorMessage.SET_PARAMETER);
+            return;
+        }
+
+        OutputView.showMessage(ViewMessage.INPUT_CUSTOMER_NUMBER);
+        OutputView.showExitGuide();
+
+        int inputCustomerSize = getInputNumber();
+
+        IntStream.range(0, inputCustomerSize).forEach(__ -> {
+            Customer newCustomer = new Customer();
+            modifyCustomerInfomation(newCustomer);
+            Customers.getInstance().save(newCustomer);
+        });
     }
 
     private static void modifyCustomerInfomation(Customer customer) {
@@ -43,19 +62,5 @@ public interface AddCustomerExecute {
                 OutputView.showErrorMessage(ErrorMessage.INVALID_INPUT);
             }
         }
-    }
-
-    private static void run() {
-        if (!GroupType.isGroupParameterSet()) {
-            OutputView.showErrorMessage(ErrorMessage.SET_PARAMETER);
-            return;
-        }
-
-        OutputView.showMessage(ViewMessage.INPUT_CUSTOMER_NUMBER);
-        OutputView.showExitGuide();
-
-        int inputCustomerSize = getInputNumber();
-
-        IntStream.range(0, inputCustomerSize).forEach(__ -> modifyCustomerInfomation(new Customer()));
     }
 }

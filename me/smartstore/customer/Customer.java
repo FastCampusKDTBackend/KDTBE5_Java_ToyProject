@@ -11,6 +11,8 @@ public class Customer {
     private Integer cusTotalPay;
     private Group group; // 현재 분류 기준에 의해 각 고객을 분류된 결과
 
+
+
     public Customer() {
     }
 
@@ -60,6 +62,14 @@ public class Customer {
 
     public void setCusTotalPay(Integer cusTotalPay) {
         this.cusTotalPay = cusTotalPay;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     @Override

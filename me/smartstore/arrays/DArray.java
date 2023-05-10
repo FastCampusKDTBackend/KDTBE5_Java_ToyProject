@@ -105,12 +105,7 @@ public class DArray<T> implements Collections<T> { // Dynamic Array
 
     @Override
     public T pop() {
-//        if (size == 0) return null;
-//
-//        T popElement = arrays[size-1];
-//        arrays[size-1] = null;
-//        size--;
-//        return popElement;
+
         return pop(size-1);
     }
 

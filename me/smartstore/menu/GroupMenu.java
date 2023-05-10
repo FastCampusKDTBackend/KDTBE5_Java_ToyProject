@@ -77,8 +77,11 @@ public class GroupMenu implements Menu {
                 System.out.println("\n" + group.getGroupType() + " group already exists.");
                 System.out.println("\n" + group);
             } else {
+                Parameter parameter = new Parameter();
                 setPaywithTime(allGroups.find(groupType).getParameter());
-                allCustomers.refresh(allGroups); // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
+
+                group.setParameter(parameter);
+                allCustomers.refresh(); // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
             }
         }
     }

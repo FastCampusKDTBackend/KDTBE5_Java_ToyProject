@@ -13,13 +13,15 @@ public class GroupMenu implements Menu {
     private final Customers allCustomers = Customers.getInstance();
     private final Groups allGroups = Groups.getInstance();
 
-    public static GroupMenu getInstance(){
-        if(groupMenu == null){
+    public static GroupMenu getInstance() {
+        if (groupMenu == null) {
             groupMenu = new GroupMenu();
         }
         return groupMenu;
     }
-    private GroupMenu(){}
+
+    private GroupMenu() {
+    }
 
     @Override
     public void manage() {
@@ -30,14 +32,15 @@ public class GroupMenu implements Menu {
                     "Update Parameter",
                     "Back"
             });
-            if(choice == 1) setParameter();
-            else if(choice == 2) {}//viewParameter();
-            else if(choice == 3) {}//updateParameter();
+            if (choice == 1) setParameter();
+            else if (choice == 2) viewParameter();
+            else if (choice == 3) updateParameter();
             else break;
         }
     }
-    public GroupType chooseGroup(){
-        while(true){
+
+    public GroupType chooseGroup() {
+        while (true) {
             try {
                 System.out.println("Which group (GENERAL (G), VIP (V), VVIP (VV))? ");
                 String choice = nextLine(Message.END_MSG);
@@ -45,17 +48,17 @@ public class GroupMenu implements Menu {
                 // "VIP" -> GroupType.VIP
                 GroupType groupType = GroupType.valueOf(choice).replaceFullName(); // String -> enum
                 return groupType;
-            }catch (InputEndException e){
+            } catch (InputEndException e) {
                 System.out.println(Message.ERR_MSG_INPUT_END);
                 return null;
-            } catch (IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
                 System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
             }
         }
     }
 
-    public void setParameter(){
-        while (true){
+    public void setParameter() {
+        while (true) {
             GroupType groupType = chooseGroup();
 
             //GroupType에 해당하는 group객체를 찾아야함
@@ -64,11 +67,104 @@ public class GroupMenu implements Menu {
                 System.out.println("\n" + group.getGroupType() + " group already exists.");
                 System.out.println("\n" + group);
             } else {
-                Parameter parameter = new Parameter();
-                // time, pay 사용자 입력받은 후, 설정 필요
+                group = new Group(new Parameter(), groupType);
+                allGroups.add(group);
+                while (true) {
+                    int choice = chooseMenu(new String[]{
+                            "Minimum Spent Time",
+                            "Minimum Total Pay",
+                            "Back"});
+                    if (choice == 1) {
+                        setMinimumSpentTime(group);
+                        continue;
+                    }
+                    if (choice == 2) {
+                        setMinimumTotalPay(group);
+                        continue;
+                    }
+                    if (choice == 3)
+                        break;
+                }
+                allCustomers.refresh();
+            }
+        }
+    }
 
+    public void setMinimumSpentTime(Group group) {
+        while (true) {
+            try {
+                System.out.printf("Input Minimum Spent Time:");
+                String spentTime = nextLine(Message.END_MSG);
+                Parameter parameter = group.getParameter();
+                parameter.setMinTime(Integer.parseInt(spentTime));
                 group.setParameter(parameter);
-                allCustomers.refresh(allGroups); // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
+                System.out.println(group.getParameter());
+                allCustomers.refresh();
+                break;
+            } catch (InputEndException e) {
+                System.out.println(Message.ERR_MSG_INPUT_END);
+                break;
+            }
+        }
+
+    }
+
+    public void setMinimumTotalPay(Group group) {
+        while (true) {
+            try {
+                System.out.printf("Input Minimum Total Pay:");
+                String totalPay = nextLine(Message.END_MSG);
+                Parameter parameter = group.getParameter();
+                parameter.setMinPay(Integer.parseInt(totalPay));
+                group.setParameter(parameter);
+                System.out.println(group.getParameter());
+                allCustomers.refresh();
+                break;
+            } catch (InputEndException e) {
+                System.out.println(Message.ERR_MSG_INPUT_END);
+                break;
+            }
+        }
+    }
+
+
+    public void viewParameter() {
+        while (true) {
+            GroupType groupType = chooseGroup();
+            if (groupType == null) {
+                break;
+            }
+            Group group = allGroups.find(groupType);
+            System.out.println(groupType);
+            System.out.println(group.getParameter());
+        }
+    }
+
+
+    public void updateParameter() {
+        while (true) {
+            GroupType groupType = chooseGroup();
+            if (groupType == null) {
+                break;
+            }
+            Group group = allGroups.find(groupType);
+            System.out.println(groupType);
+            System.out.println(group.getParameter());
+            while (true) {
+                int choice = chooseMenu(new String[]{
+                        "Minimum Spent Time",
+                        "Minimum Total Pay",
+                        "Back"});
+                if (choice == 1) {
+                    setMinimumSpentTime(group);
+                    continue;
+                }
+                if (choice == 2) {
+                    setMinimumTotalPay(group);
+                    continue;
+                }
+                if (choice == 3)
+                    break;
             }
         }
     }

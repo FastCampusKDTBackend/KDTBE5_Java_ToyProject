@@ -58,6 +58,15 @@ public class Customer {
     public void setTotalPay(Integer totalPay) {
         this.totalPay = totalPay;
     }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

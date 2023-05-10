@@ -1,8 +1,7 @@
-package me.smartstore.group;
+package me.smartstore.customer;
 
 import me.smartstore.collections.MyArrayList;
-import me.smartstore.customer.Customer;
-import me.smartstore.customer.Customers;
+import me.smartstore.group.GroupType;
 
 public class ClassifiedCustomers {
     private MyArrayList<Customer> classifiedByGeneral;

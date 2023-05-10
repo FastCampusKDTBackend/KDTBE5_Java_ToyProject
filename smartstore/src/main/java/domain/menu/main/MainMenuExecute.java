@@ -1,6 +1,7 @@
 package domain.menu.main;
 
 import domain.menu.Menu;
+import util.common.ErrorMessage;
 import util.view.InputScanner;
 import util.view.OutputView;
 import util.view.ViewMessage;

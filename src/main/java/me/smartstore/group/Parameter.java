@@ -24,4 +24,12 @@ public class Parameter {
     public void setMinimumTotalAmount(int minimumTotalAmount) {
         this.minimumTotalAmount = minimumTotalAmount;
     }
+
+    @Override
+    public String toString() {
+        return "Parameter{" +
+                "minimumHours=" + minimumHours +
+                ", minimumTotalAmount=" + minimumTotalAmount +
+                '}';
+    }
 }

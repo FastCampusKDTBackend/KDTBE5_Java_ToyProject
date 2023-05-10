@@ -47,7 +47,7 @@ public class GroupMenu implements Menu{
                 String choice = nextLine(Message.END_MSG);
                 return GroupType.valueOf(choice).replaceFullName();
             } catch (InputEndException e) {
-                System.out.println(Message.ERR_MSG_INPUT_END);
+                System.out.println(e.getMessage());
                 return null;
             } catch (IllegalArgumentException e) {
                 System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
@@ -179,6 +179,5 @@ public class GroupMenu implements Menu{
                 manage();
             }
         }
-
     }
 }

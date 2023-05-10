@@ -29,9 +29,6 @@ public class DArray<T> implements Collections<T> {
         size = arrays.length;
     }
 
-    /////////////////////////////////////////
-    // add, set, get, pop, indexOf, size, capacity (for dynamic-sized array)
-
     @Override
     public int size() {
         return size;
@@ -106,12 +103,6 @@ public class DArray<T> implements Collections<T> {
 
     @Override
     public T pop() {
-//        if (size == 0) return null;
-//
-//        T popElement = arrays[size-1];
-//        arrays[size-1] = null;
-//        size--;
-//        return popElement;
         return pop(size-1);
     }
 
@@ -139,8 +130,6 @@ public class DArray<T> implements Collections<T> {
     protected void grow() {
         capacity *= 2; // doubling
         arrays = java.util.Arrays.copyOf(arrays, capacity);
-
-        // size는 그대로
     }
 
     @Override

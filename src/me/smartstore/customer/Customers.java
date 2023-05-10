@@ -46,7 +46,6 @@ public class Customers extends DArray<Customer> {
             cnt += 1;
         }
 
-
         for (int i = 0; i < allCustomers.size; i++) {
             cusMinTime = allCustomers.get(i).getCusTotalTime();
             cusMinPay = allCustomers.get(i).getCusTotalPay();
@@ -91,7 +90,6 @@ public class Customers extends DArray<Customer> {
                 else allCustomers.get(i).setGroup(GroupType.NONE);
             }
         }
-        System.out.println(allCustomers);
     }
 
     public int findCustomerDataByCusNo(int customerIdx){
@@ -157,5 +155,4 @@ public class Customers extends DArray<Customer> {
             }
         }
     }
-
 }

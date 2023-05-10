@@ -120,7 +120,7 @@ public class SummaryMenu implements Menu {
                     System.out.println();
                 }
             } catch (InputEndException e) {
-                System.out.println(Message.ERR_MSG_INPUT_END);
+                System.out.println(e.getMessage());;
                 manage();
             }
         }

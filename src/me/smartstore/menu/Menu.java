@@ -30,7 +30,7 @@ public interface Menu {
             } catch (InputMismatchException | NumberFormatException e) {
                 System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
             } catch (InputRangeException e) {
-                System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+                System.out.println(e.getMessage());
             }
 
         }
@@ -51,7 +51,7 @@ public interface Menu {
             } catch (InputMismatchException | NumberFormatException e){
                 System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
             } catch (InputRangeException e) {
-                System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+                System.out.println(e.getMessage());
             }
         }
     }

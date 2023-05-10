@@ -1,15 +1,12 @@
-package com.smartstore.function.membership;
+package com.smartstore.function.membership.update;
 
-import com.smartstore.function.DisplayMenuByNumber;
 import com.smartstore.function.Function;
-import com.smartstore.function.FunctionHandler;
 import com.smartstore.function.MenuHandler;
+import com.smartstore.function.membership.MembershipMenuHandler;
 import com.smartstore.membership.MembershipRequirement;
 import com.smartstore.membership.MembershipType;
-import com.smartstore.membership.Memberships;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 public class UpdateMembershipRequirement implements MembershipMenuHandler, MenuHandler {
     private static UpdateMembershipRequirement instance;
@@ -61,6 +58,8 @@ public class UpdateMembershipRequirement implements MembershipMenuHandler, MenuH
         return String.valueOf(menu);
     }
 
+    //make other interface
+    //🤮🤮🤮🤮🤮🤮🤮
     @Override
     public void displayMenu(String[] menus){
         for(int i = 0 ; i < menus.length ; i++){
@@ -84,7 +83,6 @@ public class UpdateMembershipRequirement implements MembershipMenuHandler, MenuH
         while (!isExit){
             MembershipMenuHandler.super.displayMenu(getEnumValues(MembershipType.class));
             //get menu number from user until valid menu number
-            //🤮🤮🤮🤮🤮🤮🤮
             isExit = MembershipMenuHandler.super.handleChoice(MembershipMenuHandler.super.runMenuSelectionLoop(getEnumValues(MembershipType.class)));
         }
     }

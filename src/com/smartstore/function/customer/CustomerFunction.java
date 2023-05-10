@@ -3,12 +3,16 @@ package com.smartstore.function.customer;
 import com.smartstore.function.Function;
 import com.smartstore.function.MenuHandler;
 import com.smartstore.function.Back;
+import com.smartstore.function.customer.add.AddCustomer;
+import com.smartstore.function.customer.delete.DeleteCustomer;
+import com.smartstore.function.customer.update.UpdateCustomer;
+import com.smartstore.function.customer.view.ViewCustomer;
 
 public enum CustomerFunction implements Function {
-    ADD(1, Back.getInstance()),
-    VIEW(2, Back.getInstance()),
-    UPDATE(3, Back.getInstance()),
-    DELETE(3, Back.getInstance()),
+    ADD(1, AddCustomer.getInstance()),
+    VIEW(2, ViewCustomer.getInstance()),
+    UPDATE(3, UpdateCustomer.getInstance()),
+    DELETE(4, DeleteCustomer.getInstance()),
     BACK(5, Back.getInstance());
 
 

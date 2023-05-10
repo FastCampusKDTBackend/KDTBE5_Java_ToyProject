@@ -11,7 +11,7 @@ import com.smartstore.function.Function;
 public enum MainMenuFunction implements Function {
     MAIN_MENU(0, MainMenu.getInstance()),
     MEMBERSHIP_MANAGEMENT(1, MembershipMenu.getInstance()),
-    CUSTOMER_MANAGEMENT(2, Back.getInstance()),
+    CUSTOMER_MANAGEMENT(2, CustomerMenu.getInstance()),
     REPORT_MANAGEMENT(3, Back.getInstance()),
     QUIT(4, Back.getInstance());
 

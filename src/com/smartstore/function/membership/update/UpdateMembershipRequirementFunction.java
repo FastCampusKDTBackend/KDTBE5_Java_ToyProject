@@ -1,4 +1,4 @@
-package com.smartstore.function.membership;
+package com.smartstore.function.membership.update;
 
 import com.smartstore.function.Back;
 import com.smartstore.function.Function;

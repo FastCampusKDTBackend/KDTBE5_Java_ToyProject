@@ -23,6 +23,10 @@ public class Memberships {
 
     }
 
+    public Map<MembershipType, MembershipRequirement> getMembershipList() {
+        return membershipList;
+    }
+
     public MembershipRequirement findByType(MembershipType membershipType){
         if(membershipList.size() == 0 ){
             return null;

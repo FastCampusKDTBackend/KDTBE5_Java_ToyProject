@@ -1,5 +1,6 @@
-package com.smartstore.function.membership;
+package com.smartstore.function.membership.set;
 
+import com.smartstore.function.membership.MembershipMenuHandler;
 import com.smartstore.membership.MembershipRequirement;
 import com.smartstore.membership.MembershipType;
 import com.smartstore.membership.Memberships;

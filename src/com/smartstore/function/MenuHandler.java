@@ -7,9 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public interface MenuHandler extends DisplayMenuByNumber{
-    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
+public interface MenuHandler extends DisplayMenuByNumber, Readable{
     default String runMenuSelectionLoop(String[] menus){
         int menu = -1;
         while (true){

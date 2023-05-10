@@ -7,25 +7,25 @@ import com.smartstore.membership.MembershipType;
 import com.smartstore.membership.Memberships;
 import com.smartstore.util.CustomList;
 
+import java.io.IOException;
 import java.util.NoSuchElementException;
 
 public interface CustomerMenuHandler extends FunctionHandler {
     @Override
-    default String runMenuSelectionLoop(String[] memberships) {
-        //implement for customer function later
-        /*String memberTypeName="";
+    default String runMenuSelectionLoop(String[] values) {
+        String valueName="";
         boolean isExit = false;
-        if(memberships.length > 0) {
+        if(values.length > 0) {
             while (!isExit) {
                 try {
                     System.out.print("Input : ");
-                    memberTypeName = br.readLine();
-                    if("end".equals(memberTypeName)){
+                    valueName = br.readLine();
+                    if("end".equals(valueName)){
                         isExit = true;
                         break;
                     }
-                    for (String membershipName : memberships) {
-                        if (MembershipType.valueOf(membershipName).isMatchedName(memberTypeName)) {
+                    for (String membershipName : values) {
+                        if (MembershipType.valueOf(membershipName).isMatchedName(valueName)) {
                             isExit = true;
                             break;
                         }
@@ -34,54 +34,49 @@ public interface CustomerMenuHandler extends FunctionHandler {
                     System.out.println("Invalid Menu");
                 }
             }
-            handleChoice(memberTypeName);
-        }*/
-        return "";
+        }
+        return valueName;
+    }
+
+    default String[] getEnumValues(){
+        CustomList<String> keyList = new CustomList<>();
+        for(MembershipType enumKey : MembershipType.values()){
+            keyList.add(enumKey.name());
+        }
+        return keyList.toArray(String[].class);
+    }
+
+    default void run() {
+        boolean isExit = false;
+        while (!isExit){
+            //get values from enum by string array
+            displayMenu(getEnumValues(MembershipType.class));
+
+            isExit = handleChoice(runMenuSelectionLoop(new String[]{}));
+        }
     }
 
     @Override
     default void displayMenu(String[] menus){
-        System.out.print("Which One?\n|");
-        for(String menu : menus){
-            System.out.printf(" %s |",menu);
+        for(int i = 0 ; i < menus.length ; i++){
+            System.out.printf("| %s",menus[i]);
         }
-        System.out.println(" type 'end' to exit");
+        System.out.println(" | or 'end'");
     }
 
-    /*default MembershipType getMembershipType(String membershipNames){
-        String[] values = getEnumValues(Cu);
-        for (String membershipName : values) {
-            try{
-                if (MembershipType.valueOf(membershipName).findByName(membershipNames)) {
-                    return MembershipType.valueOf(membershipName);
-                }
-            }catch (NoSuchElementException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        return null;
-    }*/
 
-    /*default void run(){
-        //get values from enum by string array
-        String[] values = getEnumValues();
-        displayMenu(values);
-
-        runMenuSelectionLoop(values);
-    }*/
-
-    /*@Override
+    @Override
     default boolean handleChoice(String membershipName){
         if(!"end".equalsIgnoreCase(membershipName)){
-            MembershipType membershipType = getMembershipType(membershipName);
+            //get enum_value using string from MembershipType
+    /*        MembershipType membershipType = getMembershipType(membershipName);
+            //find requirement using type from enum_map
             MembershipRequirement requirement = Memberships.getInstance().findByType(membershipType);
 
             //run each function's method
             run(membershipType, requirement);
-        }
+    */    }
         return true;
-    }*/
-
-    default void run(MembershipType membershipType, MembershipRequirement requirement){};
+    }
 
 }

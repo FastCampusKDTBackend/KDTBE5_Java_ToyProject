@@ -1,10 +1,10 @@
-package com.smartstore.function.customer;
+package com.smartstore.function.customer.view;
 
-import com.smartstore.function.membership.SetMembershipRequirement;
+import com.smartstore.function.customer.CustomerMenuHandler;
 import com.smartstore.membership.MembershipRequirement;
 import com.smartstore.membership.MembershipType;
 
-public class ViewCustomer {
+public class ViewCustomer implements CustomerMenuHandler {
     private static ViewCustomer instance;
 
     private ViewCustomer(){
@@ -12,10 +12,9 @@ public class ViewCustomer {
     }
 
     public static ViewCustomer getInstance() {
-        if(instance == null){
+        if (instance == null) {
             return new ViewCustomer();
         }
         return instance;
     }
-
 }

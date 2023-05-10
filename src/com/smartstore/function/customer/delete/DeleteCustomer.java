@@ -1,10 +1,10 @@
-package com.smartstore.function.customer;
+package com.smartstore.function.customer.delete;
 
-import com.smartstore.function.membership.SetMembershipRequirement;
+import com.smartstore.function.customer.CustomerMenuHandler;
 import com.smartstore.membership.MembershipRequirement;
 import com.smartstore.membership.MembershipType;
 
-public class DeleteCustomer {
+public class DeleteCustomer implements CustomerMenuHandler {
     private static DeleteCustomer instance;
 
     private DeleteCustomer(){
@@ -17,5 +17,6 @@ public class DeleteCustomer {
         }
         return instance;
     }
+
 
 }

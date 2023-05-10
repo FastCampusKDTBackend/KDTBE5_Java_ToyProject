@@ -37,13 +37,6 @@ public interface MembershipMenuHandler extends FunctionHandler {
         return valueName;
     }
 
-    default String[] getEnumValues(){
-        CustomList<String> keyList = new CustomList<>();
-        for(MembershipType enumKey : MembershipType.values()){
-            keyList.add(enumKey.name());
-        }
-        return keyList.toArray(String[].class);
-    }
 
     default void run() {
         boolean isExit = false;

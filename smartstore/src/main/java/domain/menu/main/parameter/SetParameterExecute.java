@@ -56,7 +56,7 @@ public interface SetParameterExecute {
             try {
                 return GroupType.getBySymbolOrName(groupName);
             } catch (NoSuchElementException noSuchElementException) {
-                System.out.println(noSuchElementException.getMessage());
+                OutputView.showErrorMessage(noSuchElementException.getMessage());
                 groupName = InputScanner.get().nextLine();
                 if (ViewMessage.isExit(groupName)) {
                     return null;

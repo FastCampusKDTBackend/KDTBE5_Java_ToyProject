@@ -8,4 +8,20 @@ public class Parameter {
         this.minimumHours = minimumHours;
         this.minimumTotalAmount = minimumTotalAmount;
     }
+
+    public int getMinimumHours() {
+        return minimumHours;
+    }
+
+    public void setMinimumHours(int minimumHours) {
+        this.minimumHours = minimumHours;
+    }
+
+    public int getMinimumTotalAmount() {
+        return minimumTotalAmount;
+    }
+
+    public void setMinimumTotalAmount(int minimumTotalAmount) {
+        this.minimumTotalAmount = minimumTotalAmount;
+    }
 }

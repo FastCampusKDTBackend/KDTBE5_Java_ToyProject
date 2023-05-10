@@ -1,6 +1,9 @@
 package me.smartstore.customer;
 
+import me.smartstore.collections.MyArrayList;
+import me.smartstore.group.Group;
 import me.smartstore.group.GroupType;
+import me.smartstore.group.Groups;
 
 import java.util.Objects;
 
@@ -11,12 +14,26 @@ public class Customer {
     private int totalAmount;
     private GroupType group;
 
-    public Customer(String name, String id, int hours, int totalAmount, GroupType group) {
+    public Customer(String name, String id, int hours, int totalAmount) {
         this.name = name;
         this.id = id;
         this.hours = hours;
         this.totalAmount = totalAmount;
-        this.group = group;
+        this.group = judgeCustomerGroup(hours, totalAmount);
+    }
+
+    private GroupType judgeCustomerGroup(int hours, int totalAmount) {
+        //정렬된 groups요소를 돌며 그 요소의 기준 미만이라면 그 grouptype으로 설정
+        Groups groups = Groups.getInstance();
+        MyArrayList<Group> groupList = groups.getGroups();
+        for (Group group : groupList) {
+            int minimumHours = group.getParameter().getMinimumHours();
+            int minimumTotalAmount = group.getParameter().getMinimumTotalAmount();
+            if (hours < minimumHours || totalAmount < minimumTotalAmount) {
+                return group.getCustomerGroup();
+            }
+        }
+        return GroupType.VVIP;
     }
 
     public String getName() {

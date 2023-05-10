@@ -4,14 +4,22 @@ import me.smartstore.core.domain.Customer;
 import me.smartstore.core.domain.CustomerDTO;
 import me.smartstore.core.domain.CustomerGroup;
 import me.smartstore.core.manager.CustomerManager;
+import me.smartstore.enums.CustomerType;
 import me.smartstore.enums.SortBy;
 import me.smartstore.enums.SortOrder;
 import me.smartstore.exceptions.StoreException;
 
 import java.util.Arrays;
 
+/**
+ * 고객 정보 관리 서비스 제공 클래스
+ *
+ * @author YongHo Shin
+ * @version v1.0
+ * @since 2023-05-10
+ */
 public class CustomerService {
-  private static final CustomerService customerService = new CustomerService();
+  private static CustomerService customerService = new CustomerService();
   private static final CustomerManager customerManager = CustomerManager.getInstance();
   private static final CustomerGroupService customerGroupService =
       CustomerGroupService.getInstance();
@@ -19,18 +27,30 @@ public class CustomerService {
   private static SortBy lastRequestSortBy = SortBy.NAME;
   private static SortOrder lastRequestedSortOrder = SortOrder.ASCENDING;
 
-  private static CustomerGroup[] customerGroups;
+  private static CustomerGroup[] customerGroups = customerGroupService.findAll();
 
   public static CustomerService getInstance() {
+    if (customerService == null) {
+      customerService = new CustomerService();
+    }
     return customerService;
   }
 
-  public void saveNewCustomer(CustomerDTO newCustomerDTO) throws StoreException {
-    Customer customer = new Customer(newCustomerDTO);
-    System.out.println(customerManager.save(customer));
+  /**
+   * @param customerDTO 고객 정보
+   * @throws StoreException 데이터베이스 오류
+   */
+  public void save(CustomerDTO customerDTO) throws StoreException {
+    Customer customer = new Customer(customerDTO);
+    classifyCustomer(customer);
+    customerManager.save(customer);
   }
 
-  public CustomerDTO[] findAll() {
+  /**
+   * @return 모든 고객 정보
+   * @throws StoreException 등록된 고객 정보가 없는 경우
+   */
+  public CustomerDTO[] findAll() throws StoreException {
     return Arrays.stream(customerManager.selectAll())
         .map(CustomerDTO::from)
         .toArray(CustomerDTO[]::new);
@@ -40,55 +60,68 @@ public class CustomerService {
     return customerManager.size();
   }
 
-  public void updateCustomerById(Long id, CustomerDTO updated) {
+  /**
+   * @param id 업데이트 할 고객정보 관리번호
+   * @param customerDTO 업데이트할 고객정보
+   * @throws StoreException 데이터베이스 오류
+   */
+  public void updateCustomerById(Long id, CustomerDTO customerDTO) throws StoreException {
     Customer customer = customerManager.findById(id);
+
+    if (customerDTO.name() != null) {
+      customer.setName(customerDTO.name());
+    }
+    if (customerDTO.userId() != null) {
+      customer.setUserId(customerDTO.userId());
+    }
+    if (customerDTO.spentTime() != null) {
+      customer.setSpentTime(customerDTO.spentTime());
+    }
+    if (customerDTO.payAmount() != null) {
+      customer.setPayAmount(customerDTO.payAmount());
+    }
+
+    classifyCustomer(customer);
+
+    customerManager.save(customer);
   }
 
   public void deleteCustomerById(Long id) {
     customerManager.deleteById(id);
   }
 
-  public void classifyCustomer() {
-    //    Arrays.stream(customerGroups)
-    //        .filter(customerGroup -> customerGroup.getParameter() != null)
-    //        .forEach(
-    //            customerGroup -> {
-    //              Arrays.stream(customerManager.selectAll())
-    //                  .filter(
-    //                      customer ->
-    //                          customer.getSpentTime() != null && customer.getPayAmount() != null)
-    //                  .forEach(
-    //                      customer -> {
-    //                        if (customerGroup.getParameter().getMinSpentTime()
-    //                                <= customer.getSpentTime()
-    //                            && customerGroup.getParameter().getMinPayAmount()
-    //                                <= customer.getPayAmount()) {
-    //                          customer.setCustomerType(customerGroup.getCustomerType());
-    //                        }
-    //                      });
-    //            });
+  /**
+   * 고객정보를 바탕으로 고객 분류
+   *
+   * @param customer 고객정보
+   */
+  public void classifyCustomer(Customer customer) {
+    for (CustomerGroup customerGroup : customerGroups) {
+      if (customerGroup.getParameter() == null) {
+        continue;
+      }
+      if (customer.getSpentTime() == null || customer.getPayAmount() == null) {
+        customer.setCustomerType(CustomerType.NONE);
+      } else {
+        if (customerGroup.getParameter().getMinSpentTime() <= customer.getSpentTime()
+            && customerGroup.getParameter().getMinPayAmount() <= customer.getPayAmount()) {
+          customer.setCustomerType(customerGroup.getCustomerType());
+        }
+      }
+    }
+    if (customer.getCustomerType() == null) {
+      customer.setCustomerType(CustomerType.NONE);
+    }
   }
 
   public void classifyAllCustomers() {
     customerGroups = customerGroupService.findAll();
-    Arrays.stream(customerGroups)
-        .filter(customerGroup -> customerGroup.getParameter() != null)
-        .forEach(
-            customerGroup -> {
-              Arrays.stream(customerManager.selectAll())
-                  .filter(
-                      customer ->
-                          customer.getSpentTime() != null && customer.getPayAmount() != null)
-                  .forEach(
-                      customer -> {
-                        if (customerGroup.getParameter().getMinSpentTime()
-                                <= customer.getSpentTime()
-                            && customerGroup.getParameter().getMinPayAmount()
-                                <= customer.getPayAmount()) {
-                          customer.setCustomerType(customerGroup.getCustomerType());
-                        }
-                      });
-            });
+    Customer[] customers = customerManager.selectAll();
+
+    for (Customer customer : customers) {
+      classifyCustomer(customer);
+      customerManager.save(customer);
+    }
   }
 
   public void displayClassificationSummary() {
@@ -110,10 +143,10 @@ public class CustomerService {
     Arrays.stream(customerGroups)
         .forEach(
             group -> {
-              System.out.println(group.groupTitle());
+              System.out.println("\n" + group.groupTitle());
               if (sortOrder == SortOrder.ASCENDING) {
                 Customer[] customers =
-                    customerManager.selectByCustomerTypeOrderByName(group.getCustomerType());
+                    customerManager.selectByCustomerTypeOrderByNameAsc(group.getCustomerType());
                 for (int idx = 0; idx < customers.length; idx++) {
                   System.out.println("No. " + (idx + 1) + " => " + customers[idx]);
                 }
@@ -134,7 +167,8 @@ public class CustomerService {
               System.out.println(group.groupTitle());
               if (sortOrder == SortOrder.ASCENDING) {
                 Customer[] customers =
-                    customerManager.selectByCustomerTypeOrderBySpentTime(group.getCustomerType());
+                    customerManager.selectByCustomerTypeOrderBySpentTimeAsc(
+                        group.getCustomerType());
                 for (int idx = 0; idx < customers.length; idx++) {
                   System.out.println("No. " + (idx + 1) + " => " + customers[idx]);
                 }
@@ -146,6 +180,7 @@ public class CustomerService {
                   System.out.println("No. " + (idx + 1) + " => " + customers[idx]);
                 }
               }
+              System.out.println();
             });
   }
 
@@ -156,7 +191,8 @@ public class CustomerService {
               System.out.println(group.groupTitle());
               if (sortOrder == SortOrder.ASCENDING) {
                 Customer[] customers =
-                    customerManager.selectByCustomerTypeOrderByPayAmount(group.getCustomerType());
+                    customerManager.selectByCustomerTypeOrderByPayAmountAsc(
+                        group.getCustomerType());
                 for (int idx = 0; idx < customers.length; idx++) {
                   System.out.println("No. " + (idx + 1) + " => " + customers[idx]);
                 }
@@ -168,6 +204,7 @@ public class CustomerService {
                   System.out.println("No. " + (idx + 1) + " => " + customers[idx]);
                 }
               }
+              System.out.println();
             });
   }
 }

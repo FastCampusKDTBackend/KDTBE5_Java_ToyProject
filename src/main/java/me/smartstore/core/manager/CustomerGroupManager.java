@@ -16,7 +16,7 @@ import me.smartstore.exceptions.StoreException;
  * @since 2023-05-10
  */
 public class CustomerGroupManager {
-  private static final CustomerGroupManager customerGroupManager = new CustomerGroupManager();
+  private static CustomerGroupManager customerGroupManager = new CustomerGroupManager();
   private final CustomerGroup[] customerGroups;
 
   public CustomerGroupManager() {
@@ -30,6 +30,9 @@ public class CustomerGroupManager {
   }
 
   public static CustomerGroupManager getInstance() {
+    if (customerGroupManager == null) {
+      customerGroupManager = new CustomerGroupManager();
+    }
     return customerGroupManager;
   }
 

@@ -36,7 +36,7 @@ public abstract class AbstractMenu {
    *
    * @return 입력된 메뉴 번호
    */
-  int selectMenuNumber() {
+  int selectMenuNumber() throws StoreException {
     System.out.print("Choose One: ");
 
     int selection = ScannerUtility.getIntegerInputSafely();

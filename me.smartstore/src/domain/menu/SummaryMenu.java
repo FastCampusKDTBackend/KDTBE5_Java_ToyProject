@@ -35,10 +35,10 @@ public class SummaryMenu implements Menu {
                     "Back"
             });
 
-            if (choice == 1) summaryService.showDefault(customers, groups);
-            if (choice == 2) summaryService.sortByName(customers, summaryMenu, groups);
-            if (choice == 3) summaryService.sortByTime(customers, summaryMenu, groups);
-            if (choice == 4) summaryService.sortByPayment(customers, summaryMenu, groups);
+            if (choice == 1) summaryService.showDefaultSummary(customers, groups);
+            if (choice == 2) summaryService.showByName(customers, summaryMenu, groups);
+            if (choice == 3) summaryService.showByTime(customers, summaryMenu, groups);
+            if (choice == 4) summaryService.showByPayment(customers, summaryMenu, groups);
             if (choice == 5) break;
         }
     }

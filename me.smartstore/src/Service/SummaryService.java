@@ -6,10 +6,16 @@ import domain.group.Group;
 import domain.group.GroupType;
 import domain.group.Groups;
 import domain.menu.SummaryMenu;
-import handler.exception.*;
+import handler.exception.ArrayEmptyException;
+import handler.exception.InputEndException;
+import handler.exception.InputFormatException;
 
-import java.util.*;
-import java.util.stream.Stream;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import static resources.Message.*;
 
 public class SummaryService {
 
@@ -41,37 +47,48 @@ public class SummaryService {
         return returnStr;
     }
 
-    public void showDefault(Customers customers, Groups groups) {
+    public void showDefaultSummary(Customers customers, Groups groups) {
+
+        Customer[] customerArr = customers.getCustomers();
+        showSummary(customerArr, groups);
+
+    }
+
+    private void showSummary(Customer[] customerArr, Groups groups) {
 
         try {
             for (int i = 0; i < groups.size(); i++) {
                 Group group = groups.get(i);
                 System.out.println(showSummaryHeader(group));
 
-                Customer[] customerArr = arrayByGroupType(group.getGroupType(), customers);
+                Customer[] resultArr = arrayByGroupType(group.getGroupType(), customerArr);
 
-                if (customerArr.length == 0) {
+                if (resultArr.length == 0) {
                     throw new ArrayEmptyException();
                 }
 
-                Arrays.stream(customerArr).forEach(System.out::println);
+                AtomicInteger index = new AtomicInteger();
+                Arrays.stream(resultArr)
+                        .map(customer -> "No.\t" + (index.getAndIncrement() + 1) + " => " + customer)
+                        .forEach(System.out::println);
             }
         } catch (IndexOutOfBoundsException | ArrayEmptyException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    private Customer[] arrayByGroupType(GroupType groupType, Customers customers) {
-        Customer[] customerArray = new Customer[customers.size()];
+    /**
+     * Groups에서 group type에 일치하는 배열을 만들어 리턴
+     *
+     * @param groupType : GroupType
+     * @param customerArr : groups에서 추출한 원본 배열
+     * @return : Customer[]
+     */
+    private Customer[] arrayByGroupType(GroupType groupType, Customer[] customerArr) {
 
-        for (int i = 0; i < customers.size(); i++) {
-//            System.out.println("array by group type : " + customers.get(i).getGroupType());
-            if (groupType == customers.get(i).getGroupType()) {
-                customerArray[i] = customers.get(i);
-            }
-        }
-        // 일단 배열 크기를 customers의 size로 잡은 후 return 시 nonNull인 값들로만 새 배열 생성
-        return Arrays.stream(customerArray).filter(Objects::nonNull).toArray(Customer[]::new);
+        return Arrays.stream(customerArr)
+                .filter(customer -> groupType == customer.getGroupType())
+                .toArray(Customer[]::new);
     }
 
     /**
@@ -81,19 +98,26 @@ public class SummaryService {
      * @param summaryMenu : Scanner 입력을 위한 SummaryMenu 인스턴스
      * @param groups : 그룹별 정렬을 위한 Groups 인스턴스
      */
-    public void sortByName(Customers customers, SummaryMenu summaryMenu, Groups groups) {
-
+    public void showByName(Customers customers, SummaryMenu summaryMenu, Groups groups) {
         Comparator<Customer> byName = Comparator.comparing(Customer::getCusName);
         boolean sortOrder = sortOrder(summaryMenu);
-        arraySort(byName, sortOrder, customers);
-        showDefault(customers, groups);
-
+        Customer[] customerArr = arraySort(byName, sortOrder, customers);
+        showSummary(customerArr, groups);
     }
 
-    public void sortByTime(Customers customers, SummaryMenu summaryMenu, Groups groups) {
+    //@TODO 같은 중북 코드 제거 할 좋은 아이디어는?
+    public void showByTime(Customers customers, SummaryMenu summaryMenu, Groups groups) {
+        Comparator<Customer> byTime = Comparator.comparing(Customer::getCusTotalTime);
+        boolean sortOrder = sortOrder(summaryMenu);
+        Customer[] customerArr = arraySort(byTime, sortOrder, customers);
+        showSummary(customerArr, groups);
     }
 
-    public void sortByPayment(Customers customers, SummaryMenu summaryMenu, Groups groups) {
+    public void showByPayment(Customers customers, SummaryMenu summaryMenu, Groups groups) {
+        Comparator<Customer> byPayment = Comparator.comparing(Customer::getCusTotalPay);
+        boolean sortOrder = sortOrder(summaryMenu);
+        Customer[] customerArr = arraySort(byPayment, sortOrder, customers);
+        showSummary(customerArr, groups);
     }
 
     private boolean sortOrder(SummaryMenu summaryMenu) {
@@ -108,20 +132,24 @@ public class SummaryService {
         } catch (InputFormatException e) {
             System.out.println(e.getMessage());
         }
-        return sortOrder(summaryMenu);
+        System.out.println(ERR_MSG_INVALID_INPUT_RANGE);
+        return sortOrder(summaryMenu); //정상적인 값이 들어올 때까지 재귀적 호출
     }
 
     /**
+     * comparator를 모듈화 하여 정렬 로직을 재사용.
+     * Stream을 적극 활용함으로서 Null safe한 코드가 되었음.
      *
      * @param comparator = functional lambda expression
-     * @param sortOrder = false : ASC(default) / true : DESC
-     * @param customers = Customers 인스턴스
-     * @return Customers
+     * @param sortOrder  = false : ASC(default) / true : DESC
+     * @param customers  = Customers 인스턴스
+     * @return Customer[]
      */
-    private Customers arraySort(Comparator<Customer> comparator, boolean sortOrder, Customers customers) {
-        if (sortOrder) comparator.reversed();
-        Arrays.sort(customers.getCustomers(), comparator);
-        Stream.of(customers).forEach(System.out::println);
-        return customers;
+    private Customer[] arraySort(Comparator<Customer> comparator, boolean sortOrder, Customers customers) {
+        if (sortOrder) comparator = comparator.reversed();
+        return Arrays.stream(customers.getCustomers())
+                .filter(Objects::nonNull)
+                .sorted(comparator)
+                .toArray(Customer[]::new);
     }
 }

@@ -82,6 +82,7 @@ public class Customer {
                 ", cusId='" + cusId + '\'' +
                 ", cusTotalTime=" + cusTotalTime +
                 ", cusTotalPay=" + cusTotalPay +
+                ", groupType=" + groupType +
                 '}';
     }
 }

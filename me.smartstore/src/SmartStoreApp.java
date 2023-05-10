@@ -51,7 +51,6 @@ public class SmartStoreApp {
                     ((int) (Math.random() * 5) + 1) * 100000));
         }
 
-        //TODO: refresh bug fix needed
         customerService.refresh(groups);
 
         System.out.println("allCustomers = " + customers);

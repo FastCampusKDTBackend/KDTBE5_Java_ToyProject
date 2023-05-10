@@ -249,16 +249,6 @@ public class CustomerService {
         }
         return null;
     }
-
-    /**
-     * 정렬 기준을 Comparator에 파라미터로 전달하면 정렬된 Customer 배열을 반환.
-     *
-     * @param comparator: 정렬 기준(name, TotalTime, TotalPay)
-     * @return 정렬된 Customer[] 배열을 반환
-     */
-    public Customer[] getSortedCustomers(Comparator<Customer> comparator, Customers customers) {
-        Customer[] customerArr = customers.getCustomers();
-        Arrays.sort(customerArr, comparator);
-        return customerArr;
-    }
 }
+
+

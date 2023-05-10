@@ -78,6 +78,10 @@ public enum ModifyCustomerInforationMenu implements Menu {
         this.consumer = consumer;
     }
 
+    public static boolean isQuit(int menuNumber) {
+        return ModifyCustomerInforationMenu.values().length + 1 == menuNumber;
+    }
+
     public boolean isEqualMenuNumber(int menuNumber) {
         return this.menuNumber == menuNumber;
     }

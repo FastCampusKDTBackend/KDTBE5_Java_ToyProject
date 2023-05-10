@@ -20,8 +20,11 @@ public interface AddCustomerExecute {
             OutputView.showMenus(ModifyCustomerInforationMenu.values());
             OutputView.showMessage(ViewMessage.INPUT_MENU);
             try {
-                ModifyCustomerInforationMenu.findMenuAndExecution(getInputNumber(), customer);
-                break;
+                int menuNumber = getInputNumber();
+                if (ModifyCustomerInforationMenu.isQuit(menuNumber)) {
+                    return;
+                }
+                ModifyCustomerInforationMenu.findMenuAndExecution(menuNumber, customer);
             } catch (NotFoundException | NumberFormatException exception) {
                 OutputView.showErrorMessage(exception.getMessage());
             }
@@ -31,7 +34,11 @@ public interface AddCustomerExecute {
     private static int getInputNumber() {
         while (true) {
             try {
-                return Integer.parseInt(InputScanner.get().nextLine());
+                String inputNumber = InputScanner.get().nextLine();
+                if (ViewMessage.isExit(inputNumber)) {
+                    return 0;
+                }
+                return Integer.parseInt(inputNumber);
             } catch (RuntimeException runtimeException) {
                 OutputView.showErrorMessage(ErrorMessage.INVALID_INPUT);
             }

@@ -42,7 +42,11 @@ public interface UpdateCustomerExecute {
             OutputView.showMenus(ModifyCustomerInforationMenu.values());
             OutputView.showMessage(ViewMessage.INPUT_MENU);
             try {
-                ModifyCustomerInforationMenu.findMenuAndExecution(getInputNumber(), customer);
+                int menuNumber = getInputNumber();
+                if (ModifyCustomerInforationMenu.isQuit(menuNumber)) {
+                    return;
+                }
+                ModifyCustomerInforationMenu.findMenuAndExecution(menuNumber, customer);
                 break;
             } catch (NotFoundException | NumberFormatException exception) {
                 OutputView.showErrorMessage(exception.getMessage());

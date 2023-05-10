@@ -30,7 +30,47 @@ public class SummaryMenu extends Menu {
         //등급 기준에 따라 정렬
         classifiedCustomers.setSortBy(SortBy.NAME);
 
-        //@Todo summary와 겹치는 내용 추후 리팩토링
+        //@Todo 겹치는 내용 추후 리팩토링
+        GroupType[] groupTypes = GroupType.values();
+        MyArrayList<MyArrayList<Customer>> classifications = classifiedCustomers.getClassifications();
+
+        for (int i = 0; i < GroupType.values().length; i++) {
+            System.out.println("==============================");
+            System.out.printf("그룹: %s", groupTypes[i]);
+            System.out.println("==============================");
+            MyArrayList<Customer> currentClassification = classifications.get(i);
+
+            currentClassification.sort(orderType);
+            for (int j = 0; j < currentClassification.size(); i++) {
+                System.out.println(j + ": " + currentClassification.get(j));
+            }
+        }
+    }
+
+    public void summarySortByHours() {
+        OrderType orderType = inputOrderType();
+        classifiedCustomers.setSortBy(SortBy.HOURS);
+
+        GroupType[] groupTypes = GroupType.values();
+        MyArrayList<MyArrayList<Customer>> classifications = classifiedCustomers.getClassifications();
+
+        for (int i = 0; i < GroupType.values().length; i++) {
+            System.out.println("==============================");
+            System.out.printf("그룹: %s", groupTypes[i]);
+            System.out.println("==============================");
+            MyArrayList<Customer> currentClassification = classifications.get(i);
+
+            currentClassification.sort(orderType);
+            for (int j = 0; j < currentClassification.size(); i++) {
+                System.out.println(j + ": " + currentClassification.get(j));
+            }
+        }
+    }
+
+    public void summarySortByTotalAmount() {
+        OrderType orderType = inputOrderType();
+        classifiedCustomers.setSortBy(SortBy.TOTAL_AMOUNT);
+
         GroupType[] groupTypes = GroupType.values();
         MyArrayList<MyArrayList<Customer>> classifications = classifiedCustomers.getClassifications();
 

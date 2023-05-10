@@ -7,32 +7,6 @@ import com.smartstore.util.CustomList;
 import java.io.IOException;
 
 public interface CustomerMenuHandler extends EnumValueProvider {
-    @Override
-    default String runMenuSelectionLoop(String[] values) {
-        String valueName="";
-        boolean isExit = false;
-        if(values.length > 0) {
-            while (!isExit) {
-                try {
-                    System.out.print("Input : ");
-                    valueName = br.readLine();
-                    if("end".equals(valueName)){
-                        isExit = true;
-                        break;
-                    }
-                    for (String membershipName : values) {
-                        if (MembershipType.valueOf(membershipName).isMatchedName(valueName)) {
-                            isExit = true;
-                            break;
-                        }
-                    }
-                } catch (IOException | NullPointerException e) {
-                    System.out.println("Invalid Menu");
-                }
-            }
-        }
-        return valueName;
-    }
 
     default String[] getEnumValues(){
         CustomList<String> keyList = new CustomList<>();
@@ -48,7 +22,7 @@ public interface CustomerMenuHandler extends EnumValueProvider {
             //get values from enum by string array
             printMenu(getEnumValues(MembershipType.class));
 
-            isExit = handleChoice(runMenuSelectionLoop(new String[]{}));
+            isExit = handleChoice(getMenuNumber(new String[]{}));
         }
     }
 

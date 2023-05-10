@@ -17,11 +17,6 @@ public class Back implements MenuHandler {
     }
 
     @Override
-    public String runMenuSelectionLoop(String[] menus) {
-        return null;
-    }
-
-    @Override
     public boolean handleChoice(String menuNumber) {
         return false;
     }

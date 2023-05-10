@@ -12,6 +12,7 @@ import me.smartstore.util.Message;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 
 import static me.smartstore.group.GroupType.*;
 
@@ -21,13 +22,15 @@ public class SummaryMenu implements Menu {
     private final Groups allGroups = Groups.getInstance();
     private static SummaryMenu summaryMenu;
 
-    public static SummaryMenu getInstance(){
-        if(summaryMenu == null){
+    public static SummaryMenu getInstance() {
+        if (summaryMenu == null) {
             summaryMenu = new SummaryMenu();
         }
         return summaryMenu;
     }
-    private SummaryMenu(){}
+
+    private SummaryMenu() {
+    }
 
     @Override
     public void manage() {
@@ -39,38 +42,40 @@ public class SummaryMenu implements Menu {
                     "Summary (Sorted By Total Payment)",
                     "Back"
             });
-            if(choice == 1) summary(getCustomer());
-            else if(choice == 2) sortedByName(getCustomer());
-            else if(choice == 3) sortedBySpentTime(getCustomer());
-            else if(choice == 4) sortedByTotalPayment(getCustomer());
+            if (choice == 1) summary(getCustomer());
+            else if (choice == 2) sortedByName(getCustomer());
+            else if (choice == 3) sortedBySpentTime(getCustomer());
+            else if (choice == 4) sortedByTotalPayment(getCustomer());
             else break;
         }
 
     }
-    public Customer[] getCustomer(){
+
+    public Customer[] getCustomer() {
         Customer[] customers = new Customer[allCustomers.size()];
-        for (int i=0; i< allCustomers.size(); i++){
+        for (int i = 0; i < allCustomers.size(); i++) {
             customers[i] = allCustomers.get(i);
         }
         return customers;
     }
-    public void summary(Customer[] customers){
+
+    public void summary(Customer[] customers) {
         Parameter parameter = null;
         Group group;
         GroupType[] groupType = {NONE, GENERAL, VIP, VVIP};
-        for(GroupType type: groupType){
-            for(int i=0; i<allGroups.size(); i++){
-                if(allGroups.get(i).getGroupType() == type){
-                   group = allGroups.get(i);
-                   parameter = group.getParameter();
+        for (GroupType type : groupType) {
+            for (int i = 0; i < allGroups.size(); i++) {
+                if (allGroups.get(i).getGroupType() == type) {
+                    group = allGroups.get(i);
+                    parameter = group.getParameter();
                 }
             }
             System.out.println("=====================================");
-            System.out.println("Group : " + type.name() + "( Time : " + parameter.getMinTime() + ", Pay : "+ parameter.getMinPay() + " )");
+            System.out.println("Group : " + type.name() + "( Time : " + parameter.getMinTime() + ", Pay : " + parameter.getMinPay() + " )");
             System.out.println("=====================================");
 
             for (int i = 0; i < customers.length; i++) {
-                if(customers[i].getGroup().getGroupType() == type){
+                if (customers[i].getGroup().getGroupType() == type) {
                     System.out.println(String.format("No. %d => ", i + 1) + customers[i]);
                 }
             }
@@ -79,16 +84,16 @@ public class SummaryMenu implements Menu {
     }
 
     public OrderType orderTypeSummary() {
-        while(true){
+        while (true) {
             try {
                 System.out.println("Which order (ASCENDING (A), DESCENDING (D))?");
                 String choice = nextLine(Message.END_MSG);
                 OrderType orderType = OrderType.valueOf(choice).replaceFullName();
                 return orderType;
-            }catch (InputEndException e){
+            } catch (InputEndException e) {
                 System.out.println(Message.ERR_MSG_INPUT_END);
                 return null;
-            } catch (IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
                 System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
             }
         }
@@ -96,18 +101,17 @@ public class SummaryMenu implements Menu {
     }
 
 
-    public void sortedByName(Customer[] customers){
+    public void sortedByName(Customer[] customers) {
 
-        while(true){
+        while (true) {
             OrderType orderType = orderTypeSummary();
-            if(orderType == null){
+            if (orderType == null) {
                 break;
             }
             try {
-                if(orderType == OrderType.ASCENDING){
-                  Arrays.sort(customers);
-                }
-                else if (orderType == OrderType.DESCENDING){
+                if (orderType == OrderType.ASCENDING) {
+                    Arrays.sort(customers);
+                } else if (orderType == OrderType.DESCENDING) {
                     Arrays.sort(customers, Collections.reverseOrder());
                 } else {
                     throw new InputRangeException();
@@ -116,20 +120,61 @@ public class SummaryMenu implements Menu {
             } catch (InputEndException e) {
                 System.out.println(Message.ERR_MSG_INPUT_END);
                 break;
-            } catch (InputRangeException e){
+            } catch (InputRangeException e) {
                 System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
             }
         }
     }
 
 
-
-    public void sortedBySpentTime(Customer[] customers){
+    public void sortedBySpentTime(Customer[] customers) {
+        while (true) {
+            OrderType orderType = orderTypeSummary();
+            if (orderType == null) {
+                break;
+            }
+            try {
+                if (orderType == OrderType.ASCENDING) {
+                    Arrays.sort(customers);
+                } else if (orderType == OrderType.DESCENDING) {
+                    Arrays.sort(customers, Collections.reverseOrder());
+                } else {
+                    throw new InputRangeException();
+                }
+                summary(customers);
+            } catch (InputEndException e) {
+                System.out.println(Message.ERR_MSG_INPUT_END);
+                break;
+            } catch (InputRangeException e) {
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+            }
+        }
 
     }
 
 
-    public void sortedByTotalPayment(Customer[] customers){
+    public void sortedByTotalPayment(Customer[] customers) {
+        while (true) {
+            OrderType orderType = orderTypeSummary();
+            if (orderType == null) {
+                break;
+            }
+            try {
+                if (orderType == OrderType.ASCENDING) {
+                    Arrays.sort(customers);
+                } else if (orderType == OrderType.DESCENDING) {
+                    Arrays.sort(customers, Collections.reverseOrder());
+                } else {
+                    throw new InputRangeException();
+                }
+                summary(customers);
+            } catch (InputEndException e) {
+                System.out.println(Message.ERR_MSG_INPUT_END);
+                break;
+            } catch (InputRangeException e) {
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+            }
+        }
 
     }
 

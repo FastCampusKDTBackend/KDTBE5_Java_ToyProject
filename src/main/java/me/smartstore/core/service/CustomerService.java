@@ -24,7 +24,7 @@ public class CustomerService {
   private static final CustomerGroupService customerGroupService =
       CustomerGroupService.getInstance();
 
-  private static SortBy lastRequestSortBy = SortBy.NAME;
+  private static SortBy lastRequestedSortBy = SortBy.NAME;
   private static SortOrder lastRequestedSortOrder = SortOrder.ASCENDING;
 
   private static CustomerGroup[] customerGroups = customerGroupService.findAll();
@@ -136,7 +136,7 @@ public class CustomerService {
    * 고객 분류 및 요약 정보 출력. 가장 최근에 조회한 기준에 따라 자동으로 정렬.
    */
   public void displayClassificationSummary() {
-    displayClassificationSummary(lastRequestSortBy, lastRequestedSortOrder);
+    displayClassificationSummary(lastRequestedSortBy, lastRequestedSortOrder);
   }
 
   /**
@@ -147,7 +147,7 @@ public class CustomerService {
    */
   public void displayClassificationSummary(SortBy sortBy, SortOrder sortOrder) {
     classifyAllCustomers();
-    lastRequestSortBy = sortBy;
+    lastRequestedSortBy = sortBy;
     lastRequestedSortOrder = sortOrder;
     switch (sortBy) {
       case NAME -> displayClassificationSummaryByName(sortOrder);

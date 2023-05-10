@@ -9,10 +9,6 @@ public abstract class Menu {
     private static final Reader reader = Reader.getInstance();
     private static final Printer printer = Printer.getInstance();
     protected static final String END_INPUT = "** Press 'end', if you want to exit! **\n";
-    protected static final String GROUP_OUTPUT =
-                    '\n' +
-                    "Which group (GENERAL (G), VIP (V), VVIP (VV))?\n"
-                    + END_INPUT;
 
     private Menu[] nextMenus;
     private Menu BACK_MENU;

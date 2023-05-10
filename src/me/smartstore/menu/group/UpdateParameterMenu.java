@@ -1,80 +1,53 @@
 package me.smartstore.menu.group;
 
 import me.smartstore.group.Group;
-import me.smartstore.menu.exception.InputIsEndException;
-import me.smartstore.menu.exception.InvalidGroupNameException;
 import me.smartstore.menu.Menu;
 import me.smartstore.menu.topic.GroupMenu;
 
 import java.util.InputMismatchException;
 
-public class UpdateParameterMenu extends Menu {
+public class UpdateParameterMenu extends GroupParameterMenu {
 
-    private static final String SET_GROUP_PARAMETER_OUTPUT =
+    private static final String UPDATE_PARAMETER_INPUT =
                     '\n' +
-                    "===== Set Group Parameter ====" + '\n' +
+                    "======= Update Parameter =====" + '\n' +
                     " 1. " + "Minimum " + "Spent Hours" + '\n' +
                     " 2. " + "Minimum " + "Total Paid Amount" + '\n' +
-                    " 3. " + "Back" + '\n' +
+                    " 3. " + "Confirm" + '\n' +
+                    " 4. " + "Cancel(Back)" + '\n' +
                     "==============================" + '\n' +
                     "Choose One: ";
-    private static final String[] GROUP_PARAMETER_INPUT = {
-            '\n' + "Input " + "Minimum " + "Spent Hours" + ":\n" + END_INPUT,
-            '\n' + "Input " + "Minimum " + "Total Paid Amount" + ":\n" + END_INPUT
-    };
 
     private static class InstanceHolder {
         private static final UpdateParameterMenu INSTANCE = new UpdateParameterMenu();
     }
 
-    private UpdateParameterMenu() { super(); }
+    private UpdateParameterMenu() {}
 
     public static UpdateParameterMenu getInstance() { return InstanceHolder.INSTANCE; }
 
     @Override
-    public Menu printAndInputAndGetNextMenu() {
-        setNextMenus();
-        while (true) {
-            print(GROUP_OUTPUT);
-            try {
-                String groupName = inputStringOrEnd();
-                Group group = Group.getGroupByString(groupName);
-                print(group);
-                inputGroupParameter(group);
-            } catch (InputIsEndException e) {
-                print(e.getMessage());
-                return getBackMenu();
-            } catch (InvalidGroupNameException e) {
-                print(e.getMessage());
-            }
-        }
-    }
-
-    @Override
     public void setNextMenus() {
         setNextMenus(
-                null,                    // read minSpentHours
-                null,                    // read minTotalPaidAmount
-                GroupMenu.getInstance()  // Back => GroupMenu
+                InputMinSpentHoursMenu.getInstance(),
+                InputMinTotalPaidAmountMenu.getInstance(),
+                UpdateGroupParameterConfirmMenu.getInstance(),
+                GroupMenu.getInstance()
         );
     }
 
-    private void inputGroupParameter(Group group) {
-        Integer[] groupParameterArguments = { null, null };
+    @Override
+    protected Menu handleAndMoveToNextMenu(Group group) {
+        if (getPrevMenu() == GroupMenu.getInstance()) {
+            setNextMenus();
+            print(group);
+            Group.setTempParameter(group);
+        }
         while (true) {
-            print(SET_GROUP_PARAMETER_OUTPUT);
             try {
+                print(UPDATE_PARAMETER_INPUT);
                 int menuIdx = inputMenuIdx();
-                if (menuIdx <= 1) {
-                    print(GROUP_PARAMETER_INPUT[menuIdx]);
-                    groupParameterArguments[menuIdx] = inputZeroOrPositiveIntegerOrEnd();
-                } else {
-                    group.setGroupParameter(groupParameterArguments);
-                    break;
-                }
-            } catch (InputIsEndException e) {
-                print(e.getMessage());
-                break;
+                return getNextMenu(menuIdx);
             } catch (InputMismatchException e) {
                 print(e.getMessage());
             }

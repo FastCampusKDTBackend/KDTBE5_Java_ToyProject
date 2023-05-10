@@ -170,6 +170,21 @@ public class CustomerRepository {
         return getSummary();
     }
 
+    public void updateGroupIn(Group group) {
+        Group[] groups = Group.values();
+        int idx = 0;
+        while (groups[idx] != group)
+            idx++;
+        Group rightLowGroup = groups[idx - 1];
+        int size = customerList.size();
+        for (int i = 0; i < size; ++i) {
+            Customer customer = customerList.get(i);
+            Group g = customer.getGroup();
+            if (g == group || g == rightLowGroup)
+                customer.updateGroup();
+        }
+    }
+
     @Override
     public String toString() {
         if (customerList.isEmpty()) return "No Customers." + " Please input one first.\n";

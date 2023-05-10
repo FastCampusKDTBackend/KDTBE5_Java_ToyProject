@@ -1,5 +1,6 @@
 package me.smartstore.group;
 
+import me.smartstore.customer.CustomerRepository;
 import me.smartstore.menu.exception.InvalidGroupNameException;
 
 import java.util.Arrays;
@@ -11,6 +12,10 @@ public enum Group {
     VIP("V"),
     VVIP("VV");
 
+    private static final Group[] USED_GROUPS = { GENERAL, VIP, VVIP };
+    private static GroupParameter tempParameter;
+    private static Group tempGroup;
+
     private final String shortcut;
     private final GroupParameter groupParameter;
 
@@ -19,9 +24,11 @@ public enum Group {
         this.groupParameter = new GroupParameter();
     }
 
+    public static Group[] getUsedGroups() { return USED_GROUPS; }
+
     public static Group getGroupByString(String s) throws InvalidGroupNameException {
-        Group[] groups = Group.values();
-        return Arrays.stream(groups, 1, groups.length)
+        Group[] groups = Group.getUsedGroups();
+        return Arrays.stream(groups)
                 .filter(group -> group.isName(s))
                 .findAny()
                 .orElseThrow(() -> new InvalidGroupNameException("\nInvalid Group Name for Input. Please try again.\n"));
@@ -37,9 +44,9 @@ public enum Group {
     }
 
     public static Group calculate(Integer spentHours, Integer totalPaidAmount) {
-        Group[] groups = values();
+        Group[] groups = getUsedGroups();
         Group ret = NONE;
-        int i = 1;
+        int i = 0;
         for (; i < groups.length; ++i) {
             Group group = groups[i];
             GroupParameter parameter = group.groupParameter;
@@ -56,9 +63,43 @@ public enum Group {
         return ret;
     }
 
+    public static void setTempMinSpentHours(Integer minSpentHours) {
+        tempParameter.setMinSpentHours(minSpentHours);
+    }
+
+    public static void setTempMinTotalPaidAmount(Integer minTotalPaidAmount) {
+        tempParameter.setMinTotalPaidAmount(minTotalPaidAmount);
+    }
+
+    public static void setTempParameter(Group group) {
+        GroupParameter param = group.groupParameter;
+        tempParameter = new GroupParameter(param.getMinSpentHours(), param.getMinTotalPaidAmount());
+        tempGroup = group;
+    }
+
+    public static String getUpdateBeforeAndAfterInfo() {
+        String before = tempGroup.groupParameter.toString();
+        String after = tempParameter.toString();
+        return getGroupNameInfo(tempGroup) +
+                "Before: " + before + '\n'+
+                "After : " + after;
+    }
+
+    public static void updateGroupParameter() {
+        GroupParameter param = tempGroup.groupParameter;
+        param.setMinSpentHours(tempParameter.getMinSpentHours());
+        param.setMinTotalPaidAmount(tempParameter.getMinTotalPaidAmount());
+
+        CustomerRepository.getInstance().updateGroupIn(tempGroup);
+    }
+
     @Override
     public String toString() {
-        return "\nGroupType: " + this.name() + '\n'
+        return getGroupNameInfo(this)
                 + "Parameter: " + this.groupParameter + '\n';
+    }
+
+    public static String getGroupNameInfo(Group group) {
+        return '\n' + "Group: " + group.name() + '\n';
     }
 }

@@ -6,6 +6,11 @@ public class GroupParameter {
 
     public GroupParameter() {}
 
+    public GroupParameter(Integer minSpentHours, Integer minTotalPaidAmount) {
+        this.minSpentHours = minSpentHours;
+        this.minTotalPaidAmount = minTotalPaidAmount;
+    }
+
     public void setMinSpentHours(Integer minSpentHours) {
         this.minSpentHours = minSpentHours;
     }

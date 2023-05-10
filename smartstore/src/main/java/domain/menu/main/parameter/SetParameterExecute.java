@@ -64,6 +64,7 @@ public interface SetParameterExecute {
             }
         }
     }
+
     private static void executeSubmenu(GroupType groupType) {
         while (true) {
             OutputView.showMenus(ModifyParameterMenu.values());

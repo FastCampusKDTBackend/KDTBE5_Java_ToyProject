@@ -10,6 +10,7 @@ public enum SortType {
 
 
     private final String symbol;
+
     SortType(String symbol) {
         this.symbol = symbol;
     }

@@ -12,7 +12,7 @@ public class Customer {
     private int totalPay;
     private GroupType groupType;
 
-    public Customer(){
+    public Customer() {
         this.userId = RandomStringGenerator.getRandomUserId();
         this.name = RandomStringGenerator.getRandomAlphabetString();
         this.spentTime = 0;

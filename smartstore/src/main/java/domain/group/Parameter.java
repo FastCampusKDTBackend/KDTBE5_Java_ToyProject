@@ -4,7 +4,7 @@ public class Parameter {
     private int minimumSpentTime;
     private int minimumTotalPay;
 
-    public  Parameter() {
+    public Parameter() {
         minimumSpentTime = 0;
         minimumTotalPay = 0;
     }

@@ -93,4 +93,9 @@ public enum ModifyCustomerInforationMenu implements Menu {
                 .orElseThrow(NotFoundException::new)
                 .execute(customer);
     }
+
+    @Override
+    public String toString() {
+        return "  " + menuNumber + ". " + menuName + "\n";
+    }
 }

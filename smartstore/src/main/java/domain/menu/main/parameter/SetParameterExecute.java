@@ -13,27 +13,7 @@ import java.util.Scanner;
 
 public interface SetParameterExecute {
     static Runnable getMethod() {
-        return () -> {
-            while (true) {
-
-                GroupType groupType = getGroup();
-
-                if (Objects.isNull(groupType)) {
-                    return;
-                }
-
-
-                if (groupType.isParameterExist()) {
-                    OutputView.showErrorMessage(ErrorMessage.ALREADY_SET);
-                    continue;
-                }
-
-                groupType.initParameter();
-
-                executeSubmenu(groupType);
-
-            }
-        };
+        return SetParameterExecute::run;
     }
 
     private static void executeSubmenu(GroupType groupType) {
@@ -81,5 +61,26 @@ public interface SetParameterExecute {
             }
         }
 
+    }
+
+    private static void run() {
+        while (true) {
+
+            GroupType groupType = getGroup();
+
+            if (Objects.isNull(groupType)) {
+                return;
+            }
+
+
+            if (groupType.isParameterExist()) {
+                OutputView.showErrorMessage(ErrorMessage.ALREADY_SET);
+                continue;
+            }
+
+            groupType.initParameter();
+
+            executeSubmenu(groupType);
+        }
     }
 }

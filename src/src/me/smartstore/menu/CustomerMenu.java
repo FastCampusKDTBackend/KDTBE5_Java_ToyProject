@@ -4,7 +4,6 @@ import me.smartstore.customer.Customer;
 import me.smartstore.customer.Customers;
 import me.smartstore.exception.InputEndException;
 import me.smartstore.exception.InputRangeException;
-import me.smartstore.util.Message;
 
 import java.util.InputMismatchException;
 
@@ -54,8 +53,7 @@ public class CustomerMenu implements Menu{
         while( true ) {
             try {
                 System.out.println("How many customers to input?");
-                String inputData = nextLine(END_MSG);
-                Integer number = formatInt(inputData);
+                Integer number = formatInt(nextLine(END_MSG));
 
                 for (int i = 1; i <= number; i++) {
                     System.out.println("====== Customer " + i + " Info. ======");
@@ -63,11 +61,14 @@ public class CustomerMenu implements Menu{
                     setCustomerInfo(customer);
                     allCustomers.add(customer);
                 }
+                allCustomers.refresh();
                 return;
-//                allCustomers.refresh(); 구현 해야 함
             }
             catch (InputEndException e){
                 break;
+            }
+            catch (InputMismatchException e){
+                System.out.println(ERR_MSG_INVALID_INPUT_FORMAT);
             }
         }
     }
@@ -84,25 +85,28 @@ public class CustomerMenu implements Menu{
             try{
                 if(choice == 1){
                     System.out.println("Input Customer's Name:");
-                    customer.setCusName(nextLine(END_MSG));
+                    setCustomerName(customer);
                 }
                 else if (choice == 2) {
                     System.out.println("Input Customer's ID: ");
-                    customer.setCusId(nextLine(END_MSG));
+                    setCustomerId(customer);
                 }
                 else if (choice == 3) {
                     System.out.println("Input Customer's Spent Time:");
-                    customer.setCusTotalTime(formatInt(nextLine(END_MSG)));
+                    setCustomerTotalTime(customer);
                 } 
                 else if (choice == 4) {
                     System.out.println("Input Customer's Total Payment: ");
-                    customer.setCusTotalPay(formatInt(nextLine(END_MSG)));
+                    setCustomerTotalPay(customer);
                 }
                 else{
                     break;
                 }
             }catch (InputEndException e){
                 break;
+            }
+            catch (InputMismatchException e){
+                System.out.println(ERR_MSG_INVALID_INPUT_FORMAT);
             }
         }
     }
@@ -115,42 +119,58 @@ public class CustomerMenu implements Menu{
         }
     }
 
-    private void updateCustomer(){
+    private void updateCustomer() {
         viewCustomer();
-        System.out.println("Which customer " + "( 1 ~ " + allCustomers.size() +")");
-        try{
-            Integer index = formatInt(nextLine());
-            if (index < 1 || index > allCustomers.size()) {
-                throw new InputRangeException();
+        while (true) {
+            System.out.println("Which customer " + "( 1 ~ " + allCustomers.size() + ")");
+            try {
+                Integer index = formatInt(nextLine());
+                if (index < 1 || index > allCustomers.size()) {
+                    throw new InputRangeException();
+                }
+                Customer customer = allCustomers.get(index - 1);
+                setCustomerInfo(customer);
+                allCustomers.refresh();
+                return;
+            } catch (InputMismatchException e) {
+                System.out.println(ERR_MSG_INVALID_INPUT_FORMAT);
+            } catch (InputRangeException e) {
+                System.out.println(ERR_MSG_INVALID_INPUT_RANGE);
             }
-            Customer customer = allCustomers.get(index-1);
-            setCustomerInfo(customer);
-//            allCustomers.refresh();
-            return;
-        }
-        catch (InputMismatchException e){
-            System.out.println(ERR_MSG_INVALID_INPUT_FORMAT);
-        }
-        catch (InputRangeException e ){
-            System.out.println(ERR_MSG_INVALID_INPUT_RANGE);
         }
     }
 
-    private void deleteCustomer(){
+    private void deleteCustomer() {
         viewCustomer();
-        System.out.println("Which customer " + "( 1 ~ " + allCustomers.size() +")");
-        try{
-            Integer index = formatInt(nextLine(END_MSG));
-            if (index < 1 || index > allCustomers.size()) {
-                throw new InputRangeException();
+        while (true) {
+            System.out.println("Which customer " + "( 1 ~ " + allCustomers.size() + ")");
+            try {
+                Integer index = formatInt(nextLine(END_MSG));
+                if (index < 1 || index > allCustomers.size()) {
+                    throw new InputRangeException();
+                }
+                System.out.println(allCustomers.pop(index - 1));
+                return;
+            } catch (InputRangeException e) {
+                System.out.println(ERR_MSG_INVALID_INPUT_RANGE);
+            } catch (InputMismatchException e) {
+                System.out.println(ERR_MSG_INVALID_INPUT_FORMAT);
             }
-            Customer customer = allCustomers.get(index - 1);
-            System.out.println(allCustomers.pop(index-1));
-//            allCustomers.refresh();
-            return;
         }
-        catch (InputEndException e){
-            System.out.println(ERR_MSG_INVALID_INPUT_FORMAT);
-        }
+    }
+
+    private void setCustomerName(Customer customer) throws InputEndException{
+        customer.setCusName(nextLine(END_MSG));
+    }
+
+    private void setCustomerId(Customer customer) throws InputEndException{
+        customer.setCusId(nextLine(END_MSG));
+    }
+
+    private void setCustomerTotalTime(Customer customer) throws InputEndException{
+        customer.setCusTotalTime(formatInt(nextLine(END_MSG)));
+    }
+    private void setCustomerTotalPay(Customer customer) throws InputEndException{
+        customer.setCusTotalPay(formatInt(nextLine(END_MSG)));
     }
 }

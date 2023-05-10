@@ -50,4 +50,5 @@ public class Parameter {
                 ", minPay=" + minPay +
                 '}';
     }
+
 }

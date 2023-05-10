@@ -1,20 +1,40 @@
 package me.smartstore.group;
 
+import me.smartstore.exception.InputRangeException;
+
 // 그룹 형태를 관리
 public enum GroupType {
-    NONE("해당없음"), GENERAL("일반고객"), VIP("우수고객"), VVIP("최우수고객"),
-    N("해당없음"), G("일반고객"), V("우수고객"), VV("최우수고객");
+    NONE, GENERAL, VIP, VVIP,
+    N, G, V, VV;
 
-    String groupType = "";
 
-    GroupType(String groupType) {
-        this.groupType = groupType;
-    }
     public GroupType replaceFullName() {
         if (this == N) return NONE;
         else if (this == G) return GENERAL;
         else if (this == V) return VIP;
         else if (this == VV) return VVIP;
         return this;
+    }
+
+    public static GroupType findGroupType(int num){
+        for(GroupType group : GroupType.values()){
+            if(group.ordinal() == num){
+                return group;
+            }
+        }
+        throw new NullPointerException();
+    }
+    public static int getTypeLevel(Group group) {
+        GroupType type = group.getGroupType();
+        if (type == NONE) {
+            return 0;
+        } else if (type == GENERAL) {
+            return 1;
+        } else if (type == VIP) {
+            return 2;
+        } else if (type == VVIP) {
+            return 3;
+        }
+        throw new InputRangeException();
     }
 }

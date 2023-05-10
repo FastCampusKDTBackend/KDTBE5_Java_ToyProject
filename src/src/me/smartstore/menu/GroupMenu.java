@@ -16,6 +16,7 @@ import static me.smartstore.util.Message.END_MSG;
 
 public class GroupMenu implements Menu{
     private static GroupMenu groupMenu;
+    private final Customers allcustomers = Customers.getInstance();
     private final Groups allGroups = Groups.getInstance();
 
 
@@ -58,6 +59,7 @@ public class GroupMenu implements Menu{
                 String inputData = nextLine(END_MSG);
                 GroupType groupType = GroupType.valueOf(inputData).replaceFullName();
                 Group group = allGroups.find(groupType);
+
                 if (group != null && group.getParameter() != null) {
                     System.out.println("group already exists.");
                 }
@@ -66,7 +68,7 @@ public class GroupMenu implements Menu{
                     setParameter(parameter);
                     group = new Group(parameter, groupType);
                     allGroups.add(group);
-//                    allCustomers.refresh();
+                    allcustomers.refresh();
                 }
             }
             catch (InputEndException e){
@@ -94,9 +96,13 @@ public class GroupMenu implements Menu{
                         Integer minTime = formatInt(nextLine(END_MSG));
                         parameter.setMinTime(minTime);
                         break;
-                    } catch (InputRangeException e) {
+                    }
+
+                    catch (InputRangeException e) {
                         System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
-                    } catch (InputMismatchException e) {
+                    }
+
+                    catch (InputMismatchException e) {
                         System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
                     }
                 }
@@ -107,9 +113,13 @@ public class GroupMenu implements Menu{
                         Integer minPay = formatInt(nextLine(END_MSG));
                         parameter.setMinPay(minPay);
                         break;
-                    } catch (InputRangeException e) {
+                    }
+
+                    catch (InputRangeException e) {
                         System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
-                    } catch (InputMismatchException e) {
+                    }
+
+                    catch (InputMismatchException e) {
                         System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
                     }
                 }
@@ -119,46 +129,6 @@ public class GroupMenu implements Menu{
         }
     }
 
-//    private void setParameter(Parameter parameter){
-//        while ( true ){
-//            int choice = chooseMenu(new String[] {
-//                     "Minimum Spent Time",
-//                     "Minimum Total Pay",
-//                     "Back"
-//            });
-//            if (choice == 1) {
-//                while (true) {
-//                    try {
-//                        System.out.println("Input Minimum Spent Time: ");
-//                        Integer minTime = formatInt(nextLine(END_MSG));
-//                        parameter.setMinTime(minTime);
-//                        break;
-//                    } catch (InputRangeException e) {
-//                        System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
-//                    } catch (InputMismatchException e) {
-//                        System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
-//                    }
-//                }
-//            }
-//            else if(choice == 2){
-//                while(true) {
-//                    try {
-//                        System.out.println("Input Minimum Total Pay: ");
-//                        Integer minPay = formatInt(nextLine(END_MSG));
-//                        parameter.setMinPay(minPay);
-//                        break;
-//                    }catch (InputRangeException e){
-//                        System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
-//                    }catch (InputMismatchException e){
-//                        System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
-//                    }
-//                }
-//            }
-//            else {
-//                break;
-//            }
-//        }
-//    }
 
     private void viewParameter(){
         while (true){
@@ -167,10 +137,17 @@ public class GroupMenu implements Menu{
                 String inputData = nextLine(END_MSG);
                 GroupType groupType = GroupType.valueOf(inputData).replaceFullName();
                 Group group = allGroups.find(groupType);
-            }catch (InputEndException e){
+
+                System.out.println(String.format("\nGroupType: %s", groupType.name()));
+                System.out.println("Parameter: " + group.getParameter());
+            }
+
+            catch (InputEndException e){
                 System.out.println(Message.ERR_MSG_INPUT_END);
                 break;
-            } catch (IllegalArgumentException e){
+            }
+
+            catch (IllegalArgumentException e){
                 System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
             }
         }
@@ -191,7 +168,7 @@ public class GroupMenu implements Menu{
                     Parameter parameter = group.getParameter();
                     setParameter(parameter);
                     group.setParameter(parameter);
-//                    allCustomers.refresh();
+                    allcustomers.refresh();
                 }
             }
             catch (InputEndException e){

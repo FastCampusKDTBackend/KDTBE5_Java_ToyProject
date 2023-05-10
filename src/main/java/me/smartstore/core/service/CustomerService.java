@@ -86,6 +86,11 @@ public class CustomerService {
     customerManager.save(customer);
   }
 
+  /**
+   * 고객 관리 번호를 통한 조회 및 삭제
+   *
+   * @param id 고객 관리 번호
+   */
   public void deleteCustomerById(Long id) {
     customerManager.deleteById(id);
   }
@@ -114,6 +119,9 @@ public class CustomerService {
     }
   }
 
+  /**
+   * 모든 고객 분류
+   */
   public void classifyAllCustomers() {
     customerGroups = customerGroupService.findAll();
     Customer[] customers = customerManager.selectAll();
@@ -124,21 +132,35 @@ public class CustomerService {
     }
   }
 
+  /**
+   * 고객 분류 및 요약 정보 출력. 가장 최근에 조회한 기준에 따라 자동으로 정렬.
+   */
   public void displayClassificationSummary() {
     displayClassificationSummary(lastRequestSortBy, lastRequestedSortOrder);
   }
 
-  public void displayClassificationSummary(SortBy sortby, SortOrder sortOrder) {
+  /**
+   * 고객 분류 결과를 기준에 따라 정렬하여 출력.
+   *
+   * @param sortBy 정렬기준
+   * @param sortOrder 정렬순서 (오름차순, 내림차순)
+   */
+  public void displayClassificationSummary(SortBy sortBy, SortOrder sortOrder) {
     classifyAllCustomers();
-    lastRequestSortBy = sortby;
+    lastRequestSortBy = sortBy;
     lastRequestedSortOrder = sortOrder;
-    switch (sortby) {
+    switch (sortBy) {
       case NAME -> displayClassificationSummaryByName(sortOrder);
       case SPENT_TIME -> displayClassificationSummaryBySpentTime(sortOrder);
       case PAY_AMOUNT -> displayClassificationSummaryByPayAmount(sortOrder);
     }
   }
 
+  /**
+   * 고객 분류 결과를 이름순으로 정렬하여 출력.
+   *
+   * @param sortOrder 정렬순서 (오름차순, 내림차순)
+   */
   public void displayClassificationSummaryByName(SortOrder sortOrder) {
     Arrays.stream(customerGroups)
         .forEach(
@@ -160,6 +182,11 @@ public class CustomerService {
             });
   }
 
+  /**
+   * 고객 분류 결과를 이용시간순으로 정렬하여 출력.
+   *
+   * @param sortOrder 정렬순서 (오름차순, 내림차순)
+   */
   public void displayClassificationSummaryBySpentTime(SortOrder sortOrder) {
     Arrays.stream(customerGroups)
         .forEach(
@@ -184,6 +211,11 @@ public class CustomerService {
             });
   }
 
+  /**
+   * 고객 분류 결과를 사용금액순으로 정렬하여 출력.
+   *
+   * @param sortOrder 정렬순서 (오름차순, 내림차순)
+   */
   public void displayClassificationSummaryByPayAmount(SortOrder sortOrder) {
     Arrays.stream(customerGroups)
         .forEach(

@@ -2,7 +2,7 @@ package com.smartstore.function;
 
 import java.io.IOException;
 
-public interface ValidIntegerChecker extends Readable{
+public interface IntegerValidator extends Readable{
     default int getIntegerValue(){
         int value;
         while (true){

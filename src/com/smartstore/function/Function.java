@@ -1,9 +1,11 @@
 package com.smartstore.function;
 
+import com.smartstore.function.mainmenu.MainMenuHandler;
+
 import java.util.Arrays;
 
 public interface Function {
-    static <T extends Enum<T> & Function> T of(int menuNumber, Class<T> enumClass){
+    static <E extends Enum<E> & Function> E of(int menuNumber, Class<E> enumClass){
 
         return Arrays.stream(enumClass.getEnumConstants())
                 .filter(enumValue -> enumValue.isMatchedMenuNumber(menuNumber))
@@ -12,18 +14,16 @@ public interface Function {
 
     int getMenuNumber();
 
-    MenuHandler getMenuController();
+    <T extends MenuHandler> T getMenuController();
 
     default boolean isMatchedMenuNumber(int menuNumber){
         return getMenuNumber() == menuNumber;
     }
 
     default void run() {
-        MenuHandler menuHandler = getMenuController();
-        if(menuHandler.getClass().equals(Back.class)){
-            menuHandler.run(0);
-        }else{
-            menuHandler.run();
-        }
+        getMenuController().run();
+    }
+    default <V> void run(int value){
+        getMenuController().run(value);
     }
 }

@@ -3,8 +3,9 @@ package com.smartstore.function.customer.add;
 import com.smartstore.function.Back;
 import com.smartstore.function.Function;
 import com.smartstore.function.MenuHandler;
+import com.smartstore.function.customer.CustomerMenuHandler;
+import com.smartstore.function.mainmenu.MainMenuHandler;
 import com.smartstore.function.membership.update.SetMinPaymentAmount;
-import com.smartstore.function.membership.update.SetMinUsage;
 
 public enum AddCustomerFunction implements Function {
 
@@ -16,10 +17,10 @@ public enum AddCustomerFunction implements Function {
 
 
     private final int menuNumber;
-    private final MenuHandler menuHandler;
-    AddCustomerFunction(int menuNumber, MenuHandler menuHandler) {
+    private final MenuHandler mainMenuHandler;
+    AddCustomerFunction(int menuNumber, MenuHandler mainMenuHandler) {
         this.menuNumber = menuNumber;
-        this.menuHandler = menuHandler;
+        this.mainMenuHandler = mainMenuHandler;
     }
 
     @Override
@@ -29,7 +30,7 @@ public enum AddCustomerFunction implements Function {
 
     @Override
     public MenuHandler getMenuController() {
-        return this.menuHandler;
+        return this.mainMenuHandler;
     }
 
 }

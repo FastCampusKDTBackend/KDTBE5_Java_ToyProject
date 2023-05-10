@@ -1,59 +1,23 @@
 package com.smartstore.function.membership;
 
-import com.smartstore.function.FunctionHandler;
+import com.smartstore.function.*;
+import com.smartstore.function.mainmenu.Screen;
 import com.smartstore.membership.MembershipRequirement;
 import com.smartstore.membership.MembershipType;
 import com.smartstore.membership.Memberships;
-import com.smartstore.util.CustomList;
 
-import java.io.IOException;
 import java.util.NoSuchElementException;
 
-public interface MembershipMenuHandler extends FunctionHandler {
-    @Override
-    default String runMenuSelectionLoop(String[] values) {
-        String valueName="";
-        boolean isExit = false;
-        if(values.length > 0) {
-            while (!isExit) {
-                try {
-                    System.out.print("Input : ");
-                    valueName = br.readLine();
-                    if("end".equals(valueName)){
-                        isExit = true;
-                        break;
-                    }
-                    for (String membershipName : values) {
-                        if (MembershipType.valueOf(membershipName).isMatchedName(valueName)) {
-                            isExit = true;
-                            break;
-                        }
-                    }
-                } catch (IOException | NullPointerException e) {
-                    System.out.println("Invalid Menu");
-                }
-            }
-        }
-        return valueName;
-    }
-
+public interface MembershipMenuHandler extends SelectSpecificPrintable, EnumValueProvider, MenuHandler, ParameterValidator, MenuValidator {
 
     default void run() {
         boolean isExit = false;
         while (!isExit){
             //get values from enum by string array
-            displayMenu(getEnumValues(MembershipType.class));
+            printMenu(getEnumValues(MembershipType.class));
 
-            isExit = handleChoice(runMenuSelectionLoop(getEnumValues(MembershipType.class)));
+            isExit = handleChoice(getParameter(getEnumValues(MembershipType.class)));
         }
-    }
-
-    @Override
-    default void displayMenu(String[] menus){
-        for(int i = 0 ; i < menus.length ; i++){
-            System.out.printf("| %s",menus[i]);
-        }
-        System.out.println(" | or 'end'");
     }
 
     default MembershipType getMembershipType(String membershipNames){
@@ -77,13 +41,26 @@ public interface MembershipMenuHandler extends FunctionHandler {
             MembershipType membershipType = getMembershipType(membershipName);
             //find requirement using type from enum_map
             MembershipRequirement requirement = Memberships.getInstance().findByType(membershipType);
-
             //run each function's method
-            run(membershipType, requirement);
+            processMembership(membershipType, requirement);
         }
         return true;
     }
 
-    void run(MembershipType membershipType, MembershipRequirement requirement);
+    @Override
+    default int getCurrentMenuNumber(){
+        return Screen.MEMBERSHIP.getMenuNumber();
+    };
 
+    void processMembership(MembershipType membershipType, MembershipRequirement requirement);
+
+    @Override
+    default String[] getEnumValues(Class type) {
+        return EnumValueProvider.super.getEnumValues(type);
+    }
+
+    @Override
+    default void printMenu(String[] menus) {
+        SelectSpecificPrintable.super.printMenu(menus);
+    }
 }

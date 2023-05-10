@@ -3,6 +3,7 @@ package com.smartstore.function.membership.update;
 import com.smartstore.function.Back;
 import com.smartstore.function.Function;
 import com.smartstore.function.MenuHandler;
+import com.smartstore.function.mainmenu.MainMenuHandler;
 
 public enum UpdateMembershipRequirementFunction implements Function {
 
@@ -11,10 +12,10 @@ public enum UpdateMembershipRequirementFunction implements Function {
     BACK(3, Back.getInstance());
 
     private final int menuNumber;
-    private final MenuHandler menuHandler;
-    UpdateMembershipRequirementFunction(int menuNumber, MenuHandler menuHandler) {
+    private final MenuHandler mainMenuHandler;
+    UpdateMembershipRequirementFunction(int menuNumber, MenuHandler mainMenuHandler) {
         this.menuNumber = menuNumber;
-        this.menuHandler = menuHandler;
+        this.mainMenuHandler = mainMenuHandler;
     }
 
     @Override
@@ -24,7 +25,7 @@ public enum UpdateMembershipRequirementFunction implements Function {
 
     @Override
     public MenuHandler getMenuController() {
-        return this.menuHandler;
+        return this.mainMenuHandler;
     }
 
 }

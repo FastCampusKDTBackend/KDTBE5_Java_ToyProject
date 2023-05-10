@@ -1,7 +1,5 @@
 package com.smartstore.menu;
 
-import com.smartstore.function.MenuHandler;
-
 public class SummaryMenu {
 
     public static SummaryMenu getInstance() {

@@ -20,7 +20,7 @@ public class SetMembershipRequirement implements MembershipMenuHandler {
     }
 
     @Override
-    public void run(MembershipType membershipType, MembershipRequirement requirement) {
+    public void processMembership(MembershipType membershipType, MembershipRequirement requirement) {
         if(requirement == null){
             Memberships.getInstance().setMembershipRequirement(membershipType);
             System.out.printf("Set %s Successfully\n\n\n",membershipType.name());

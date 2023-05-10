@@ -1,4 +1,4 @@
-package com.smartstore.function.menu;
+package com.smartstore.function.mainmenu;
 
 import java.util.Arrays;
 
@@ -48,5 +48,9 @@ public enum Screen {
 
     public String[] getMenus() {
         return menus;
+    }
+
+    public int getMenuNumber() {
+        return menuNumber;
     }
 }

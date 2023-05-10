@@ -2,9 +2,6 @@ package com.smartstore.function.customer.add;
 
 import com.smartstore.function.Function;
 import com.smartstore.function.customer.CustomerMenuHandler;
-import com.smartstore.function.menu.MainMenuFunction;
-import com.smartstore.membership.MembershipRequirement;
-import com.smartstore.membership.MembershipType;
 
 import java.io.IOException;
 
@@ -64,5 +61,10 @@ public class AddCustomer implements CustomerMenuHandler {
 
             isExit = handleChoice(runMenuSelectionLoop());
         }
+    }
+
+    @Override
+    public int getCurrentMenuNumber() {
+        return 0;
     }
 }

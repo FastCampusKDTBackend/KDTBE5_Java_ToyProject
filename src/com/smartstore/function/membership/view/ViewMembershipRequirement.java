@@ -18,7 +18,7 @@ public class ViewMembershipRequirement implements MembershipMenuHandler {
         return instance;
     }
     @Override
-    public void run(MembershipType membershipType, MembershipRequirement requirement) {
+    public void processMembership(MembershipType membershipType, MembershipRequirement requirement) {
         //if not found in enum_map
         if(requirement == null ){
             System.out.printf("Membership '%s' Not Defined Yet\n", membershipType.name());

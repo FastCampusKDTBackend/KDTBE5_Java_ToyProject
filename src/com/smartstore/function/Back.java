@@ -1,7 +1,8 @@
 package com.smartstore.function;
 
-public class Back implements MenuHandler {
+import com.smartstore.function.mainmenu.Screen;
 
+public class Back implements MenuHandler {
     private static Back instance;
 
     private Back(){
@@ -10,15 +11,15 @@ public class Back implements MenuHandler {
 
     public static Back getInstance() {
         if(instance == null){
-            return new Back();
+            instance = new Back();
         }
         return instance;
     }
 
-    public boolean isExit(){
-        return true;
+    @Override
+    public String runMenuSelectionLoop(String[] menus) {
+        return null;
     }
-
 
     @Override
     public boolean handleChoice(String menuNumber) {
@@ -26,7 +27,18 @@ public class Back implements MenuHandler {
     }
 
     @Override
-    public void run(int menuNumber) {
+    public void run(){
+
+    }
+
+    @Override
+    public void run(int menu) {
+
+    }
+
+    @Override
+    public int getCurrentMenuNumber() {
+        return Screen.QUIT.getMenuNumber();
     }
 
 }

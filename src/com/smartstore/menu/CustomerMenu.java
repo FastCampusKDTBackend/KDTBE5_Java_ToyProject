@@ -1,11 +1,10 @@
 package com.smartstore.menu;
 
 import com.smartstore.function.Function;
-import com.smartstore.function.MenuHandler;
+import com.smartstore.function.mainmenu.MainMenuHandler;
 import com.smartstore.function.customer.CustomerFunction;
-import com.smartstore.function.membership.MembershipFunction;
 
-public class CustomerMenu implements MenuHandler {
+public class CustomerMenu implements MainMenuHandler {
     public static CustomerMenu getInstance() {
         if(instance == null){
             instance = new CustomerMenu();

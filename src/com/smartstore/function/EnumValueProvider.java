@@ -1,9 +1,9 @@
 package com.smartstore.function;
 
-import com.smartstore.function.menu.Screen;
+import com.smartstore.function.mainmenu.MainMenuHandler;
 import com.smartstore.util.CustomList;
 
-public interface FunctionHandler <T extends Enum<T>> extends MenuHandler{
+public interface EnumValueProvider<T extends Enum<T>> extends MainMenuHandler {
 
     default String[] getEnumValues(Class<T> type){
         CustomList<String> keyList = new CustomList<>();

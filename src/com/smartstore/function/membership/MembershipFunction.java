@@ -1,8 +1,8 @@
 package com.smartstore.function.membership;
 
 import com.smartstore.function.Back;
-import com.smartstore.function.MenuHandler;
 import com.smartstore.function.Function;
+import com.smartstore.function.MenuHandler;
 import com.smartstore.function.membership.set.SetMembershipRequirement;
 import com.smartstore.function.membership.update.UpdateMembershipRequirement;
 import com.smartstore.function.membership.view.ViewMembershipRequirement;
@@ -15,10 +15,10 @@ public enum MembershipFunction implements Function {
 
 
     private final int menuNumber;
-    private final MenuHandler menuHandler;
-    MembershipFunction(int menuNumber, MenuHandler menuHandler) {
+    private final MenuHandler membershipMenuHandler;
+    MembershipFunction(int menuNumber, MenuHandler membershipMenuHandler) {
         this.menuNumber = menuNumber;
-        this.menuHandler = menuHandler;
+        this.membershipMenuHandler = membershipMenuHandler;
     }
 
     @Override
@@ -28,7 +28,7 @@ public enum MembershipFunction implements Function {
 
     @Override
     public MenuHandler getMenuController() {
-        return this.menuHandler;
+        return this.membershipMenuHandler;
     }
 
 }

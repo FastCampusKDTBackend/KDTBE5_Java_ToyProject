@@ -1,9 +1,12 @@
 package com.smartstore.function.customer.add;
 
-import com.smartstore.function.ValidIntegerChecker;
-import com.smartstore.function.customer.CustomerMenuHandler;
+import com.smartstore.function.membership.MembershipMenuHandler;
+import com.smartstore.membership.MembershipRequirement;
+import com.smartstore.membership.MembershipType;
 
-public class SetName implements AddMenuHandler, ValidIntegerChecker {
+
+//implement other
+public class SetName implements MembershipMenuHandler {
     private static SetName instance;
 
     private SetName(){
@@ -19,18 +22,7 @@ public class SetName implements AddMenuHandler, ValidIntegerChecker {
 
 
     @Override
-    public <T> void run(T value) {
-
-    }
-
-    @Override
-    public boolean handleChoice(String menuNumber) {
-        return false;
-    }
-
-    @Override
-    public void run() {
-        System.out.println();
+    public void processMembership(MembershipType membershipType, MembershipRequirement requirement) {
 
     }
 }

@@ -1,16 +1,12 @@
 package com.smartstore.function.customer;
 
-import com.smartstore.function.FunctionHandler;
-import com.smartstore.function.MenuHandler;
-import com.smartstore.membership.MembershipRequirement;
+import com.smartstore.function.EnumValueProvider;
 import com.smartstore.membership.MembershipType;
-import com.smartstore.membership.Memberships;
 import com.smartstore.util.CustomList;
 
 import java.io.IOException;
-import java.util.NoSuchElementException;
 
-public interface CustomerMenuHandler extends FunctionHandler {
+public interface CustomerMenuHandler extends EnumValueProvider {
     @Override
     default String runMenuSelectionLoop(String[] values) {
         String valueName="";
@@ -50,14 +46,14 @@ public interface CustomerMenuHandler extends FunctionHandler {
         boolean isExit = false;
         while (!isExit){
             //get values from enum by string array
-            displayMenu(getEnumValues(MembershipType.class));
+            printMenu(getEnumValues(MembershipType.class));
 
             isExit = handleChoice(runMenuSelectionLoop(new String[]{}));
         }
     }
 
     @Override
-    default void displayMenu(String[] menus){
+    default void printMenu(String[] menus){
         for(int i = 0 ; i < menus.length ; i++){
             System.out.printf("| %s",menus[i]);
         }

@@ -1,13 +1,29 @@
 package com.smartstore.menu;
 
 import com.smartstore.function.Function;
-import com.smartstore.function.MenuHandler;
-import com.smartstore.function.menu.MainMenuFunction;
-import com.smartstore.function.menu.Screen;
+import com.smartstore.function.mainmenu.MainMenuHandler;
+import com.smartstore.function.mainmenu.MainMenuFunction;
+import com.smartstore.function.mainmenu.Screen;
 
 import java.util.Arrays;
 
-public class MainMenu implements MenuHandler {
+public class MainMenu implements MainMenuHandler {
+    private static MainMenu instance;
+    public static MainMenu getInstance() {
+        if(instance == null){
+            instance = new MainMenu();
+        }
+        return instance;
+    }
+
+    private MainMenu(){
+
+    }
+
+    private void printSlashScreen(){
+        System.out.println(Arrays.toString(Screen.of(-1).getMenus()));
+    }
+
     @Override
     public boolean handleChoice(String menuNumber) {
         if(Integer.parseInt(menuNumber) == MainMenuFunction.QUIT.getMenuNumber()) {
@@ -18,25 +34,10 @@ public class MainMenu implements MenuHandler {
         return false;
     }
 
-    public static MainMenu getInstance() {
-        if(instance == null){
-            instance = new MainMenu();
-        }
-        return instance;
-    }
-
-    private void printSlashScreen(){
-        System.out.println(Arrays.toString(Screen.of(-1).getMenus()));
-    }
-    /*public void run(int menuNumber){
-        //print splash screen
+    @Override
+    public void run() {
         printSlashScreen();
-        MenuHandler.super.run(menuNumber);
-    }*/
-
-    private static MainMenu instance;
-
-    private MainMenu(){
-
+        MainMenuHandler.super.run();
     }
+
 }

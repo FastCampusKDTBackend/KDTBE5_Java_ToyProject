@@ -1,11 +1,10 @@
-package com.smartstore.function.menu;
+package com.smartstore.function.mainmenu;
 
 import com.smartstore.function.Back;
 import com.smartstore.function.MenuHandler;
 import com.smartstore.menu.CustomerMenu;
 import com.smartstore.menu.MainMenu;
 import com.smartstore.menu.MembershipMenu;
-import com.smartstore.menu.SummaryMenu;
 import com.smartstore.function.Function;
 
 public enum MainMenuFunction implements Function {
@@ -16,11 +15,11 @@ public enum MainMenuFunction implements Function {
     QUIT(4, Back.getInstance());
 
     private final int menuNumber;
-    private final MenuHandler menuHandler;
+    private final MenuHandler mainMenuHandler;
 
-    MainMenuFunction(int menuNumber, MenuHandler menuHandler) {
+    MainMenuFunction(int menuNumber, MenuHandler mainMenuHandler) {
         this.menuNumber = menuNumber;
-        this.menuHandler = menuHandler;
+        this.mainMenuHandler = mainMenuHandler;
     }
 
     @Override
@@ -30,11 +29,11 @@ public enum MainMenuFunction implements Function {
 
     @Override
     public MenuHandler getMenuController() {
-        return menuHandler;
+        return mainMenuHandler;
     }
 
     @Override
     public void run() {
-        menuHandler.run(menuNumber);
+        mainMenuHandler.run(menuNumber);
     }
 }

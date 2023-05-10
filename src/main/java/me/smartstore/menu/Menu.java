@@ -1,6 +1,9 @@
 package me.smartstore.menu;
 
+import me.smartstore.customer.Customer;
 import me.smartstore.customer.Customers;
+import me.smartstore.customer.ClassifiedCustomers;
+import me.smartstore.group.Groups;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,10 +12,15 @@ import java.io.InputStreamReader;
 public class Menu {
     protected BufferedReader br;
     protected Customers customers;
+    protected Groups groups;
+    protected ClassifiedCustomers classifiedCustomers;
 
+    //@Todo 여러 객체가 필요없는 객체는 싱글톤으로 변경(Menu포함)
     public Menu() {
         br = new BufferedReader(new InputStreamReader(System.in));
-        customers=Customers.getInstance();
+        customers = Customers.getInstance();
+        groups= Groups.getInstance();
+        classifiedCustomers=ClassifiedCustomers.getInstance();
     }
 
     protected void initMenu() {
@@ -45,7 +53,7 @@ public class Menu {
         return newInt;
     }
 
-    protected void back(){
+    protected void back() {
 
     }
 }

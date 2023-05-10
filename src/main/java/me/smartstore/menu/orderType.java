@@ -1,6 +1,14 @@
 package me.smartstore.menu;
 
-public enum orderType {
+import me.smartstore.customer.SortBy;
+
+public enum OrderType {
     ACSENDING,
-    DESCENDING
+    DESCENDING;
+
+    private static final OrderType[] orderTypes = OrderType.values();
+
+    public static OrderType getOrderType(int i) {
+        return orderTypes[i-1];
+    }
 }

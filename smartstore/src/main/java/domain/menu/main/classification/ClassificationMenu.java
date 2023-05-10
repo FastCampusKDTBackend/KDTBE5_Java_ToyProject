@@ -20,21 +20,21 @@ public enum ClassificationMenu implements Menu {
             2,
             "Summary (Sorted By Name)",
             ClassificationMenuExecute.getMethod(
-                    CompareBy.getComparator(NAME)
+                    CompareBy.Of(NAME)
             )
     ),
     SORTED_BY_SPENT_TIME(
             3,
             "Summary (Sorted By Spent Time)",
             ClassificationMenuExecute.getMethod(
-                    CompareBy.getComparator(SPENT_TIME)
+                    CompareBy.Of(SPENT_TIME)
             )
     ),
     SORTED_BY_TOTAL_PAYMENT(
             4,
             "Summary (Sorted By Total Payment)",
             ClassificationMenuExecute.getMethod(
-                    CompareBy.getComparator(TOTAL_PAYMENT)
+                    CompareBy.Of(TOTAL_PAYMENT)
             )
     );
 

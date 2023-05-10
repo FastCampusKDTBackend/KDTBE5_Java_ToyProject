@@ -17,7 +17,7 @@ public enum CompareBy {
         this.comparator = comparator;
     }
 
-    public static Comparator<Customer> getComparator(CompareBy compareBy) {
+    public static Comparator<Customer> Of(CompareBy compareBy) {
         return Arrays.stream(CompareBy.values())
                 .filter(type -> type == compareBy)
                 .map(type -> type.comparator)

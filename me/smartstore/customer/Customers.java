@@ -5,6 +5,9 @@ import me.smartstore.group.GroupType;
 import me.smartstore.group.Groups;
 import me.smartstore.group.Group;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 
 public class Customers extends DArray<Customer> {
     private final Groups allGroups = Groups.getInstance();
@@ -61,6 +64,33 @@ public class Customers extends DArray<Customer> {
             }
         }
         return arrayGroup;
+    }
+
+    public void sortName(Customer[] value, int scount) {
+        Arrays.sort(value, new Comparator<Customer>() {
+            @Override
+            public int compare(Customer o1, Customer o2) {
+                return (o1.getCusName().compareTo(o2.getCusName()) * scount);
+            }
+        });
+    }
+
+    public void sortPay(Customer[] value, int scount) {
+        Arrays.sort(value, new Comparator<Customer>() {
+            @Override
+            public int compare(Customer o1, Customer o2) {
+                return (o1.getCusTotalPay().compareTo(o2.getCusTotalPay()) * scount);
+            }
+        });
+    }
+
+    public void sortTime(Customer[] value, int scount) {
+        Arrays.sort(value, new Comparator<Customer>() {
+            @Override
+            public int compare(Customer o1, Customer o2) {
+                return (o1.getCusTotalTime().compareTo(o2.getCusTotalPay()) * scount);
+            }
+        });
     }
 
 }

@@ -1,12 +1,12 @@
 package domain.menu.main.classification;
 
 import domain.menu.Menu;
-import util.comparator.customer.ComparatorByName;
-import util.comparator.customer.ComparatorBySpentTime;
-import util.comparator.customer.ComparatorByTotalPayment;
+import util.comparator.customer.CompareBy;
 
 import java.util.Arrays;
 import java.util.Optional;
+
+import static util.comparator.customer.CompareBy.*;
 
 public enum ClassificationMenu implements Menu {
     SUMMARY(
@@ -20,21 +20,21 @@ public enum ClassificationMenu implements Menu {
             2,
             "Summary (Sorted By Name)",
             ClassificationMenuExecute.getMethod(
-                    new ComparatorByName<>()
+                    CompareBy.getComparator(NAME)
             )
     ),
     SORTED_BY_SPENT_TIME(
             3,
             "Summary (Sorted By Spent Time)",
             ClassificationMenuExecute.getMethod(
-                    new ComparatorBySpentTime<>()
+                    CompareBy.getComparator(SPENT_TIME)
             )
     ),
     SORTED_BY_TOTAL_PAYMENT(
             4,
             "Summary (Sorted By Total Payment)",
             ClassificationMenuExecute.getMethod(
-                    new ComparatorByTotalPayment<>()
+                    CompareBy.getComparator(TOTAL_PAYMENT)
             )
     );
 

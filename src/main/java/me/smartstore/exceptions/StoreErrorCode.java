@@ -1,6 +1,13 @@
 package me.smartstore.exceptions;
 
+/**
+ * @author YongHo Shin
+ * @version v1.0
+ * @since 2023-05-10
+ */
 public enum StoreErrorCode {
+  NOT_EXIST_CUSTOMER("Customer doesn't exist."),
+  NOT_EXIST_ID("No matching id."),
   NO_GROUP("No matching group."),
   NO_CUSTOMER("No Customers. Please input one first."),
   CANT_SORT("Elements in Array has null. Array can't be sorted."),

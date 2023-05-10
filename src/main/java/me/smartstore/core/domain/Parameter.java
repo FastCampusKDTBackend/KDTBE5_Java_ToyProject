@@ -1,4 +1,4 @@
-package me.smartstore.domain;
+package me.smartstore.core.domain;
 
 public class Parameter {
   private Integer minSpentTime;

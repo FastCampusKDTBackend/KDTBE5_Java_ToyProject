@@ -1,6 +1,5 @@
-package me.smartstore.menus;
+package me.smartstore.core.view;
 
-import me.smartstore.core.GroupManager;
 import me.smartstore.exceptions.StoreException;
 
 public class ParameterMenu extends AbstractMenu {
@@ -16,9 +15,9 @@ public class ParameterMenu extends AbstractMenu {
       parameterMenu.show();
       try {
         switch (parameterMenu.selectMenuNumber()) {
-          case 1 -> GroupManager.launchGroupManager(1);
-          case 2 -> GroupManager.launchGroupManager(2);
-          case 3 -> GroupManager.launchGroupManager(3);
+          case 1 -> ParameterSubMenu.launch(1);
+          case 2 -> ParameterSubMenu.launch(2);
+          case 3 -> ParameterSubMenu.launch(3);
           case 4 -> {
             break loop;
           }

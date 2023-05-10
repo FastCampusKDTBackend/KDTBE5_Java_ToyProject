@@ -1,6 +1,6 @@
-package me.smartstore.core;
+package me.smartstore;
 
-import me.smartstore.menus.MainMenu;
+import me.smartstore.core.view.MainMenu;
 
 public class AppStarter {
   private AppStarter() {}

@@ -1,6 +1,13 @@
 package me.smartstore.enums;
 
-public enum GroupType {
+/**
+ * 고객 유형
+ *
+ * @author YongHo Shin
+ * @version v1.0
+ * @since 2023-05-10
+ */
+public enum CustomerType {
   NONE("해당없음"),
   GENERAL("일반고객"),
   VIP("우수고객"),
@@ -12,11 +19,11 @@ public enum GroupType {
 
   private final String description;
 
-  GroupType(String description) {
+  CustomerType(String description) {
     this.description = description;
   }
 
-  public GroupType replaceFullName() {
+  public CustomerType replaceFullName() {
     if (this == G) return GENERAL;
     else if (this == V) return VIP;
     else if (this == VV) return VVIP;

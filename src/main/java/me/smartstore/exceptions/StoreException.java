@@ -1,5 +1,10 @@
 package me.smartstore.exceptions;
 
+/**
+ * @author YongHo Shin
+ * @version v1.0
+ * @since 2023-05-10
+ */
 public class StoreException extends RuntimeException {
   private final StoreErrorCode storeErrorCode;
   private final String message;

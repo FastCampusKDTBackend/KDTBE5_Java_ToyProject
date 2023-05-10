@@ -1,4 +1,4 @@
-package me.smartstore.menus;
+package me.smartstore.core.view;
 
 import me.smartstore.exceptions.StoreException;
 
@@ -16,7 +16,7 @@ public class MainMenu extends AbstractMenu {
       try {
         switch (mainMenu.selectMenuNumber()) {
           case 1 -> ParameterMenu.launch();
-          case 2 -> CustomerDataMenu.launch();
+          case 2 -> CustomerMenu.launch();
           case 3 -> ClassificationSummaryMenu.launch();
           case 4 -> {
             break loop;

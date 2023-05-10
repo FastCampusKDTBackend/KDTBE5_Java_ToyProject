@@ -86,18 +86,22 @@ public class SummaryMenu implements Menu {
     }
 
     private void showChart(Customer[] customers, Group group) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("\n==============================\n");
-        sb.append("Group : " + group.getGroupType());
-        sb.append(" ( Time : " + group.getParameter().getMinTime());
-        sb.append(", Pay : " + group.getParameter().getMinPay() + " )");
-        sb.append("\n==============================\n");
-        for (int i = 0; i < customers.length; i++) {
-            sb.append("No.\t" + (i + 1) + " => ");
-            sb.append(customers[i] + "\n");
+        try {
+            StringBuilder sb = new StringBuilder();
+            sb.append("\n==============================\n");
+            sb.append("Group : " + group.getGroupType());
+            sb.append(" ( Time : " + group.getParameter().getMinTime());
+            sb.append(", Pay : " + group.getParameter().getMinPay() + " )");
+            sb.append("\n==============================\n");
+            for (int i = 0; i < customers.length; i++) {
+                sb.append("No.\t" + (i + 1) + " => ");
+                sb.append(customers[i] + "\n");
+            }
+            sb.append("==============================\n");
+            System.out.println(sb);
+        } catch (NullPointerException e) {
+            System.err.println(group.getGroupType()+" group not defined yet");
         }
-        sb.append("==============================\n");
-        System.out.println(sb);
     }
 
 }

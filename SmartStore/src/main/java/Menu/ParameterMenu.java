@@ -104,7 +104,6 @@ public class ParameterMenu implements Menu {
                 return;
             } else {
                 setMenuParameter(allGroups.findGroup(groupType).getParameter());
-                //allGroups.findGroup(groupType).setParameter(parameter);
                 allCustomers.refresh();
             }
         }

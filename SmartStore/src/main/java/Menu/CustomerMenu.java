@@ -138,6 +138,8 @@ public class CustomerMenu implements Menu {
             System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
         } catch (NumberFormatException e) {
             System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
+        } catch (EmptyArrayException e) {
+            System.out.println(Message.ERR_MSG_INVALID_ARR_EMPTY);
         }
     }
     // TODO: 2023-05-03, 예외처리

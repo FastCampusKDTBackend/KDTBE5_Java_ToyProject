@@ -18,10 +18,10 @@ public class Groups extends MyArray<Group> {
     }
 
     public void init() {
-        Group none = new Group(GroupType.NONE);
-        Group general = new Group(GroupType.GENERAL);
-        Group vip = new Group(GroupType.VIP);
-        Group vVip = new Group(GroupType.VVIP);
+        Group none = new Group(new Parameter(),GroupType.NONE);
+        Group general = new Group(new Parameter(),GroupType.GENERAL);
+        Group vip = new Group(new Parameter(),GroupType.VIP);
+        Group vVip = new Group(new Parameter(),GroupType.VVIP);
 
         allGroups.add(none);
         allGroups.add(general);

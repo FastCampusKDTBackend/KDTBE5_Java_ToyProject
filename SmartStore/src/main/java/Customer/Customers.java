@@ -56,7 +56,7 @@ public class Customers extends MyArray<Customer> {
             try {
                 classifyCustomers(allCustomers.get(i));
             } catch (NullPointerException e) {
-                System.err.println("No. " + (i + 1) + " Customer cannot be classified. Please enter more information.");
+                System.err.println("No. " + (i + 1) + " Customer cannot be classified. Please enter more information. (Customer or Group)");
             }
         }
     }

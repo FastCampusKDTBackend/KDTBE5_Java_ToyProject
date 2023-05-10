@@ -88,7 +88,16 @@ public class GroupMenu extends Menu implements DataCRUD {
 
     @Override
     public void viewData() {
-
+        printGroupSelectionMessage();
+        int groupNumber = inputGroupNumber();
+        //groupNumber to group
+        GroupType groupType = groupNumberToGroupType(groupNumber);
+        MyArrayList<Group> groupList = groups.getGroups();
+        for (Group group : groupList) {
+            if (group.getCustomerGroup() == groupType) {
+                System.out.println(group.getParameter());
+            }
+        }
     }
 
     @Override

@@ -11,5 +11,6 @@ public interface Message {
     String ERR_MSG_INVALID_INPUT_TYPE = "Invalid Type for Input. Please try again.";
     String ERR_MSG_INVALID_INPUT_FORMAT = "Invalid Format for Input. Please try again.";
     String ERR_MSG_INPUT_END = "END is pressed. Exit this menu. \n";
+    String ERR_MSG_INPUT_NONE = "None(GroupType)`s cannot be changed";
     String END_MSG = "END";
 }

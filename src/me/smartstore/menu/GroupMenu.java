@@ -59,6 +59,13 @@ public class GroupMenu implements Menu{
         while ( true ) {
             GroupType groupType = chooseGroup();
 
+            // end 키 입력 시 또는 N, NONE 설정 시도 시 메인 메뉴로
+            if (groupType == null) manage();
+            else if (groupType == GroupType.NONE) {
+                System.out.println(Message.ERR_MSG_INPUT_NONE);
+                manage();
+            }
+
             // GroupType 에 해당하는 group 객체를 찾아야 함
             Group group = allGroups.findGroupByGroupType(groupType);
             if (group != null && group.getParameter() != null) { // group.getParameter()이 null이 아니면 이미 초기화됨

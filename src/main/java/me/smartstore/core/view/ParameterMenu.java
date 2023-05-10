@@ -94,7 +94,7 @@ public class ParameterMenu extends AbstractMenu {
    * @return 입력받은 고객 유형
    * @throws StoreException 종료 선택시, 공백 입력시 발생
    */
-  private static CustomerType inputCustomerType() throws StoreException {
+  private CustomerType inputCustomerType() throws StoreException {
     while (true) {
       System.out.println(INPUT_CUSTOMER_GROUP_MSG + "\n" + PRESS_END_MSG);
       String input = ScannerUtility.getInput().toUpperCase();

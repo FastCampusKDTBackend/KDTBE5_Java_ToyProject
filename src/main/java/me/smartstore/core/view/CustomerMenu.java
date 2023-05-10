@@ -95,7 +95,7 @@ public class CustomerMenu extends AbstractMenu {
    *
    * @throws StoreException 등록된 고객 정보가 없음
    */
-  private static void showCustomerInfo() throws StoreException {
+  private void showCustomerInfo() throws StoreException {
     // No. 1 => Customer{userId='TEST123', name='TEST', spentTime=null, totalPay=null, group=null}
     dtoCache = customerService.findAll();
     if (dtoCache.length == 0) {
@@ -112,7 +112,7 @@ public class CustomerMenu extends AbstractMenu {
    * @return 새로 등록할 고객수
    * @throws StoreException 종료 선택시
    */
-  private static int inputNumberOfCustomers() throws StoreException {
+  private int inputNumberOfCustomers() throws StoreException {
     while (true) {
       System.out.println(INPUT_NUMBER_OF_CUSTOMERS + "\n" + PRESS_END_MSG);
       String input = getInput();
@@ -134,7 +134,7 @@ public class CustomerMenu extends AbstractMenu {
   /**
    * @return 출력된 명단 중 수정하고자 하는 고객의 번호
    */
-  private static int inputCustomerNumber() {
+  private int inputCustomerNumber() {
     while (true) {
       System.out.println("Which customer ( 1 ~ " + customerService.getNumberOfCustomers() + " )? ");
       try {

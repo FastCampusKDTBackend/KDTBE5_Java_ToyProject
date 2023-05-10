@@ -61,7 +61,7 @@ public class ParameterSubMenu extends AbstractMenu {
    * @return 입력받은 최소 이용시간
    * @throws StoreException 종료 선택시.
    */
-  private static int inputMinimumSpentTime() throws StoreException {
+  private int inputMinimumSpentTime() throws StoreException {
     while (true) {
       System.out.println(INPUT_MINIMUM_SPENT_TIME_MSG + "\n" + PRESS_END_MSG);
 
@@ -81,7 +81,7 @@ public class ParameterSubMenu extends AbstractMenu {
    * @return 입력받은 최소 결제금액
    * @throws StoreException 종료 선택시.
    */
-  private static int inputMinimumPayAmount() throws StoreException {
+  private int inputMinimumPayAmount() throws StoreException {
     while (true) {
       System.out.println(INPUT_MINIMUM_PAY_AMOUNT_MSG + "\n" + PRESS_END_MSG);
 

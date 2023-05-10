@@ -102,7 +102,7 @@ public class ClassificationSummaryMenu extends AbstractMenu {
    * @return 정렬 방향 (오름차순, 내림차순)
    * @throws StoreException 종료 선택시
    */
-  private static SortOrder inputSortOrder() throws StoreException {
+  private SortOrder inputSortOrder() throws StoreException {
     while (true) {
       System.out.println(INPUT_SORT_ORDER + "\n" + PRESS_END_MSG);
       try {

@@ -2,6 +2,7 @@ package domain.menu.main.parameter;
 
 import domain.group.GroupType;
 import domain.menu.Menu;
+import util.common.ErrorMessage;
 import util.common.exception.NotFoundException;
 import util.view.InputScanner;
 import util.view.OutputView;
@@ -50,7 +51,11 @@ public enum ModifyParameterMenu implements Menu {
         Arrays.stream(ModifyParameterMenu.values())
                 .filter(subMenus -> subMenus.isEqualMenuNumber(menuNumber))
                 .findFirst()
-                .orElseThrow(NotFoundException::new)
+                .orElseThrow(
+                        () -> {
+                            throw new NotFoundException(ErrorMessage.INVALID_INPUT);
+                        }
+                )
                 .execute(groupType);
     }
 

@@ -7,6 +7,8 @@ import util.view.InputScanner;
 import util.view.OutputView;
 import util.view.ViewMessage;
 
+import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public interface UpdateParameterExecute {
@@ -14,38 +16,68 @@ public interface UpdateParameterExecute {
         return UpdateParameterExecute::run;
     }
 
+
     private static void run() {
-        Scanner scanner = InputScanner.get();
         while (true) {
+            GroupType groupType = inputGroupName();
 
-            OutputView.chooseType(GroupType.generateFormatForView());
-            String groupName = scanner.nextLine();
-
-            if (ViewMessage.isExit(groupName)) {
-                break;
+            if (Objects.isNull(groupType)) {
+                return;
             }
-
-            GroupType groupType = GroupType.getBySymbolOrName(groupName);
 
             if (!groupType.isParameterExist()) {
                 OutputView.showErrorMessage(ErrorMessage.SET_PARAMETER);
                 continue;
             }
 
+            executeSubmenu(groupType);
+        }
+    }
 
-            while (true) {
-                OutputView.showMenus(ModifyParameterMenu.values());
-                try {
-                    int menuNumber = Integer.parseInt(scanner.nextLine());
 
-                    if (ModifyParameterMenu.isQuit(menuNumber)) {
-                        break;
-                    }
+    private static GroupType inputGroupName() {
+        while (true) {
+            OutputView.chooseType(GroupType.generateFormatForView());
+            String groupName = InputScanner.get().nextLine();
+            if (ViewMessage.isExit(groupName)) {
+                return null;
+            }
+            try {
+                return getGroupType(groupName);
+            } catch (NoSuchElementException e) {
+                OutputView.showErrorMessage(e.getMessage());
+            }
+        }
+    }
 
-                    ModifyParameterMenu.findMenuAndExecution(menuNumber, groupType);
-                } catch (NotFoundException | NumberFormatException exception) {
-                    OutputView.showErrorMessage(exception.getMessage());
+    private static GroupType getGroupType(String groupName) {
+        while (true) {
+            try {
+                return GroupType.getBySymbolOrName(groupName);
+            } catch (NoSuchElementException noSuchElementException) {
+                System.out.println(noSuchElementException.getMessage());
+                groupName = InputScanner.get().nextLine();
+                if (ViewMessage.isExit(groupName)) {
+                    return null;
                 }
+            }
+        }
+
+    }
+
+    private static void executeSubmenu(GroupType groupType) {
+        while (true) {
+            OutputView.showMenus(ModifyParameterMenu.values());
+            try {
+                int menuNumber = Integer.parseInt(InputScanner.get().nextLine());
+
+                if (ModifyParameterMenu.isQuit(menuNumber)) {
+                    break;
+                }
+
+                ModifyParameterMenu.findMenuAndExecution(menuNumber, groupType);
+            } catch (NotFoundException | NumberFormatException exception) {
+                OutputView.showErrorMessage(exception.getMessage());
             }
         }
     }

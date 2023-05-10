@@ -7,6 +7,7 @@ import me.smartstore.exception.InputEndException;
 import me.smartstore.exception.InputRangeException;
 import me.smartstore.util.Message;
 
+
 public class CustomerMenu implements Menu {
 
     private static CustomerMenu customerMenu;
@@ -57,7 +58,9 @@ public class CustomerMenu implements Menu {
                     Customer customer = new Customer();
                     makeCustomerInfo(customer);
                     allCustomers.add(customer);
+//                    System.out.println("flag");
                 }
+                System.out.println("flag");
                 allCustomers.refresh();
                 return;
             } catch (InputEndException e) {
@@ -101,7 +104,9 @@ public class CustomerMenu implements Menu {
                     }
                     customer.setCustomerTotalPay(spentMoney);
                 }
-                else break;
+                else {
+                    isCompleted = true;
+                }
             } catch (InputEndException e) {
                 System.out.println(Message.ERR_MSG_INPUT_END);
                 break;

@@ -8,4 +8,5 @@ public interface Message {
     String END_MSG = "END";
     String ERR_MSG_ARR_EMPTY = "There's no customer in this application. Please inset customer info firstly.";
     String ERR_MSG_ARR_OUT_OF_BOUNDARY = "This array's size exceeds the capacity of the array.";
+    String ERR_MSG_INVALID_SORT_TYPE = "The sort type that has been initiated is not valid.";
 }

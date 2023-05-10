@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
-public class Groups extends DArray<Group> implements Iterable<Group> {
+public class Groups extends DArray<Group> {
     // singleton pattern
     private static Groups allGroups;
 
@@ -38,15 +38,30 @@ public class Groups extends DArray<Group> implements Iterable<Group> {
         return null;
     }
 
-    public Group getGroupByParameter(int spentTime, int totalPay) {
-        for (Group group : this) {
-            if (spentTime >= group.getParameter().getMinTime() &&
-            totalPay >= group.getParameter().getMinPay()) {
-                return group;
-            }
-        }
-        return null;
-    }
+//    public Group getGroupByParameter(int spentTime, int totalPay) {
+//        Group res = new Group(new Parameter(0, 0), GroupType.NONE);
+//        System.out.println("this : " + this);
+//        for (Group group : this) {
+//            System.out.println("Group test : " + group);
+//            if (spentTime >= group.getParameter().getMinTime() && totalPay >= group.getParameter().getMinPay()) {
+//                res = group;
+//            }
+//        }
+//        return res;
+//    }
+
+//    public Group getGroupByParameter(int spentTime, int totalPay) {
+//        Group res = null;
+//        for (Group group : this) {
+//            if (spentTime >= group.getParameter().getMinTime() &&
+//            totalPay >= group.getParameter().getMinPay()) {
+//                if (res == null || group.getParameter().getMinTime() > res.getParameter().getMinTime()) {
+//                    res = group;
+//                }
+//            }
+//        }
+//        return res != null ? res : new Group(new Parameter(0, 0), GroupType.NONE);
+//    }
 
 //    @Override
 //    public Iterator<Group> iterator() {

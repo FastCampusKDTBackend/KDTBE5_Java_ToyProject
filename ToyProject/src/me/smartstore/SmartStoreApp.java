@@ -45,7 +45,7 @@ public class SmartStoreApp {
             int spentTime = ((int) (Math.random() * 5) + 1) * 10;
             int totalPay = ((int) (Math.random() * 5) + 1) * 100000;
 
-            Group customerGroup = allGroups.getGroupByParameter(spentTime, totalPay);
+//            Group customerGroup = allGroups.getGroupByParameter(spentTime, totalPay);
 
 //            allCustomers.add(new Customer(
 //                    Character.toString(
@@ -63,13 +63,14 @@ public class SmartStoreApp {
 //                    )
 //            ));
 
-            allCustomers.add(new Customer(
-                    Character.toString(
-                            (char) ('a' + i)),
-                    (char) ('a' + i) + "123",
-                    spentTime,
-                    totalPay,
-                    customerGroup));
+//            // 마지막 사용하던 코드
+//            allCustomers.add(new Customer(
+//                    Character.toString(
+//                            (char) ('a' + i)),
+//                    (char) ('a' + i) + "123",
+//                    spentTime,
+//                    totalPay,
+//                    customerGroup));
         }
 
         System.out.println("allCustomers = " + allCustomers);

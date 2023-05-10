@@ -3,7 +3,7 @@ package me.smartstore.exception;
 import me.smartstore.util.Message;
 
 /**
- * super()를 호출하는 이유가 대한 프로세스
+ * super()를 호출하는 이유
  *
  * util.Message 인터페이스에서 ERR_MSG_INPUT_END 상수 선언
  * 이 클래스의 생성자가 호출되면 RuntimeException 클래스의 생성자를 호출하게 됨.

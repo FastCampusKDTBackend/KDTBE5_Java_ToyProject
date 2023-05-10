@@ -1,14 +1,17 @@
 package me.smartstore.arrays;
 
 import me.smartstore.exception.EmptyArrayException;
+import me.smartstore.group.Group;
 import me.smartstore.util.Message;
 
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 import static java.util.Arrays.copyOf;
 
-public class DArray<T> implements Collections<T>, Iterable<T> {
+public class DArray<T> implements Collections<T> {
 
     protected static final int DEFAULT = 10;
 
@@ -128,10 +131,12 @@ public class DArray<T> implements Collections<T>, Iterable<T> {
     }
 
 
-    @Override
-    public Iterator<T> iterator() {
-        return IntStream.range(0, size)
-                .mapToObj(i -> arrays[i])
-                .iterator();
-    }
+//    @Override
+//    public Iterator<T> iterator() {
+//        return IntStream.range(0, size)
+//                .mapToObj(i -> arrays[i])
+//                .iterator();
+//    }
+
+
 }

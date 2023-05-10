@@ -5,6 +5,9 @@ import me.smartstore.group.Group;
 import me.smartstore.group.GroupType;
 import me.smartstore.group.Groups;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 import static me.smartstore.group.GroupType.getGroupTypeLevel;
 
 public class Customers extends DArray<Customer> {
@@ -42,19 +45,32 @@ public class Customers extends DArray<Customer> {
      */
     private Group findGroupOfCustomer(int spentTime, int spentMoney) {
         Group group = allGroups.get(0); // NONE 등급
+        System.out.println("testing if whether NONE is printed : " + group.getGroupType());
         for (int i=1; i< allGroups.size(); i++) {
             Group pickedGroup = allGroups.get(i);
             int minSpentTime = pickedGroup.getParameter().getMinTime();
             int minSpentMoney = pickedGroup.getParameter().getMinPay();
             if (spentTime>=minSpentTime && spentMoney>=minSpentMoney) {
-                if (getGroupTypeLevel(group) < getGroupTypeLevel(pickedGroup)) group = pickedGroup;
+                if (getGroupTypeLevel(group) < getGroupTypeLevel(pickedGroup)) {
+                    group = pickedGroup;
+                }
             }
         }
         return group;
     }
 
-    public static Customers getAllCustomers() {
-        return allCustomers;
+    public Customer[] getAllCustomers() {
+        Customer[] customers = new Customer[size];
+        for (int i=0; i<size; i++) {
+            customers[i] = allCustomers.get(i);
+        }
+        return customers;
+    }
+
+    public Customer[] getSortedCustomers(Comparator<Customer> comparator) {
+        Customer[] customers = getAllCustomers();
+        Arrays.sort(customers, comparator);
+        return customers;
     }
 
     //    public void refresh(Groups groups) {

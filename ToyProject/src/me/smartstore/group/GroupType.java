@@ -30,4 +30,8 @@ public enum GroupType {
         else if (type==VVIP) return 3;
         else return 0;
     }
+
+    public static GroupType[] getAllGroupTypes() {
+        return new GroupType[]{NONE, GENERAL, VIP, VVIP};
+    }
 }

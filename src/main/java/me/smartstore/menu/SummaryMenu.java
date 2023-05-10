@@ -8,16 +8,22 @@ import me.smartstore.group.GroupType;
 import java.io.IOException;
 
 public class SummaryMenu extends Menu {
-    public void summary() {
+    public void summary(OrderType orderType) {
         classifiedCustomers.refresh();        //@Todo summary메뉴 진입 시 호출하는 걸로 변경 예정
         GroupType[] groupTypes = GroupType.values();
         MyArrayList<MyArrayList<Customer>> classifications = classifiedCustomers.getClassifications();
+        printCustomerSummary(orderType, groupTypes, classifications);
+    }
 
+    private void printCustomerSummary(OrderType orderType, GroupType[] groupTypes, MyArrayList<MyArrayList<Customer>> classifications) {
         for (int i = 0; i < GroupType.values().length; i++) {
             System.out.println("==============================");
             System.out.printf("그룹: %s", groupTypes[i]);
             System.out.println("==============================");
             MyArrayList<Customer> currentClassification = classifications.get(i);
+            if (orderType != OrderType.NONE) {
+                currentClassification.sort(orderType);
+            }
             for (int j = 0; j < currentClassification.size(); i++) {
                 System.out.println(j + ": " + currentClassification.get(j));
             }
@@ -29,62 +35,19 @@ public class SummaryMenu extends Menu {
         OrderType orderType = inputOrderType();
         //등급 기준에 따라 정렬
         classifiedCustomers.setSortBy(SortBy.NAME);
-
-        //@Todo 겹치는 내용 추후 리팩토링
-        GroupType[] groupTypes = GroupType.values();
-        MyArrayList<MyArrayList<Customer>> classifications = classifiedCustomers.getClassifications();
-
-        for (int i = 0; i < GroupType.values().length; i++) {
-            System.out.println("==============================");
-            System.out.printf("그룹: %s", groupTypes[i]);
-            System.out.println("==============================");
-            MyArrayList<Customer> currentClassification = classifications.get(i);
-
-            currentClassification.sort(orderType);
-            for (int j = 0; j < currentClassification.size(); i++) {
-                System.out.println(j + ": " + currentClassification.get(j));
-            }
-        }
+        summary(orderType);
     }
 
     public void summarySortByHours() {
         OrderType orderType = inputOrderType();
         classifiedCustomers.setSortBy(SortBy.HOURS);
-
-        GroupType[] groupTypes = GroupType.values();
-        MyArrayList<MyArrayList<Customer>> classifications = classifiedCustomers.getClassifications();
-
-        for (int i = 0; i < GroupType.values().length; i++) {
-            System.out.println("==============================");
-            System.out.printf("그룹: %s", groupTypes[i]);
-            System.out.println("==============================");
-            MyArrayList<Customer> currentClassification = classifications.get(i);
-
-            currentClassification.sort(orderType);
-            for (int j = 0; j < currentClassification.size(); i++) {
-                System.out.println(j + ": " + currentClassification.get(j));
-            }
-        }
+        summary(orderType);
     }
 
     public void summarySortByTotalAmount() {
         OrderType orderType = inputOrderType();
         classifiedCustomers.setSortBy(SortBy.TOTAL_AMOUNT);
-
-        GroupType[] groupTypes = GroupType.values();
-        MyArrayList<MyArrayList<Customer>> classifications = classifiedCustomers.getClassifications();
-
-        for (int i = 0; i < GroupType.values().length; i++) {
-            System.out.println("==============================");
-            System.out.printf("그룹: %s", groupTypes[i]);
-            System.out.println("==============================");
-            MyArrayList<Customer> currentClassification = classifications.get(i);
-
-            currentClassification.sort(orderType);
-            for (int j = 0; j < currentClassification.size(); i++) {
-                System.out.println(j + ": " + currentClassification.get(j));
-            }
-        }
+        summary(orderType);
     }
 
     private OrderType inputOrderType() {

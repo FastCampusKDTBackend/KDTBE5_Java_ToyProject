@@ -35,7 +35,9 @@ public class SummaryMenu implements Menu {
                     "Back"});
             if (choice == 1) summary();
             else if (choice == 2) summaryByName();
-            else break; // choice == 4
+            else if (choice == 3) summaryByTime();
+            else if (choice == 4) summaryByPay();
+            else    break; // choice == 4
         }
     }
 
@@ -81,25 +83,46 @@ public class SummaryMenu implements Menu {
 
 
 
-        private void summary() {
-           int mark = 0;
-           for(int i = 0; i < allGroups.size(); i++) {
+    private void summary() {
+        int mark = 0;
+        for(int i = 0; i < allGroups.size(); i++) {
                Customer[] value = allCustomers.seperateGroup(allGroups.get(i).getGroupType());
                show(value, allGroups.get(i));
-           }
         }
+    }
 
-        private void summaryByName() {
-            int sortcount = 0;
-            sortcount = sortType();
-            for(int i = 0; i < allGroups.size(); i++){
-                Customer[] value = allCustomers.seperateGroup(allGroups.get(i).getGroupType());
-                allCustomers.sortName(value, sortcount);
-                show(value, allGroups.get(i));
-            }
+    private void summaryByName() {
+        int sortcount = 0;
+        sortcount = sortType();
+        for(int i = 0; i < allGroups.size(); i++){
+            Customer[] value = allCustomers.seperateGroup(allGroups.get(i).getGroupType());
+            allCustomers.sortName(value, sortcount);
+            show(value, allGroups.get(i));
+        }
+    }
+
+    private void summaryByTime() {
+        int sortcount = 0;
+        sortcount = sortType();
+        for (int i = 0; i < allGroups.size(); i++) {
+            Customer[] value = allCustomers.seperateGroup(allGroups.get(i).getGroupType());
+            allCustomers.sortTime(value, sortcount);
+            show(value, allGroups.get(i));
         }
 
     }
+
+    private void summaryByPay() {
+        int sortcount = 0;
+        sortcount = sortType();
+        for (int i = 0; i < allGroups.size(); i++) {
+            Customer[] value = allCustomers.seperateGroup(allGroups.get(i).getGroupType());
+            allCustomers.sortPay(value, sortcount);
+            show(value, allGroups.get(i));
+        }
+
+    }
+}
 
 
 

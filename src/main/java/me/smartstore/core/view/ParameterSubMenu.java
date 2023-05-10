@@ -17,7 +17,7 @@ import me.smartstore.utils.ScannerUtility;
  * @since 2023-05-10
  */
 public class ParameterSubMenu extends AbstractMenu {
-  private static final ParameterSubMenu parameterSubMenu = new ParameterSubMenu();
+  private static ParameterSubMenu parameterSubMenu = new ParameterSubMenu();
 
   private ParameterSubMenu() {
     super(new String[] {"Minimum Spent Time", "Minimum Pay Amount", "Back"});
@@ -27,6 +27,9 @@ public class ParameterSubMenu extends AbstractMenu {
    * @return Singleton 객체 반환
    */
   public static ParameterSubMenu getInstance() {
+    if(parameterSubMenu == null) {
+      parameterSubMenu = new ParameterSubMenu();
+    }
     return parameterSubMenu;
   }
 

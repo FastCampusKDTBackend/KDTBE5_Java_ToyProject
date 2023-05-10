@@ -3,7 +3,7 @@ package me.smartstore.core.domain;
 import me.smartstore.enums.CustomerType;
 
 /**
- * 고객 유형별 그룹화 클래스
+ * 고객 유형별 세부 기준 관리를 위한 그룹화 클래스
  *
  * @author YongHo Shin
  * @version v1.0

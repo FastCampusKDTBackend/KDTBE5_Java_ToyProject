@@ -2,9 +2,18 @@ package me.smartstore.core.domain;
 
 import me.smartstore.enums.CustomerType;
 
+/**
+ * 고객 정보 저장을 위한 엔티티 클래스
+ *
+ * @author YongHo Shin
+ * @version v1.0
+ * @since 2023-05-10
+ */
 public class Customer {
+  /** 관리 번호 부여용 */
   private static Long seqNo = 0L;
-  private Long id;
+
+  private Long id; // 고객 관리 번호
   private String name;
   private String userId;
   private Integer spentTime;

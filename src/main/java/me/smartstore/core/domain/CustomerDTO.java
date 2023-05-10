@@ -2,6 +2,19 @@ package me.smartstore.core.domain;
 
 import me.smartstore.enums.CustomerType;
 
+/**
+ * 스마트스토어 애플리케이션 내에서 고객 정보 전달
+ *
+ * @param id 관리 번호
+ * @param name 이름
+ * @param userId 사용자 ID
+ * @param spentTime 이용시간
+ * @param payAmount 이용금액
+ * @param customerType 고객 유형
+ * @author YongHo Shin
+ * @version v1.0
+ * @since 2023-05-10
+ */
 public record CustomerDTO(
     Long id,
     String name,

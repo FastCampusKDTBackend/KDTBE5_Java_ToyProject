@@ -1,13 +1,15 @@
 package me.smartstore.core.domain;
 
+/**
+ * 고객 유형별 세부 기준
+ *
+ * @author YongHo Shin
+ * @version v1.0
+ * @since 2023-05-10
+ */
 public class Parameter {
   private Integer minSpentTime;
   private Integer minPayAmount;
-
-  public Parameter() {
-    this.minSpentTime = null;
-    this.minPayAmount = null;
-  }
 
   public Parameter(Integer minSpentTime, Integer minPayAmount) {
     this.minSpentTime = minSpentTime;

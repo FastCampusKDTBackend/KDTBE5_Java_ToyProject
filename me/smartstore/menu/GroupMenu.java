@@ -105,6 +105,7 @@ public class GroupMenu implements Menu {
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid input. Please enter a valid number or 'end'.");
                 }
+                allCustomers.refresh();
             }
             else if (choice == 2) {
                 System.out.println("Input Minimum Total Pay:");
@@ -118,6 +119,7 @@ public class GroupMenu implements Menu {
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid input. Please enter a valid number or 'end'.");
                 }
+                allCustomers.refresh();
             }else
                 break;
             }
@@ -145,7 +147,7 @@ public class GroupMenu implements Menu {
             GroupType groupType = chooseGroup();
             if(groupType ==null) break;
             setPaywithTime(allGroups.find(groupType).getParameter());
-
+            allCustomers.refresh();
         }
     }
 }

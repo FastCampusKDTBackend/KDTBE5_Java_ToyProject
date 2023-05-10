@@ -63,7 +63,7 @@ public class GroupMenu implements Menu {
                 } else {
                     Parameter parameter = new Parameter();
                     setParameterValue(parameter, groupType);
-                    allCustomers.refresh(allGroups);
+                    allCustomers.refresh();
                 }
                 System.out.println("\nGroupType: " + groupType);
 
@@ -192,7 +192,7 @@ public class GroupMenu implements Menu {
                     Parameter parameter = group.getParmeter();
                     setParameterValue(parameter, groupType);
                     group.setParmeter(parameter);
-                    allCustomers.refresh(allGroups);
+                    allCustomers.refresh();
                 }
 
                 System.out.println("\nGroupType: " + groupType);

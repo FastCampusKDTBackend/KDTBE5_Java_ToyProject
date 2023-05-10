@@ -13,7 +13,7 @@ public enum ViewMessage {
     INPUT_CUSTOMER_ID("Input Customer's Name:"),
     INPUT_CUSTOMER_SPENT_TIME("Input Customer's Name:"),
     INPUT_CUSTOMER_TOTAL_PAY("Input Customer's Name:"),
-    INPUT_END_FOR_EXIT("** Press '" + EXIT_CHOICE + "', if you want to exit! **"),
+    INPUT_END_FOR_EXIT("** Press '" + EXIT_CHOICE.message + "', if you want to exit! **"),
     INPUT_CUSTOMER_NUMBER("How many customers to input?");
 
     private final String message;
@@ -27,7 +27,7 @@ public enum ViewMessage {
     }
 
     public static boolean isQuitMenuName(String menuName) {
-        return Objects.equals(QUIT_MENU_NAME.message, menuName);
+        return Objects.equals(EXIT_CHOICE.message, menuName);
     }
 
     public String getMessage() {

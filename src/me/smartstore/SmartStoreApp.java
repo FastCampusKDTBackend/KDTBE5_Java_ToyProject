@@ -42,7 +42,7 @@ public class SmartStoreApp {
             allCustomers.add(new Customer(
                     Character.toString((char) ('a' + i)),
                     (char) ('a' + i) + "123",
-                    ((int) (Math.random() * 5) + 1) * 10,
+                    ((int) (Math.random() * 10) + 1) * 5,
                     ((int) (Math.random() * 5) + 1) * 100000));
         }
         allCustomers.refresh(allGroups);

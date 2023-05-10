@@ -42,6 +42,10 @@ public class Customer implements Comparable<Customer> {
         return cusNo;
     }
 
+    public void setCusNo(int cusNo) {
+        this.cusNo = cusNo;
+    }
+
     public String getCusName() {
         return cusName;
     }
@@ -97,8 +101,7 @@ public class Customer implements Comparable<Customer> {
 
     @Override
     public String toString() {
-        return "No. " + cusNo + " => " +
-                "Customer{" +
+        return "Customer{" +
                 "cusName='" + cusName + '\'' +
                 ", cusId='" + cusId + '\'' +
                 ", cusTotalTime=" + cusTotalTime +

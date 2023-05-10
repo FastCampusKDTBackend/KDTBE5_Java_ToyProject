@@ -104,18 +104,21 @@ public class Customers extends DArray<Customer> {
     }
 
     public void viewCustomerData(){
-        int num = 1;
         for (int i = 0; i < allCustomers.size; i++){
-            System.out.println(allCustomers.get(i));
-            num++;
+            System.out.println("No. "+ allCustomers.get(i).getCusNo()
+                    + " => " + allCustomers.get(i));
         }
     }
 
     public void viewCustomerDataByGroupType(GroupType groupType) {
         int num = 1;
+        Customer[] customers = new Customer[allCustomers.size];
+        for (int i = 0; i < allCustomers.size; i++) {
+            customers[i] = allCustomers.get(i);
+        }
         for (int i = 0; i < allCustomers.size; i++){
             if( allCustomers.get(i).getGroup() == groupType) {
-                System.out.println(allCustomers.get(i));
+                System.out.println("No. "+ num + " => " + customers[i]);
                 num++;
             }
         }
@@ -150,7 +153,7 @@ public class Customers extends DArray<Customer> {
 
         for (int i = 0; i < allCustomers.size; i++) {
             if (allCustomers.get(i).getGroup() == groupType) {
-                System.out.println(customers[i]);
+                System.out.println("No. "+ num + " => " + customers[i]);
                 num++;
             }
         }

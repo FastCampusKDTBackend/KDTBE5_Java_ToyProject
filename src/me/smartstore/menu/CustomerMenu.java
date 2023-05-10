@@ -77,9 +77,9 @@ public class CustomerMenu implements Menu {
                     customer.setCusTotalPay(cusTotalPay);
                 } else {
                     allCustomers.add(customer);
+                    allCustomers.refresh(allGroups);
                     System.out.println(customer);
                     cnt++;
-                    allCustomers.refresh(allGroups);
                     break;
                 }
             }
@@ -185,13 +185,12 @@ public class CustomerMenu implements Menu {
                 cusTotalPay = setCustomerTotalPay();
                 customer.setCusTotalPay(cusTotalPay);
             } else {
-                System.out.println(customer);
                 allCustomers.set(saveIdx, customer);
                 allCustomers.refresh(allGroups);
+                System.out.println(customer);
                 manage();
             }
         }
-
     }
 
     private void deleteCustomer() {
@@ -199,6 +198,15 @@ public class CustomerMenu implements Menu {
         int customerIdx = nextLine(allCustomers.size());
         int saveIdx = allCustomers.findCustomerDataByCusNo(customerIdx);
 
+        // customer 삭제
         allCustomers.pop(saveIdx);
+
+        // allCustomer 의 CusNo index 당기기
+        for (int i = saveIdx; i < allCustomers.size(); i++) {
+            Customer customer = allCustomers.get(i);
+            System.out.println(customer);
+            customer.setCusNo(customer.getCusNo()-1);
+            allCustomers.set(i, customer);
+        }
     }
 }

@@ -7,7 +7,6 @@ import util.view.OutputView;
 import util.view.ViewMessage;
 
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 public interface ViewParameterExecute {
     static Runnable getMethod() {
@@ -15,12 +14,10 @@ public interface ViewParameterExecute {
     }
 
     private static void run() {
-        Scanner scanner = InputScanner.get();
         while (true) {
-
             OutputView.chooseType(GroupType.generateFormatForView());
 
-            String groupName = scanner.nextLine();
+            String groupName = InputScanner.get().nextLine();
             if (ViewMessage.isQuitMenuName(groupName)) {
                 break;
             }

@@ -40,7 +40,7 @@ public class SummaryMenu extends Menu {
             System.out.println("==============================");
             MyArrayList<Customer> currentClassification = classifications.get(i);
 
-            MyList.sort(currentClassification, orderType);
+            currentClassification.sort(orderType);
             for (int j = 0; j < currentClassification.size(); i++) {
                 System.out.println(j + ": " + currentClassification.get(j));
             }

@@ -1,6 +1,12 @@
 package me.smartstore.collections;
 
+import me.smartstore.menu.OrderType;
+
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Spliterator;
+import java.util.function.Consumer;
 
 public class MyArrayList<T> implements MyList<T> {
     private int size;
@@ -71,8 +77,8 @@ public class MyArrayList<T> implements MyList<T> {
         if (index < 0 || index > size - 1) {
             return false;
         }
-        for (int i = index; i < size-1; i++) {
-            elements[i] = elements[i+1];
+        for (int i = index; i < size - 1; i++) {
+            elements[i] = elements[i + 1];
         }
         size--;
         return true;
@@ -104,5 +110,29 @@ public class MyArrayList<T> implements MyList<T> {
             throw new IndexOutOfBoundsException();
         }
         return elements[index];
+    }
+
+    public void sort(OrderType orderType) {
+        if (orderType == OrderType.DESCENDING) {
+            Arrays.sort(elements, Collections.reverseOrder());
+            return;
+        }
+        Arrays.sort(elements);
+    }
+
+    //@Todo Iterator, forEach, Spliterator구현해야됨;;
+    @Override
+    public Iterator<T> iterator() {
+        return null;
+    }
+
+    @Override
+    public void forEach(Consumer<? super T> action) {
+        MyList.super.forEach(action);
+    }
+
+    @Override
+    public Spliterator<T> spliterator() {
+        return MyList.super.spliterator();
     }
 }

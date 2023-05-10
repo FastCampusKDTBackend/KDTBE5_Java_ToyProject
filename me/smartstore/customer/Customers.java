@@ -44,4 +44,23 @@ public class Customers extends DArray<Customer> {
 ;        }
     }
 
+    public Customer[] seperateGroup(GroupType groupType) {
+        int counter  = 0;
+        for(int i = 0; i < allCustomers.size(); i++) {
+            if(allCustomers.get(i).getGroup() == null) continue;
+            if(allCustomers.get(i).getGroup().getGroupType().equals(groupType)) counter++;
+        }
+        Customer[] arrayGroup = new Customer[counter];
+        int index = 0;
+
+        for(int i = 0; i < allCustomers.size(); i++) {
+            if(allCustomers.get(i).getGroup() == null) continue;
+            if(allCustomers.get(i).getGroup().getGroupType().equals(groupType)) {
+                arrayGroup[index] = allCustomers.get(i);
+                index++;
+            }
+        }
+        return arrayGroup;
+    }
+
 }

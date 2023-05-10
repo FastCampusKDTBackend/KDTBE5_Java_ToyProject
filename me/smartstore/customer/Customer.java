@@ -32,6 +32,14 @@ public class Customer {
         this.cusTotalPay = cusTotalPay;
     }
 
+    public Customer(String cusName, String cusId, Integer cusTotalTime, Integer cusTotalPay, Group group) {
+        this.cusName = cusName;
+        this.cusId = cusId;
+        this.cusTotalTime = cusTotalTime;
+        this.cusTotalPay = cusTotalPay;
+        this.group = group;
+    }
+
     public String getCusName() {
         return cusName;
     }
@@ -92,6 +100,7 @@ public class Customer {
                 ", cusId='" + cusId + '\'' +
                 ", cusTotalTime=" + cusTotalTime +
                 ", cusTotalPay=" + cusTotalPay +
+                ", group=GroupType:" + group +
                 '}';
     }
 }

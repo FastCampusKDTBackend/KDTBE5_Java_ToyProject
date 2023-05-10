@@ -23,7 +23,7 @@ public abstract class AbstractMenu {
 
   /** 메뉴 출력 */
   void show() {
-    StringBuilder menuBuilder = new StringBuilder().append("==============================\n");
+    StringBuilder menuBuilder = new StringBuilder().append("\n==============================\n");
     for (int i = 0; i < items.length; i++) {
       menuBuilder.append(i + 1).append(". ").append(items[i]).append("\n");
     }

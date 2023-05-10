@@ -21,7 +21,7 @@ public interface UpdateParameterExecute {
             OutputView.chooseType(GroupType.generateFormatForView());
             String groupName = scanner.nextLine();
 
-            if (groupName.equals(ViewMessage.QUIT_MENU_NAME.getMessage())) {
+            if (ViewMessage.isExit(groupName)) {
                 break;
             }
 

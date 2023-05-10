@@ -18,7 +18,7 @@ public class OutputView {
     }
 
     public static void showExitGuide() {
-        System.out.println("** Press '" + ViewMessage.QUIT_MENU_NAME.getMessage() + "', if you want to exit! **");
+        System.out.println("** Press '" + ViewMessage.EXIT_CHOICE.getMessage() + "', if you want to exit! **");
     }
 
     public static void chooseType(String format) {

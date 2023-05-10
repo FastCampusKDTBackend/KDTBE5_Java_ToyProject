@@ -12,22 +12,24 @@ import me.smartstore.core.view.MainMenu;
 public class AppStarter {
   private AppStarter() {}
 
-  private static class StoreAppContext {
-    private static final AppStarter app = new AppStarter();
-  }
+  private static AppStarter appStarter = new AppStarter();
 
   public static AppStarter getInstance() {
-    return StoreAppContext.app;
+    if (appStarter == null) {
+      appStarter = new AppStarter();
+    }
+
+    return appStarter;
   }
 
   public void run() {
     title();
-    MainMenu.launch();
+    MainMenu.getInstance().launch();
     finish();
   }
 
   private void title() {
-    System.out.println(
+    System.out.print(
         """
         ===========================================
         Title : SmartStore Customer Segmentation
@@ -36,6 +38,7 @@ public class AppStarter {
         ===========================================
         """);
   }
+
   private void finish() {
     System.out.println("Program Finished.");
   }

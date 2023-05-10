@@ -19,7 +19,7 @@ public class ClassifiedCustomers {
         return classifiedCustomers;
     }
 
-    public void viewByClassifiedGroup(GroupType groupType, Comparator<Customer> comparator) {
+    public void viewByClassifiedGroup(GroupType groupType, Comparator<? super Customer> comparator) {
         List<Customer> customerList = customerRepository.findByGroup(groupType);
 
         if (comparator == null) {

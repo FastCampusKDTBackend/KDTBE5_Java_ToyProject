@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public interface ClassificationMenuExecute {
-    static Runnable getMethod(Comparator<Customer> comparator) {
+    static Runnable getMethod(Comparator<? super Customer> comparator) {
         return () -> {
             if (isNormalSummary(comparator)) {
                 executeView(null);
@@ -24,7 +24,7 @@ public interface ClassificationMenuExecute {
         };
     }
 
-    private static boolean isNormalSummary(Comparator<Customer> comparator) {
+    private static boolean isNormalSummary(Comparator<? super Customer> comparator) {
         return comparator == null;
     }
 
@@ -32,7 +32,7 @@ public interface ClassificationMenuExecute {
         return command.equals(ViewMessage.EXIT_CHOICE.getMessage());
     }
 
-    private static void sortSummaryExecute(Comparator<Customer> comparator) {
+    private static void sortSummaryExecute(Comparator<? super Customer> comparator) {
         while (true) {
             OutputView.chooseType(SortType.generateFormatForView());
             String command = InputScanner.get().nextLine();
@@ -60,7 +60,7 @@ public interface ClassificationMenuExecute {
         }
     }
 
-    private static void executeView(Comparator<Customer> comparator) {
+    private static void executeView(Comparator<? super Customer> comparator) {
         Arrays.stream(GroupType.values()).forEach(groupType ->
                 ClassifiedCustomers.getInstance().viewByClassifiedGroup(groupType, comparator)
         );

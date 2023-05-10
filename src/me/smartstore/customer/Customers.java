@@ -3,6 +3,7 @@ package me.smartstore.customer;
 import me.smartstore.arrays.DArray;
 import me.smartstore.group.GroupType;
 import me.smartstore.group.Groups;
+import java.util.Arrays;
 
 public class Customers extends DArray<Customer> {
     private static Customers allCustomers;
@@ -29,19 +30,19 @@ public class Customers extends DArray<Customer> {
 
         int cnt = 0;
 
-        if (groups.find(GroupType.VVIP) != null) {
-            VVIPMinTime = groups.find(GroupType.VVIP).getParameter().getMinTime();
-            VVIPMinPay = groups.find(GroupType.VVIP).getParameter().getMinPay();
+        if (groups.findGroupByGroupType(GroupType.VVIP) != null) {
+            VVIPMinTime = groups.findGroupByGroupType(GroupType.VVIP).getParameter().getMinTime();
+            VVIPMinPay = groups.findGroupByGroupType(GroupType.VVIP).getParameter().getMinPay();
             cnt += 4;
         }
-        if (groups.find(GroupType.VIP) != null) {
-            VIPMinTime = groups.find(GroupType.VIP).getParameter().getMinTime();
-            VIPMinPay = groups.find(GroupType.VIP).getParameter().getMinPay();
+        if (groups.findGroupByGroupType(GroupType.VIP) != null) {
+            VIPMinTime = groups.findGroupByGroupType(GroupType.VIP).getParameter().getMinTime();
+            VIPMinPay = groups.findGroupByGroupType(GroupType.VIP).getParameter().getMinPay();
             cnt += 2;
         }
-        if (groups.find(GroupType.GENERAL) != null) {
-            GENERALMinTime = groups.find(GroupType.GENERAL).getParameter().getMinTime();
-            GENERALMInPay = groups.find(GroupType.GENERAL).getParameter().getMinPay();
+        if (groups.findGroupByGroupType(GroupType.GENERAL) != null) {
+            GENERALMinTime = groups.findGroupByGroupType(GroupType.GENERAL).getParameter().getMinTime();
+            GENERALMInPay = groups.findGroupByGroupType(GroupType.GENERAL).getParameter().getMinPay();
             cnt += 1;
         }
 
@@ -112,7 +113,7 @@ public class Customers extends DArray<Customer> {
         }
     }
 
-    public void viewCustomerData(GroupType groupType) {
+    public void viewCustomerDataByGroupType(GroupType groupType) {
         int num = 1;
         for (int i = 0; i < allCustomers.size; i++){
             if( allCustomers.get(i).getGroup() == groupType) {
@@ -121,4 +122,40 @@ public class Customers extends DArray<Customer> {
             }
         }
     }
+
+    public void viewCustomerDataByGroupType(GroupType groupType, String sortingMethod, String order) {
+        int num = 1;
+        Customer[] customers = new Customer[allCustomers.size];
+        for (int i = 0; i < allCustomers.size; i++) {
+            customers[i] = allCustomers.get(i);
+        }
+
+        Arrays.sort(customers, (o1, o2) -> {
+            if (sortingMethod.equals("Name")){
+                if (order.equals("A"))
+                    return o1.getCusName().compareTo(o2.getCusName());
+                else if (order.equals("D"))
+                    return o2.getCusName().compareTo(o1.getCusName());
+            } else if (sortingMethod.equals("SpentTime")) {
+                if (order.equals("A"))
+                    return o1.getCusTotalTime() - o2.getCusTotalTime();
+                else if (order.equals("D"))
+                    return o2.getCusTotalTime() - o1.getCusTotalTime();
+            } else if (sortingMethod.equals("TotalPayment")) {
+                if (order.equals("A"))
+                    return o1.getCusTotalPay() - o2.getCusTotalPay();
+                else if (order.equals("D"))
+                    return o2.getCusTotalPay() - o1.getCusTotalPay();
+            }
+            return 0;
+        });
+
+        for (int i = 0; i < allCustomers.size; i++) {
+            if (allCustomers.get(i).getGroup() == groupType) {
+                System.out.println(customers[i]);
+                num++;
+            }
+        }
+    }
+
 }

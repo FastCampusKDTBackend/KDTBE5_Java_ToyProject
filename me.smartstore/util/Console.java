@@ -11,8 +11,8 @@ public class Console {
 
     private static Scanner scanner;
 
+    // Suppresses default constructor, ensuring non-instantiability.
     private Console() {
-
     }
 
     private static Scanner getInstance() {

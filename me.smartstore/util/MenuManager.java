@@ -1,4 +1,4 @@
-package menu;
+package util;
 
 import exception.InputFormatException;
 import exception.InputNumOfEndMenuException;
@@ -6,6 +6,11 @@ import exception.InputRangeException;
 import util.view.Input;
 
 public class MenuManager {
+
+    // Suppresses default constructor, ensuring non-instantiability.
+    private MenuManager() {
+
+    }
 
     public static int chooseMenu(String[] menu) {
         while (true) {

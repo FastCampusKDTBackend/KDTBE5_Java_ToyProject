@@ -3,7 +3,7 @@ package menu.subMenu;
 import domain.group.Group;
 import domain.group.GroupType;
 import exception.*;
-import menu.MenuManager;
+import util.MenuManager;
 import service.GroupService;
 import service.SummaryService;
 import util.view.Input;

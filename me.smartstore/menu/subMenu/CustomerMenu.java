@@ -2,7 +2,7 @@ package menu.subMenu;
 
 import domain.customer.Customer;
 import exception.*;
-import menu.MenuManager;
+import util.MenuManager;
 import service.CustomerService;
 import service.SummaryService;
 import util.view.Input;

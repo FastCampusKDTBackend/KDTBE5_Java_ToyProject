@@ -4,7 +4,7 @@ import domain.customer.Customer;
 import exception.ArrayEmptyException;
 import exception.InputEndException;
 import exception.InputNumOfEndMenuException;
-import menu.MenuManager;
+import util.MenuManager;
 import service.GroupService;
 import service.SummaryService;
 import util.view.Input;

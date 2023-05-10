@@ -228,7 +228,7 @@ public class CustomerManager {
 
     if (idx == -1) throw new StoreException(NOT_EXIST_CUSTOMER);
 
-    System.arraycopy(customers, idx, customers, idx - 1, customers.length - idx);
+    System.arraycopy(customers, idx + 1, customers, idx, size - idx);
     size--;
   }
 }

@@ -171,9 +171,15 @@ public class GroupMenu implements Menu{
     }
 
     public void updateParameter() {
-
         while ( true ) {
             GroupType groupType = chooseGroup();
+
+            if (groupType == null) manage();
+            else if (groupType == GroupType.NONE) {
+                System.out.println(Message.ERR_MSG_INPUT_NONE);
+                manage();
+            }
+
             // GroupType 에 해당하는 group 객체를 찾아야 함
             Group group = allGroups.findGroupByGroupType(groupType);
 

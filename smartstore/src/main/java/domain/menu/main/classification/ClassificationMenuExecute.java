@@ -15,7 +15,7 @@ import java.util.Comparator;
 public interface ClassificationMenuExecute {
     static Runnable getMethod(Comparator<Customer> comparator) {
         return () -> {
-            if (isPureSummary(comparator)) {
+            if (isNormalSummary(comparator)) {
                 executeView(null);
                 return;
             }
@@ -24,7 +24,7 @@ public interface ClassificationMenuExecute {
         };
     }
 
-    private static boolean isPureSummary(Comparator<Customer> comparator) {
+    private static boolean isNormalSummary(Comparator<Customer> comparator) {
         return comparator == null;
     }
 

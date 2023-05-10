@@ -44,4 +44,16 @@ public class ClassifiedCustomers {
         classifiedByVIP = new MyArrayList<>();
         classifiedByVVIP = new MyArrayList<>();
     }
+
+    public MyArrayList<Customer> getClassifiedByGeneral() {
+        return classifiedByGeneral;
+    }
+
+    public MyArrayList<Customer> getClassifiedByVIP() {
+        return classifiedByVIP;
+    }
+
+    public MyArrayList<Customer> getClassifiedByVVIP() {
+        return classifiedByVVIP;
+    }
 }

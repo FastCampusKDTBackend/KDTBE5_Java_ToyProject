@@ -9,6 +9,8 @@ public class ClassifiedCustomers {
     private MyArrayList<Customer> classifiedByVIP;
     private MyArrayList<Customer> classifiedByVVIP;
 
+    private MyArrayList<MyArrayList<Customer>> classifications;
+
     private static ClassifiedCustomers classifiedCustomers;
 
     private ClassifiedCustomers() {
@@ -55,5 +57,9 @@ public class ClassifiedCustomers {
 
     public MyArrayList<Customer> getClassifiedByVVIP() {
         return classifiedByVVIP;
+    }
+
+    public MyArrayList<MyArrayList<Customer>> getClassifications() {
+        return classifications;
     }
 }

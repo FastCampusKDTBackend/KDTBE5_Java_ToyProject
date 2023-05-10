@@ -17,7 +17,7 @@ import me.smartstore.exceptions.StoreException;
  * @since 2023-05-10
  */
 public class CustomerManager {
-  private static final CustomerManager customerManager = new CustomerManager();
+  private static CustomerManager customerManager = new CustomerManager();
   private static final int DEFAULT_SIZE = 10;
   private static int size = 0;
   private static Customer[] customers = new Customer[DEFAULT_SIZE];
@@ -25,7 +25,9 @@ public class CustomerManager {
   private CustomerManager() {}
 
   public static CustomerManager getInstance() {
-
+    if (customerManager == null) {
+      customerManager = new CustomerManager();
+    }
     return customerManager;
   }
 
@@ -45,23 +47,24 @@ public class CustomerManager {
    * 기존에 저장되어 있는 고객인 경우 고객 정보를 새롭게 업데이트. 그렇지 않은 경우 고객 정보를 새로 저장.
    *
    * @param customer 고객 정보
-   * @return 저장 또는 업데이트 된 고객 정보
    * @throws StoreException 기타 데이터베이스 오류
    */
-  public Customer save(Customer customer) throws StoreException {
+  public void save(Customer customer) throws StoreException {
+    if (isEmpty()) {
+      customers[size++] = customer;
+      return;
+    }
 
     for (int idx = 0; idx < customers.length; idx++) {
       if (customer.getId().equals(customers[idx].getId())) {
         customers[idx] = customer;
-        return customer;
+        return;
       }
     }
 
     if (isFull()) customers = Arrays.copyOf(customers, size * 2);
 
     customers[size++] = customer;
-
-    return customer;
   }
 
   /**

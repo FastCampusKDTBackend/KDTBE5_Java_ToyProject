@@ -100,7 +100,7 @@ public class SummaryMenu implements Menu {
 
     }
 
-
+    //이름 순서 정렬
     public void sortedByName(Customer[] customers) {
 
         while (true) {
@@ -126,7 +126,7 @@ public class SummaryMenu implements Menu {
         }
     }
 
-
+    //시간 순서 정렬
     public void sortedBySpentTime(Customer[] customers) {
         while (true) {
             OrderType orderType = orderTypeSummary();
@@ -145,7 +145,7 @@ public class SummaryMenu implements Menu {
                     Arrays.sort(customers, new Comparator<Customer>() {
                         @Override
                         public int compare(Customer o1, Customer o2) {
-                            return o1.getTotalTime() - o2.getTotalTime();
+                            return o2.getTotalTime() - o1.getTotalTime();
                         }
                     });
                 } else {
@@ -162,7 +162,7 @@ public class SummaryMenu implements Menu {
 
     }
 
-
+    //금액 순서 정렬
     public void sortedByTotalPayment(Customer[] customers) {
         while (true) {
             OrderType orderType = orderTypeSummary();

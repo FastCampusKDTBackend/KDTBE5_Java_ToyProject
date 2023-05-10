@@ -1,7 +1,6 @@
 package smartstore.menu;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,6 +60,7 @@ public class SummaryMenu implements Menu {
     			// 스트림 만들기 위함.
     			List<Customer> customersBuilder = new ArrayList<>(); 
 	    		for(int c = 0; c < allCustomers.size(); c++) {
+	    			if (allCustomers.get(c).getGroup() == null) break;
 	    			customersBuilder.add(allCustomers.get(c));
 	    		}
 	    		
@@ -68,25 +68,14 @@ public class SummaryMenu implements Menu {
     				
     				GroupType groupType = GroupType.values()[i];
     				
-    				fixedString(allGroups, i, groupType);
+    				printSummaryList(allGroups, i, groupType);
     				
     	    		// 그룹타입에 따른 분류 스트림
     	    		List<Customer> customerList = customersBuilder.stream()
 			 			 			.filter(customer -> customer.getGroup().getGroupType() == groupType)
 			 			 			.collect(Collectors.toList());
     	    		
-    	    		// 그룹에 해당하는 Customer 없으면 Null. 출력
-    	    		fixedCustomerString(customerList);
-//    	    		if(customerList.size() != 0) {
-//    	    			int count = 0;
-//    	    			for (Customer customer : customerList) {
-//    	    				count++;
-//        	    			System.out.println("No.\t" + count + " => " + customer);
-//        	    		}
-//    	    			System.out.println("==============================\n");
-//    	    		} else {
-//    	    			System.out.println("Null.\n");
-//    	    		}
+    	    		printNullGroups(customerList);
     	    	}
     	    	System.out.println();
     			break;
@@ -97,7 +86,7 @@ public class SummaryMenu implements Menu {
 			} catch (IndexOutOfBoundsException e) {
 				System.out.println(Message.ERR_MSG_IDEX_OUT_OF_BOUNDS);
 				break;
-			}
+			} 
     	}
     }
     
@@ -115,41 +104,14 @@ public class SummaryMenu implements Menu {
     			for(int i = 0; i < GroupType.values().length/2; i++) { 
     				GroupType groupType = GroupType.values()[i];
     				
-    				fixedString(allGroups, i, groupType);
-    				
-    	    		// 그룹타입에 따른 분류 스트림
-//    	    		List<Customer> customerList = customersBuilder.stream()
-//			 			 			.filter(customer -> customer.getGroup().getGroupType() == groupType)
-//			 			 			.filter(sortedCustomer -> sortType == SortType.DESCENDING)
-//			 			 			.sorted(Comparator.comparing(Customer::getCusName).reversed())
-//			 			 			.collect(Collectors.toList());
+    				printSummaryList(allGroups, i, groupType);
     				
     				List<Customer> customerList = customersBuilder.stream()
 	 			 			.filter(customer -> customer.getGroup().getGroupType() == groupType)
 	 			 			.collect(Collectors.toList());
     				
-    				// 오름차순 내림차순
+    				printNullGroups(sortedStream(customerList, sortType));
     				
-//    				List<Customer> sortedList;
-//    				if (sortType == SortType.DESCENDING) {
-//    					sortedList = customerList.stream().sorted(Comparator.comparing(Customer::getCusName).reversed())
-//    							.collect(Collectors.toList());
-//    				} else {
-//    					sortedList = customerList.stream().sorted(Comparator.comparing(Customer::getCusName))
-//    							.collect(Collectors.toList());
-//    				}
-    				
-    				fixedCustomerString(sortedStream(customerList, sortType));
-    				
-//    				if(sortedStream(customerList, sortType).size() != 0) {
-////    	    		if(sortedList.size() != 0) {
-//    	    			for (Customer customer : customerList) {
-//        	    			System.out.println(customer);
-//        	    		}
-//    	    			System.out.println("==============================\n");
-//    	    		} else {
-//    	    			System.out.println("Null.\n");
-//    	    		}
     	    	}
     	    	System.out.println();
     			break;
@@ -191,7 +153,7 @@ public class SummaryMenu implements Menu {
         }
     }
     
-    private void fixedString(Groups allGroups, int i, GroupType groupType) {
+    private void printSummaryList(Groups allGroups, int i, GroupType groupType) {
     	
     	Integer minTime = null;
 		Integer minPay = null;
@@ -226,7 +188,7 @@ public class SummaryMenu implements Menu {
     }
     
     
-    private void fixedCustomerString(List<Customer> customerList) {
+    private void printNullGroups(List<Customer> customerList) {
     	if(customerList.size() != 0) {
 			int count = 0;
 			for (Customer customer : customerList) {

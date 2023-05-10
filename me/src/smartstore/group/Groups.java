@@ -12,9 +12,9 @@ public class Groups extends DArray<Group> {
             
             // 최초 등급 생성
             allGroups.add(new Group(new Parameter(), GroupType.NONE));
-//            allGroups.add(new Group(new Parameter(), GroupType.GENERAL));
-//            allGroups.add(new Group(new Parameter(), GroupType.VIP));
-//            allGroups.add(new Group(new Parameter(), GroupType.VVIP));
+            allGroups.add(new Group(new Parameter(), GroupType.GENERAL));
+            allGroups.add(new Group(new Parameter(), GroupType.VIP));
+            allGroups.add(new Group(new Parameter(), GroupType.VVIP));
         }
         
         return allGroups;

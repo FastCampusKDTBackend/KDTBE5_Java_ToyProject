@@ -1,7 +1,8 @@
 package smartstore.util;
 
 public interface Message {
-    String ERR_MSG_INVALID_ARR_EMPTY = "No Customers. Please input one first.\n";
+    String ERR_MSG_INVALID_CUSTOMER_ARR_EMPTY = "No Customers. Please input one first.\n";
+    String ERR_MSG_INVALID_GROUP_ARR_EMPTY = "No Groups. Please input one first.\n";
     String ERR_MSG_NULL_ARR_ELEMENT = "Elements in Array has null. Array can't be sorted.\n";
     String ERR_MSG_INVALID_INPUT_NULL = "Null Input. Please input something.\n";
     String ERR_MSG_INVALID_INPUT_EMPTY = "Empty Input. Please input something.\n";
@@ -17,5 +18,8 @@ public interface Message {
     String MSG_Input_Customer_ID = "Input Customer's ID: ";
 	String MSG_Input_Customer_Pay = "Input Customer's Total Payment: ";
 	
-	String No_Customer = "No Customers. Please input one first.\n";
+	String ERR_MSG_EMPTY_PARAMETER = "No Parameters. Please set first.\n";
+	String ERR_MSG_NOT_ENOUGH_PARAMETER = "Not enough Parameters. Please update parameters.\n";
+	String ERR_MSG_NOT_ENOUGH_CUSTOMER = "Not enough Customer data. Please update customer data.\n";
+	
 }

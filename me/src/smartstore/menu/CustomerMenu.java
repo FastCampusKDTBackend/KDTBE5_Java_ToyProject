@@ -4,10 +4,12 @@ import smartstore.customer.Customer;
 import smartstore.customer.Customers;
 import smartstore.exception.InputEndException;
 import smartstore.exception.InputTypeException;
+import smartstore.group.Groups;
 import smartstore.util.Message;
 
 public class CustomerMenu implements Menu {
 	
+	private final Groups allGroups = Groups.getInstance();
 	private final Customers allCustomers = Customers.getInstance();
 	
     // singleton
@@ -62,6 +64,7 @@ public class CustomerMenu implements Menu {
             			
             		customer.manage();
             		allCustomers.add(customer);
+            		allCustomers.refresh(allGroups);
                 }
             	break;
             } catch (InputTypeException e) {
@@ -77,7 +80,7 @@ public class CustomerMenu implements Menu {
     
     private void viewCustomer() {
     	if (allCustomers.size() == 0) {
-    		System.out.println(Message.No_Customer);
+    		System.out.println(Message.ERR_MSG_INVALID_CUSTOMER_ARR_EMPTY);
     	} else {
     		allCustomers.customerInfo();
     	}
@@ -85,30 +88,29 @@ public class CustomerMenu implements Menu {
 
 	private void updateCustomer() {
 		if (allCustomers.size() == 0) {
-    		System.out.println(Message.No_Customer);
+    		System.out.println(Message.ERR_MSG_INVALID_CUSTOMER_ARR_EMPTY);
     	} else {
     		allCustomers.customerInfo();
     		
     		allCustomers.get(whichCustomer(allCustomers)).manage();;
+    		allCustomers.refresh(allGroups);
     		
     	}
 	}
 	
 	private void deleteCustomer() {
 		if (allCustomers.size() == 0) {
-    		System.out.println(Message.No_Customer);
+    		System.out.println(Message.ERR_MSG_INVALID_CUSTOMER_ARR_EMPTY);
     	} else {
     		allCustomers.customerInfo();
-    		while(true) {
-    			try {
-    				allCustomers.deleteCustomer(whichCustomer(allCustomers));
-    				allCustomers.customerInfo();
-    			} catch (IndexOutOfBoundsException e) {
-    				System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
-    			} catch (IllegalArgumentException e) {
-    				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
-    			} 
-    		}
+			try {
+				allCustomers.deleteCustomer(whichCustomer(allCustomers));
+				allCustomers.customerInfo();
+			} catch (IndexOutOfBoundsException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+			} catch (IllegalArgumentException e) {
+				System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
+			} 
     	}
     }
 	

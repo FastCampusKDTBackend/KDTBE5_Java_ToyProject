@@ -51,9 +51,11 @@ public class GroupMenu implements Menu {
     		GroupType groupType = chooseGroup();
     		if (groupType == null) break;
             // GroupType에 해당하는 group 객체를 찾아야 함
+    		
             Group group = allGroups.find(groupType); // 고객 등급 찾음.
             
-            if (group == null) break;	
+            if (group == null) group.setGroupType(groupType);
+            
         	if (group.getParameter() != null) { // group.getParameter()이 null이 아니면 이미 초기화됨
                 System.out.println("\n" + group.getGroupType() + " group already exists.");
                 
@@ -65,7 +67,9 @@ public class GroupMenu implements Menu {
                 parameter.manage();
                 
                 group.setParameter(parameter);
-                allCustomers.refresh(allGroups); // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
+                
+                if (allCustomers.refresh(allGroups) == -1) break;
+                
                 if (group.getParameter() != null) {
                 	
                 	printParameters(group);
@@ -78,7 +82,9 @@ public class GroupMenu implements Menu {
     	 while ( true ) {
      		GroupType groupType = chooseGroup();
      		if (groupType == null) break;
+     		
      		Group group = allGroups.find(groupType); // 고객 등급 찾음.
+     		
      		if (group == null) break;
      		
      		printParameters(group);
@@ -100,7 +106,9 @@ public class GroupMenu implements Menu {
 	                parameter.manage();
 	                
 	                group.setParameter(parameter);
-	                allCustomers.refresh(allGroups); // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
+	                
+	                if (allCustomers.refresh(allGroups) == -1) break;
+	                
 	                if (group.getParameter() != null) {
 	                	printParameters(group);
 	                }

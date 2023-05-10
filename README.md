@@ -1,33 +1,148 @@
-<br/>
+## 패스트캠퍼스 미니 프로젝트 - Smart Store
 
-### 자바 토이프로젝트 <br/><br/>
-> 제출자 - 최은빈    
-> 출시일 - 23.04.27.  
-> 제출일 - 23.05.10. 
-    
-- [프로젝트 설명서](https://echoiing-fastcampus.notion.site/Smart-Store-47ea8a0b4b084301bd1eefbabe3426af)를 풀어서 제출하시오. 💻
+### Directory Structure
 
-- 파일 이름 작성법 📂
-  - ````me.smartstore```` 패키지 생성
-- 제출방법 
-  - 본인의 이름으로 ````branch````를 생성하여 ````push````후 ````pull request```` 작성
-    - 예시 
-      - branch 이름 - ````FirstNameLastName````
-      - commit 메시지 (멘토 리뷰 이전) - [1차 VER1.0...] Java ToyProject upload by FirstNameLastName (labeling도 가능: ````first````)
-      - commit 메시지 (멘토 리뷰 이전) - [1차 VER2.0...] Java ToyProject upload by FirstNameLastName (labeling도 가능: ````second````)
-      - commit 메시지 (멘토 리뷰 이후) - [2차] Java ToyProject upload by FirstNameLastName (labeling도 가능: ````resubmit````)
-  - PR 메시지는 본인이 하고 싶은 말이나 질문을 적어주세요.
-    - ````코드리뷰 빡세게 부탁드립니다.```` ````클린한 코드인지 봐주세요.```` ````이 코드의 조금 더 나은 방법이 있을까요.````
-    - ````~~번 문제 풀지 못했습니다.```` ````~~번 문제 풀이 방법을 알려주시면 감사하겠습니다.````
-    - ````결과는 나왔는데 맞는지 모르겠습니다.```` 
-- 리뷰관련 [프로세스 🔖](https://quickest-asterisk-75d.notion.site/a8d233d87f0945cbaa8f71300515587d?p=b658d277f52843dd9e1e8322233c9006&pm=s)
-  - ```PEER REVIEW``` - 과제 기간동안 본인 과제 완료 후, 다른 수강생들의 PR을 보며 피어리뷰 가능 (댓글 이용) 
-  - ```MENTOR REVIEW``` - 과제 기간 이후에 멘토진 코드 리뷰 (댓글 이용)
-    - 멘토님이 작성한 댓글 이후에는 수강생이 댓글 자제 (혼선 막기 위함)
-- 주의사항 🔥
-  - 본인 ```branch``` -> ```main branch``` PR 상태로 제출부탁드립니다.
-  - ```main branch```에 본인 ```branch```의 ```commit```을 ```merge``` 하지 마시기 바랍니다.
-  - ```git ignore``` 활용 적극 권장 ‼ 
-    - 문제풀이 코드가 아닌 .idea, out과 같은 파일은 제출 하지 마세요 🥲
+```java
+==================================================
+                   Smart Store 
+==================================================
+│   Main.java
+│   SmartStore.java
+│   
+├───controller
+│   │   MenuController.java
+│   │   
+│   └───menu
+│           CustomerMenu.java
+│           GroupMenu.java
+│           MainMenu.java
+│           Menu.java
+│           SummaryMenu.java
+│           
+├───domain
+│   ├───customer
+│   │       Customer.java
+│   │       Customers.java
+│   │       
+│   └───group
+│           Group.java
+│           Groups.java
+│           GroupType.java
+│           
+├───exception
+│       ArrayEmptyException.java
+│       GroupNotFoundException.java
+│       GroupSetAlreadyException.java
+│       InputEmptyException.java
+│       InputEndException.java
+│       InputFormatException.java
+│       InputRangeException.java
+│       InputTypeException.java
+│       
+├───service
+│       CustomerService.java
+│       GroupService.java
+│       SummaryService.java
+│       
+└───util
+├  Console.java
+│   
+├───arrays
+│   │   Collections.java
+│   │   MyArray.java
+│   │   
+│   └───exception
+│           ElementNotFoundException.java
+│           EmptyArrayException.java
+│           NullArgumentException.java
+│           
+└───view
+    Input.java
+    Message.java
+    Output.java
+```
 
-<br/> 
+- `controller`: MenuController (Main, Parameter, Customer, Summary)
+- `domain`: DTO, Local Storage, Menu
+- `exception`: Custom Exception
+- `service`: Local Storage Access Service (Customers, Groups)
+- `util.view`: Input, Output View
+
+---
+### ClassDiagram
+
+![Untitled](readmeSrc/class.png)
+
+---
+### controller
+
+- `MenuController`: 소유한 메뉴를 실행
+
+### domain
+
+customer
+
+- `Customer`: 회원 DTO
+- `Customers`: 회원 로컬 저장소
+
+group
+
+- `Group`: 그룹 DTO (회원 분류 기준)
+- `Groups`: 그룹 로컬 저장소
+- `GroupType`: 그룹 타입 (None, General, Vip, VVip)
+- `Prarmeter`: 그룹 파라미터
+
+menu
+
+- `Menu`: 메뉴 인터페이스
+- `MainMenu`: 각 서브 메뉴를 실행 (Customer, Group, Summary)
+- `CustomerMenu`: CustomerService 기능 호출
+- `GroupMenu`: GroupService 기능 호출
+- `SummaryMenu`: SummaryService 기능 호출
+
+### service
+
+- `CustomerService`: 회원 로컬 저장소 CRUD 처리
+- `GroupService`: 그룹 로컬 저장소 CRUD 처리
+- `SummaryService`: 회원 정보 분류
+
+### View
+
+- `CustomerInput`: 사용자 메뉴 관련 View
+- `GroupInput`:  그룹 메뉴 관련 View
+- `MenuInput`: 메뉴 선택 관련 View
+
+### exception
+
+- `ArrayEmptyException`: 배열이 비어있는 경우
+- `InputEmptyException`: 입력값이 비어있는 경우
+- `InputEndException`: “end”가 입력된 경우
+- `InputFormatException`: 올바르지 않은 형식의 입력값이 입력된 경우
+- `InputRangeException`: 올바르지 않은 범위의 입력값이 입력된 경우
+- `InputTypeException`: 올바르지 않은 타입의 입력값이 입력된 경우
+
+### Util
+
+- `Console`: Scanner 생성 및 close
+---
+
+### 프로젝트 요구사항
+
+- [x]  분류기준
+    - [x]  고객의 분류기준을 입력할 수 있다.
+    - [x]  고객의 분류기준을 설정할 수 있다.
+    - [x]  고객의 분류기준을 수정할 수 있다.
+- [x]  고객정보
+    - [x]  고객의 정보를 입력할 수 있다.
+    - [x]  고객의 정보를 추가할 수 있다.
+    - [x]  고객의 정보를 삭제할 수 있다.
+- [x]  고객 분류기능
+    - [x]  분류기준에 의해 고객을 분류할 수 있다.
+    - [x]  분류기준에 의해 분류된 고객의 정보를 출력할 수 있다.
+    - [x]  분류기준에 의해 분류된 고객의 정보를 이름순으로 정렬할 수 있다.
+    - [x]  분류기준에 의해 분류된 고객의 정보를 총 이용시간 순으로 정렬할 수 있다.
+    - [x]  분류기준에 의해 분류된 고객의 정보를 총 결제금액 순으로 정렬할 수 있다.
+- [x]  예외처리
+    - [x]  고객 분류 기준이 추가될 경우 수정된 분류기준에 의해 고객을 다시 고려할 수 있다.
+    - [x]  고객 정보가 추가되거나 삭제될 경우의 시나리오도 생기는 예외도 고려할 수 있다.
+

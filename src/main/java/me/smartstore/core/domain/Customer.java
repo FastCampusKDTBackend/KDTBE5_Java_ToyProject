@@ -99,21 +99,6 @@ public class Customer {
     this.customerType = customerType;
   }
 
-  public void updateCustomerInfo(Customer customer) {
-    if (customer.getName() != null) {
-      this.name = customer.getName();
-    }
-    if (customer.getUserId() != null) {
-      this.userId = customer.getUserId();
-    }
-    if (customer.getSpentTime() != null) {
-      this.spentTime = customer.getSpentTime();
-    }
-    if (customer.getPayAmount() != null) {
-      this.payAmount = customer.getPayAmount();
-    }
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

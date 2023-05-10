@@ -64,6 +64,7 @@ public class CustomerMenu implements Menu {
 
             } catch (InputEndException e) {
                 System.out.println(Message.ERR_MSG_INPUT_END);
+                return;
             } catch (NumberFormatException e) {
                 System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
             }
@@ -134,6 +135,8 @@ public class CustomerMenu implements Menu {
                 viewCustomerData();
             }
         } catch (InputMismatchException e) {
+            System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
+        } catch (NumberFormatException e) {
             System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
         }
     }

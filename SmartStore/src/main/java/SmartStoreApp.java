@@ -53,7 +53,7 @@ public class SmartStoreApp {
 
     public void run() {
         details();
-        //allGroups.init();
+        allGroups.init();
         mainMenu.manage();
     }
 }

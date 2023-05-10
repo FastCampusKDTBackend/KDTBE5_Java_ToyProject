@@ -60,22 +60,26 @@ public class ParameterMenu implements Menu {
     }
 
     private Parameter setMenuParameter(Parameter parameter) {
-        while (true) {
-            int choice = allParameterMenu.chooseMenu(new String[]{
-                    "Minimum Spent Time",
-                    "Minimum Total Pay",
-                    "Back"
-            });
+        try {
+            while (true) {
+                int choice = allParameterMenu.chooseMenu(new String[]{
+                        "Minimum Spent Time",
+                        "Minimum Total Pay",
+                        "Back"
+                });
 
-            if (choice == 1) {
-                System.out.println("Input Minimum Spent Time");
-                parameter.setMinTime(Integer.valueOf(nextLine(Message.END_MSG)));
-            } else if (choice == 2) {
-                System.out.println("Input Minimum Total Pay");
-                parameter.setMinPay(Integer.valueOf(nextLine(Message.END_MSG)));
-            } else if (choice == 3) {
-                break;
+                if (choice == 1) {
+                    System.out.println("Input Minimum Spent Time");
+                    parameter.setMinTime(Integer.valueOf(nextLine(Message.END_MSG)));
+                } else if (choice == 2) {
+                    System.out.println("Input Minimum Total Pay");
+                    parameter.setMinPay(Integer.valueOf(nextLine(Message.END_MSG)));
+                } else if (choice == 3) {
+                    break;
+                }
             }
+        } catch (NumberFormatException e) {
+            System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
         }
         return parameter;
     }

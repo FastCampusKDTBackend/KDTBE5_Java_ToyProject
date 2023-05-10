@@ -8,7 +8,8 @@ import me.smartstore.group.Groups;
 import me.smartstore.group.Parameter;
 import me.smartstore.util.Message;
 
-public class GroupMenu implements Menu {
+public class GroupMenu implements Menu{
+
     private static GroupMenu groupMenu;
     private final Customers allCustomers = Customers.getInstance();
     private final Groups allGroups = Groups.getInstance();
@@ -40,7 +41,7 @@ public class GroupMenu implements Menu {
     }
 
     public GroupType chooseGroup() {
-        while (true) {
+        while(true){
             try {
                 System.out.println("Which group (GENERAL (G), VIP (V), VVIP (VV))? ");
                 String choice = nextLine(Message.END_MSG);
@@ -48,18 +49,22 @@ public class GroupMenu implements Menu {
                 // "VIP" -> GroupType.VIP
                 GroupType groupType = GroupType.valueOf(choice).replaceFullName(); // String -> enum
                 return groupType;
-            } catch (InputEndException e) {
+            }catch (InputEndException e){
                 System.out.println(Message.ERR_MSG_INPUT_END);
                 return null;
-            } catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException e){
                 System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
             }
         }
+
     }
 
     public void setParameter() {
         while (true) {
             GroupType groupType = chooseGroup();
+            if(groupType == null){
+                break;
+            }
 
             //GroupType에 해당하는 group객체를 찾아야함
             Group group = allGroups.find(groupType);
@@ -86,7 +91,9 @@ public class GroupMenu implements Menu {
                         break;
                 }
                 allCustomers.refresh();
+
             }
+
         }
     }
 

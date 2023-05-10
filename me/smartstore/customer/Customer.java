@@ -4,7 +4,7 @@ import me.smartstore.group.Group;
 
 import java.util.Objects;
 
-public class Customer {
+public class Customer implements Comparable<Customer> {
     private String cName;
     private String cId;
     private Integer totalTime;
@@ -97,5 +97,9 @@ public class Customer {
                 ", totalPay=" + totalPay +
                 ", group=" + group +
                 '}';
+    }
+    @Override
+    public int compareTo(Customer o) {
+        return this.cName.compareTo(o.cName);
     }
 }

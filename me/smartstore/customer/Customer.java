@@ -27,6 +27,14 @@ public class Customer {
         this.totalPay = totalPay;
     }
 
+    public Customer(String cName, String cId, Integer totalTime, Integer totalPay, Group group) {
+        this.cName = cName;
+        this.cId = cId;
+        this.totalTime = totalTime;
+        this.totalPay = totalPay;
+        this.group = group;
+    }
+
     public String getcName() {
         return cName;
     }
@@ -87,6 +95,7 @@ public class Customer {
                 ", cId='" + cId + '\'' +
                 ", totalTime=" + totalTime +
                 ", totalPay=" + totalPay +
+                ", group=" + group +
                 '}';
     }
 }

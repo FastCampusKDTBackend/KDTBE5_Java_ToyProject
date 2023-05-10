@@ -1,6 +1,6 @@
 package me.smartstore.menu;
 
-import me.smartstore.group.Groups;
+import me.smartstore.menu.customer.CustomerMenu;
 
 public class MainMenu implements Menu{
     private final CustomerMenu customerMenu = CustomerMenu.getInstance();

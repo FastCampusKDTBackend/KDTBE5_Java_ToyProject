@@ -126,7 +126,8 @@ public class GroupMenu implements Menu{
     }
 
     public void updateParameter(){
-        // todo : 파라미터가 하나도 없는 경우 설정하라는 문구가 떠야함
+        // todo : 파라미터가 하나도 없는 경우 설정하라는 문구가 떠야함, Try-catch로 end예외 잡아야할듯?
+        // todo : 파라미터값 업데이트 되면 고객재분류 해야됨
         while( true ) {
             GroupType groupType = chooseGroup();
             if (groupType == null){ //chooseGroup에서 end입력되면 null리턴함
@@ -157,6 +158,7 @@ public class GroupMenu implements Menu{
                 else{
                     System.out.println("\nGroupType: " + group.getGroupType());
                     System.out.println("Parameter: " + group.getParameter());
+                    allCustomers.refresh(allGroups);
                     break;
                 }
             }

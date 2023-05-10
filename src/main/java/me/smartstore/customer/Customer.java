@@ -7,12 +7,14 @@ import me.smartstore.group.Groups;
 
 import java.util.Objects;
 
-public class Customer {
+public class Customer implements Comparable<Customer> {
     private String name;
     private String id;
     private int hours;
     private int totalAmount;
     private GroupType group;
+
+    private SortBy sortBy;
 
     public Customer(String name, String id, int hours, int totalAmount) {
         this.name = name;
@@ -72,6 +74,14 @@ public class Customer {
         return group;
     }
 
+    public SortBy getSortBy() {
+        return sortBy;
+    }
+
+    public void setSortBy(SortBy sortBy) {
+        this.sortBy = sortBy;
+    }
+
     public void setGroup(GroupType group) {
         this.group = group;
     }
@@ -98,5 +108,17 @@ public class Customer {
                 ", totalAmount=" + totalAmount +
                 ", group=" + group +
                 '}';
+    }
+
+
+    @Override
+    public int compareTo(Customer o) {
+        if (sortBy == SortBy.NAME) {
+            return this.name.compareTo(o.name);
+        }
+        if (sortBy == SortBy.HOURS) {
+            return this.hours - o.hours;
+        }
+        return this.totalAmount - o.totalAmount;
     }
 }

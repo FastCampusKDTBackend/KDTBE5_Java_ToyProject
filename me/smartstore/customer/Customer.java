@@ -100,6 +100,6 @@ public class Customer implements Comparable<Customer> {
     }
     @Override
     public int compareTo(Customer o) {
-        return this.cName.compareTo(o.cName);
+        return this.compareTo(o);
     }
 }

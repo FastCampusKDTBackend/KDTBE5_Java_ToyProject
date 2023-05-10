@@ -135,9 +135,19 @@ public class SummaryMenu implements Menu {
             }
             try {
                 if (orderType == OrderType.ASCENDING) {
-                    Arrays.sort(customers);
+                    Arrays.sort(customers, new Comparator<Customer>() {
+                        @Override
+                        public int compare(Customer o1, Customer o2) {
+                            return o1.getTotalTime() - o2.getTotalTime();
+                        }
+                    });
                 } else if (orderType == OrderType.DESCENDING) {
-                    Arrays.sort(customers, Collections.reverseOrder());
+                    Arrays.sort(customers, new Comparator<Customer>() {
+                        @Override
+                        public int compare(Customer o1, Customer o2) {
+                            return o1.getTotalTime() - o2.getTotalTime();
+                        }
+                    });
                 } else {
                     throw new InputRangeException();
                 }
@@ -161,9 +171,19 @@ public class SummaryMenu implements Menu {
             }
             try {
                 if (orderType == OrderType.ASCENDING) {
-                    Arrays.sort(customers);
+                    Arrays.sort(customers, new Comparator<Customer>() {
+                        @Override
+                        public int compare(Customer o1, Customer o2) {
+                            return o1.getTotalPay() - o2.getTotalPay();
+                        }
+                    });
                 } else if (orderType == OrderType.DESCENDING) {
-                    Arrays.sort(customers, Collections.reverseOrder());
+                    Arrays.sort(customers, new Comparator<Customer>() {
+                        @Override
+                        public int compare(Customer o1, Customer o2) {
+                            return o2.getTotalPay() - o1.getTotalPay();
+                        }
+                    });
                 } else {
                     throw new InputRangeException();
                 }

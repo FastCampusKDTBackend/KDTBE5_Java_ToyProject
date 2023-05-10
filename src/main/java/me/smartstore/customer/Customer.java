@@ -13,8 +13,7 @@ public class Customer implements Comparable<Customer> {
     private int hours;
     private int totalAmount;
     private GroupType group;
-
-    private SortBy sortBy;
+    private ClassifiedCustomers classifiedCustomers;
 
     public Customer(String name, String id, int hours, int totalAmount) {
         this.name = name;
@@ -22,6 +21,7 @@ public class Customer implements Comparable<Customer> {
         this.hours = hours;
         this.totalAmount = totalAmount;
         this.group = judgeCustomerGroup(hours, totalAmount);
+        this.classifiedCustomers = ClassifiedCustomers.getInstance();
     }
 
     private GroupType judgeCustomerGroup(int hours, int totalAmount) {
@@ -74,14 +74,6 @@ public class Customer implements Comparable<Customer> {
         return group;
     }
 
-    public SortBy getSortBy() {
-        return sortBy;
-    }
-
-    public void setSortBy(SortBy sortBy) {
-        this.sortBy = sortBy;
-    }
-
     public void setGroup(GroupType group) {
         this.group = group;
     }
@@ -113,10 +105,10 @@ public class Customer implements Comparable<Customer> {
 
     @Override
     public int compareTo(Customer o) {
-        if (sortBy == SortBy.NAME) {
+        if (classifiedCustomers.getSortBy() == SortBy.NAME) {
             return this.name.compareTo(o.name);
         }
-        if (sortBy == SortBy.HOURS) {
+        if (classifiedCustomers.getSortBy() == SortBy.HOURS) {
             return this.hours - o.hours;
         }
         return this.totalAmount - o.totalAmount;

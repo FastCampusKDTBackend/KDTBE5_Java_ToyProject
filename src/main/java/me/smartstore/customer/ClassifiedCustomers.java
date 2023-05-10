@@ -7,10 +7,9 @@ public class ClassifiedCustomers {
     private MyArrayList<Customer> classifiedByGeneral;
     private MyArrayList<Customer> classifiedByVIP;
     private MyArrayList<Customer> classifiedByVVIP;
-
     private MyArrayList<MyArrayList<Customer>> classifications;
-
     private static ClassifiedCustomers classifiedCustomers;
+    private SortBy sortBy;
 
     private ClassifiedCustomers() {
     }
@@ -60,5 +59,13 @@ public class ClassifiedCustomers {
 
     public MyArrayList<MyArrayList<Customer>> getClassifications() {
         return classifications;
+    }
+
+    public SortBy getSortBy() {
+        return sortBy;
+    }
+
+    public void setSortBy(SortBy sortBy) {
+        this.sortBy = sortBy;
     }
 }

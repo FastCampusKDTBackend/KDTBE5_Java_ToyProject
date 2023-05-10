@@ -42,21 +42,8 @@ public enum ModifyParameterMenu implements Menu {
         this.consumer = consumer;
     }
 
-    public boolean isEqualMenuNumber(int menuNumber) {
-        return this.menuNumber == menuNumber;
-    }
-
     public static boolean isQuit(int menuNumber) {
         return values().length + 1 == menuNumber;
-    }
-
-    @Override
-    public String toString() {
-        return "  " + menuNumber + ". " + menuName + "\n";
-    }
-
-    public void execute(GroupType groupType) {
-        consumer.accept(groupType);
     }
 
     public static void findMenuAndExecution(int menuNumber, GroupType groupType) {
@@ -66,4 +53,18 @@ public enum ModifyParameterMenu implements Menu {
                 .orElseThrow(NotFoundException::new)
                 .execute(groupType);
     }
+
+    public boolean isEqualMenuNumber(int menuNumber) {
+        return this.menuNumber == menuNumber;
+    }
+
+    public void execute(GroupType groupType) {
+        consumer.accept(groupType);
+    }
+
+    @Override
+    public String toString() {
+        return "  " + menuNumber + ". " + menuName + "\n";
+    }
+
 }

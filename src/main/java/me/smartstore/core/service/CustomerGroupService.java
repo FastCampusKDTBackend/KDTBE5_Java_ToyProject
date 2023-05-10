@@ -14,11 +14,14 @@ import me.smartstore.exceptions.StoreException;
  * @since 2023-05-10
  */
 public class CustomerGroupService {
-  private static final CustomerGroupService customerGroupService = new CustomerGroupService();
+  private static CustomerGroupService customerGroupService = new CustomerGroupService();
   private final CustomerGroupManager customerGroupManager = CustomerGroupManager.getInstance();
   private final CustomerService customerService = CustomerService.getInstance();
 
   public static CustomerGroupService getInstance() {
+    if (customerGroupService == null) {
+      customerGroupService = new CustomerGroupService();
+    }
     return customerGroupService;
   }
 
@@ -46,10 +49,10 @@ public class CustomerGroupService {
         customerGroup.getParameter().setMinPayAmount(parameter.getMinPayAmount());
       }
     }
-
+    customerGroup = customerGroupManager.save(customerGroup);
     customerService.classifyAllCustomers();
 
-    return customerGroupManager.save(customerGroup);
+    return customerGroup;
   }
 
   /**

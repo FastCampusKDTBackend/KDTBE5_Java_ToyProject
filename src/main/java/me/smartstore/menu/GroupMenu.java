@@ -17,7 +17,13 @@ public class GroupMenu extends Menu implements DataCRUD {
         //groupNumber to group
         GroupType groupType = groupNumberToGroupType(groupNumber);
         //groupList에서 입력받은 등급에 해당하는 요소를 찾음
+<<<<<<< HEAD
         insert(groupType);
+=======
+        if (insertParameter(groupType)) {
+            System.out.println("기준이 성공적으로 입력되었습니다.");
+        }
+>>>>>>> a8fe309126a711387ba3d3298fce7f1109aa659c
 
     }
 

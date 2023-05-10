@@ -40,9 +40,9 @@ public class Groups extends MyArray<Group> {
     }
     public boolean isExist(GroupType groupType) {
         Group target = findGroup(groupType);
-        if (target.getParameter() != null) {
-            return false;
+        if (target.getParameter().getMinPay() != null && target.getParameter().getMinTime() != null) {
+            return true;
         }
-        return true;
+        return false;
     }
 }

@@ -80,6 +80,8 @@ public class ParameterMenu implements Menu {
             }
         } catch (NumberFormatException e) {
             System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
+        } catch (InputEndException e) {
+            System.out.println(Message.ERR_MSG_INPUT_END);
         }
         return parameter;
     }
@@ -99,7 +101,7 @@ public class ParameterMenu implements Menu {
             GroupType groupType = selectGroup();
             if (groupType == null) break;
             //예외처리로 변경
-            if (!allGroups.isExist(groupType) && index == 1) {
+            if (allGroups.isExist(groupType) && index == 1) {
                 System.out.println(groupType + " group already exists.");
                 return;
             } else {

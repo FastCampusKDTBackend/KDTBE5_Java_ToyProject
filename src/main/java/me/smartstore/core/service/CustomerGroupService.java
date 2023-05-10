@@ -1,7 +1,5 @@
 package me.smartstore.core.service;
 
-import static me.smartstore.exceptions.StoreErrorCode.*;
-
 import me.smartstore.core.domain.CustomerGroup;
 import me.smartstore.core.domain.Parameter;
 import me.smartstore.core.manager.CustomerGroupManager;
@@ -17,17 +15,6 @@ public class CustomerGroupService {
   }
 
   public CustomerGroup setParameter(CustomerType customerType, Parameter parameter)
-      throws StoreException {
-    CustomerGroup customerGroup = customerGroupManager.select(customerType);
-
-    if (customerGroup.getParameter() != null) {
-      throw new StoreException(GROUP_ALREADY_SET);
-    }
-
-    return customerGroupManager.save(customerType, parameter);
-  }
-
-  public CustomerGroup updateParameter(CustomerType customerType, Parameter parameter)
       throws StoreException {
     return customerGroupManager.save(customerType, parameter);
   }

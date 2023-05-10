@@ -4,7 +4,6 @@ import static me.smartstore.enums.CustomerType.*;
 import static me.smartstore.exceptions.StoreErrorCode.*;
 
 import java.util.Arrays;
-
 import me.smartstore.core.domain.CustomerGroup;
 import me.smartstore.core.domain.Parameter;
 import me.smartstore.enums.CustomerType;
@@ -73,7 +72,7 @@ public class CustomerGroupManager {
     }
 
     if (parameter.getMinSpentTime() != null) {
-      customerGroup.getParameter().setMinPayAmount(parameter.getMinSpentTime());
+      customerGroup.getParameter().setMinSpentTime(parameter.getMinSpentTime());
     }
 
     if (parameter.getMinPayAmount() != null) {

@@ -1,73 +1,39 @@
 package me.smartstore.core.view;
 
-import me.smartstore.core.domain.CustomerGroup;
+import static me.smartstore.enums.SmartStoreMessage.*;
+import static me.smartstore.enums.SmartStoreMessage.PRESS_END_MSG;
+import static me.smartstore.exceptions.StoreErrorCode.*;
+
 import me.smartstore.core.domain.Parameter;
-import me.smartstore.core.service.CustomerGroupService;
-import me.smartstore.enums.CustomerType;
 import me.smartstore.exceptions.StoreErrorCode;
 import me.smartstore.exceptions.StoreException;
 import me.smartstore.utils.ScannerUtility;
 
-import static me.smartstore.enums.SmartStoreMessage.*;
-import static me.smartstore.enums.SmartStoreMessage.PRESS_END_MSG;
-import static me.smartstore.exceptions.StoreErrorCode.*;
-import static me.smartstore.utils.StoreUtility.convertInputStrToCustomerType;
-
+/**
+ * 고객 유형별 기준 설정 메뉴
+ *
+ * @author YongHo Shin
+ * @version v1.0
+ * @since 2023-05-10
+ */
 public class ParameterSubMenu extends AbstractMenu {
-
-  private static final CustomerGroupService customerGroupService =
-      CustomerGroupService.getInstance();
   private static final ParameterSubMenu parameterSubMenu = new ParameterSubMenu();
 
   private ParameterSubMenu() {
     super(new String[] {"Minimum Spent Time", "Minimum Pay Amount", "Back"});
   }
 
-  public static void launch(int parameterMenuNumber) {
-    while (true) {
-      System.out.println(INPUT_CUSTOMER_GROUP_MSG + "\n" + PRESS_END_MSG);
-
-      try {
-        String input = ScannerUtility.getInput().toUpperCase();
-
-        if ("end".equalsIgnoreCase(input)) return;
-        if ("".equals(input)) throw new StoreException(NULL_INPUT);
-
-        CustomerType inputCustomerType = convertInputStrToCustomerType(input);
-
-        switch (parameterMenuNumber) {
-
-            // Set Parameter
-          case 1 -> {
-            Parameter inputParameter = inputParameter();
-            CustomerGroup customerGroup =
-                customerGroupService.setParameter(inputCustomerType, inputParameter);
-            System.out.println(customerGroup);
-          }
-
-            // View Parameter
-          case 2 -> System.out.println(customerGroupService.find(inputCustomerType));
-
-            // Update Parameter
-          case 3 -> {
-            CustomerGroup customerGroup = customerGroupService.find(inputCustomerType);
-            if (customerGroup.getParameter() == null) {
-              throw new StoreException(NO_PARAMETER);
-            }
-            Parameter inputParameter = inputParameter();
-            customerGroup = customerGroupService.updateParameter(inputCustomerType, inputParameter);
-            System.out.println(customerGroup);
-          }
-        }
-
-      } catch (StoreException e) {
-        System.out.println(e.getMessage());
-        if (e.getErrorCode() == NO_PARAMETER) return;
-      }
-    }
+  /**
+   * @return Singleton 객체 반환
+   */
+  public static ParameterSubMenu getInstance() {
+    return parameterSubMenu;
   }
 
-  private static Parameter inputParameter() {
+  /**
+   * @return 입력받은 고객 유형 분류 기준
+   */
+  public Parameter inputParameter() {
     Integer minimumSpentTime = null;
     Integer minimumPayAmount = null;
 
@@ -88,6 +54,10 @@ public class ParameterSubMenu extends AbstractMenu {
     }
   }
 
+  /**
+   * @return 입력받은 최소 이용시간
+   * @throws StoreException 종료 선택시.
+   */
   private static int inputMinimumSpentTime() throws StoreException {
     while (true) {
       System.out.println(INPUT_MINIMUM_SPENT_TIME_MSG + "\n" + PRESS_END_MSG);
@@ -104,6 +74,10 @@ public class ParameterSubMenu extends AbstractMenu {
     }
   }
 
+  /**
+   * @return 입력받은 최소 결제금액
+   * @throws StoreException 종료 선택시.
+   */
   private static int inputMinimumPayAmount() throws StoreException {
     while (true) {
       System.out.println(INPUT_MINIMUM_PAY_AMOUNT_MSG + "\n" + PRESS_END_MSG);

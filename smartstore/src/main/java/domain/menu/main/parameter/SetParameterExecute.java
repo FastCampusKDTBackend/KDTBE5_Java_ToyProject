@@ -7,47 +7,79 @@ import util.view.InputScanner;
 import util.view.OutputView;
 import util.view.ViewMessage;
 
+import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public interface SetParameterExecute {
     static Runnable getMethod() {
-        return SetParameterExecute::run;
+        return () -> {
+            while (true) {
+
+                GroupType groupType = getGroup();
+
+                if (Objects.isNull(groupType)) {
+                    return;
+                }
+
+
+                if (groupType.isParameterExist()) {
+                    OutputView.showErrorMessage(ErrorMessage.ALREADY_SET);
+                    continue;
+                }
+
+                groupType.initParameter();
+
+                executeSubmenu(groupType);
+
+            }
+        };
     }
 
-    private static void run() {
-        Scanner scanner = InputScanner.get();
+    private static void executeSubmenu(GroupType groupType) {
         while (true) {
+            OutputView.showMenus(ModifyParameterMenu.values());
+            try {
+                int menuNumber = Integer.parseInt(InputScanner.get().nextLine());
 
+                if (ModifyParameterMenu.isQuit(menuNumber)) {
+                    break;
+                }
+
+                ModifyParameterMenu.findMenuAndExecution(menuNumber, groupType);
+            } catch (NotFoundException | NumberFormatException exception) {
+                OutputView.showErrorMessage(exception.getMessage());
+            }
+        }
+    }
+
+    private static GroupType getGroup() {
+        while (true) {
             OutputView.chooseType(GroupType.generateFormatForView());
-            String groupName = scanner.nextLine();
+            String groupName = InputScanner.get().nextLine();
             if (ViewMessage.isExit(groupName)) {
-                break;
+                return null;
             }
-
-            GroupType groupType = GroupType.getBySymbolOrName(groupName);
-
-            if (groupType.isParameterExist()) {
-                OutputView.showErrorMessage(ErrorMessage.ALREADY_SET);
-                continue;
+            try {
+                return getGroupType(groupName);
+            } catch (NoSuchElementException e) {
+                OutputView.showErrorMessage(e.getMessage());
             }
+        }
+    }
 
-            groupType.initParameter();
-
-            while (true) {
-                OutputView.showMenus(ModifyParameterMenu.values());
-                try {
-                    int menuNumber = Integer.parseInt(scanner.nextLine());
-
-                    if (ModifyParameterMenu.isQuit(menuNumber)) {
-                        break;
-                    }
-
-                    ModifyParameterMenu.findMenuAndExecution(menuNumber, groupType);
-                } catch (NotFoundException | NumberFormatException exception) {
-                    OutputView.showErrorMessage(exception.getMessage());
+    private static GroupType getGroupType(String groupName) {
+        while (true) {
+            try {
+                return GroupType.getBySymbolOrName(groupName);
+            } catch (NoSuchElementException noSuchElementException) {
+                System.out.println(noSuchElementException);
+                groupName = InputScanner.get().nextLine();
+                if (ViewMessage.isExit(groupName)) {
+                    return null;
                 }
             }
-
         }
+
     }
 }

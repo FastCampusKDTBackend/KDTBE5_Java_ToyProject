@@ -82,6 +82,7 @@ public class GroupMenu implements Menu {
 
 				showParameterMenu(selectGroup);
 
+				allGroups.sort();
 				allCustomers.refresh();
 
 			} catch (InputEndException e) {

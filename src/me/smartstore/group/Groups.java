@@ -1,5 +1,7 @@
 package me.smartstore.group;
 
+import java.util.Arrays;
+
 import me.smartstore.array.Array;
 import me.smartstore.exception.ElementNotFoundException;
 
@@ -29,5 +31,22 @@ public class Groups extends Array<Group> {
 		}
 
 		return null;
+	}
+
+	public Group[] parseToArray() {
+		Group[] groupArray = new Group[size()];
+
+		for (int i = 0; i < size(); i++) {
+			groupArray[i] = get(i);
+		}
+
+		return groupArray;
+	}
+
+	public void sort() {
+		Group[] array = parseToArray();
+
+		Arrays.sort(array);
+		arrays = array;
 	}
 }

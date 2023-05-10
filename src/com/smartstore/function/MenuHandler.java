@@ -7,18 +7,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public interface MenuController {
-    StringBuilder sb = new StringBuilder();
+public interface MenuHandler extends DisplayMenuByNumber{
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    int currentMenuNumber = 0;
 
-    default void displayMenu(String[] menus){
-        for(int i = 0 ; i < menus.length ; i++){
-            System.out.printf("%d. %s\n",i+1,menus[i]);
-        }
-    }
-
-    default void runMenuSelectionLoop(String[] menus){
+    default String runMenuSelectionLoop(String[] menus){
         int menu = -1;
         while (true){
             try {
@@ -34,21 +26,23 @@ public interface MenuController {
                 System.out.println("Invalid Menu");
             }
         }
-        handleChoice(String.valueOf(menu));
+        return String.valueOf(menu);
     }
 
-    void handleChoice(String menuNumber);
-
-    void run();
+    boolean handleChoice(String menuNumber);
 
     default void run(int menuNumber) {
-        displayMenu(Screen.of(menuNumber).getMenus());
-        //get menu number from user until valid menu number
-        runMenuSelectionLoop(Screen.of(menuNumber).getMenus());
+        boolean isExit = false;
+        while (!isExit){
+            displayMenu(Screen.of(menuNumber).getMenus());
+            //get menu number from user until valid menu number
+            isExit = handleChoice(runMenuSelectionLoop(Screen.of(menuNumber).getMenus()));
+        }
+
     }
 
-    default void returnToPrevMenu(int menuNumber){
-        Function.of(menuNumber, MainMenuFunction.class).run();
+    default void run(){
+
     }
 
 }

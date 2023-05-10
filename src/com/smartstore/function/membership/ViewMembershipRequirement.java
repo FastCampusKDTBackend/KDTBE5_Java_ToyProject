@@ -3,7 +3,19 @@ package com.smartstore.function.membership;
 import com.smartstore.membership.MembershipRequirement;
 import com.smartstore.membership.MembershipType;
 
-public class ViewMembershipRequirement implements MembershipMenuController {
+public class ViewMembershipRequirement implements MembershipMenuHandler {
+    private static ViewMembershipRequirement instance;
+
+    private ViewMembershipRequirement(){
+
+    }
+
+    public static ViewMembershipRequirement getInstance() {
+        if(instance == null){
+            return new ViewMembershipRequirement();
+        }
+        return instance;
+    }
     @Override
     public void run(MembershipType membershipType, MembershipRequirement requirement) {
         //if not found in enum_map

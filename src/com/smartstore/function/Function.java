@@ -1,7 +1,5 @@
 package com.smartstore.function;
 
-import com.smartstore.function.menu.Back;
-
 import java.util.Arrays;
 
 public interface Function {
@@ -14,18 +12,18 @@ public interface Function {
 
     int getMenuNumber();
 
-    MenuController getMenuController();
+    MenuHandler getMenuController();
 
     default boolean isMatchedMenuNumber(int menuNumber){
         return getMenuNumber() == menuNumber;
     }
 
     default void run() {
-        MenuController menuController = getMenuController();
-        if(menuController.getClass().equals(Back.class)){
-            menuController.run(0);
+        MenuHandler menuHandler = getMenuController();
+        if(menuHandler.getClass().equals(Back.class)){
+            menuHandler.run(0);
         }else{
-            menuController.run();
+            menuHandler.run();
         }
     }
 }

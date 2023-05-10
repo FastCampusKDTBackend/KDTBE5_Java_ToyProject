@@ -6,6 +6,7 @@ import com.smartstore.util.Map;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Member;
 
 public class Memberships {
     private Map<MembershipType, MembershipRequirement> membershipList = new CustomEnumMap<>(MembershipType.class);
@@ -33,9 +34,21 @@ public class Memberships {
         int minUsageTime;
         int minPaymentAmount;
 
-        minUsageTime = getInputFromConsole("Input minUsageTime : ");
-        minPaymentAmount = getInputFromConsole("Input minPaymentAmount : ");
+        minUsageTime = setMinUsage(membershipType);
+        minPaymentAmount = setMinPaymentAmount(membershipType);
         membershipList.put(membershipType, new MembershipRequirement(minUsageTime, minPaymentAmount));
+    }
+
+    public void setMembershipRequirement(MembershipType membershipType, int minUsage, int minPaymentAmount){
+        membershipList.put(membershipType, new MembershipRequirement(minUsage, minPaymentAmount));
+    }
+
+    public int setMinUsage(MembershipType membershipType){
+        return getInputFromConsole("Input minUsageTime : ");
+    }
+
+    public int setMinPaymentAmount(MembershipType membershipType){
+        return getInputFromConsole("Input minPaymentAmount : ");
     }
 
     private int getInputFromConsole(String msg){

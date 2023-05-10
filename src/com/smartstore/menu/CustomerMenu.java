@@ -1,18 +1,9 @@
 package com.smartstore.menu;
 
-import com.smartstore.function.MenuController;
+import com.smartstore.function.MenuHandler;
+import com.smartstore.function.customer.CustomerMenuHandler;
 
-public class CustomerMenu implements MenuController {
-    @Override
-    public void handleChoice(String menuNumber) {
-
-    }
-
-    @Override
-    public void run() {
-
-    }
-
+public class CustomerMenu {
     public static CustomerMenu getInstance() {
         if(instance == null){
             instance = new CustomerMenu();

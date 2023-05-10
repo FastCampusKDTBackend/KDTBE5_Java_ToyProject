@@ -1,22 +1,22 @@
 package com.smartstore.function.customer;
 
 import com.smartstore.function.Function;
-import com.smartstore.function.MenuController;
-import com.smartstore.function.menu.Back;
+import com.smartstore.function.MenuHandler;
+import com.smartstore.function.Back;
 
 public enum CustomerFunction implements Function {
-    ADD(1, new AddCustomer()),
-    VIEW(2, new ViewCustomer()),
-    UPDATE(3,new UpdateCustomer()),
-    DELETE(3,new DeleteCustomer()),
-    BACK(5, new Back());
+    ADD(1, Back.getInstance()),
+    VIEW(2, Back.getInstance()),
+    UPDATE(3, Back.getInstance()),
+    DELETE(3, Back.getInstance()),
+    BACK(5, Back.getInstance());
 
 
     private final int menuNumber;
-    private final MenuController menuController;
-    CustomerFunction(int menuNumber, MenuController menuController) {
+    private final MenuHandler menuHandler;
+    CustomerFunction(int menuNumber, MenuHandler menuHandler) {
         this.menuNumber = menuNumber;
-        this.menuController = menuController;
+        this.menuHandler = menuHandler;
     }
 
     @Override
@@ -25,8 +25,8 @@ public enum CustomerFunction implements Function {
     }
 
     @Override
-    public MenuController getMenuController() {
-        return this.menuController;
+    public MenuHandler getMenuController() {
+        return this.menuHandler;
     }
 
 }

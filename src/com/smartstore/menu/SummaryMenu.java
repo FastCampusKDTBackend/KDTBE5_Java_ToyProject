@@ -1,17 +1,8 @@
 package com.smartstore.menu;
 
-import com.smartstore.function.MenuController;
+import com.smartstore.function.MenuHandler;
 
-public class SummaryMenu implements MenuController {
-    @Override
-    public void handleChoice(String menuNumber) {
-
-    }
-
-    @Override
-    public void run() {
-
-    }
+public class SummaryMenu {
 
     public static SummaryMenu getInstance() {
         if(instance == null){

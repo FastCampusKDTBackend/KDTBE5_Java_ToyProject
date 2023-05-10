@@ -4,7 +4,20 @@ import com.smartstore.membership.MembershipRequirement;
 import com.smartstore.membership.MembershipType;
 import com.smartstore.membership.Memberships;
 
-public class SetMembershipRequirement implements MembershipMenuController {
+public class SetMembershipRequirement implements MembershipMenuHandler {
+    private static SetMembershipRequirement instance;
+
+    private SetMembershipRequirement(){
+
+    }
+
+    public static SetMembershipRequirement getInstance() {
+        if(instance == null){
+            return new SetMembershipRequirement();
+        }
+        return instance;
+    }
+
     @Override
     public void run(MembershipType membershipType, MembershipRequirement requirement) {
         if(requirement == null){

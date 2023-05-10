@@ -47,11 +47,15 @@ public interface MainMenuExecute {
     }
 
     private static <T extends Menu> void findMenuAndExecution(Class<T> clazz, int menuNumber) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        findByNumber(clazz, menuNumber).ifPresent(
-                (menu) -> {
-                    execute(clazz, menu);
-                }
-        );
+        findByNumber(clazz, menuNumber)
+                .ifPresentOrElse(
+                        (menu) -> {
+                            execute(clazz, menu);
+                        },
+                        () -> {
+                            throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT);
+                        }
+                );
     }
 
     private static <T extends Menu> void execute(Class<T> clazz, T menu) {

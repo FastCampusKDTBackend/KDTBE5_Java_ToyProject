@@ -10,11 +10,19 @@ import me.smartstore.core.domain.CustomerDTO;
 import me.smartstore.core.service.CustomerService;
 import me.smartstore.exceptions.StoreException;
 
+/**
+ * 고객 정보 관리 메뉴
+ *
+ * @author YongHo Shin
+ * @version v1.0
+ * @since 2023-05-10
+ */
 public class CustomerMenu extends AbstractMenu {
-  private static final CustomerMenu customerMenu = new CustomerMenu();
+  private static CustomerMenu customerMenu = new CustomerMenu();
   private static final CustomerService customerService = CustomerService.getInstance();
   private static final CustomerSubMenu customerSubMenu = CustomerSubMenu.getInstance();
 
+  /** 고객 정보 캐싱 */
   private static CustomerDTO[] dtoCache = new CustomerDTO[] {};
 
   private CustomerMenu() {
@@ -28,26 +36,34 @@ public class CustomerMenu extends AbstractMenu {
         });
   }
 
-  public static void launch() {
+  public static CustomerMenu getInstance() {
+    if (customerMenu == null) {
+      customerMenu = new CustomerMenu();
+    }
+    return customerMenu;
+  }
+
+  public void launch() {
     loop:
     while (true) {
       customerMenu.show();
       try {
         switch (customerMenu.selectMenuNumber()) {
-            // Add Customer Data
+
+            // 고객 등록
           case 1 -> {
             int numberOfCustomers = inputNumberOfCustomers();
             for (int idx = 0; idx < numberOfCustomers; idx++) {
-              System.out.println("====== Customer " + (idx + 1) + ". Info. ======\n");
+              System.out.println("\n====== Customer " + (idx + 1) + ". Info. ======");
               CustomerDTO newCustomer = customerSubMenu.inputCustomerInfo();
-              customerService.saveNewCustomer(newCustomer);
+              customerService.save(newCustomer);
             }
           }
 
-            // View Customer Data
+            // 고객 명단 확인
           case 2 -> showCustomerInfo();
 
-            // Update Customer Data
+            // 고객 정보 수정
           case 3 -> {
             showCustomerInfo();
             int customerNumber = inputCustomerNumber();
@@ -56,7 +72,7 @@ public class CustomerMenu extends AbstractMenu {
             customerService.updateCustomerById(id, updateDTO);
           }
 
-            // Delete Customer Data
+            // 고객 정보 삭제
           case 4 -> {
             showCustomerInfo();
             int customerNumber = inputCustomerNumber();
@@ -74,6 +90,11 @@ public class CustomerMenu extends AbstractMenu {
     }
   }
 
+  /**
+   * 현재 등록된 고객 명단 출력
+   *
+   * @throws StoreException 등록된 고객 정보가 없음
+   */
   private static void showCustomerInfo() throws StoreException {
     // No. 1 => Customer{userId='TEST123', name='TEST', spentTime=null, totalPay=null, group=null}
     dtoCache = customerService.findAll();
@@ -81,12 +102,16 @@ public class CustomerMenu extends AbstractMenu {
       throw new StoreException(NO_CUSTOMER);
     }
 
-    System.out.println("======= Customer Info. =======\n");
+    System.out.println("\n======= Customer Info. =======");
     for (int idx = 0; idx < dtoCache.length; idx++) {
       System.out.println("No. " + (idx + 1) + " => " + dtoCache[idx]);
     }
   }
 
+  /**
+   * @return 새로 등록할 고객수
+   * @throws StoreException 종료 선택시
+   */
   private static int inputNumberOfCustomers() throws StoreException {
     while (true) {
       System.out.println(INPUT_NUMBER_OF_CUSTOMERS + "\n" + PRESS_END_MSG);
@@ -106,7 +131,10 @@ public class CustomerMenu extends AbstractMenu {
     }
   }
 
-  private static int inputCustomerNumber() throws StoreException {
+  /**
+   * @return 출력된 명단 중 수정하고자 하는 고객의 번호
+   */
+  private static int inputCustomerNumber() {
     while (true) {
       System.out.println("Which customer ( 1 ~ " + customerService.getNumberOfCustomers() + " )? ");
       try {

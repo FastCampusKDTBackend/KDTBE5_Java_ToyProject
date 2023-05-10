@@ -200,17 +200,18 @@ public class CustomerManager {
    * @throws StoreException 존재하지 않는 관리 번호
    */
   public void deleteById(Long id) throws StoreException {
-    Customer target =
-        Arrays.stream(customers)
-            .filter(Objects::nonNull)
-            .filter(customer -> id.equals(customer.getId()))
-            .findFirst()
-            .orElseThrow(
-                () -> {
-                  throw new StoreException(NOT_EXIST_ID);
-                });
+    int idx = -1;
 
-    delete(target);
+    for (int i = 0; i < size; i++) {
+      if (id.equals(customers[i].getId())) {
+        idx = i;
+      }
+    }
+
+    if (idx == -1) throw new StoreException(NOT_EXIST_ID);
+
+    System.arraycopy(customers, idx + 1, customers, idx, size - idx);
+    size--;
   }
 
   /**

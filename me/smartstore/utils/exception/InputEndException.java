@@ -1,0 +1,21 @@
+package me.smartstore.utils.exception;
+
+import static me.smartstore.utils.constant.Message.ERR_MSG_INPUT_END;
+
+public class InputEndException extends RuntimeException {
+    public InputEndException() {
+        super(ERR_MSG_INPUT_END.getMessage());
+    }
+
+    public InputEndException(String message) {
+        super(message);
+    }
+
+    public InputEndException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public InputEndException(Throwable cause) {
+        super(cause);
+    }
+}

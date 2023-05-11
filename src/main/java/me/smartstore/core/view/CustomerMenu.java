@@ -78,6 +78,7 @@ public class CustomerMenu extends AbstractMenu {
             int customerNumber = inputCustomerNumber();
             Long id = dtoCache[customerNumber - 1].id();
             customerService.deleteCustomerById(id);
+            showCustomerInfo();
           }
 
           case 5 -> {

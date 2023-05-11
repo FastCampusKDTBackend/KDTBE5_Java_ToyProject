@@ -87,17 +87,18 @@ public class CustomerMenu implements Menu {
     }
 
 	private void updateCustomer() {
-		if (allCustomers.size() == 0) {
-    		System.out.println(Message.ERR_MSG_INVALID_CUSTOMER_ARR_EMPTY);
-    	} else {
-    		allCustomers.customerInfo();
+		viewCustomer();
+//		if (allCustomers.size() == 0) {
+//    		System.out.println(Message.ERR_MSG_INVALID_CUSTOMER_ARR_EMPTY);
+//    	} else {
+//    		allCustomers.customerInfo();
     		
     		int whichCustomerNum = whichCustomer(allCustomers);
     		
-    		allCustomers.get(whichCustomerNum).manage();
+    		allCustomers.get(whichCustomerNum - 1).manage();
     		allCustomers.refreshForOne(allGroups, whichCustomerNum);
     		
-    	}
+//    	}
 	}
 	
 	private void deleteCustomer() {

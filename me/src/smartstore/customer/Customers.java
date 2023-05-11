@@ -87,7 +87,7 @@ public class Customers extends DArray<Customer> {
     	if (whichCustomerNum == -1) {
     		customer = this.get(this.size - 1);
     	} else {
-    		customer = this.get(whichCustomerNum);
+    		customer = this.get(whichCustomerNum - 1);
     	}
     	
     	for(int i = 0; i < groups.size(); i++) {

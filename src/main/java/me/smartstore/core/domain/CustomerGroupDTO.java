@@ -16,4 +16,27 @@ public record CustomerGroupDTO(CustomerType customerType, Parameter parameter) {
   public static CustomerGroupDTO of(CustomerType customerType, Parameter parameter) {
     return new CustomerGroupDTO(customerType, parameter);
   }
+
+  public String groupTitle() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("==============================\n");
+    sb.append("Group: ").append(customerType);
+    if (parameter == null) {
+      sb.append(" ( Time : null, Pay Amount : null )\n");
+    } else {
+      sb.append(" ( Time :")
+              .append(parameter.getMinSpentTime())
+              .append(", Pay Amount :")
+              .append(parameter.getMinPayAmount())
+              .append(" )\n");
+    }
+    sb.append("==============================");
+
+    return sb.toString();
+  }
+  @Override
+  public String toString() {
+    String parameterStr = parameter == null ? "null" : parameter.toString();
+    return "CustomerType: " + customerType + "\nParameter: " + parameterStr;
+  }
 }

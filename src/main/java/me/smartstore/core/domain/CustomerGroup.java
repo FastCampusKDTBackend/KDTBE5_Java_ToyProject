@@ -3,7 +3,7 @@ package me.smartstore.core.domain;
 import me.smartstore.enums.CustomerType;
 
 /**
- * 고객 유형별 세부 기준 관리를 위한 그룹화 클래스
+ * 고객 유형별 세부 기준 관리를 위한 고객그룹 엔티티 클래스
  *
  * @author YongHo Shin
  * @version v1.0
@@ -12,7 +12,7 @@ import me.smartstore.enums.CustomerType;
  * @see Parameter
  */
 public class CustomerGroup {
-  private CustomerType customerType;
+  private final CustomerType customerType;
   private Parameter parameter;
 
   public CustomerGroup(CustomerType customerType, Parameter parameter) {
@@ -28,10 +28,6 @@ public class CustomerGroup {
     return parameter;
   }
 
-  public void setCustomerType(CustomerType customerType) {
-    this.customerType = customerType;
-  }
-
   public void setParameter(Parameter parameter) {
     if (this.parameter == null) {
       this.parameter = parameter;
@@ -43,29 +39,5 @@ public class CustomerGroup {
         this.parameter.setMinPayAmount(parameter.getMinPayAmount());
       }
     }
-  }
-
-  public String groupTitle() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("==============================\n");
-    sb.append("Group: ").append(customerType);
-    if (parameter == null) {
-      sb.append(" ( Time : null, Pay Amount : null )\n");
-    } else {
-      sb.append(" ( Time :")
-          .append(parameter.getMinSpentTime())
-          .append(", Pay Amount :")
-          .append(parameter.getMinPayAmount())
-          .append(" )\n");
-    }
-    sb.append("==============================");
-
-    return sb.toString();
-  }
-
-  @Override
-  public String toString() {
-    String parameterStr = parameter == null ? "null" : parameter.toString();
-    return "GroupType: " + customerType + "\nParameter: " + parameterStr;
   }
 }

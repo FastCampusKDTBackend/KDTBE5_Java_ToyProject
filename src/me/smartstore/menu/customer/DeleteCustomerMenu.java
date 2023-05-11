@@ -2,7 +2,7 @@ package me.smartstore.menu.customer;
 
 import me.smartstore.customer.CustomerRepository;
 import me.smartstore.menu.Menu;
-import me.smartstore.menu.topic.CustomerMenu;
+import me.smartstore.menu.topic.CustomerIntroMenu;
 
 import java.util.InputMismatchException;
 
@@ -36,6 +36,6 @@ public class DeleteCustomerMenu extends Menu {
 
     @Override
     protected void setNextMenus() {
-        setNextMenus(CustomerMenu.getInstance());
+        setNextMenus(CustomerIntroMenu.getInstance());
     }
 }

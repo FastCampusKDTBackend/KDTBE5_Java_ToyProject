@@ -1,13 +1,12 @@
-package me.smartstore.menu.classification;
+package me.smartstore.menu.summary;
 
-import me.smartstore.customer.Order;
+import me.smartstore.summary.Order;
 import me.smartstore.menu.Menu;
 import me.smartstore.menu.exception.InputIsEndException;
-import me.smartstore.menu.topic.ClassificationMenu;
 
 import java.util.InputMismatchException;
 
-import static me.smartstore.customer.Order.getOrderByName;
+import static me.smartstore.summary.Order.getOrderByName;
 
 public abstract class SummaryMenu extends Menu {
     private static final String ORDER_INPUT =

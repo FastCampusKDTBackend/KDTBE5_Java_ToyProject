@@ -12,10 +12,6 @@ public enum Group {
     VIP("V"),
     VVIP("VV");
 
-    private static final Group[] USED_GROUPS = { GENERAL, VIP, VVIP };
-    private static GroupParameter tempParameter;
-    private static Group tempGroup;
-
     private final String shortcut;
     private final GroupParameter groupParameter;
 
@@ -23,6 +19,11 @@ public enum Group {
         this.shortcut = shortcut;
         this.groupParameter = new GroupParameter();
     }
+
+    private static final Group[] USED_GROUPS = { GENERAL, VIP, VVIP };
+
+    private static GroupParameter tempParameter;
+    private static Group tempGroup;
 
     public static Group[] getUsedGroups() { return USED_GROUPS; }
 
@@ -38,20 +39,18 @@ public enum Group {
         return this.shortcut.equalsIgnoreCase(s) || this.name().equalsIgnoreCase(s);
     }
 
+    // only for test
     public void setGroupParameter(Integer[] groupParameterArguments) {
         this.groupParameter.setMinSpentHours(groupParameterArguments[0]);
         this.groupParameter.setMinTotalPaidAmount(groupParameterArguments[1]);
     }
 
-    public static Group calculate(Integer spentHours, Integer totalPaidAmount) {
-        Group[] groups = getUsedGroups();
+    public static Group getGroupByParameter(Integer spentHours, Integer totalPaidAmount) {
         Group ret = NONE;
-        int i = 0;
-        for (; i < groups.length; ++i) {
-            Group group = groups[i];
-            GroupParameter parameter = group.groupParameter;
-            Integer minSpentHours = parameter.getMinSpentHours();
-            Integer minTotalPaidAmount = parameter.getMinTotalPaidAmount();
+        for (Group group : getUsedGroups()) {
+            GroupParameter param = group.groupParameter;
+            Integer minSpentHours = param.getMinSpentHours();
+            Integer minTotalPaidAmount = param.getMinTotalPaidAmount();
             if (minSpentHours == null && minTotalPaidAmount == null)
                 continue;
             if (minSpentHours != null)

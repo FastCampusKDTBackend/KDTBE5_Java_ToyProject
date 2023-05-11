@@ -31,7 +31,7 @@ public class SmartStoreApp {
                 String id = String.format("%s_%02d", group.name(), j);
                 repository.setTempId(id);
 
-                String name = String.format(Character.toString('a'+j).repeat(4));
+                String name = (char) ('a'+j) + "zzz";
                 repository.setTempName(name);
 
                 Integer spentHours = (int) (Math.random() * 10) + param[0];

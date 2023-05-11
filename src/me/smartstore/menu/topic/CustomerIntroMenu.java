@@ -4,7 +4,7 @@ import me.smartstore.menu.customer.DeleteCustomerMenu;
 import me.smartstore.menu.customer.UpdateCustomerMenu;
 import me.smartstore.menu.customer.ViewCustomerMenu;
 
-public class CustomerMenu extends TopicIntroMenu {
+public class CustomerIntroMenu extends TopicIntroMenu {
 
     private static final String CUSTOMER_MENU_OUTPUT =
                     '\n' +
@@ -16,11 +16,11 @@ public class CustomerMenu extends TopicIntroMenu {
                     " 5. " + "Back" + '\n' +
                     "==============================\n" +
                     "Choose One: ";
-    private static final CustomerMenu INSTANCE = new CustomerMenu();
+    private static final CustomerIntroMenu INSTANCE = new CustomerIntroMenu();
 
-    private CustomerMenu() { super(CUSTOMER_MENU_OUTPUT); }
+    private CustomerIntroMenu() { super(CUSTOMER_MENU_OUTPUT); }
 
-    public static CustomerMenu getInstance() { return INSTANCE; }
+    public static CustomerIntroMenu getInstance() { return INSTANCE; }
 
     @Override
     protected void setNextMenus() {

@@ -4,7 +4,7 @@ import me.smartstore.group.Group;
 import me.smartstore.menu.Menu;
 import me.smartstore.menu.exception.InputIsEndException;
 import me.smartstore.menu.exception.InvalidGroupNameException;
-import me.smartstore.menu.topic.GroupMenu;
+import me.smartstore.menu.topic.GroupIntroMenu;
 
 public abstract class GroupParameterMenu extends Menu {
 
@@ -16,7 +16,7 @@ public abstract class GroupParameterMenu extends Menu {
 
     @Override
     public Menu printAndInputAndGetNextMenu() {
-        if (getPrevMenu() == GroupMenu.getInstance()) {
+        if (getPrevMenu() == GroupIntroMenu.getInstance()) {
             while (true) {
                 print(GROUP_OUTPUT);
                 try {
@@ -25,7 +25,7 @@ public abstract class GroupParameterMenu extends Menu {
                     break;
                 } catch (InputIsEndException e) {
                     print(e.getMessage());
-                    return GroupMenu.getInstance();
+                    return GroupIntroMenu.getInstance();
                 } catch (InvalidGroupNameException e) {
                     print(e.getMessage());
                 }

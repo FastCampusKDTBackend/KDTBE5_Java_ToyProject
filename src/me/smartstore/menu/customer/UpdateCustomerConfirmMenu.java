@@ -18,7 +18,7 @@ public class UpdateCustomerConfirmMenu extends Menu {
     private static class InstanceHolder {
         private static final UpdateCustomerConfirmMenu INSTANCE = new UpdateCustomerConfirmMenu();
     }
-    private UpdateCustomerConfirmMenu() { super(); }
+    private UpdateCustomerConfirmMenu() {}
     public static UpdateCustomerConfirmMenu getInstance() { return InstanceHolder.INSTANCE; }
 
     @Override

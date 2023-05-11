@@ -2,7 +2,7 @@ package me.smartstore.menu.group;
 
 import me.smartstore.group.Group;
 import me.smartstore.menu.Menu;
-import me.smartstore.menu.topic.GroupMenu;
+import me.smartstore.menu.topic.GroupIntroMenu;
 
 import java.util.InputMismatchException;
 
@@ -42,6 +42,6 @@ public class UpdateGroupParameterConfirmMenu extends Menu {
 
     @Override
     protected void setNextMenus() {
-        setNextMenus(GroupMenu.getInstance(), UpdateParameterMenu.getInstance());
+        setNextMenus(GroupIntroMenu.getInstance(), UpdateParameterMenu.getInstance());
     }
 }

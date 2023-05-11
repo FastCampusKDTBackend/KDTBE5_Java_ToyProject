@@ -2,7 +2,7 @@ package me.smartstore.menu.group;
 
 import me.smartstore.group.Group;
 import me.smartstore.menu.Menu;
-import me.smartstore.menu.topic.GroupMenu;
+import me.smartstore.menu.topic.GroupIntroMenu;
 
 import java.util.InputMismatchException;
 
@@ -32,13 +32,13 @@ public class UpdateParameterMenu extends GroupParameterMenu {
                 InputMinSpentHoursMenu.getInstance(),
                 InputMinTotalPaidAmountMenu.getInstance(),
                 UpdateGroupParameterConfirmMenu.getInstance(),
-                GroupMenu.getInstance()
+                GroupIntroMenu.getInstance()
         );
     }
 
     @Override
     protected Menu handleAndMoveToNextMenu(Group group) {
-        if (getPrevMenu() == GroupMenu.getInstance()) {
+        if (getPrevMenu() == GroupIntroMenu.getInstance()) {
             setNextMenus();
             print(group);
             Group.setTempParameter(group);

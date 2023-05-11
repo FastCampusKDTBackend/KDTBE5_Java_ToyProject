@@ -2,7 +2,7 @@ package me.smartstore.menu.customer;
 
 import me.smartstore.customer.CustomerRepository;
 import me.smartstore.menu.Menu;
-import me.smartstore.menu.topic.CustomerMenu;
+import me.smartstore.menu.topic.CustomerIntroMenu;
 
 public class UpdateCustomerIntoRepositoryMenu extends Menu {
 
@@ -21,7 +21,7 @@ public class UpdateCustomerIntoRepositoryMenu extends Menu {
 
     @Override
     protected void setNextMenus() {
-        setNextMenus(CustomerMenu.getInstance());
+        setNextMenus(CustomerIntroMenu.getInstance());
     }
 
     private void updateTempCustomerInRepository() {

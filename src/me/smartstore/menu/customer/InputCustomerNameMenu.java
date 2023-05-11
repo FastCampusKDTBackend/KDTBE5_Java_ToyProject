@@ -1,7 +1,7 @@
 package me.smartstore.menu.customer;
 
 import me.smartstore.customer.CustomerRepository;
-import me.smartstore.customer.InvalidCustomerNameException;
+import me.smartstore.customer.exception.InvalidCustomerNameException;
 import me.smartstore.menu.exception.InputIsEndException;
 
 import static me.smartstore.customer.Customer.NAME_FORMAT;

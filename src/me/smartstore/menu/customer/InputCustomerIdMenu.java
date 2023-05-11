@@ -1,8 +1,8 @@
 package me.smartstore.menu.customer;
 
 import me.smartstore.customer.CustomerRepository;
-import me.smartstore.customer.DuplicateCustomerIdException;
-import me.smartstore.customer.InvalidCustomerIdException;
+import me.smartstore.customer.exception.DuplicateCustomerIdException;
+import me.smartstore.customer.exception.InvalidCustomerIdException;
 import me.smartstore.menu.exception.InputIsEndException;
 
 import static me.smartstore.customer.Customer.ID_FORMAT;

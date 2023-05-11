@@ -1,22 +1,25 @@
 package me.smartstore.customer;
 
 
+import me.smartstore.customer.exception.MaxCapacityReachedException;
+
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Iterator;
+import java.util.Spliterator;
+import java.util.function.Consumer;
 
-public class List<E> {
+public class List<E> implements Iterable<E> {
 
-    protected static final int DEFAULT_CAPACITY = 16;
-    protected static final int MAX_CAPACITY = 100;
+    private static final int DEFAULT_CAPACITY = 16;
+    private static final int MAX_CAPACITY = 100;
     private static final int MIN_CAPACITY = 16;
 
     private E[] list;
     private int size = 0;
     private int reduceCapacityThreshold;
 
-    List() {
-        this(DEFAULT_CAPACITY);
-    }
+    List() { this(DEFAULT_CAPACITY); }
 
     @SuppressWarnings("unchecked")
     List(int initCapacity) {
@@ -26,18 +29,28 @@ public class List<E> {
         reduceCapacityThreshold = initCapacity >>> 2;
     }
 
+    class ListIterator implements Iterator<E> {
+        private int idx = 0;
+
+        @Override
+        public boolean hasNext() {
+            return idx < size;
+        }
+
+        @Override
+        public E next() {
+            return list[idx++];
+        }
+    }
+
     public void checkIfReachedMaxCapacity() throws MaxCapacityReachedException {
         if (isReachedMaxCapacity())
             throw new MaxCapacityReachedException("The maximum capable number of elements was reached.\n");
     }
 
-    public boolean isReachedMaxCapacity() {
-        return size == MAX_CAPACITY;
-    }
+    public boolean isReachedMaxCapacity() { return size == MAX_CAPACITY; }
 
-    public boolean isEmpty() {
-        return size == 0;
-    }
+    public boolean isEmpty() { return size == 0; }
 
     public int size() { return size; }
 
@@ -59,9 +72,7 @@ public class List<E> {
             throw new IllegalArgumentException("Input element is null");
     }
 
-    private boolean isFull() {
-        return size == list.length;
-    }
+    private boolean isFull() { return size == list.length; }
 
     private void increaseCapacity() {
         int newLength = Math.min(MAX_CAPACITY, list.length << 1);
@@ -109,6 +120,21 @@ public class List<E> {
             }
             list[j + 1] = src;
         }
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return new ListIterator();
+    }
+
+    @Override
+    public void forEach(Consumer<? super E> action) {
+        Iterable.super.forEach(action);
+    }
+
+    @Override
+    public Spliterator<E> spliterator() {
+        return Iterable.super.spliterator();
     }
 
     @Override

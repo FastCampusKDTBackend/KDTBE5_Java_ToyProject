@@ -1,9 +1,7 @@
-package me.smartstore.menu.classification;
+package me.smartstore.menu.summary;
 
-import me.smartstore.customer.CustomerRepository;
-import me.smartstore.customer.Order;
+import me.smartstore.summary.Summary;
 import me.smartstore.menu.Menu;
-import me.smartstore.menu.topic.CustomerMenu;
 
 public class SummaryDefaultMenu extends Menu {
 
@@ -15,7 +13,7 @@ public class SummaryDefaultMenu extends Menu {
 
     @Override
     public Menu printAndInputAndGetNextMenu() {
-        print(CustomerRepository.getInstance().getSummary());
+        print(Summary.get());
         return getPrevMenu();
     }
 

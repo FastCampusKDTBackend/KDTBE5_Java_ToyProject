@@ -1,7 +1,7 @@
-package me.smartstore.menu.classification;
+package me.smartstore.menu.summary;
 
-import me.smartstore.customer.CustomerRepository;
-import me.smartstore.customer.Order;
+import me.smartstore.summary.Order;
+import me.smartstore.summary.SummaryByTotalPaidAmount;
 
 public class SummaryByTotalPaidAmountMenu extends SummaryMenu {
 
@@ -12,10 +12,7 @@ public class SummaryByTotalPaidAmountMenu extends SummaryMenu {
     public static SummaryByTotalPaidAmountMenu getInstance() { return InstanceHolder.INSTANCE; }
 
     @Override
-    protected void setNextMenus() {}
-
-    @Override
     protected String getSummary(Order order) {
-        return CustomerRepository.getInstance().getSummaryByTotalPaidAmount(order);
+        return SummaryByTotalPaidAmount.getInstance().get(order);
     }
 }

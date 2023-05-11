@@ -1,7 +1,7 @@
 package me.smartstore.menu.topic;
 
 import me.smartstore.customer.CustomerRepository;
-import me.smartstore.customer.MaxCapacityReachedException;
+import me.smartstore.customer.exception.MaxCapacityReachedException;
 import me.smartstore.menu.Menu;
 import me.smartstore.menu.customer.*;
 
@@ -32,12 +32,12 @@ public class AddCustomerMenu extends TopicIntroMenu {
         CustomerRepository repository = CustomerRepository.getInstance();
         setNextMenus();
         try {
-            repository.checkIfCanAddMore();
+            repository.checkIfReachedMaxCapacity();
         } catch (MaxCapacityReachedException e) {
             print(e.getMessage());
             return getBackMenu();
         }
-        if (getPrevMenu() == CustomerMenu.getInstance())
+        if (getPrevMenu() == CustomerIntroMenu.getInstance())
             repository.resetTempCustomer();
         return inputMenuAndMoveToNextMenu();
     }
@@ -50,7 +50,7 @@ public class AddCustomerMenu extends TopicIntroMenu {
                 InputCustomerSpentHoursMenu.getInstance(),      // spent hours
                 InputCustomerTotalPaidAmountMenu.getInstance(), // total amount paid
                 AddCustomerConfirmMenu.getInstance(),           // confirm
-                CustomerMenu.getInstance()                      // cancel(back) => CustomerMenu
+                CustomerIntroMenu.getInstance()                      // cancel(back) => CustomerMenu
         };
         for (int i = 0; i <= 3; ++i)
             nextMenus[i].setNextMenus(null, this);

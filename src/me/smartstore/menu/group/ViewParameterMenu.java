@@ -2,7 +2,7 @@ package me.smartstore.menu.group;
 
 import me.smartstore.group.Group;
 import me.smartstore.menu.Menu;
-import me.smartstore.menu.topic.GroupMenu;
+import me.smartstore.menu.topic.GroupIntroMenu;
 
 public class ViewParameterMenu extends GroupParameterMenu {
 
@@ -18,6 +18,6 @@ public class ViewParameterMenu extends GroupParameterMenu {
     @Override
     protected Menu handleAndMoveToNextMenu(Group group) {
         print(group);
-        return GroupMenu.getInstance();
+        return GroupIntroMenu.getInstance();
     }
 }

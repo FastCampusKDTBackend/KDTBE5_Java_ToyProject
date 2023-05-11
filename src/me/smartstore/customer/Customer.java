@@ -1,16 +1,11 @@
 package me.smartstore.customer;
 
+import me.smartstore.customer.exception.InvalidCustomerIdException;
+import me.smartstore.customer.exception.InvalidCustomerNameException;
 import me.smartstore.group.Group;
-import java.util.Comparator;
 
 public class Customer {
 
-    public static final Comparator<Customer> ORDER_NAME_ASC = Comparator.comparing(e -> e.name);
-    public static final Comparator<Customer> ORDER_NAME_DEC = (e1, e2) -> e2.name.compareTo(e1.name);
-    public static final Comparator<Customer> ORDER_SPENT_HOURS_ASC = Comparator.comparing(e -> e.spentHours);
-    public static final Comparator<Customer> ORDER_SPENT_HOURS_DEC = (e1, e2) -> e2.spentHours.compareTo(e1.spentHours);
-    public static final Comparator<Customer> ORDER_TOTAL_PAID_AMOUNT_ASC = Comparator.comparing(e -> e.totalPaidAmount);
-    public static final Comparator<Customer> ORDER_TOTAL_PAID_AMOUNT_DEC = (e1, e2) -> e2.totalPaidAmount.compareTo(e1.totalPaidAmount);
     public static final String ID_FORMAT =
             "ID Format: 4~16 letters consisting of alphabets, digits, underscore(_)";
     public static final String NAME_FORMAT =
@@ -21,7 +16,6 @@ public class Customer {
     private static final int DEFAULT_SPENT_HOURS = 0;
     private static final int DEFAULT_TOTAL_PAID_AMOUNT = 0;
     private static final Group DEFAULT_GROUP = Group.NONE;
-
 
     private String id;
     private String name;
@@ -41,26 +35,22 @@ public class Customer {
         this.group = group;
     }
 
-    public Customer(Customer e) {
-        copy(e);
+    public Customer(Customer e) { copy(e); }
+
+    public void copy(Customer e) {
+        id = e.id;
+        name = e.name;
+        spentHours = e.spentHours;
+        totalPaidAmount = e.totalPaidAmount;
+        group = e.group;
     }
 
     public String getId() { return id; }
 
-    public void setId(String id) throws InvalidCustomerIdException {
+    public void setId(String id, boolean checked) throws InvalidCustomerIdException {
+        if (!checked)
+            checkIfIdIsValid(id);
         this.id = id;
-    }
-
-    public void setName(String name) throws InvalidCustomerNameException {
-        this.name = name;
-    }
-
-    public void setSpentHours(Integer spentHours) {
-        this.spentHours = spentHours;
-    }
-
-    public void setTotalPaidAmount(Integer totalPaidAmount) {
-        this.totalPaidAmount = totalPaidAmount;
     }
 
     public static void checkIfIdIsValid(String id) throws InvalidCustomerIdException {
@@ -71,6 +61,13 @@ public class Customer {
     private static boolean isValidId(String id) {
         throwIfNull(id, "ID");
         return id.matches(ID_PATTERN);
+    }
+
+    public String getName() { return name; }
+
+    public void setName(String name) throws InvalidCustomerNameException {
+        checkIfNameIsValid(name);
+        this.name = name;
     }
 
     public static void checkIfNameIsValid(String name) throws InvalidCustomerNameException {
@@ -88,18 +85,18 @@ public class Customer {
             throw new IllegalArgumentException(title + " cannot be null.\n");
     }
 
-    public void copy(Customer e) {
-        id = e.id;
-        name = e.name;
-        spentHours = e.spentHours;
-        totalPaidAmount = e.totalPaidAmount;
-        group = e.group;
-    }
+    public Integer getSpentHours() { return spentHours; }
+
+    public void setSpentHours(Integer spentHours) { this.spentHours = spentHours; }
+
+    public Integer getTotalPaidAmount() { return totalPaidAmount; }
+
+    public void setTotalPaidAmount(Integer totalPaidAmount) { this.totalPaidAmount = totalPaidAmount; }
 
     public Group getGroup() { return group; }
 
     public void updateGroup() {
-        group = Group.calculate(spentHours, totalPaidAmount);
+        group = Group.getGroupByParameter(spentHours, totalPaidAmount);
     }
 
     @Override

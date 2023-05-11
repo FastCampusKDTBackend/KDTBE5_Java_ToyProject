@@ -31,7 +31,7 @@ public class UpdateCustomerSelectPropertyMenu extends TopicIntroMenu {
                 InputCustomerSpentHoursMenu.getInstance(),      // spent hours
                 InputCustomerTotalPaidAmountMenu.getInstance(), // total paid amount
                 UpdateCustomerConfirmMenu.getInstance(),        // confirm
-                CustomerMenu.getInstance()                      // cancel(back) => CustomerMenu
+                CustomerIntroMenu.getInstance()                      // cancel(back) => CustomerMenu
         };
         for (int i = 0; i <= 2; ++i)
             nextMenus[i].setNextMenus(null, this);

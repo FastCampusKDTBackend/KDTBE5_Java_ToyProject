@@ -13,7 +13,7 @@ public class Customer {
   /** 관리 번호 부여용 */
   private static Long seqNo = 0L;
 
-  private Long id; // 고객 관리 번호
+  private final Long id; // 고객 관리 번호
   private String name;
   private String userId;
   private Integer spentTime;
@@ -32,27 +32,14 @@ public class Customer {
   }
 
   public Customer(CustomerDTO dto) {
-    if (dto.id() == null) {
-      synchronized (this) {
-        this.id = seqNo++;
-      }
-    } else {
-      this.id = dto.id();
+    synchronized (this) {
+      this.id = dto.id() == null ? seqNo++ : dto.id();
     }
     this.name = dto.name();
     this.userId = dto.userId();
     this.spentTime = dto.spentTime();
     this.payAmount = dto.payAmount();
     this.customerType = null;
-  }
-
-  public Customer(
-      String name, String userId, Integer spentTime, Integer payAmount, CustomerType customerType) {
-    this.name = name;
-    this.userId = userId;
-    this.spentTime = spentTime;
-    this.payAmount = payAmount;
-    this.customerType = customerType;
   }
 
   public Long getId() {

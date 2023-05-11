@@ -18,7 +18,7 @@ import me.smartstore.exceptions.StoreException;
  */
 public class CustomerManager {
   private static CustomerManager customerManager = new CustomerManager();
-  private static final int DEFAULT_SIZE = 10;
+  private static final int DEFAULT_SIZE = 20;
   private static int size = 0;
   private static Customer[] customers = new Customer[DEFAULT_SIZE];
 
@@ -50,11 +50,6 @@ public class CustomerManager {
    * @throws StoreException 기타 데이터베이스 오류
    */
   public void save(Customer customer) throws StoreException {
-    if (isEmpty()) {
-      customers[size++] = customer;
-      return;
-    }
-
     for (int idx = 0; idx < size; idx++) {
       if (customer.getId().equals(customers[idx].getId())) {
         customers[idx] = customer;
@@ -97,7 +92,6 @@ public class CustomerManager {
    * @throws StoreException 데이터베이스 내부 오류
    */
   public Customer[] selectByCustomerType(CustomerType customerType) throws StoreException {
-    if (isEmpty()) throw new StoreException(NO_CUSTOMER);
     return Arrays.stream(customers)
         .filter(Objects::nonNull)
         .filter(customer -> customer.getCustomerType() == customerType)
@@ -203,12 +197,8 @@ public class CustomerManager {
 
     if (idx == -1) throw new StoreException(NOT_EXIST_ID);
 
-    System.arraycopy(customers, idx + 1, customers, idx, size - idx);
-    size--;
-
-    for (int i = size; i < customers.length; i++) {
-      customers[i] = null;
-    }
+    System.arraycopy(customers, idx + 1, customers, idx, --size - idx);
+    customers[size] = null;
   }
 
   /**
@@ -226,11 +216,7 @@ public class CustomerManager {
 
     if (idx == -1) throw new StoreException(NOT_EXIST_CUSTOMER);
 
-    System.arraycopy(customers, idx + 1, customers, idx, size - idx);
-    size--;
-
-    for (int i = size; i < customers.length; i++) {
-      customers[i] = null;
-    }
+    System.arraycopy(customers, idx + 1, customers, idx, --size - idx);
+    customers[size] = null;
   }
 }

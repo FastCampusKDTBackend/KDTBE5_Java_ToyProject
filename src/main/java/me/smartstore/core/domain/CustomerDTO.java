@@ -27,7 +27,7 @@ public record CustomerDTO(
     return new CustomerDTO(
         customer.getId(),
         customer.getName(),
-        customer.getName(),
+        customer.getUserId(),
         customer.getSpentTime(),
         customer.getPayAmount(),
         customer.getCustomerType());
@@ -35,11 +35,11 @@ public record CustomerDTO(
 
   public static CustomerDTO of(
       String customerName,
-      String customerID,
+      String customerUserId,
       Integer customerSpentTime,
       Integer customerPayAmount) {
     return new CustomerDTO(
-        null, customerName, customerID, customerSpentTime, customerPayAmount, null);
+        null, customerName, customerUserId, customerSpentTime, customerPayAmount, null);
   }
 
   @Override

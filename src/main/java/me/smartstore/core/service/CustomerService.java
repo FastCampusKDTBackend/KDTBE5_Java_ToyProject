@@ -1,15 +1,14 @@
 package me.smartstore.core.service;
 
+import java.util.Arrays;
 import me.smartstore.core.domain.Customer;
 import me.smartstore.core.domain.CustomerDTO;
-import me.smartstore.core.domain.CustomerGroup;
+import me.smartstore.core.domain.CustomerGroupDTO;
 import me.smartstore.core.manager.CustomerManager;
 import me.smartstore.enums.CustomerType;
 import me.smartstore.enums.SortBy;
 import me.smartstore.enums.SortOrder;
 import me.smartstore.exceptions.StoreException;
-
-import java.util.Arrays;
 
 /**
  * 고객 정보 관리 서비스 제공 클래스
@@ -24,10 +23,13 @@ public class CustomerService {
   private static final CustomerGroupService customerGroupService =
       CustomerGroupService.getInstance();
 
+  /////////////////////////////////////////////////////////
+  // 요청 사항 처리를 위한 캐싱 역할 변수들
   private static SortBy lastRequestedSortBy = SortBy.NAME;
   private static SortOrder lastRequestedSortOrder = SortOrder.ASCENDING;
-
-  private static CustomerGroup[] customerGroups = customerGroupService.findAll();
+  private static CustomerGroupDTO[] customerGroupDTOs = customerGroupService.findAll();
+  private static final CustomerDTO[][] classifiedCustomerDTOs =
+      new CustomerDTO[customerGroupDTOs.length][];
 
   public static CustomerService getInstance() {
     if (customerService == null) {
@@ -48,7 +50,7 @@ public class CustomerService {
 
   /**
    * @return 모든 고객 정보
-   * @throws StoreException 등록된 고객 정보가 없는 경우
+   * @throws StoreException 데이터베이스 오류
    */
   public CustomerDTO[] findAll() throws StoreException {
     return Arrays.stream(customerManager.selectAll())
@@ -101,16 +103,16 @@ public class CustomerService {
    * @param customer 고객정보
    */
   public void classifyCustomer(Customer customer) {
-    for (CustomerGroup customerGroup : customerGroups) {
-      if (customerGroup.getParameter() == null) {
+    for (CustomerGroupDTO customerGroupDTO : customerGroupDTOs) {
+      if (customerGroupDTO.parameter() == null) {
         continue;
       }
       if (customer.getSpentTime() == null || customer.getPayAmount() == null) {
         customer.setCustomerType(CustomerType.NONE);
       } else {
-        if (customerGroup.getParameter().getMinSpentTime() <= customer.getSpentTime()
-            && customerGroup.getParameter().getMinPayAmount() <= customer.getPayAmount()) {
-          customer.setCustomerType(customerGroup.getCustomerType());
+        if (customerGroupDTO.parameter().getMinSpentTime() <= customer.getSpentTime()
+            && customerGroupDTO.parameter().getMinPayAmount() <= customer.getPayAmount()) {
+          customer.setCustomerType(customerGroupDTO.customerType());
         }
       }
     }
@@ -119,11 +121,9 @@ public class CustomerService {
     }
   }
 
-  /**
-   * 모든 고객 분류
-   */
+  /** 모든 고객 분류 */
   public void classifyAllCustomers() {
-    customerGroups = customerGroupService.findAll();
+    customerGroupDTOs = customerGroupService.findAll();
     Customer[] customers = customerManager.selectAll();
 
     for (Customer customer : customers) {
@@ -132,111 +132,102 @@ public class CustomerService {
     }
   }
 
-  /**
-   * 고객 분류 및 요약 정보 출력. 가장 최근에 조회한 기준에 따라 자동으로 정렬.
-   */
-  public void displayClassificationSummary() {
-    displayClassificationSummary(lastRequestedSortBy, lastRequestedSortOrder);
+  /** 고객 분류 및 요약 정보 출력. 가장 최근에 조회한 기준에 따라 자동으로 정렬. */
+  public CustomerDTO[][] getClassifiedCustomerData() {
+    return getClassifiedCustomerData(lastRequestedSortBy, lastRequestedSortOrder);
   }
 
   /**
-   * 고객 분류 결과를 기준에 따라 정렬하여 출력.
+   * 고객 분류 결과를 기준에 따라 정렬한 결과를 뷰로 전달
    *
    * @param sortBy 정렬기준
    * @param sortOrder 정렬순서 (오름차순, 내림차순)
    */
-  public void displayClassificationSummary(SortBy sortBy, SortOrder sortOrder) {
+  public CustomerDTO[][] getClassifiedCustomerData(SortBy sortBy, SortOrder sortOrder) {
     classifyAllCustomers();
     lastRequestedSortBy = sortBy;
     lastRequestedSortOrder = sortOrder;
     switch (sortBy) {
-      case NAME -> displayClassificationSummaryByName(sortOrder);
-      case SPENT_TIME -> displayClassificationSummaryBySpentTime(sortOrder);
-      case PAY_AMOUNT -> displayClassificationSummaryByPayAmount(sortOrder);
+      case NAME -> groupingCustomersByCustomerTypeSortByName(sortOrder);
+      case SPENT_TIME -> groupingCustomersByCustomerTypeSortBySpentTime(sortOrder);
+      case PAY_AMOUNT -> groupingCustomersByCustomerTypeSortByPayAmount(sortOrder);
+    }
+
+    return classifiedCustomerDTOs;
+  }
+
+  /**
+   * 고객 분류 결과를 이름순으로 정렬.
+   *
+   * @param sortOrder 정렬순서 (오름차순, 내림차순)
+   */
+  private void groupingCustomersByCustomerTypeSortByName(SortOrder sortOrder) {
+    for (int gIdx = 0; gIdx < customerGroupDTOs.length; gIdx++) {
+      if (sortOrder == SortOrder.ASCENDING) {
+        classifiedCustomerDTOs[gIdx] =
+            Arrays.stream(
+                    customerManager.selectByCustomerTypeOrderByNameAsc(
+                        customerGroupDTOs[gIdx].customerType()))
+                .map(CustomerDTO::from)
+                .toArray(CustomerDTO[]::new);
+      } else {
+        classifiedCustomerDTOs[gIdx] =
+            Arrays.stream(
+                    customerManager.selectByCustomerTypeOrderByNameDesc(
+                        customerGroupDTOs[gIdx].customerType()))
+                .map(CustomerDTO::from)
+                .toArray(CustomerDTO[]::new);
+      }
     }
   }
 
   /**
-   * 고객 분류 결과를 이름순으로 정렬하여 출력.
+   * 고객 분류 결과를 이용시간순으로 정렬.
    *
    * @param sortOrder 정렬순서 (오름차순, 내림차순)
    */
-  public void displayClassificationSummaryByName(SortOrder sortOrder) {
-    Arrays.stream(customerGroups)
-        .forEach(
-            group -> {
-              System.out.println("\n" + group.groupTitle());
-              if (sortOrder == SortOrder.ASCENDING) {
-                Customer[] customers =
-                    customerManager.selectByCustomerTypeOrderByNameAsc(group.getCustomerType());
-                for (int idx = 0; idx < customers.length; idx++) {
-                  System.out.println("No. " + (idx + 1) + " => " + customers[idx]);
-                }
-              } else {
-                Customer[] customers =
-                    customerManager.selectByCustomerTypeOrderByNameDesc(group.getCustomerType());
-                for (int idx = 0; idx < customers.length; idx++) {
-                  System.out.println("No. " + (idx + 1) + " => " + customers[idx]);
-                }
-              }
-            });
-  }
-
-  /**
-   * 고객 분류 결과를 이용시간순으로 정렬하여 출력.
-   *
-   * @param sortOrder 정렬순서 (오름차순, 내림차순)
-   */
-  public void displayClassificationSummaryBySpentTime(SortOrder sortOrder) {
-    Arrays.stream(customerGroups)
-        .forEach(
-            group -> {
-              System.out.println("\n" + group.groupTitle());
-              if (sortOrder == SortOrder.ASCENDING) {
-                Customer[] customers =
+  private void groupingCustomersByCustomerTypeSortBySpentTime(SortOrder sortOrder) {
+    for (int gIdx = 0; gIdx < customerGroupDTOs.length; gIdx++) {
+      if (sortOrder == SortOrder.ASCENDING) {
+        classifiedCustomerDTOs[gIdx] =
+            Arrays.stream(
                     customerManager.selectByCustomerTypeOrderBySpentTimeAsc(
-                        group.getCustomerType());
-                for (int idx = 0; idx < customers.length; idx++) {
-                  System.out.println("No. " + (idx + 1) + " => " + customers[idx]);
-                }
-              } else {
-                Customer[] customers =
+                        customerGroupDTOs[gIdx].customerType()))
+                .map(CustomerDTO::from)
+                .toArray(CustomerDTO[]::new);
+      } else {
+        classifiedCustomerDTOs[gIdx] =
+            Arrays.stream(
                     customerManager.selectByCustomerTypeOrderBySpentTimeDesc(
-                        group.getCustomerType());
-                for (int idx = 0; idx < customers.length; idx++) {
-                  System.out.println("No. " + (idx + 1) + " => " + customers[idx]);
-                }
-              }
-              System.out.println();
-            });
+                        customerGroupDTOs[gIdx].customerType()))
+                .map(CustomerDTO::from)
+                .toArray(CustomerDTO[]::new);
+      }
+    }
   }
 
   /**
-   * 고객 분류 결과를 사용금액순으로 정렬하여 출력.
+   * 고객 분류 결과를 사용금액순으로 정렬.
    *
    * @param sortOrder 정렬순서 (오름차순, 내림차순)
    */
-  public void displayClassificationSummaryByPayAmount(SortOrder sortOrder) {
-    Arrays.stream(customerGroups)
-        .forEach(
-            group -> {
-              System.out.println("\n" + group.groupTitle());
-              if (sortOrder == SortOrder.ASCENDING) {
-                Customer[] customers =
+  private void groupingCustomersByCustomerTypeSortByPayAmount(SortOrder sortOrder) {
+    for (int gIdx = 0; gIdx < customerGroupDTOs.length; gIdx++) {
+      if (sortOrder == SortOrder.ASCENDING) {
+        classifiedCustomerDTOs[gIdx] =
+            Arrays.stream(
                     customerManager.selectByCustomerTypeOrderByPayAmountAsc(
-                        group.getCustomerType());
-                for (int idx = 0; idx < customers.length; idx++) {
-                  System.out.println("No. " + (idx + 1) + " => " + customers[idx]);
-                }
-              } else {
-                Customer[] customers =
+                        customerGroupDTOs[gIdx].customerType()))
+                .map(CustomerDTO::from)
+                .toArray(CustomerDTO[]::new);
+      } else {
+        classifiedCustomerDTOs[gIdx] =
+            Arrays.stream(
                     customerManager.selectByCustomerTypeOrderByPayAmountDesc(
-                        group.getCustomerType());
-                for (int idx = 0; idx < customers.length; idx++) {
-                  System.out.println("No. " + (idx + 1) + " => " + customers[idx]);
-                }
-              }
-              System.out.println();
-            });
+                        customerGroupDTOs[gIdx].customerType()))
+                .map(CustomerDTO::from)
+                .toArray(CustomerDTO[]::new);
+      }
+    }
   }
 }

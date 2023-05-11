@@ -1,6 +1,8 @@
 package me.smartstore.core.service;
 
+import java.util.Arrays;
 import me.smartstore.core.domain.CustomerGroup;
+import me.smartstore.core.domain.CustomerGroupDTO;
 import me.smartstore.core.domain.Parameter;
 import me.smartstore.core.manager.CustomerGroupManager;
 import me.smartstore.enums.CustomerType;
@@ -33,7 +35,7 @@ public class CustomerGroupService {
    * @return 설정이 완료된 고객 그룹
    * @throws StoreException 일치하는 고객 그룹이 데이터베이스 없는 경우
    */
-  public CustomerGroup setParameter(CustomerType customerType, Parameter parameter)
+  public CustomerGroupDTO setParameter(CustomerType customerType, Parameter parameter)
       throws StoreException {
     CustomerGroup customerGroup =
         customerGroupManager.selectCustomerGroupByCustomerType(customerType);
@@ -49,10 +51,11 @@ public class CustomerGroupService {
         customerGroup.getParameter().setMinPayAmount(parameter.getMinPayAmount());
       }
     }
+
     customerGroup = customerGroupManager.save(customerGroup);
     customerService.classifyAllCustomers();
 
-    return customerGroup;
+    return CustomerGroupDTO.from(customerGroup);
   }
 
   /**
@@ -60,15 +63,18 @@ public class CustomerGroupService {
    * @return 고객 유형과 일치하는 그룹
    * @throws StoreException 데이터베이스에 일치하는 그룹이 없을 경우
    */
-  public CustomerGroup find(CustomerType customerType) throws StoreException {
-    return customerGroupManager.selectCustomerGroupByCustomerType(customerType);
+  public CustomerGroupDTO find(CustomerType customerType) throws StoreException {
+    return CustomerGroupDTO.from(
+        customerGroupManager.selectCustomerGroupByCustomerType(customerType));
   }
 
   /**
    * @return 데이터베이스에 저장된 모든 고객 그룹
    * @throws StoreException 데이터베이스 오류
    */
-  public CustomerGroup[] findAll() throws StoreException {
-    return customerGroupManager.selectAllCustomerGroup();
+  public CustomerGroupDTO[] findAll() throws StoreException {
+    return Arrays.stream(customerGroupManager.selectAllCustomerGroup())
+        .map(CustomerGroupDTO::from)
+        .toArray(CustomerGroupDTO[]::new);
   }
 }

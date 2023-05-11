@@ -6,7 +6,11 @@ import static me.smartstore.enums.SortBy.*;
 import static me.smartstore.exceptions.StoreErrorCode.INPUT_END;
 import static me.smartstore.utils.StoreUtility.convertInputStrToSortOrder;
 
+import me.smartstore.core.domain.CustomerDTO;
+import me.smartstore.core.domain.CustomerGroupDTO;
+import me.smartstore.core.service.CustomerGroupService;
 import me.smartstore.core.service.CustomerService;
+import me.smartstore.enums.SortBy;
 import me.smartstore.enums.SortOrder;
 import me.smartstore.exceptions.StoreException;
 import me.smartstore.utils.ScannerUtility;
@@ -22,6 +26,8 @@ public class ClassificationSummaryMenu extends AbstractMenu {
   private static ClassificationSummaryMenu classificationSummaryMenu =
       new ClassificationSummaryMenu();
 
+  private static final CustomerGroupService customerGroupService =
+      CustomerGroupService.getInstance();
   private static final CustomerService customerService = CustomerService.getInstance();
 
   private ClassificationSummaryMenu() {
@@ -49,13 +55,13 @@ public class ClassificationSummaryMenu extends AbstractMenu {
       try {
         switch (classificationSummaryMenu.selectMenuNumber()) {
             // 일반 요약 정보 출력 - 가장 최근에 조회한 정렬 기준에 따라 자동으로 변환
-          case 1 -> customerService.displayClassificationSummary();
+          case 1 -> displayClassifiedCustomerData();
 
             // 고객 그룹별 이름순 정렬
           case 2 -> {
             while (true) {
               try {
-                customerService.displayClassificationSummary(NAME, inputSortOrder());
+                displayClassifiedCustomerData(NAME, inputSortOrder());
               } catch (StoreException e) {
                 if (e.getErrorCode() == INPUT_END) break;
                 System.out.println(e.getMessage());
@@ -67,7 +73,7 @@ public class ClassificationSummaryMenu extends AbstractMenu {
           case 3 -> {
             while (true) {
               try {
-                customerService.displayClassificationSummary(SPENT_TIME, inputSortOrder());
+                displayClassifiedCustomerData(SPENT_TIME, inputSortOrder());
               } catch (StoreException e) {
                 if (e.getErrorCode() == INPUT_END) break;
                 System.out.println(e.getMessage());
@@ -79,7 +85,7 @@ public class ClassificationSummaryMenu extends AbstractMenu {
           case 4 -> {
             while (true) {
               try {
-                customerService.displayClassificationSummary(PAY_AMOUNT, inputSortOrder());
+                displayClassifiedCustomerData(PAY_AMOUNT, inputSortOrder());
               } catch (StoreException e) {
                 if (e.getErrorCode() == INPUT_END) break;
                 System.out.println(e.getMessage());
@@ -112,6 +118,35 @@ public class ClassificationSummaryMenu extends AbstractMenu {
       } catch (StoreException e) {
         System.out.println(e.getMessage());
         if (e.getErrorCode() == INPUT_END) throw new StoreException(INPUT_END);
+      }
+    }
+  }
+
+  private void displayClassifiedCustomerData() {
+    CustomerGroupDTO[] customerGroupDTOs = customerGroupService.findAll();
+    CustomerDTO[][] classifiedCustomerDTOs = customerService.getClassifiedCustomerData();
+
+    displayClassifiedCustomerData(customerGroupDTOs, classifiedCustomerDTOs);
+  }
+
+  private void displayClassifiedCustomerData(SortBy sortBy, SortOrder sortOrder) {
+    CustomerGroupDTO[] customerGroupDTOs = customerGroupService.findAll();
+    CustomerDTO[][] classifiedCustomerDTOs =
+        customerService.getClassifiedCustomerData(sortBy, sortOrder);
+
+    displayClassifiedCustomerData(customerGroupDTOs, classifiedCustomerDTOs);
+  }
+
+  private void displayClassifiedCustomerData(
+      CustomerGroupDTO[] customerGroupDTOs, CustomerDTO[][] classifiedCustomerDTOs) {
+    for (int gIdx = 0; gIdx < customerGroupDTOs.length; gIdx++) {
+      System.out.println("\n" + customerGroupDTOs[gIdx].groupTitle());
+
+      if (classifiedCustomerDTOs[gIdx] == null || classifiedCustomerDTOs[gIdx].length == 0)
+        System.out.println("Null.");
+
+      for (int cIdx = 0; cIdx < classifiedCustomerDTOs[gIdx].length; cIdx++) {
+        System.out.println("No. " + (cIdx + 1) + " => " + classifiedCustomerDTOs[gIdx][cIdx]);
       }
     }
   }

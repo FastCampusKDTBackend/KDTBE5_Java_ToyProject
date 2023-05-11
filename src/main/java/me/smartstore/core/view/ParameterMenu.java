@@ -1,16 +1,16 @@
 package me.smartstore.core.view;
 
-import me.smartstore.core.domain.CustomerGroup;
+import static me.smartstore.enums.SmartStoreMessage.INPUT_CUSTOMER_GROUP_MSG;
+import static me.smartstore.enums.SmartStoreMessage.PRESS_END_MSG;
+import static me.smartstore.exceptions.StoreErrorCode.*;
+import static me.smartstore.utils.StoreUtility.convertInputStrToCustomerType;
+
+import me.smartstore.core.domain.CustomerGroupDTO;
 import me.smartstore.core.domain.Parameter;
 import me.smartstore.core.service.CustomerGroupService;
 import me.smartstore.enums.CustomerType;
 import me.smartstore.exceptions.StoreException;
 import me.smartstore.utils.ScannerUtility;
-
-import static me.smartstore.enums.SmartStoreMessage.INPUT_CUSTOMER_GROUP_MSG;
-import static me.smartstore.enums.SmartStoreMessage.PRESS_END_MSG;
-import static me.smartstore.exceptions.StoreErrorCode.*;
-import static me.smartstore.utils.StoreUtility.convertInputStrToCustomerType;
 
 /**
  * 고객 유형 세분화 기준 설정 메뉴
@@ -35,6 +35,7 @@ public class ParameterMenu extends AbstractMenu {
     }
     return parameterMenu;
   }
+
   public void launch() {
     loop:
     while (true) {
@@ -45,15 +46,18 @@ public class ParameterMenu extends AbstractMenu {
           case 1 -> {
             while (true) {
               CustomerType customerType = inputCustomerType();
-              CustomerGroup customerGroup = customerGroupService.find(customerType);
-              if (customerGroup.getParameter() != null) {
+              CustomerGroupDTO customerGroupDTO = customerGroupService.find(customerType);
+
+              if (customerGroupDTO.parameter() != null) {
                 System.out.println(GROUP_ALREADY_SET.getMessage());
-                System.out.println(customerGroup);
+                System.out.println(customerGroupDTO);
                 continue;
               }
+
               Parameter parameter = parameterSubMenu.inputParameter();
-              customerGroup = customerGroupService.setParameter(customerType, parameter);
-              System.out.println(customerGroup);
+              customerGroupDTO = customerGroupService.setParameter(customerType, parameter);
+
+              System.out.println(customerGroupDTO);
             }
           }
 
@@ -69,13 +73,14 @@ public class ParameterMenu extends AbstractMenu {
           case 3 -> {
             while (true) {
               CustomerType customerType = inputCustomerType();
-              CustomerGroup customerGroup = customerGroupService.find(customerType);
-              if (customerGroup.getParameter() == null) {
-                throw new StoreException(NO_PARAMETER);
-              }
+              CustomerGroupDTO customerGroupDTO = customerGroupService.find(customerType);
+
+              if (customerGroupDTO.parameter() == null) throw new StoreException(NO_PARAMETER);
+
               Parameter parameter = parameterSubMenu.inputParameter();
-              customerGroup = customerGroupService.setParameter(customerType, parameter);
-              System.out.println(customerGroup);
+              customerGroupDTO = customerGroupService.setParameter(customerType, parameter);
+
+              System.out.println(customerGroupDTO);
             }
           }
 
@@ -98,6 +103,7 @@ public class ParameterMenu extends AbstractMenu {
     while (true) {
       System.out.println(INPUT_CUSTOMER_GROUP_MSG + "\n" + PRESS_END_MSG);
       String input = ScannerUtility.getInput().toUpperCase();
+
       if ("end".equalsIgnoreCase(input)) throw new StoreException(INPUT_END);
 
       try {

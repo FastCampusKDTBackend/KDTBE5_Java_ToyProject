@@ -32,18 +32,19 @@ public class Customers extends DArray<Customer> {
     public void refresh() {
         for (int i=0; i< allCustomers.size(); i++) {
             Customer customer = allCustomers.get(i);
+            System.out.println("refresh -> allCustomer size configure : " + allCustomers.size());
             Group group = findGroupOfCustomer(customer.getCustomerTotalTime(), customer.getCustomerTotalPay());
             customer.setGroup(group);
         }
     }
 
     /**
-     * 고객이 속한 그룹을 찾아 return 해주는 메서드
-     * @param spentTime
-     * @param spentMoney
-     * @return
+     * @param: spentTime
+     * @param: spentMoney
+     * @return: Group instance that corresponding with customer
      */
-    private Group findGroupOfCustomer(int spentTime, int spentMoney) {
+    public Group findGroupOfCustomer(int spentTime, int spentMoney) {
+        System.out.println("is allGroup empty? : " + allGroups.size());
         Group group = allGroups.get(0); // NONE 등급
         System.out.println("testing if whether NONE is printed : " + group.getGroupType());
         for (int i=1; i< allGroups.size(); i++) {

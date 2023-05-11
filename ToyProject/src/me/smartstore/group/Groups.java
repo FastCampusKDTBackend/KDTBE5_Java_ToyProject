@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.stream.IntStream;
 
 public class Groups extends DArray<Group> {
-    // singleton pattern
+
     private static Groups allGroups;
 
     public static Groups getInstance() {
@@ -18,7 +18,9 @@ public class Groups extends DArray<Group> {
         return allGroups;
     }
 
-    private Groups() {}
+    private Groups() {
+        add(new Group(new Parameter(0, 0), GroupType.NONE));
+    }
 
 //    public Group find(GroupType groupType) {
 //        for (Object obj : allGroups.arrays) {

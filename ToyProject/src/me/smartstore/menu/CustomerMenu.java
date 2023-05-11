@@ -47,7 +47,7 @@ public class CustomerMenu implements Menu {
 
     private void addCustomer() {
         while (true) {
-            System.out.println("How many customers to input?");
+            System.out.printf("How many customers to input?");
             try {
                 Integer addCustomerNum = Integer.parseInt(nextLine(Message.END_MSG));
                 if (addCustomerNum <= 0) {
@@ -81,15 +81,15 @@ public class CustomerMenu implements Menu {
                     "Back"});
             try {
                 if (choice == 1) {
-                    System.out.println("\nInput Customer's Name : ");
+                    System.out.printf("\nInput Customer's Name : ");
                     customer.setCustomerName(nextLine(Message.END_MSG));
                 }
                 else if (choice == 2) {
-                    System.out.println("\nInput Customer's ID : ");
+                    System.out.printf("\nInput Customer's ID : ");
                     customer.setCustomerId(nextLine(Message.END_MSG));
                 }
                 else if (choice == 3) {
-                    System.out.println("\nInput Customer's Spent Time : ");
+                    System.out.printf("\nInput Customer's Spent Time : ");
                     Integer spentTime = Integer.parseInt(nextLine(Message.END_MSG));
                     if (spentTime < 0) {
                         throw new InputRangeException();
@@ -97,7 +97,7 @@ public class CustomerMenu implements Menu {
                     customer.setCustomerTotalTime(spentTime);
                 }
                 else if (choice == 4) {
-                    System.out.println("\nInput Customer's Spent Payment : ");
+                    System.out.printf("\nInput Customer's Spent Payment : ");
                     Integer spentMoney = Integer.parseInt(nextLine(Message.END_MSG));
                     if (spentMoney < 0) {
                         throw new InputRangeException();

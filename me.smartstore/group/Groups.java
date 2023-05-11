@@ -1,6 +1,7 @@
 package group;
 
 import arrays.DArray;
+import customer.Customer;
 import customer.Customers;
 
 public class Groups extends DArray<Group> {
@@ -14,7 +15,8 @@ public class Groups extends DArray<Group> {
         return allGroups;
     }
 
-    public Groups() {}
+    public Groups() {
+    }
 
     public Group find(GroupType groupType) {
         for (int i = 0; i < allGroups.size; i++) {
@@ -49,5 +51,9 @@ public class Groups extends DArray<Group> {
             Parameter parameter = new Parameter(minTime, minPay);
             group.setParameter(parameter);
         }
+    }
+
+    public Group getGroup(Customer customer) {
+        return null;
     }
 }

@@ -100,6 +100,4 @@ public class Customer {
         this.cusTotalPay = cusTotalPay;
         this.group = group;
     }
-
-
 }

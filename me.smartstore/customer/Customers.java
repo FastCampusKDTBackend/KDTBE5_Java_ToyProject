@@ -3,13 +3,14 @@ package customer;
 import arrays.DArray;
 import group.Groups;
 
+import java.util.ArrayList;
 import java.util.Iterator;
-
-import static group.Groups.allGroups;
+import java.util.List;
 
 public class Customers extends DArray<Customer> implements Iterable<Customer> {
 
     private static Customers allCustomers;
+    private Groups allGroups;
 
     public static Customers getInstance() {
         if (allCustomers == null) {
@@ -19,6 +20,7 @@ public class Customers extends DArray<Customer> implements Iterable<Customer> {
     }
 
     private Customers() {
+        allGroups = Groups.getInstance();
     }
 
     // 분류 기준에 따라 모든 고객을 분류하고, 각 고객의 group 필드를 업데이트하는 함수
@@ -32,6 +34,15 @@ public class Customers extends DArray<Customer> implements Iterable<Customer> {
     public void add(Customer customer) {
         super.add(customer);
         refresh(allGroups);
+    }
+
+    // 고객 목록을 반환하는 메서드
+    public List<Customer> getList() {
+        List<Customer> customerList = new ArrayList<>();
+        for (Customer customer : this) {
+            customerList.add(customer);
+        }
+        return customerList;
     }
 
     public Customer find(Object o) {
@@ -69,4 +80,5 @@ public class Customers extends DArray<Customer> implements Iterable<Customer> {
             System.out.println(customer);
         }
     }
+
 }

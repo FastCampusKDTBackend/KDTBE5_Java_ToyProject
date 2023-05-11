@@ -37,6 +37,7 @@ public class SmartStoreApp {
 
 
     public SmartStoreApp test() {
+        allGroups.add(new Group(new Parameter(null, null), GroupType.NONE));
         allGroups.add(new Group(new Parameter(10, 100000), GroupType.GENERAL));
         allGroups.add(new Group(new Parameter(20, 200000), GroupType.VIP));
         allGroups.add(new Group(new Parameter(30, 300000), GroupType.VVIP));

@@ -171,7 +171,7 @@ public class GroupMenu implements Menu{
         while (true){
             try{
                 System.out.println("\nInput Minimum Spent Time: ");
-                int minimumSpentTime = Integer.parseInt(nextLine(Message.END_MSG));
+                int minimumSpentTime = Integer.parseInt(nextLineNotUpperCase(Message.END_MSG));
                 if(minimumSpentTime>0) return minimumSpentTime;
                 throw new InputRangeException();
             } catch (InputEndException e){
@@ -188,7 +188,7 @@ public class GroupMenu implements Menu{
         while (true){
             try {
                 System.out.println("\nInput Minimum Total Pay: ");
-                int minimumTotalPay = Integer.parseInt(nextLine(Message.END_MSG));
+                int minimumTotalPay = Integer.parseInt(nextLineNotUpperCase(Message.END_MSG));
                 if(minimumTotalPay>0) return minimumTotalPay;
                 throw new InputRangeException();
             } catch (InputEndException e){

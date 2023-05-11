@@ -31,7 +31,7 @@ public class AddCustomer implements Menu {
         while(true){
             try {
                 System.out.println("How many customer to input?");
-                int n = Integer.parseInt(nextLine(Message.END_MSG));
+                int n = Integer.parseInt(nextLineNotUpperCase(Message.END_MSG));
 
                 for (int i = 0; i < n; i++) {
                     System.out.println("====== Customer "+  (i+1) + " Info. ======");
@@ -124,7 +124,7 @@ public class AddCustomer implements Menu {
     public Integer inputSpentTime(){
         try{
             System.out.println("\nInput Customer's Spent Time: ");
-            Integer spentTime = Integer.parseInt(nextLine(Message.END_MSG));
+            Integer spentTime = Integer.parseInt(nextLineNotUpperCase(Message.END_MSG));
             return spentTime;
         } catch (InputEndException e){
             System.out.println(Message.ERR_MSG_INPUT_END);
@@ -138,7 +138,7 @@ public class AddCustomer implements Menu {
     public Integer inputTotalPay(){
         try{
             System.out.println("\nInput Customer's Total Payment: ");
-            Integer totalPay = Integer.parseInt(nextLine(Message.END_MSG));
+            Integer totalPay = Integer.parseInt(nextLineNotUpperCase(Message.END_MSG));
             return totalPay;
         } catch (InputEndException e){
             System.out.println(Message.ERR_MSG_INPUT_END);

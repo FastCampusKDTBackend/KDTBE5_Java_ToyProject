@@ -31,7 +31,16 @@ public interface Menu {
         return sc.nextLine().toUpperCase();
     }
 
-    default int nextInt() {
+    default String nextLineUpper(String END_MSG) {
+        System.out.println("** Press 'end', if you want to exit! **");
+        String str = sc.nextLine().toUpperCase();
+        if (str.equals(END_MSG)) {
+            throw new InputEndException();
+        }
+        return str;
+    }
+
+    default int nextInt() throws InputFormatException {
         try {
             return Integer.parseInt(sc.nextLine());
         } catch (NumberFormatException e) {
@@ -39,7 +48,7 @@ public interface Menu {
         }
     }
 
-    default int nextInt(String END_MSG) {
+    default int nextInt(String END_MSG) throws InputFormatException, InputEndException {
         try {
             System.out.println("** Press 'end', if you want to exit! **");
             String str = sc.nextLine().toUpperCase();

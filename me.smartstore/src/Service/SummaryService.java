@@ -15,7 +15,8 @@ import java.util.Comparator;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static resources.Message.*;
+import static resources.Message.END_MSG;
+import static resources.Message.ERR_MSG_INVALID_INPUT_RANGE;
 
 public class SummaryService {
 
@@ -80,7 +81,7 @@ public class SummaryService {
     /**
      * Groups에서 group type에 일치하는 배열을 만들어 리턴
      *
-     * @param groupType : GroupType
+     * @param groupType   : GroupType
      * @param customerArr : groups에서 추출한 원본 배열
      * @return : Customer[]
      */
@@ -95,54 +96,38 @@ public class SummaryService {
      * 이름순으로 정렬하여 Summary 출력
      *
      * @param customers : Customers 인스턴스
-     * @param summaryMenu : Scanner 입력을 위한 SummaryMenu 인스턴스
-     * @param groups : 그룹별 정렬을 위한 Groups 인스턴스
+     * @param sortOrder : 정렬 방법 - ASC : false / DESC : true
+     * @param groups    : 그룹별 정렬을 위한 Groups 인스턴스
      */
-    public void showByName(Customers customers, SummaryMenu summaryMenu, Groups groups) {
+    //@TODO 코드 중복을 많이 줄였지만 이걸 더 추상화 할 수 없을까?
+    public void showByName(Customers customers, boolean sortOrder, Groups groups) {
         Comparator<Customer> byName = Comparator.comparing(Customer::getCusName);
-        boolean sortOrder = sortOrder(summaryMenu);
-        Customer[] customerArr = arraySort(byName, sortOrder, customers);
-        showSummary(customerArr, groups);
+        showCommonSorted(byName, customers, sortOrder, groups);
     }
 
-    //@TODO 같은 중북 코드 제거 할 좋은 아이디어는?
-    public void showByTime(Customers customers, SummaryMenu summaryMenu, Groups groups) {
+    public void showByTime(Customers customers, boolean sortOrder, Groups groups) {
         Comparator<Customer> byTime = Comparator.comparing(Customer::getCusTotalTime);
-        boolean sortOrder = sortOrder(summaryMenu);
-        Customer[] customerArr = arraySort(byTime, sortOrder, customers);
-        showSummary(customerArr, groups);
+        showCommonSorted(byTime, customers, sortOrder, groups);
     }
 
-    public void showByPayment(Customers customers, SummaryMenu summaryMenu, Groups groups) {
+    public void showByPayment(Customers customers, boolean sortOrder, Groups groups) {
         Comparator<Customer> byPayment = Comparator.comparing(Customer::getCusTotalPay);
-        boolean sortOrder = sortOrder(summaryMenu);
-        Customer[] customerArr = arraySort(byPayment, sortOrder, customers);
-        showSummary(customerArr, groups);
+        showCommonSorted(byPayment, customers, sortOrder, groups);
     }
 
-    private boolean sortOrder(SummaryMenu summaryMenu) {
-        try {
-            System.out.println("Which order (ASCENDING (A), DESCENDING (D))?");
-            String order = summaryMenu.nextLineUpper();
-            if (order.equals("A")) return false; //ASC
-            if (order.equals("D")) return true; //DESC
-        } catch (InputEndException e) {
-            System.out.println(e.getMessage());
-            return sortOrder(summaryMenu); //정상 값이 아니면 재귀적 호출
-        } catch (InputFormatException e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println(ERR_MSG_INVALID_INPUT_RANGE);
-        return sortOrder(summaryMenu); //정상적인 값이 들어올 때까지 재귀적 호출
+    private void showCommonSorted(Comparator<Customer> comparator,
+                                  Customers customers, boolean sortOrder, Groups groups) {
+        Customer[] customerArr = arraySort(comparator, sortOrder, customers);
+        showSummary(customerArr, groups);
     }
 
     /**
      * comparator를 모듈화 하여 정렬 로직을 재사용.
-     * Stream을 적극 활용함으로서 Null safe한 코드가 되었음.
+     * Stream을 적극 활용함으로서 Null safe한 코드로 재탄생
      *
-     * @param comparator = functional lambda expression
-     * @param sortOrder  = false : ASC(default) / true : DESC
-     * @param customers  = Customers 인스턴스
+     * @param comparator : lambda expression
+     * @param sortOrder  : false - ASC(default) / true - DESC
+     * @param customers  : Customers Object 객체
      * @return Customer[]
      */
     private Customer[] arraySort(Comparator<Customer> comparator, boolean sortOrder, Customers customers) {

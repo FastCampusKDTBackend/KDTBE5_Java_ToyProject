@@ -49,7 +49,7 @@ public class SmartStoreApp {
 		System.out.println("allGroups = " + allGroups);
 
 		// @TODO: refresh do not implemented yet.
-//		allCustomers.refresh(allGroups);
+		allCustomers.refresh(allGroups);
 
 		return this; // smartStoreApp
 	}

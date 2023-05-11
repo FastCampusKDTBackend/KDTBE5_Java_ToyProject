@@ -42,9 +42,9 @@ public class SummaryMenu implements Menu {
                         "Back"});
                 
                 if (choice == 1) summary();
-                else if (choice == 2) summarySortedByName();
-//                else if (choice == 3) summary(Sorted By Time)();
-//                else if (choice == 4) summary(Sorted By Pay)();
+                else if (choice == 2) summarySortedBy(choice);
+                else if (choice == 3) summarySortedBy(choice);
+                else if (choice == 4) summarySortedBy(choice);
                 else break; // choice == 4
         	} catch (InputTypeException e) {
 				System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
@@ -90,8 +90,8 @@ public class SummaryMenu implements Menu {
     	}
     }
     
-    // Summary (Sorted By Name)
-    public void summarySortedByName() {
+    // Summary (Sorted By Something)
+    private void summarySortedBy(int choice) {
     	while(true) {
     		try {
     			List<Customer> customersBuilder = new ArrayList<>(); 
@@ -106,12 +106,13 @@ public class SummaryMenu implements Menu {
     				
     				printSummaryList(allGroups, i, groupType);
     				
-    				List<Customer> customerList = customersBuilder.stream()
+    				List<Customer> customerList = null;
+    				
+    				customerList = customersBuilder.stream()
 	 			 			.filter(customer -> customer.getGroup().getGroupType() == groupType)
 	 			 			.collect(Collectors.toList());
     				
-    				printNullGroups(sortedStream(customerList, sortType));
-    				
+    				printNullGroups(sortedStream(customerList, sortType, choice));
     	    	}
     	    	System.out.println();
     			break;
@@ -125,16 +126,6 @@ public class SummaryMenu implements Menu {
 			}
     	}
     }
-    
-    // Summary (Sorted By Time)
-//    public void summarySortedByTime() {
-//    	
-//    }
-    
-    // Summary (Sorted By Pay)
-//    public void summarySortedByPay() {
-//    	
-//    }
     
     private SortType chooseGroup() {
         while ( true ) {
@@ -173,17 +164,29 @@ public class SummaryMenu implements Menu {
 		System.out.println("==============================");
     }
     
-    // 오름차순 내림차순 정렬
-    private List<Customer> sortedStream(List<Customer> customerList, SortType sortType) {
-    	List<Customer> sortedList;
+    private List<Customer> sortedStream(List<Customer> customerList, SortType sortType, int choice) {
     	
-		if (sortType == SortType.DESCENDING) {
-			sortedList = customerList.stream().sorted(Comparator.comparing(Customer::getCusName).reversed())
+    	List<Customer> sortedList = null;
+    	Comparator<Customer> sortedBy = null; 
+    	
+    	// Sorted By Something
+    	if (choice == 2) { // Sorted By Name
+    		sortedBy = Comparator.comparing(Customer::getCusName);
+    	} else if (choice == 3) { // Sorted By Time
+    		sortedBy = Comparator.comparing(Customer::getCusTotalTime);
+    	} else if (choice == 4) { // Sorted By Pay
+    		sortedBy = Comparator.comparing(Customer::getCusTotalPay);
+    	}
+    	
+    	// 오름차순 내림차순 정렬
+    	if (sortType == SortType.DESCENDING) { 
+			sortedList = customerList.stream().sorted(sortedBy.reversed())
 					.collect(Collectors.toList());
 		} else {
-			sortedList = customerList.stream().sorted(Comparator.comparing(Customer::getCusName))
+			sortedList = customerList.stream().sorted(sortedBy)
 					.collect(Collectors.toList());
 		}
+		
 		return sortedList;
     }
     

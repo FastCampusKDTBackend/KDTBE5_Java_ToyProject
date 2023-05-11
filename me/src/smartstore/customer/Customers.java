@@ -76,6 +76,59 @@ public class Customers extends DArray<Customer> {
     	return 0;
     }
     
+    public int refreshForOne(Groups groups) {
+    	
+    	if (groups.size() == 0) {
+    		System.out.println(Message.ERR_MSG_INVALID_GROUP_ARR_EMPTY);
+    		return -1;
+    	}
+    	
+    	Customer customer = this.get(this.size - 1);
+    	
+    	for(int i = 0; i < groups.size(); i++) {
+    		
+    		if (groups.get(i).getParameter() == null) {
+    			System.out.println(Message.ERR_MSG_EMPTY_PARAMETER);
+    			break;
+    		}
+    		
+    			
+			// 파라미터 값이 없으면 NONE으로 초기화
+			if (groups.get(i).getParameter().getMinPay() == null || groups.get(i).getParameter().getMinTime() == null) {
+				customer.setGroup(groups.find(GroupType.NONE));
+				continue;
+    		}
+			
+			if ((groups.find(GroupType.VVIP).getParameter().getMinTime() == null && 
+					groups.find(GroupType.VVIP).getParameter().getMinPay() == null) ||
+					(groups.find(GroupType.VIP).getParameter().getMinTime() == null && 
+					groups.find(GroupType.VIP).getParameter().getMinPay() == null) ||
+					(groups.find(GroupType.GENERAL).getParameter().getMinTime() == null && 
+					groups.find(GroupType.GENERAL).getParameter().getMinPay() == null)) {
+				continue;
+			}
+			
+			customer.setGroup(groups.find(GroupType.NONE));
+			
+			if (customer.getCusTotalTime() >= groups.find(GroupType.VVIP).getParameter().getMinTime() &&
+					customer.getCusTotalPay() >= groups.find(GroupType.VVIP).getParameter().getMinPay()) {
+				
+				customer.setGroup(groups.find(GroupType.VVIP));
+				
+    		} else if (customer.getCusTotalTime() >= groups.find(GroupType.VIP).getParameter().getMinTime() &&
+    				customer.getCusTotalPay() >= groups.find(GroupType.VIP).getParameter().getMinPay()) {
+    			
+    			customer.setGroup(groups.find(GroupType.VIP));
+    			
+    		} else if (customer.getCusTotalTime() >= groups.find(GroupType.GENERAL).getParameter().getMinTime() &&
+    				customer.getCusTotalPay() >= groups.find(GroupType.GENERAL).getParameter().getMinPay()) {
+    			
+    			customer.setGroup(groups.find(GroupType.GENERAL));
+    		} 
+    	}
+    	return 0;
+    }
+    
     public Customer deleteCustomer(int choice) {
     	return pop(choice - 1);
     }

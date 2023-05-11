@@ -55,7 +55,7 @@ public class CustomerManager {
       return;
     }
 
-    for (int idx = 0; idx < customers.length; idx++) {
+    for (int idx = 0; idx < size; idx++) {
       if (customer.getId().equals(customers[idx].getId())) {
         customers[idx] = customer;
         return;
@@ -88,14 +88,13 @@ public class CustomerManager {
    * @throws StoreException 등록된 고객 정보가 없는 경우
    */
   public Customer[] selectAll() throws StoreException {
-    if (isEmpty()) throw new StoreException(NO_CUSTOMER);
     return Arrays.stream(customers).filter(Objects::nonNull).toArray(Customer[]::new);
   }
 
   /**
    * @param customerType 고객 유형
    * @return 유형이 일치하는 모든 고객정보
-   * @throws StoreException 등록된 고객 정보가 없는 경우
+   * @throws StoreException 데이터베이스 내부 오류
    */
   public Customer[] selectByCustomerType(CustomerType customerType) throws StoreException {
     if (isEmpty()) throw new StoreException(NO_CUSTOMER);
@@ -108,11 +107,10 @@ public class CustomerManager {
   /**
    * @param customerType 고객 유형
    * @return 유형이 일치하는 모든 고객정보를 이름에 따라 오름차순으로 정렬한 결과
-   * @throws StoreException 등록된 고객 정보가 없는 경우
+   * @throws StoreException 데이터베이스 내부 오류
    */
   public Customer[] selectByCustomerTypeOrderByNameAsc(CustomerType customerType)
       throws StoreException {
-    if (isEmpty()) throw new StoreException(NO_CUSTOMER);
     return Arrays.stream(customers)
         .filter(Objects::nonNull)
         .filter(customer -> customer.getCustomerType() == customerType)
@@ -123,11 +121,10 @@ public class CustomerManager {
   /**
    * @param customerType 고객 유형
    * @return 유형이 일치하는 모든 고객정보를 이름에 따라 내림차순으로 정렬한 결과
-   * @throws StoreException 등록된 고객 정보가 없는 경우
+   * @throws StoreException 데이터베이스 내부 오류
    */
   public Customer[] selectByCustomerTypeOrderByNameDesc(CustomerType customerType)
       throws StoreException {
-    if (isEmpty()) throw new StoreException(NO_CUSTOMER);
     return Arrays.stream(customers)
         .filter(Objects::nonNull)
         .filter(customer -> customer.getCustomerType() == customerType)
@@ -138,11 +135,10 @@ public class CustomerManager {
   /**
    * @param customerType 고객 유형
    * @return 유형이 일치하는 모든 고객정보를 이용시간에 따라 오름차순으로 정렬한 결과
-   * @throws StoreException 등록된 고객 정보가 없는 경우
+   * @throws StoreException 데이터베이스 내부 오류
    */
   public Customer[] selectByCustomerTypeOrderBySpentTimeAsc(CustomerType customerType)
       throws StoreException {
-    if (isEmpty()) throw new StoreException(NO_CUSTOMER);
     return Arrays.stream(customers)
         .filter(Objects::nonNull)
         .filter(customer -> customer.getCustomerType() == customerType)
@@ -153,11 +149,10 @@ public class CustomerManager {
   /**
    * @param customerType 고객 유형
    * @return 유형이 일치하는 모든 고객정보를 이용시간에 따라 내림차순으로 정렬한 결과
-   * @throws StoreException 등록된 고객 정보가 없는 경우
+   * @throws StoreException 데이터베이스 내부 오류
    */
   public Customer[] selectByCustomerTypeOrderBySpentTimeDesc(CustomerType customerType)
       throws StoreException {
-    if (isEmpty()) throw new StoreException(NO_CUSTOMER);
     return Arrays.stream(customers)
         .filter(Objects::nonNull)
         .filter(customer -> customer.getCustomerType() == customerType)
@@ -168,11 +163,10 @@ public class CustomerManager {
   /**
    * @param customerType 고객 유형
    * @return 유형이 일치하는 모든 고객정보를 결제금액에 따라 오름차순으로 정렬한 결과
-   * @throws StoreException 등록된 고객 정보가 없는 경우
+   * @throws StoreException 데이터베이스 내부 오류
    */
   public Customer[] selectByCustomerTypeOrderByPayAmountAsc(CustomerType customerType)
       throws StoreException {
-    if (isEmpty()) throw new StoreException(NO_CUSTOMER);
     return Arrays.stream(customers)
         .filter(Objects::nonNull)
         .filter(customer -> customer.getCustomerType() == customerType)
@@ -183,11 +177,10 @@ public class CustomerManager {
   /**
    * @param customerType 고객 유형
    * @return 유형이 일치하는 모든 고객정보를 결제금액에 따라 내림차순으로 정렬한 결과
-   * @throws StoreException 등록된 고객 정보가 없는 경우
+   * @throws StoreException 데이터베이스 내부 오류
    */
   public Customer[] selectByCustomerTypeOrderByPayAmountDesc(CustomerType customerType)
       throws StoreException {
-    if (isEmpty()) throw new StoreException(NO_CUSTOMER);
     return Arrays.stream(customers)
         .filter(Objects::nonNull)
         .filter(customer -> customer.getCustomerType() == customerType)
@@ -212,6 +205,10 @@ public class CustomerManager {
 
     System.arraycopy(customers, idx + 1, customers, idx, size - idx);
     size--;
+
+    for (int i = size; i < customers.length; i++) {
+      customers[i] = null;
+    }
   }
 
   /**
@@ -231,5 +228,9 @@ public class CustomerManager {
 
     System.arraycopy(customers, idx + 1, customers, idx, size - idx);
     size--;
+
+    for (int i = size; i < customers.length; i++) {
+      customers[i] = null;
+    }
   }
 }

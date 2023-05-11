@@ -191,7 +191,7 @@ public class CustomerService {
     Arrays.stream(customerGroups)
         .forEach(
             group -> {
-              System.out.println(group.groupTitle());
+              System.out.println("\n" + group.groupTitle());
               if (sortOrder == SortOrder.ASCENDING) {
                 Customer[] customers =
                     customerManager.selectByCustomerTypeOrderBySpentTimeAsc(
@@ -220,7 +220,7 @@ public class CustomerService {
     Arrays.stream(customerGroups)
         .forEach(
             group -> {
-              System.out.println(group.groupTitle());
+              System.out.println("\n" + group.groupTitle());
               if (sortOrder == SortOrder.ASCENDING) {
                 Customer[] customers =
                     customerManager.selectByCustomerTypeOrderByPayAmountAsc(

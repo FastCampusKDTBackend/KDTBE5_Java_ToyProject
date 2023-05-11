@@ -76,14 +76,19 @@ public class Customers extends DArray<Customer> {
     	return 0;
     }
     
-    public int refreshForOne(Groups groups) {
+    public int refreshForOne(Groups groups, int whichCustomerNum) {
     	
     	if (groups.size() == 0) {
     		System.out.println(Message.ERR_MSG_INVALID_GROUP_ARR_EMPTY);
     		return -1;
     	}
     	
-    	Customer customer = this.get(this.size - 1);
+    	Customer customer = null;
+    	if (whichCustomerNum == -1) {
+    		customer = this.get(this.size - 1);
+    	} else {
+    		customer = this.get(whichCustomerNum);
+    	}
     	
     	for(int i = 0; i < groups.size(); i++) {
     		
@@ -92,7 +97,6 @@ public class Customers extends DArray<Customer> {
     			break;
     		}
     		
-    			
 			// 파라미터 값이 없으면 NONE으로 초기화
 			if (groups.get(i).getParameter().getMinPay() == null || groups.get(i).getParameter().getMinTime() == null) {
 				customer.setGroup(groups.find(GroupType.NONE));

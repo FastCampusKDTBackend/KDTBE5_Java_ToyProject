@@ -64,7 +64,7 @@ public class CustomerMenu implements Menu {
             			
             		customer.manage();
             		allCustomers.add(customer);
-            		allCustomers.refresh(allGroups);
+            		allCustomers.refreshForOne(allGroups, -1);
                 }
             	break;
             } catch (InputTypeException e) {
@@ -92,8 +92,10 @@ public class CustomerMenu implements Menu {
     	} else {
     		allCustomers.customerInfo();
     		
-    		allCustomers.get(whichCustomer(allCustomers)).manage();;
-    		allCustomers.refresh(allGroups);
+    		int whichCustomerNum = whichCustomer(allCustomers);
+    		
+    		allCustomers.get(whichCustomerNum).manage();
+    		allCustomers.refreshForOne(allGroups, whichCustomerNum);
     		
     	}
 	}

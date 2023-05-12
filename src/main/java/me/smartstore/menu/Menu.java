@@ -30,7 +30,7 @@ public class Menu {
         return menu;
     }
 
-    public int initMenu() {
+    public int inputInitMenuNumber() {
         printInitMenu();
         return readNumber();
     }

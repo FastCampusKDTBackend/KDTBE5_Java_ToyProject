@@ -8,6 +8,18 @@ import me.smartstore.group.GroupType;
 import java.io.IOException;
 
 public class SummaryMenu extends Menu {
+    private static SummaryMenu summaryMenu;
+
+    private SummaryMenu() {
+    }
+
+    public static SummaryMenu getInstance() {
+        if (summaryMenu == null) {
+            summaryMenu = new SummaryMenu();
+        }
+        return summaryMenu;
+    }
+
     public void summary(OrderType orderType) {
         classifiedCustomers.refresh();        //@Todo summary메뉴 진입 시 호출하는 걸로 변경 예정
         GroupType[] groupTypes = GroupType.values();

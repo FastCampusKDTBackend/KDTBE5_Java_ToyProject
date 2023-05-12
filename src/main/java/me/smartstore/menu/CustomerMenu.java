@@ -7,6 +7,18 @@ import me.smartstore.customer.Customers;
 import java.io.IOException;
 
 public class CustomerMenu extends Menu implements DataCRUD {
+    private static CustomerMenu customerMenu;
+
+    private CustomerMenu() {
+    }
+
+    public static CustomerMenu getInstance() {
+        if (customerMenu == null) {
+            customerMenu = new CustomerMenu();
+        }
+        return customerMenu;
+    }
+
     @Override
     public void addData() {
         try {

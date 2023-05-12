@@ -9,6 +9,18 @@ import java.io.IOException;
 import java.util.NoSuchElementException;
 
 public class GroupMenu extends Menu implements DataCRUD {
+    private static GroupMenu groupMenu;
+
+    private GroupMenu() {
+    }
+
+    public static GroupMenu getInstance() {
+        if (groupMenu == null) {
+            groupMenu = new GroupMenu();
+        }
+        return groupMenu;
+    }
+
     @Override
     public void addData() {
         //변경할 등급 선택

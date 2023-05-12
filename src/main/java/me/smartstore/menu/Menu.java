@@ -14,13 +14,20 @@ public class Menu {
     protected Customers customers;
     protected Groups groups;
     protected ClassifiedCustomers classifiedCustomers;
+    private static Menu menu;
 
-    //@Todo 여러 객체가 필요없는 객체는 싱글톤으로 변경(Menu포함)
-    public Menu() {
+    protected Menu() {
         br = new BufferedReader(new InputStreamReader(System.in));
         customers = Customers.getInstance();
-        groups= Groups.getInstance();
-        classifiedCustomers=ClassifiedCustomers.getInstance();
+        groups = Groups.getInstance();
+        classifiedCustomers = ClassifiedCustomers.getInstance();
+    }
+
+    public static Menu getInstance() {
+        if (menu == null) {
+            menu = new Menu();
+        }
+        return menu;
     }
 
     protected void initMenu() {

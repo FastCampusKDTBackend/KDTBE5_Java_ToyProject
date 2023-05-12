@@ -21,6 +21,24 @@ public class GroupMenu extends Menu implements DataCRUD {
         return groupMenu;
     }
 
+    public void run() {
+        printGroupInitMenu();
+        int groupMenu = readNumber(4);
+        if (groupMenu == 1) {
+            addData();
+            return;
+        }
+        if (groupMenu == 2) {
+            viewData();
+            return;
+        }
+        if (groupMenu == 3) {
+            updateData();
+            return;
+        }
+
+    }
+
     @Override
     public void addData() {
         //변경할 등급 선택

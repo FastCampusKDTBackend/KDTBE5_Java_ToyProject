@@ -20,24 +20,27 @@ public class SummaryMenu extends Menu {
         return summaryMenu;
     }
 
-    public void run(){
+    public void run() {
         classifiedCustomers.refresh();
         printSummaryInitMenu();
         int summaryNumber = readNumber(5);
-        if(summaryNumber==1){
+        if (summaryNumber == 1) {
             summary(OrderType.NONE);
             return;
         }
-        if(summaryNumber==2){
+        if (summaryNumber == 2) {
             summarySortByName();
             return;
         }
-        if(summaryNumber==3){
+        if (summaryNumber == 3) {
             summarySortByHours();
             return;
         }
-        summarySortByTotalAmount();
+        if (summaryNumber == 4) {
+            summarySortByTotalAmount();
+        }
     }
+
     private void summary(OrderType orderType) {
         GroupType[] groupTypes = GroupType.values();
         MyArrayList<MyArrayList<Customer>> classifications = classifiedCustomers.getClassifications();

@@ -34,7 +34,6 @@ public class GroupMenu extends Menu implements DataCRUD {
         }
         if (groupMenu == 3) {
             updateData();
-            return;
         }
 
     }

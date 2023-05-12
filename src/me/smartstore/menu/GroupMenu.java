@@ -62,7 +62,6 @@ public class GroupMenu implements Menu{
     }
 
     public void setParameter() { // 초기화할 때만 호출 가능
-        //todo : end 누르면 이전 페이지로 안넘어가고 chooseGroup에서 리턴된는 null로 새로운 그룹을 만듬
         while ( true ) {
             GroupType groupType = chooseGroup();
             if (groupType == null){ //chooseGroup에서 end입력되면 null리턴함
@@ -79,12 +78,8 @@ public class GroupMenu implements Menu{
             }
             else{
                 Parameter parameter = new Parameter();
-                int minimumSpentTime = 0;
-                int minimumTotalPay = 0;
                 // time, pay 사용자 입력받은 후, 설정 필요
                 while( true ){
-
-
                     int choice = chooseMenu(new String[]{
                             "Minimum Spent Time",
                             "Minimum Total Pay",
@@ -100,12 +95,10 @@ public class GroupMenu implements Menu{
                         group = allGroups.find(groupType);
                         System.out.println("\nGroupType: " + group.getGroupType());
                         System.out.println("Parameter: " + group.getParameter());
+                        allCustomers.refresh(allGroups);
                         break;
                     }
-
                 }
-
-//                group.setParameter(parameter); // 그룹이 없어서 set하는건데 구조상 필요없는거 아닌가?
 
             }
         }
@@ -113,21 +106,21 @@ public class GroupMenu implements Menu{
 
     public void viewParameter() {
         while ( true ){
-            GroupType groupType = chooseGroup();
-            if (groupType == null){ //chooseGroup에서 end입력되면 null리턴함
-                allCustomers.refresh(allGroups); // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
-                break;
+            try {
+                GroupType groupType = chooseGroup();
+                if (groupType == null) break;
+
+                Group group = allGroups.find(groupType);
+                System.out.println("GroupType: " + group.getGroupType());
+                System.out.println("Parameter: " + group.getParameter());
+            } catch (NullPointerException e){
+                System.out.println("There is no Group Parmeter.\nPlease set a Parameter.");
             }
 
-            Group group = allGroups.find(groupType);
-            System.out.println("GroupType: " + group.getGroupType());
-            System.out.println("Parameter: " + group.getParameter());
         }
     }
 
     public void updateParameter(){
-        // todo : 파라미터가 하나도 없는 경우 설정하라는 문구가 떠야함, Try-catch로 end예외 잡아야할듯?
-        // todo : 파라미터값 업데이트 되면 고객재분류 해야됨
         while( true ) {
             GroupType groupType = chooseGroup();
             if (groupType == null){ //chooseGroup에서 end입력되면 null리턴함
@@ -153,7 +146,7 @@ public class GroupMenu implements Menu{
                 else if (choice == 2) {
                     Integer minimumTotalPay = inputMinimumTotalPay();
                     if (minimumTotalPay == null) continue;
-                    else group.getParameter().setMinTime(minimumTotalPay);
+                    else group.getParameter().setMinPay(minimumTotalPay);
                 }
                 else{
                     System.out.println("\nGroupType: " + group.getGroupType());
@@ -171,31 +164,34 @@ public class GroupMenu implements Menu{
         while (true){
             try{
                 System.out.println("\nInput Minimum Spent Time: ");
-                int minimumSpentTime = Integer.parseInt(nextLineNotUpperCase(Message.END_MSG));
-                if(minimumSpentTime>0) return minimumSpentTime;
-                throw new InputRangeException();
+                Integer minimumSpentTime = Integer.parseInt(nextLine(Message.END_MSG));
+                if(minimumSpentTime<0) throw new InputRangeException();
+                return minimumSpentTime;
             } catch (InputEndException e){
                 System.out.println(Message.ERR_MSG_INPUT_END);
                 return null;
-            } catch (IllegalArgumentException e) {
+            } catch (InputRangeException e){
                 System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+            } catch (NumberFormatException e){
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
             }
         }
-
     }
 
     public Integer inputMinimumTotalPay(){
         while (true){
             try {
                 System.out.println("\nInput Minimum Total Pay: ");
-                int minimumTotalPay = Integer.parseInt(nextLineNotUpperCase(Message.END_MSG));
-                if(minimumTotalPay>0) return minimumTotalPay;
-                throw new InputRangeException();
+                Integer minimumTotalPay = Integer.parseInt(nextLine(Message.END_MSG));
+                if(minimumTotalPay<0) throw new InputRangeException();
+                return minimumTotalPay;
             } catch (InputEndException e){
                 System.out.println(Message.ERR_MSG_INPUT_END);
                 return null;
-            } catch (IllegalArgumentException e) {
+            } catch (InputRangeException e){
                 System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+            } catch (NumberFormatException e){
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_TYPE);
             }
         }
     }

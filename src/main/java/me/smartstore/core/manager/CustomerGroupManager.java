@@ -41,13 +41,17 @@ public class CustomerGroupManager {
    *
    * @param customerGroup 고객 그룹
    * @return 저장된 고객 그룹
+   * @throws StoreException 그룹 타입을 알 수 없는 경우
    */
-  public CustomerGroup save(CustomerGroup customerGroup) {
+  public CustomerGroup save(CustomerGroup customerGroup) throws StoreException {
+    if (customerGroup.getCustomerType() == null) throw new StoreException(UNKNOWN_TYPE);
+
     for (int idx = 0; idx < customerGroups.length; idx++) {
       if (customerGroup.getCustomerType() == customerGroups[idx].getCustomerType()) {
         customerGroups[idx] = customerGroup;
       }
     }
+
     return customerGroup;
   }
 
@@ -63,7 +67,7 @@ public class CustomerGroupManager {
         .findFirst()
         .orElseThrow(
             () -> {
-              throw new StoreException(NO_GROUP);
+              throw new StoreException(NOT_EXIST_GROUP);
             });
   }
 

@@ -23,8 +23,13 @@ public enum CustomerType {
     this.description = description;
   }
 
+  public String getDescription() {
+    return description;
+  }
+
   public CustomerType replaceFullName() {
-    if (this == G) return GENERAL;
+    if (this == N) return NONE;
+    else if (this == G) return GENERAL;
     else if (this == V) return VIP;
     else if (this == VV) return VVIP;
     else return this;

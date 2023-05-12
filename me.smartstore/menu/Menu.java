@@ -10,7 +10,7 @@ import java.util.Scanner;
 public interface Menu {
     Scanner scanner = new Scanner(System.in);
 
-    default String nextLine() { // 하나의 프로그램 상에서 nextLine() 함수를 통해서 사용자 입력을 받음
+    default String nextLine() {
         return scanner.nextLine().toUpperCase();
     }
 
@@ -22,7 +22,7 @@ public interface Menu {
     }
 
     default int chooseMenu(String[] menus) {
-        while ( true ) { // 예외 복구 while
+        while ( true ) {
             try {
                 System.out.println("===============================");
                 for (int i = 0; i < menus.length; i++) {
@@ -32,7 +32,7 @@ public interface Menu {
                 System.out.print("Choose One: ");
                 int choice = Integer.parseInt(nextLine());
                 if (choice >= 1 && choice <= menus.length) return choice;
-                throw new InputRangeException(); // choice 가 범위에 벗어남
+                throw new InputRangeException();
 
             } catch (InputMismatchException e) {
                 System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
@@ -44,5 +44,5 @@ public interface Menu {
         }
     }
 
-    void manage(); // 각 서브메뉴들을 관리하는 함수 (각 서브메뉴의 최상위 메뉴)
+    void manage();
 }

@@ -3,11 +3,9 @@ package menu;
 import customer.Customer;
 import customer.Customers;
 import exception.InputEndException;
-import menu.Menu;
 import util.Message;
 
 public class CustomerMenu implements Menu {
-    // singleton
     private static CustomerMenu customerMenu;
     private final Customers allCustomers = Customers.getInstance();
 
@@ -22,7 +20,7 @@ public class CustomerMenu implements Menu {
 
     @Override
     public void manage() {
-        while (true) { // 서브 메뉴 페이지를 유지하기 위한 while
+        while (true) {
             int choice = chooseMenu(new String[]{
                     "Add Customer",
                     "View Customer",
@@ -39,7 +37,7 @@ public class CustomerMenu implements Menu {
             } else if (choice == 4) {
                 deleteCustomer();
             } else {
-                break; // choice == 5
+                break;
             }
         }
     }
@@ -75,28 +73,40 @@ public class CustomerMenu implements Menu {
             return;
         }
 
-        // add logic
 
         System.out.println(name + " has been added.");
     }
 
     private void viewCustomer() {
-        allCustomers.printAll();
+        if (allCustomers.isEmpty()) {
+            System.out.println("There are no customers.");
+        } else {
+            System.out.println("Customers:");
+            for (Customer c : allCustomers.getList()) {
+                System.out.println("- " + c.getCusName() + " (ID: " + c.getCusId() + ")"+ " (TotalPay: " + c.getCusTotalPay() + ")"+ " (TotalTime: " + c.getCusTotalTime() + ")");
+            }
+        }
     }
+
 
     private void updateCustomer() {
         System.out.print("Enter customer name to update: ");
         String name = nextLine(Message.END_MSG);
         if (name == null) return; // input end
 
-        Customer customer = allCustomers.find(name);
+        Customer customer = null;
+        for (Customer c : allCustomers.getList()) {
+            if (c.getCusName().equalsIgnoreCase(name)) {
+                customer = c;
+                break;
+            }
+        }
         if (customer == null) {
             System.out.println("There is no customer named '" + name + "'");
             return;
         }
 
         // update logic
-
         System.out.println(customer.getCusName() + " has been updated.");
     }
 
@@ -105,13 +115,15 @@ public class CustomerMenu implements Menu {
         String name = nextLine(Message.END_MSG);
         if (name == null) return; // input end
 
-        Customer customer = allCustomers.find(name);
+        Customer customer = allCustomers.find(name.toLowerCase()); // 소문자로 변환하여 검색
         if (customer == null) {
             System.out.println("There is no customer named '" + name + "'");
             return;
         }
 
-        allCustomers.remove(customer);
-        System.out.println(customer.getCusName() + " has been deleted.");
+        if (customer != null) {
+            allCustomers.remove(customer);
+            System.out.println(customer.getCusName() + " has been deleted.");
+        }
     }
 }

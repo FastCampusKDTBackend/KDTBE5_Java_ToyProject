@@ -8,8 +8,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public class SummaryMenu implements Menu {
-
-    // singleton
     private static SummaryMenu summaryMenu;
 
     public static SummaryMenu getInstance() {
@@ -25,7 +23,7 @@ public class SummaryMenu implements Menu {
     public void manage() {
         Customers allCustomers = Customers.getInstance();
 
-        while (true) { // 서브 메뉴 페이지를 유지하기 위한 while
+        while (true) {
             int choice = chooseMenu(new String[]{
                     "Summary",
                     "Summary (Sorted By Name)",
@@ -34,12 +32,10 @@ public class SummaryMenu implements Menu {
                     "Back"});
             switch (choice) {
                 case 1:
-                    // SummaryMenu에서 제공하는 "Summary" 기능 실행
                     System.out.println("========== Summary ==========");
                     printCustomers(allCustomers.getList());
                     break;
                 case 2:
-                    // SummaryMenu에서 제공하는 "Summary (Sorted By Name)" 기능 실행
                     System.out.println("========== Summary (Sorted By Name) ==========");
                     List<Customer> customersSortedByName = allCustomers.getList();
                     Collections.sort(customersSortedByName, new Comparator<Customer>() {
@@ -51,7 +47,6 @@ public class SummaryMenu implements Menu {
                     printCustomers(customersSortedByName);
                     break;
                 case 3:
-                    // SummaryMenu에서 제공하는 "Summary (Sorted By Time)" 기능 실행
                     System.out.println("========== Summary (Sorted By Time) ==========");
                     List<Customer> customersSortedByTime = allCustomers.getList();
                     Collections.sort(customersSortedByTime, new Comparator<Customer>() {
@@ -63,7 +58,6 @@ public class SummaryMenu implements Menu {
                     printCustomers(customersSortedByTime);
                     break;
                 case 4:
-                    // SummaryMenu에서 제공하는 "Summary (Sorted By Pay)" 기능 실행
                     System.out.println("========== Summary (Sorted By Pay) ==========");
                     List<Customer> customersSortedByPay = allCustomers.getList();
                     Collections.sort(customersSortedByPay, new Comparator<Customer>() {
@@ -75,7 +69,6 @@ public class SummaryMenu implements Menu {
                     printCustomers(customersSortedByPay);
                     break;
                 case 5:
-                    // 이전 메뉴로 돌아가기
                     return;
             }
         }

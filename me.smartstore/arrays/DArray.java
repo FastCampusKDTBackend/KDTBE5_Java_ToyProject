@@ -106,7 +106,7 @@ public class DArray<T> implements Collections<T> { // Dynamic Array
         if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
 
         T popElement = arrays[index];
-        arrays[index] = null; // 삭제됨을 명시적으로 표현
+        arrays[index] = null;
 
         for (int i = index+1; i < size; i++) {
             arrays[i-1] = arrays[i];
@@ -122,7 +122,7 @@ public class DArray<T> implements Collections<T> { // Dynamic Array
     }
 
     protected void grow() {
-        capacity *= 2; // doubling
+        capacity *= 2;
         arrays = java.util.Arrays.copyOf(arrays, capacity);
     }
 

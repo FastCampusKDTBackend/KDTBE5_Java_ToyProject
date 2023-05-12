@@ -7,8 +7,8 @@ import java.util.Objects;
 public class Customer {
     private String cusName;
     private String cusId;
-    private Integer cusTotalTime;
-    private Integer cusTotalPay;
+    private int cusTotalTime;
+    private int cusTotalPay;
     private Group group;
 
     public Customer() {
@@ -23,11 +23,19 @@ public class Customer {
         this.cusId = cusId;
     }
 
-    public Customer(String cusName, String cusId, Integer cusTotalTime, Integer cusTotalPay) {
+    public Customer(String cusName, String cusId, int cusTotalTime, int cusTotalPay) {
         this.cusName = cusName;
         this.cusId = cusId;
         this.cusTotalTime = cusTotalTime;
         this.cusTotalPay = cusTotalPay;
+    }
+
+    public Customer(String cusName, String cusId, int cusTotalTime, int cusTotalPay, Group group) {
+        this.cusName = cusName;
+        this.cusId = cusId;
+        this.cusTotalTime = cusTotalTime;
+        this.cusTotalPay = cusTotalPay;
+        this.group = group;
     }
 
     public String getCusName() {
@@ -46,19 +54,19 @@ public class Customer {
         this.cusId = cusId;
     }
 
-    public Integer getCusTotalTime() {
+    public int getCusTotalTime() {
         return cusTotalTime;
     }
 
-    public void setCusTotalTime(Integer cusTotalTime) {
+    public void setCusTotalTime(int cusTotalTime) {
         this.cusTotalTime = cusTotalTime;
     }
 
-    public Integer getCusTotalPay() {
+    public int getCusTotalPay() {
         return cusTotalPay;
     }
 
-    public void setCusTotalPay(Integer cusTotalPay) {
+    public void setCusTotalPay(int cusTotalPay) {
         this.cusTotalPay = cusTotalPay;
     }
 
@@ -68,6 +76,14 @@ public class Customer {
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    public void addPurchase(int pay) {
+        cusTotalPay += pay;
+    }
+
+    public void addTime(int time) {
+        cusTotalTime += time;
     }
 
     @Override
@@ -92,12 +108,5 @@ public class Customer {
                 ", cusTotalPay=" + cusTotalPay +
                 ", group=" + group +
                 '}';
-    }
-    public Customer(String cusName, String cusId, Integer cusTotalTime, Integer cusTotalPay, Group group) {
-        this.cusName = cusName;
-        this.cusId = cusId;
-        this.cusTotalTime = cusTotalTime;
-        this.cusTotalPay = cusTotalPay;
-        this.group = group;
     }
 }

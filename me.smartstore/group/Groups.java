@@ -56,4 +56,8 @@ public class Groups extends DArray<Group> {
     public Group getGroup(Customer customer) {
         return null;
     }
+
+    public Group assign(Customer customer) {
+        return null;
+    }
 }

@@ -1,84 +1,108 @@
 package customer;
 
-import arrays.DArray;
 import group.Groups;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class Customers extends DArray<Customer> implements Iterable<Customer> {
-
-    private static Customers allCustomers;
-    private Groups allGroups;
-
-    public static Customers getInstance() {
-        if (allCustomers == null) {
-            allCustomers = new Customers();
-        }
-        return allCustomers;
-    }
+public class Customers {
+    private static Customers instance;
+    private final List<Customer> customers;
+    private int minTotalTime;
+    private int minTotalPay;
+    private final Map<Customer, String> customerGroup; // 추가된 필드
 
     private Customers() {
-        allGroups = Groups.getInstance();
+        customers = new ArrayList<>();
+        customerGroup = new HashMap<>(); // 초기화
     }
 
-    // 분류 기준에 따라 모든 고객을 분류하고, 각 고객의 group 필드를 업데이트하는 함수
-    public void refresh(Groups allGroups) {
-        Groups groups = new Groups();
-        groups.grouping(this);
+    public static Customers getInstance() {
+        if (instance == null) {
+            instance = new Customers();
+        }
+        return instance;
     }
 
-    // 새로운 고객을 추가하고, refresh() 함수를 호출하는 함수
-    @Override
     public void add(Customer customer) {
-        super.add(customer);
-        refresh(allGroups);
+        customers.add(customer);
     }
 
-    // 고객 목록을 반환하는 메서드
+    public boolean remove(Customer customer) {
+        return customers.remove(customer);
+    }
+
     public List<Customer> getList() {
-        List<Customer> customerList = new ArrayList<>();
-        for (Customer customer : this) {
-            customerList.add(customer);
-        }
-        return customerList;
+        return customers;
     }
 
-    public Customer find(Object o) {
-        return null;
+    public void setMinTotalTime(int minTotalTime) {
+        this.minTotalTime = minTotalTime;
     }
 
-    @Override
-    public Iterator<Customer> iterator() {
-        return new CustomerIterator();
+    public void setMinTotalPay(int minTotalPay) {
+        this.minTotalPay = minTotalPay;
     }
 
-    private class CustomerIterator implements Iterator<Customer> {
-        private int index;
-
-        public CustomerIterator() {
-            index = 0;
-        }
-
-        @Override
-        public boolean hasNext() {
-            return index < size();
-        }
-
-        @Override
-        public Customer next() {
-            if (!hasNext()) {
-                throw new IllegalStateException("No more elements");
+    public void groupCustomers() {
+        customerGroup.clear(); // 기존 분류 정보 초기화
+        for (Customer customer : customers) {
+            if (customer.getCusTotalTime() >= minTotalTime && customer.getCusTotalPay() >= minTotalPay) {
+                customerGroup.put(customer, "VVIP");
+            } else if (customer.getCusTotalTime() >= minTotalTime) {
+                customerGroup.put(customer, "VIP");
+            } else {
+                customerGroup.put(customer, "General");
             }
-            return get(index++);
         }
+    }
+
+    public void printGroupedCustomers() {
+        groupCustomers();
+        for (String group : new String[]{"General", "VIP", "VVIP"}) {
+            System.out.println(group + " Customers:");
+            for (Customer customer : customerGroup.keySet()) {
+                if (customerGroup.get(customer).equals(group)) {
+                    System.out.println(customer);
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    public void addPurchase(String name, int pay) {
+        for (Customer customer : customers) {
+            if (customer.getCusName().equals(name)) {
+                customer.addPurchase(pay);
+                return;
+            }
+        }
+        System.out.println("No such customer exists.");
+    }
+
+    public void addTime(String name, int time) {
+        for (Customer customer : customers) {
+            if (customer.getCusName().equals(name)) {
+                customer.addTime(time);
+                return;
+            }
+        }
+        System.out.println("No such customer exists.");
     }
 
     public void printAll() {
-        for (Customer customer : this) {
-            System.out.println(customer);
-        }
     }
 
+    public Customer find(String toLowerCase) {
+        return null;
+    }
+
+    public void refresh(Groups allGroups) {
+    }
+
+    public boolean isEmpty() {
+        return false;
+    }
 }

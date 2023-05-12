@@ -5,8 +5,6 @@ public class MainMenu implements Menu {
     private final CustomerMenu customerMenu = CustomerMenu.getInstance();
     private final GroupMenu groupMenu = GroupMenu.getInstance();
     private final SummaryMenu summaryMenu = SummaryMenu.getInstance();
-
-    // singleton
     private static MainMenu mainMenu;
 
     public static MainMenu getInstance() {
@@ -20,7 +18,7 @@ public class MainMenu implements Menu {
 
     @Override
     public void manage() {
-        while ( true ) { // 프로그램 실행 while
+        while ( true ) {
             int choice = mainMenu.chooseMenu(new String[] {
                     "Parameter",
                     "Customer",
@@ -36,10 +34,8 @@ public class MainMenu implements Menu {
             else if (choice == 3) {
                 summaryMenu.manage();
             }
-            else { // choice == 4
+            else {
                 System.out.println("Program Finished");
-                // 데이터 저장 코드 추가
-                // saveData()는 데이터를 파일에 저장하는 메서드로 가정
                 saveData();
                 break;
             }
@@ -58,19 +54,16 @@ public class MainMenu implements Menu {
                 groupMenu.setParameter();
             }
             else if (choice == 2) {
-                // 파라미터를 보여주는 메서드 호출
             }
             else if (choice == 3) {
-                // 파라미터를 수정하는 메서드 호출
             }
-            else { // choice == 4
+            else {
                 break;
             }
         }
     }
 
     public void saveData() {
-        // 데이터를 파일에 저장하는 코드
         System.out.println("Data Saved");
     }
 }

@@ -1,13 +1,9 @@
 package group;
-
-import group.GroupType;
-import group.Parameter;
-
 import java.util.Objects;
 
 public class Group {
-    private Parameter parameter; // 분류기준
-    private GroupType groupType; // 그룹 타입
+    private Parameter parameter;
+    private GroupType groupType;
 
     public Group() {
     }

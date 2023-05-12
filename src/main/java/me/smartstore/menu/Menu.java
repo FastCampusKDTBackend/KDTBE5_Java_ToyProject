@@ -30,12 +30,13 @@ public class Menu {
         return menu;
     }
 
-    protected void initMenu() {
+    public int initMenu() {
         printInitMenu();
         int menuNumber = 0;
         while (menuNumber < 1 || menuNumber > 4) {
             try {
                 menuNumber = readInt();
+                return menuNumber
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }

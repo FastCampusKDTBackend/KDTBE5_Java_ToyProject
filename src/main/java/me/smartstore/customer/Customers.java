@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class Customers {
     private static Customers instance;
-    private MyArrayList<Customer> customers;
+    private final MyArrayList<Customer> customers = new MyArrayList<>();
 
     private Customers(){}
     public static Customers getInstance() {

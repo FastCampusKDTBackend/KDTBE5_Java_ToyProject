@@ -23,7 +23,7 @@ public class SummaryMenu extends Menu {
     public void run(){
         classifiedCustomers.refresh();
         printSummaryInitMenu();
-        int summaryNumber = inputSummaryNumber();
+        int summaryNumber = readNumber();
         if(summaryNumber==1){
             summary(OrderType.NONE);
             return;
@@ -39,7 +39,8 @@ public class SummaryMenu extends Menu {
         summarySortByTotalAmount();
     }
 
-    private int inputSummaryNumber(){
+    @Override
+    protected int readNumber(){
         int summaryNumber = 0;
         while (summaryNumber == 0) {
             try {

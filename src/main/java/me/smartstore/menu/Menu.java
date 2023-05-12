@@ -46,7 +46,7 @@ public class Menu {
 
     }
 
-    private int readNumber() {
+    protected int readNumber() {
         int menuNumber = 0;
         while (menuNumber == 0) {
             try {

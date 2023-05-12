@@ -25,7 +25,7 @@ public class GroupMenu extends Menu implements DataCRUD {
     public void addData() {
         //변경할 등급 선택
         printGroupSelectionMessage();
-        int groupNumber = inputGroupNumber();
+        int groupNumber = readNumber();
         //groupNumber to group
         GroupType groupType = groupNumberToGroupType(groupNumber);
         //groupList에서 입력받은 등급에 해당하는 요소를 찾음
@@ -42,7 +42,8 @@ public class GroupMenu extends Menu implements DataCRUD {
         System.out.print("번호를 입력해주세요: ");
     }
 
-    private int inputGroupNumber() {
+    @Override
+    protected int readNumber() {
         int groupNumber = 0;
         while (groupNumber == 0) {
             try {
@@ -110,7 +111,7 @@ public class GroupMenu extends Menu implements DataCRUD {
     @Override
     public void viewData() {
         printGroupSelectionMessage();
-        int groupNumber = inputGroupNumber();
+        int groupNumber = readNumber();
         //groupNumber to group
         GroupType groupType = groupNumberToGroupType(groupNumber);
         Parameter parameter = findParameter(groupType);
@@ -120,7 +121,7 @@ public class GroupMenu extends Menu implements DataCRUD {
     @Override
     public void updateData() {
         printGroupSelectionMessage();
-        int groupNumber = inputGroupNumber();
+        int groupNumber = readNumber();
         GroupType groupType = groupNumberToGroupType(groupNumber);
         Parameter parameter = findParameter(groupType);
         insertInputParameter(parameter);

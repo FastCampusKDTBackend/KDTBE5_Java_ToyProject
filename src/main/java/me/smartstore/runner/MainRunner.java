@@ -5,8 +5,6 @@ import me.smartstore.menu.GroupMenu;
 import me.smartstore.menu.Menu;
 import me.smartstore.menu.SummaryMenu;
 
-import java.io.IOException;
-
 public class MainRunner {
     private static MainRunner mainRunner;
     private Menu menu;
@@ -31,14 +29,11 @@ public class MainRunner {
 
     public void run() {
         int initMenu = menu.inputInitMenuNumber();
-        if(initMenu==1){
-            //groupMenu
+        if (initMenu == 1) {
             groupMenu.run();
-        } else if (initMenu==2) {
-            //customerMenu
-
-        } else if (initMenu==3) {
-            //summaryMenu
+        } else if (initMenu == 2) {
+            customerMenu.run();
+        } else if (initMenu == 3) {
             summaryMenu.run();
         }
         return;

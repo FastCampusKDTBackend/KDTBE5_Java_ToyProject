@@ -2,7 +2,6 @@ package me.smartstore.menu;
 
 import me.smartstore.collections.MyArrayList;
 import me.smartstore.customer.Customer;
-import me.smartstore.customer.Customers;
 
 import java.io.IOException;
 
@@ -17,6 +16,26 @@ public class CustomerMenu extends Menu implements DataCRUD {
             customerMenu = new CustomerMenu();
         }
         return customerMenu;
+    }
+
+    public void run() {
+        printCustomerInitMenu();
+        int customerMenuNumber = readNumber(5);
+        if (customerMenuNumber == 1) {
+            addData();
+            return;
+        }
+        if (customerMenuNumber == 2) {
+            viewData();
+            return;
+        }
+        if (customerMenuNumber == 3) {
+            updateData();
+            return;
+        }
+        if (customerMenuNumber == 4) {
+            deleteData();
+        }
     }
 
     @Override

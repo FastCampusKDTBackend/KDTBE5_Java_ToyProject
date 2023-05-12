@@ -75,15 +75,13 @@ public class CustomerMenu extends Menu implements DataCRUD {
 
     @Override
     public void updateData() {
-        viewData();
         //변경할 요소의 index를 입력받음 -> 수정 희망하는 정보 받음
-        MyArrayList<Customer> customerList = customers.getCustomers();
-        int listSize = customerList.size();
-        if (listSize < 1) {
-            System.out.println("고객이 존재하지 않습니다.");
+        viewData();
+        MyArrayList<Customer> customerList = getCustomers();
+        if (customerList == null) {
             return;
         }
-
+        int listSize = customerList.size();
         System.out.print("수정을 희망하는 고객 번호를 입력해주세요");
         System.out.print(listSize >= 2 ? "(1~" + listSize + ")" : "");
         int customerNumber = 0;
@@ -105,6 +103,16 @@ public class CustomerMenu extends Menu implements DataCRUD {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    private MyArrayList<Customer> getCustomers() {
+        MyArrayList<Customer> customerList = customers.getCustomers();
+        if (customerList.isEmpty()) {
+            System.out.println("등록된 고객정보가 존재하지 않습니다.");
+            //예외발생 vs null리턴?
+            return null;
+        }
+        return customerList;
     }
 
     private void printCustomerUpdateMessage() {

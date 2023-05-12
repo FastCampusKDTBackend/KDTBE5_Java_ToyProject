@@ -34,7 +34,6 @@ public class DArray<T> implements Collections<T> {
         return size;
     }
 
-    // 배열에 얼마나 capacity 남아있는지 외부에 알려줄 필요가 없기 때문에 <protected>으로 정의
     protected int capacity() {
         return capacity;
     }
@@ -61,19 +60,18 @@ public class DArray<T> implements Collections<T> {
 
     @Override
     public int indexOf(T object) throws NullArgumentException, ElementNotFoundException {
-        if (object == null) throw new NullArgumentException(); // not found (instead of throwing exception)
+        if (object == null) throw new NullArgumentException();
 
         for (int i = 0; i < size; i++) {
             if (arrays[i] == null) continue;
             if (arrays[i].equals(object)) return i;
         }
-        throw new ElementNotFoundException(); // not found
+        throw new ElementNotFoundException();
     }
 
-    // 배열의 cap이 부족한 경우
     @Override
     public void add(T object) throws NullArgumentException {
-        if (object == null) throw new NullArgumentException(); // if argument is null, do not add null value in array
+        if (object == null) throw new NullArgumentException();
 
         if (size < capacity) {
             arrays[size] = object;
@@ -112,7 +110,7 @@ public class DArray<T> implements Collections<T> {
         if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
 
         T popElement = arrays[index];
-        arrays[index] = null; // 삭제됨을 명시적으로 표현
+        arrays[index] = null;
 
         for (int i = index+1; i < size; i++) {
             arrays[i-1] = arrays[i];
@@ -128,7 +126,7 @@ public class DArray<T> implements Collections<T> {
     }
 
     protected void grow() {
-        capacity *= 2; // doubling
+        capacity *= 2;
         arrays = java.util.Arrays.copyOf(arrays, capacity);
     }
 

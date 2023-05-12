@@ -47,7 +47,7 @@ public interface Menu {
                 System.out.print("Choose One: ");
                 int choice = Integer.parseInt(nextLine());
                 if (choice >= 1 && choice <= menus.length) return choice;
-                throw new InputRangeException(); // choice 가 범위에 벗어남
+                throw new InputRangeException();
             } catch (InputMismatchException | NumberFormatException e){
                 System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
             } catch (InputRangeException e) {
@@ -56,5 +56,5 @@ public interface Menu {
         }
     }
 
-    void manage(); // 각 서브메뉴들을 관리하는 함수 (각 서브메뉴의 최상위 메뉴)
+    void manage();
 }

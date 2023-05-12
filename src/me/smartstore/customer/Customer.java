@@ -10,12 +10,11 @@ public class Customer implements Comparable<Customer> {
     private String cusName;
     private Integer cusTotalTime;
     private Integer cusTotalPay;
-    private GroupType group; // 현재 분류 기준에 의해 각 고객을 분류된 결과
+    private GroupType group;
 
     private static int seqNum = 1;
 
     public Customer() {
-        //초기 값 설정
         cusNo = seqNum;
         cusId = null;
         cusName = null;

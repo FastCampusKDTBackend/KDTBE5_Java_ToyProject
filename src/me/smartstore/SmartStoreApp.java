@@ -5,14 +5,14 @@ import me.smartstore.customer.Customers;
 import me.smartstore.group.Group;
 import me.smartstore.group.GroupType;
 import me.smartstore.group.Groups;
-import me.smartstore.group.Parameter;
+import me.smartstore.group.GroupConditions;
 import me.smartstore.menu.MainMenu;
 
 public class SmartStoreApp {
 
     private Groups allGroups;
     private Customers allCustomers;
-    private final MainMenu mainMenu;
+    private MainMenu mainMenu;
     private static SmartStoreApp smartStoreApp;
 
     public static SmartStoreApp getInstance() {
@@ -37,9 +37,9 @@ public class SmartStoreApp {
     }
 
     public SmartStoreApp test() {
-        allGroups.add(new Group(new Parameter(10, 100000), GroupType.GENERAL));
-        allGroups.add(new Group(new Parameter(20, 200000), GroupType.VIP));
-        allGroups.add(new Group(new Parameter(30, 300000), GroupType.VVIP));
+        allGroups.add(new Group(new GroupConditions(10, 100000), GroupType.GENERAL));
+        allGroups.add(new Group(new GroupConditions(20, 200000), GroupType.VIP));
+        allGroups.add(new Group(new GroupConditions(30, 300000), GroupType.VVIP));
 
         for (int i = 0; i < 26; i++) {
             allCustomers.add(new Customer(
@@ -50,7 +50,7 @@ public class SmartStoreApp {
         }
         allCustomers.refresh(allGroups);
 
-        return this; // smartStoreApp
+        return this;
     }
 
     public void run() {

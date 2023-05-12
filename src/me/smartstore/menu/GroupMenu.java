@@ -5,7 +5,7 @@ import me.smartstore.exception.InputEndException;
 import me.smartstore.group.Group;
 import me.smartstore.group.GroupType;
 import me.smartstore.group.Groups;
-import me.smartstore.group.Parameter;
+import me.smartstore.group.GroupConditions;
 import me.smartstore.utils.Message;
 
 public class GroupMenu implements Menu{
@@ -29,7 +29,7 @@ public class GroupMenu implements Menu{
 
     @Override
     public void manage() {
-        while ( true ) { // 서브 메뉴 페이지를 유지하기 위한 while
+        while ( true ) {
             int choice = chooseMenu(new String[]{
                     "Set Parameter",
                     "View Parameter",
@@ -58,25 +58,22 @@ public class GroupMenu implements Menu{
         }
     }
 
-    public void setParameter() { // 초기화할 때만 호출 가능
+    public void setParameter() {
         while ( true ) {
             GroupType groupType = chooseGroup();
 
-            // end 키 입력 시 또는 N, NONE 설정 시도 시 메인 메뉴로
             if (groupType == null) manage();
             else if (groupType == GroupType.NONE) {
                 System.out.println(Message.ERR_MSG_INPUT_NONE);
                 manage();
             }
 
-            // GroupType 에 해당하는 group 객체를 찾아야 함
             Group group = allGroups.findGroupByGroupType(groupType);
-            if (group != null && group.getParameter() != null) { // group.getParameter()이 null이 아니면 이미 초기화됨
+            if (group != null && group.getParameter() != null) {
                 System.out.println("\n" + group.getGroupType() + " group already exists.");
                 System.out.println("\n" + group);
             } else {
                 inputTimeAndPay(groupType);
-                // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
                 allCustomers.refresh(allGroups);
             }
         }
@@ -94,11 +91,10 @@ public class GroupMenu implements Menu{
             minimumTime = group.getParameter().getMinTime();
             minimumPay = group.getParameter().getMinPay();
         } else {
-            // add Parameter - 함수 진입 시 해당 groupType 으로 Group 생성
-            allGroups.add(new Group(new Parameter(null, null), groupType));
+            allGroups.add(new Group(new GroupConditions(null, null), groupType));
         }
 
-        while ( true ) { // 서브 메뉴 페이지를 유지하기 위한 while
+        while ( true ) {
 
             int choice = chooseMenu(new String[]{
                     "Minimum Spent Time",
@@ -109,21 +105,14 @@ public class GroupMenu implements Menu{
             else if (choice == 2) minimumPay = setMinimumPay();
             else {
                 System.out.println("\n" + group);
-                manage(); // choice == 3
+                manage();
             }
 
             group = allGroups.findGroupByGroupType(groupType);
-            group.setParameter(new Parameter(minimumTime, minimumPay));
+            group.setParameter(new GroupConditions(minimumTime, minimumPay));
             allGroups.set(allGroups.indexOf(group), group);
 
-            // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
             allCustomers.refresh(allGroups);
-
-            // 삭제
-            System.out.println("\n" + group);
-
-            // Group 내에 있는 다른 그룹 파라미터와 비교?
-            // allGroups.checkGroupParameter(group);
         }
     }
 
@@ -135,10 +124,9 @@ public class GroupMenu implements Menu{
 
             Group group = allGroups.findGroupByGroupType(groupType);
 
-            if (group != null && group.getParameter() != null) { // group.getParameter()이 null이 아니면 이미 초기화됨
+            if (group != null && group.getParameter() != null) {
                 System.out.println(group);
             } else if (group == null){
-                // 출력문으로 표시하지 않고 null 일 때 null 로 어떻게 출력하는가..
                 System.out.println("GroupType: " + groupType);
                 System.out.println("Parameter: " + null);
             }
@@ -183,14 +171,12 @@ public class GroupMenu implements Menu{
                 manage();
             }
 
-            // GroupType 에 해당하는 group 객체를 찾아야 함
             Group group = allGroups.findGroupByGroupType(groupType);
 
-            if (group != null && group.getParameter() != null) { // group.getParameter()이 null이 아니면 이미 초기화됨
+            if (group != null && group.getParameter() != null) {
                 System.out.println("\n" + group);
                 inputTimeAndPay(groupType);
             } else {
-                // 파라미터가 없는경우
                 System.out.println(Message.ERR_MSG_INVALID_PARAMETER_ARR_EMPTY);
                 manage();
             }

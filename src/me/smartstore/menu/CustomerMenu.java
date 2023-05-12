@@ -26,7 +26,7 @@ public class CustomerMenu implements Menu {
 
     @Override
     public void manage() {
-        while ( true ) { // 서브 메뉴 페이지를 유지하기 위한 while
+        while ( true ) {
             int choice = chooseMenu(new String[]{
                     "Add Customer Data",
                     "View Customer Data",
@@ -66,7 +66,6 @@ public class CustomerMenu implements Menu {
                         "Customer Total Pay",
                         "Back"});
 
-                // Customer 에 새로운 고객 추가
                 if (choice == 1) {
                     cusName = setCustomerName();
                     customer.setCusName(cusName);
@@ -200,10 +199,8 @@ public class CustomerMenu implements Menu {
         int customerIdx = nextLine(allCustomers.size());
         int saveIdx = allCustomers.findCustomerDataByCusNo(customerIdx);
 
-        // customer 삭제
         allCustomers.pop(saveIdx);
 
-        // allCustomer 의 CusNo index 당기기
         for (int i = saveIdx; i < allCustomers.size(); i++) {
             Customer customer = allCustomers.get(i);
             System.out.println(customer);

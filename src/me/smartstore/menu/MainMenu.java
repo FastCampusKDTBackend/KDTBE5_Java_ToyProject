@@ -23,7 +23,7 @@ public class MainMenu implements Menu {
 
     @Override
     public void manage() {
-        while ( true ) { // 프로그램 실행 while
+        while ( true ) {
             int choice = mainMenu.chooseMenu(new String[] {
                     "Parameter",
                     "Customer",
@@ -33,7 +33,7 @@ public class MainMenu implements Menu {
             if (choice == 1) groupMenu.manage();
             else if (choice == 2) customerMenu.manage();
             else if (choice == 3) summaryMenu.manage();
-            else { // choice == 4
+            else {
                 System.out.println("Program Finished");
                 break;
             }

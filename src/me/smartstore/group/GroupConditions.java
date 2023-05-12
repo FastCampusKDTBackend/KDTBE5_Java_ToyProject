@@ -2,14 +2,14 @@ package me.smartstore.group;
 
 import java.util.Objects;
 
-public class Parameter {
+public class GroupConditions {
     private Integer minTime;
     private Integer minPay;
 
-    public Parameter() {
+    public GroupConditions() {
     }
 
-    public Parameter(Integer minTime, Integer minPay) {
+    public GroupConditions(Integer minTime, Integer minPay) {
         this.minTime = minTime;
         this.minPay = minPay;
     }
@@ -34,8 +34,8 @@ public class Parameter {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Parameter parameter = (Parameter) o;
-        return Objects.equals(minTime, parameter.minTime) && Objects.equals(minPay, parameter.minPay);
+        GroupConditions groupConditions = (GroupConditions) o;
+        return Objects.equals(minTime, groupConditions.minTime) && Objects.equals(minPay, groupConditions.minPay);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class Parameter {
 
     @Override
     public String toString() {
-        return "Parameter{" +
+        return "GroupConditions{" +
                 "minTime=" + minTime +
                 ", minPay=" + minPay +
                 '}';

@@ -20,8 +20,42 @@ public class SummaryMenu extends Menu {
         return summaryMenu;
     }
 
-    public void summary(OrderType orderType) {
-        classifiedCustomers.refresh();        //@Todo summary메뉴 진입 시 호출하는 걸로 변경 예정
+    public void run(){
+        classifiedCustomers.refresh();
+        printSummaryInitMenu();
+        int summaryNumber = inputSummaryNumber();
+        if(summaryNumber==1){
+            summary(OrderType.NONE);
+            return;
+        }
+        if(summaryNumber==2){
+            summarySortByName();
+            return;
+        }
+        if(summaryNumber==3){
+            summarySortByHours();
+            return;
+        }
+        summarySortByTotalAmount();
+    }
+
+    private int inputSummaryNumber(){
+        int summaryNumber = 0;
+        while (summaryNumber == 0) {
+            try {
+                int temp = Integer.parseInt(br.readLine());
+                if (temp >= 1 && temp <= 5) {
+                    summaryNumber = temp;
+                } else {
+                    System.out.println("1부터 5까지의 숫자를 입력해주세요.");
+                }
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return summaryNumber;
+    }
+    private void summary(OrderType orderType) {
         GroupType[] groupTypes = GroupType.values();
         MyArrayList<MyArrayList<Customer>> classifications = classifiedCustomers.getClassifications();
         printCustomerSummary(orderType, groupTypes, classifications);
@@ -43,20 +77,20 @@ public class SummaryMenu extends Menu {
         System.out.println("==============================");
     }
 
-    public void summarySortByName() {
+    private void summarySortByName() {
         OrderType orderType = inputOrderType();
         //등급 기준에 따라 정렬
         classifiedCustomers.setSortBy(SortBy.NAME);
         summary(orderType);
     }
 
-    public void summarySortByHours() {
+    private void summarySortByHours() {
         OrderType orderType = inputOrderType();
         classifiedCustomers.setSortBy(SortBy.HOURS);
         summary(orderType);
     }
 
-    public void summarySortByTotalAmount() {
+    private void summarySortByTotalAmount() {
         OrderType orderType = inputOrderType();
         classifiedCustomers.setSortBy(SortBy.TOTAL_AMOUNT);
         summary(orderType);

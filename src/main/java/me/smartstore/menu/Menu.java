@@ -62,8 +62,4 @@ public class Menu {
         }
         return menuNumber;
     }
-
-    protected void back() {
-
-    }
 }

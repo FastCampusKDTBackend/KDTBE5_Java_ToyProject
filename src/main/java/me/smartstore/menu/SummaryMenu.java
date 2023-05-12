@@ -99,12 +99,6 @@ public class SummaryMenu extends Menu {
         return OrderType.getOrderType(ascendingNumber);
     }
 
-
-    @Override
-    public void back() {
-
-    }
-
     public void printSummaryInitMenu() {
         System.out.println("==============================");
         System.out.println("1. 고객 정보 요약");

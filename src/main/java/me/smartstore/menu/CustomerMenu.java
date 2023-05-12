@@ -168,11 +168,6 @@ public class CustomerMenu extends Menu implements DataCRUD {
         customerList.remove(customerNumber);
     }
 
-    @Override
-    public void back() {
-
-    }
-
     public void printCustomerInitMenu() {
         System.out.println("==============================");
         System.out.println("1. 고객 정보 추가");

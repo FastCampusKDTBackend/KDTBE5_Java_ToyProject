@@ -130,11 +130,6 @@ public class GroupMenu extends Menu implements DataCRUD {
 
     }
 
-    @Override
-    public void back() {
-
-    }
-
     public void printGroupInitMenu() {
         System.out.println("==============================");
         System.out.println("1. 고객 등급 기준 추가");

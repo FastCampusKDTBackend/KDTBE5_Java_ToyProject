@@ -25,7 +25,7 @@ public class GroupMenu extends Menu implements DataCRUD {
     public void addData() {
         //변경할 등급 선택
         printGroupSelectionMessage();
-        int groupNumber = readNumber();
+        int groupNumber = readNumber(3);
         //groupNumber to group
         GroupType groupType = groupNumberToGroupType(groupNumber);
         //groupList에서 입력받은 등급에 해당하는 요소를 찾음
@@ -41,25 +41,6 @@ public class GroupMenu extends Menu implements DataCRUD {
         System.out.println("==============================");
         System.out.print("번호를 입력해주세요: ");
     }
-
-    @Override
-    protected int readNumber() {
-        int groupNumber = 0;
-        while (groupNumber == 0) {
-            try {
-                int temp = Integer.parseInt(br.readLine());
-                if (temp >= 1 && temp <= 3) {
-                    groupNumber = temp;
-                } else {
-                    System.out.println("1부터 3까지의 숫자를 입력해주세요.");
-                }
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        return groupNumber;
-    }
-
     private GroupType groupNumberToGroupType(int groupNumber) {
         if (groupNumber == 1) {
             return GroupType.General;
@@ -111,7 +92,7 @@ public class GroupMenu extends Menu implements DataCRUD {
     @Override
     public void viewData() {
         printGroupSelectionMessage();
-        int groupNumber = readNumber();
+        int groupNumber = readNumber(3);
         //groupNumber to group
         GroupType groupType = groupNumberToGroupType(groupNumber);
         Parameter parameter = findParameter(groupType);
@@ -121,7 +102,7 @@ public class GroupMenu extends Menu implements DataCRUD {
     @Override
     public void updateData() {
         printGroupSelectionMessage();
-        int groupNumber = readNumber();
+        int groupNumber = readNumber(3);
         GroupType groupType = groupNumberToGroupType(groupNumber);
         Parameter parameter = findParameter(groupType);
         insertInputParameter(parameter);

@@ -32,7 +32,7 @@ public class Menu {
 
     public int inputInitMenuNumber() {
         printInitMenu();
-        return readNumber();
+        return readNumber(4);
     }
 
     private void printInitMenu() {
@@ -46,15 +46,15 @@ public class Menu {
 
     }
 
-    protected int readNumber() {
+    protected int readNumber(int end) {
         int menuNumber = 0;
         while (menuNumber == 0) {
             try {
                 int temp = Integer.parseInt(br.readLine());
-                if (temp >= 1 && temp <= 4) {
+                if (temp >= 1 && temp <= end) {
                     menuNumber = temp;
                 } else {
-                    System.out.println("1부터 4까지의 숫자를 입력해주세요.");
+                    System.out.printf("1부터 %d까지의 숫자를 입력해주세요.\n", end);
                 }
             } catch (IOException e) {
                 System.out.println(e.getMessage());

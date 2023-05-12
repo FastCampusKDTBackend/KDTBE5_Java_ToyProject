@@ -23,7 +23,7 @@ public class SummaryMenu extends Menu {
     public void run(){
         classifiedCustomers.refresh();
         printSummaryInitMenu();
-        int summaryNumber = readNumber();
+        int summaryNumber = readNumber(5);
         if(summaryNumber==1){
             summary(OrderType.NONE);
             return;
@@ -37,24 +37,6 @@ public class SummaryMenu extends Menu {
             return;
         }
         summarySortByTotalAmount();
-    }
-
-    @Override
-    protected int readNumber(){
-        int summaryNumber = 0;
-        while (summaryNumber == 0) {
-            try {
-                int temp = Integer.parseInt(br.readLine());
-                if (temp >= 1 && temp <= 5) {
-                    summaryNumber = temp;
-                } else {
-                    System.out.println("1부터 5까지의 숫자를 입력해주세요.");
-                }
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        return summaryNumber;
     }
     private void summary(OrderType orderType) {
         GroupType[] groupTypes = GroupType.values();

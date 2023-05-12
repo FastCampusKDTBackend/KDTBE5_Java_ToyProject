@@ -19,22 +19,19 @@ public class CustomerMenu extends Menu implements DataCRUD {
     }
 
     public void run() {
-        printCustomerInitMenu();
-        int customerMenuNumber = readNumber(5);
-        if (customerMenuNumber == 1) {
-            addData();
-            return;
-        }
-        if (customerMenuNumber == 2) {
-            viewData();
-            return;
-        }
-        if (customerMenuNumber == 3) {
-            updateData();
-            return;
-        }
-        if (customerMenuNumber == 4) {
-            deleteData();
+        int customerMenuNumber = 0;
+        while (customerMenuNumber != 5) {
+            printCustomerInitMenu();
+            customerMenuNumber = readNumber(5);
+            if (customerMenuNumber == 1) {
+                addData();
+            } else if (customerMenuNumber == 2) {
+                viewData();
+            } else if (customerMenuNumber == 3) {
+                updateData();
+            } else if (customerMenuNumber == 4) {
+                deleteData();
+            }
         }
     }
 

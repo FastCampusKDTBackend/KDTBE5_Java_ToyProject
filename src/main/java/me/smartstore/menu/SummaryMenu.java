@@ -22,22 +22,19 @@ public class SummaryMenu extends Menu {
 
     public void run() {
         classifiedCustomers.refresh();
-        printSummaryInitMenu();
-        int summaryNumber = readNumber(5);
-        if (summaryNumber == 1) {
-            summary(OrderType.NONE);
-            return;
-        }
-        if (summaryNumber == 2) {
-            summarySortByName();
-            return;
-        }
-        if (summaryNumber == 3) {
-            summarySortByHours();
-            return;
-        }
-        if (summaryNumber == 4) {
-            summarySortByTotalAmount();
+        int summaryNumber = 0;
+        while (summaryNumber != 5) {
+            summaryNumber = readNumber(5);
+            printSummaryInitMenu();
+            if (summaryNumber == 1) {
+                summary(OrderType.NONE);
+            } else if (summaryNumber == 2) {
+                summarySortByName();
+            } else if (summaryNumber == 3) {
+                summarySortByHours();
+            } else if (summaryNumber == 4) {
+                summarySortByTotalAmount();
+            }
         }
     }
 

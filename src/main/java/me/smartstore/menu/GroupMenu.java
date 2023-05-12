@@ -22,20 +22,18 @@ public class GroupMenu extends Menu implements DataCRUD {
     }
 
     public void run() {
-        printGroupInitMenu();
-        int groupMenu = readNumber(4);
-        if (groupMenu == 1) {
-            addData();
-            return;
+        int groupMenu = 0;
+        while (groupMenu != 4) {
+            groupMenu = readNumber(4);
+            printGroupInitMenu();
+            if (groupMenu == 1) {
+                addData();
+            } else if (groupMenu == 2) {
+                viewData();
+            } else if (groupMenu == 3) {
+                updateData();
+            }
         }
-        if (groupMenu == 2) {
-            viewData();
-            return;
-        }
-        if (groupMenu == 3) {
-            updateData();
-        }
-
     }
 
     @Override
@@ -58,6 +56,7 @@ public class GroupMenu extends Menu implements DataCRUD {
         System.out.println("==============================");
         System.out.print("번호를 입력해주세요: ");
     }
+
     private GroupType groupNumberToGroupType(int groupNumber) {
         if (groupNumber == 1) {
             return GroupType.General;

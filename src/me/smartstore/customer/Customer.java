@@ -17,17 +17,12 @@ public class Customer implements Comparable<Customer> {
     public Customer() {
         //초기 값 설정
         cusNo = seqNum;
+        cusId = null;
+        cusName = null;
+        cusTotalTime = 0;
+        cusTotalPay = 0;
         group = GroupType.NONE;
         seqNum++;
-    }
-
-    public Customer(String cusId) {
-        this.cusId = cusId;
-    }
-
-    public Customer(String cusName, String cusId) {
-        this.cusName = cusName;
-        this.cusId = cusId;
     }
 
     public Customer(String cusName, String cusId, Integer cusTotalTime, Integer cusTotalPay) {

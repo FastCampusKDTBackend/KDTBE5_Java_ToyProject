@@ -10,10 +10,10 @@ import me.smartstore.utils.Message;
 
 public class GroupMenu implements Menu{
 
-    private final Groups allGroups = Groups.getInstance();
-    private final Customers allCustomers = Customers.getInstance();
-
     private static GroupMenu groupMenu;
+
+    private final Groups allGroups;
+    private final Customers allCustomers;
 
     public static GroupMenu getInstance() {
         if(groupMenu == null) {
@@ -22,7 +22,10 @@ public class GroupMenu implements Menu{
         return groupMenu;
     }
 
-    private GroupMenu() {}
+    private GroupMenu() {
+        this.allGroups = Groups.getInstance();
+        this.allCustomers = Customers.getInstance();
+    }
 
     @Override
     public void manage() {

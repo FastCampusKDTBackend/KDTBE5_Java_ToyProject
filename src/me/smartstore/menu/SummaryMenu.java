@@ -12,8 +12,8 @@ public class SummaryMenu implements Menu {
 
     private static SummaryMenu summaryMenu;
 
-    private final Groups allGroups = Groups.getInstance();
-    private final Customers allCustomers = Customers.getInstance();
+    private final Groups allGroups;
+    private final Customers allCustomers;
 
     public static SummaryMenu getInstance(){
         if(summaryMenu == null) {
@@ -22,7 +22,10 @@ public class SummaryMenu implements Menu {
         return summaryMenu;
     }
 
-    private SummaryMenu() {}
+    private SummaryMenu() {
+        this.allGroups = Groups.getInstance();
+        this.allCustomers = Customers.getInstance();
+    }
 
     @Override
     public void manage() {

@@ -2,11 +2,11 @@ package me.smartstore.menu;
 
 public class MainMenu implements Menu {
 
-    private final CustomerMenu customerMenu = CustomerMenu.getInstance();
-    private final GroupMenu groupMenu = GroupMenu.getInstance();
-    private final SummaryMenu summaryMenu = SummaryMenu.getInstance();
-
     private static MainMenu mainMenu;
+
+    private final CustomerMenu customerMenu;
+    private final GroupMenu groupMenu;
+    private final SummaryMenu summaryMenu;
 
     public static MainMenu getInstance(){
         if(mainMenu == null){
@@ -15,7 +15,11 @@ public class MainMenu implements Menu {
         return mainMenu;
     }
 
-    private MainMenu() {}
+    private MainMenu() {
+        this.customerMenu = CustomerMenu.getInstance();
+        this.groupMenu = GroupMenu.getInstance();
+        this.summaryMenu = SummaryMenu.getInstance();
+    }
 
     @Override
     public void manage() {

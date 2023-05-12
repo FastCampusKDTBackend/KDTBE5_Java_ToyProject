@@ -8,8 +8,7 @@ import me.smartstore.utils.Message;
 
 public class CustomerMenu implements Menu {
     private static CustomerMenu customerMenu;
-    private final Customers allCustomers = Customers.getInstance();
-    private final Groups allGroups = Groups.getInstance();
+    private Customers allCustomers;
 
     public static CustomerMenu getInstance() {
         if(customerMenu == null) {
@@ -18,7 +17,12 @@ public class CustomerMenu implements Menu {
         return customerMenu;
     }
 
-    private CustomerMenu() {}
+    private CustomerMenu() {
+        this.allCustomers = Customers.getInstance();
+    }
+
+
+    private final Groups allGroups = Groups.getInstance();
 
     @Override
     public void manage() {
@@ -50,7 +54,7 @@ public class CustomerMenu implements Menu {
             int cusTotalTime = 0;
             int cusTotalPay = 0;
 
-            Customer customer = new Customer(cusName, cusId, cusTotalTime, cusTotalPay);
+            Customer customer = new Customer();
 
             while ( true ) {
 
@@ -90,8 +94,7 @@ public class CustomerMenu implements Menu {
         while ( true ) {
             try {
                 System.out.println("Input Customer`s Name: ");
-                String cusName = nextLine(Message.END_MSG);
-                return cusName;
+                return nextLine(Message.END_MSG);
             } catch (InputEndException e) {
                 System.out.println(Message.ERR_MSG_INPUT_END);
                 return null;
@@ -105,8 +108,7 @@ public class CustomerMenu implements Menu {
         while ( true ) {
             try {
                 System.out.println("Input Customer`s Id: ");
-                String cusName = nextLine(Message.END_MSG);
-                return cusName;
+                return nextLine(Message.END_MSG);
             } catch (InputEndException e) {
                 System.out.println(Message.ERR_MSG_INPUT_END);
                 return null;

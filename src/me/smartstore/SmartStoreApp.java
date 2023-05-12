@@ -10,10 +10,9 @@ import me.smartstore.menu.MainMenu;
 
 public class SmartStoreApp {
 
-    private final Groups allGroups = Groups.getInstance();
-    private final Customers allCustomers = Customers.getInstance();
-    private final MainMenu mainMenu = MainMenu.getInstance();
-
+    private Groups allGroups;
+    private Customers allCustomers;
+    private final MainMenu mainMenu;
     private static SmartStoreApp smartStoreApp;
 
     public static SmartStoreApp getInstance() {
@@ -23,7 +22,11 @@ public class SmartStoreApp {
         return smartStoreApp;
     }
 
-    private SmartStoreApp() {}
+    private SmartStoreApp() {
+        this.allCustomers = Customers.getInstance();
+        this.allGroups = Groups.getInstance();
+        this.mainMenu = MainMenu.getInstance();
+    }
 
     public void details() {
         System.out.println("\n\n===========================================");

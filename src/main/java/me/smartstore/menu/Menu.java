@@ -30,13 +30,9 @@ public class Menu {
         return menu;
     }
 
-    public int initMenu() throws IOException {
+    public int initMenu() {
         printInitMenu();
-        int menuNumber = 0;
-        while (menuNumber < 1 || menuNumber > 4) {
-            menuNumber = readInt();
-        }
-        return menuNumber;
+        return readNumber();
     }
 
     private void printInitMenu() {
@@ -50,11 +46,21 @@ public class Menu {
 
     }
 
-    //@Todo 예외처리
-    private int readInt() throws IOException {
-        String input = br.readLine();
-        int newInt = Integer.parseInt(input);
-        return newInt;
+    private int readNumber() {
+        int menuNumber = 0;
+        while (menuNumber == 0) {
+            try {
+                int temp = Integer.parseInt(br.readLine());
+                if (temp >= 1 && temp <= 4) {
+                    menuNumber = temp;
+                } else {
+                    System.out.println("1부터 4까지의 숫자를 입력해주세요.");
+                }
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return menuNumber;
     }
 
     protected void back() {

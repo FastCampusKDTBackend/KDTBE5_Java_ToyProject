@@ -1,6 +1,5 @@
 package me.smartstore.core.manager;
 
-import static me.smartstore.enums.CustomerType.*;
 import static me.smartstore.exceptions.StoreErrorCode.*;
 
 import java.util.Arrays;
@@ -21,12 +20,9 @@ public class CustomerGroupManager {
 
   public CustomerGroupManager() {
     customerGroups =
-        new CustomerGroup[] {
-          new CustomerGroup(NONE, null),
-          new CustomerGroup(GENERAL, null),
-          new CustomerGroup(VIP, null),
-          new CustomerGroup(VVIP, null)
-        };
+        Arrays.stream(CustomerType.values())
+            .map(customerType -> new CustomerGroup(customerType, null))
+            .toArray(CustomerGroup[]::new);
   }
 
   public static CustomerGroupManager getInstance() {
@@ -67,7 +63,7 @@ public class CustomerGroupManager {
         .findFirst()
         .orElseThrow(
             () -> {
-              throw new StoreException(NOT_EXIST_GROUP);
+              throw new StoreException(NO_MATCHING_GROUP);
             });
   }
 

@@ -48,13 +48,12 @@ class CustomerGroupManagerTest {
   void givenCustomerType_whenSelectCustomerGroup_thenReturnsSelectedCustomerGroup(
       CustomerType customerType) {
     // Given
-    CustomerType replaced = customerType.replaceFullName();
 
     // Given && When
-    CustomerGroup actual = customerGroupManager.selectCustomerGroupByCustomerType(replaced);
+    CustomerGroup actual = customerGroupManager.selectCustomerGroupByCustomerType(customerType);
 
     // Then
-    assertEquals(replaced, actual.getCustomerType());
+    assertEquals(customerType, actual.getCustomerType());
   }
 
   @DisplayName("[SELECT] 고객 유형이 주어지지 않은 경우 - 조회 실패")
@@ -82,8 +81,6 @@ class CustomerGroupManagerTest {
     CustomerGroup[] actual = customerGroupManager.selectAllCustomerGroup();
 
     // Then
-    assertTrue(
-        Arrays.stream(actual)
-            .anyMatch(group -> group.getCustomerType() == customerType.replaceFullName()));
+    assertTrue(Arrays.stream(actual).anyMatch(group -> group.getCustomerType() == customerType));
   }
 }

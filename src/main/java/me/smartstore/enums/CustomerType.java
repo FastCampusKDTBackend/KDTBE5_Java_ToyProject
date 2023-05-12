@@ -1,5 +1,10 @@
 package me.smartstore.enums;
 
+import java.util.Collections;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 /**
  * 고객 유형
  *
@@ -8,30 +13,38 @@ package me.smartstore.enums;
  * @since 2023-05-10
  */
 public enum CustomerType {
-  NONE("해당없음"),
-  GENERAL("일반고객"),
-  VIP("우수고객"),
-  VVIP("최우수고객"),
-  N("해당없음"),
-  G("일반고객"),
-  V("우수고객"),
-  VV("최우수고객");
+  NONE("N", "해당없음"),
+  GENERAL("G", "일반고객"),
+  VIP("V", "우수고객"),
+  VVIP("VV", "최우수고객");
 
+  private static final Map<String, String> ABBREVIATION_MAP;
+
+  static {
+    Map<String, String> map =
+        Stream.of(values())
+            .collect(Collectors.toMap(CustomerType::getAbbreviation, CustomerType::name));
+    Stream.of(values()).forEach(type -> map.put(type.name(), type.name()));
+    ABBREVIATION_MAP = Collections.unmodifiableMap(map);
+  }
+
+  private final String abbreviation;
   private final String description;
 
-  CustomerType(String description) {
+  CustomerType(String abbreviation, String description) {
+    this.abbreviation = abbreviation;
     this.description = description;
+  }
+
+  public String getAbbreviation() {
+    return abbreviation;
   }
 
   public String getDescription() {
     return description;
   }
 
-  public CustomerType replaceFullName() {
-    if (this == N) return NONE;
-    else if (this == G) return GENERAL;
-    else if (this == V) return VIP;
-    else if (this == VV) return VVIP;
-    else return this;
+  public static CustomerType of(final String valueStr) {
+    return CustomerType.valueOf(ABBREVIATION_MAP.get(valueStr));
   }
 }

@@ -16,8 +16,8 @@ import static me.smartstore.exceptions.StoreErrorCode.INVALID_FORMAT;
 public class StoreUtility {
   public static CustomerType convertInputStrToCustomerType(String input) throws StoreException {
     try {
-      return CustomerType.valueOf(input).replaceFullName();
-    } catch (IllegalArgumentException e) {
+      return CustomerType.of(input);
+    } catch (RuntimeException e) {
       throw new StoreException(INVALID_FORMAT);
     }
   }

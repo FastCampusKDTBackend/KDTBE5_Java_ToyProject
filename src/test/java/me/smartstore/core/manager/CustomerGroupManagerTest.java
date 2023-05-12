@@ -1,6 +1,6 @@
 package me.smartstore.core.manager;
 
-import static me.smartstore.exceptions.StoreErrorCode.NOT_EXIST_GROUP;
+import static me.smartstore.exceptions.StoreErrorCode.NO_MATCHING_GROUP;
 import static me.smartstore.exceptions.StoreErrorCode.UNKNOWN_TYPE;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -66,8 +66,8 @@ class CustomerGroupManagerTest {
         assertThrows(
             StoreException.class,
             () -> customerGroupManager.selectCustomerGroupByCustomerType(null));
-    assertEquals(NOT_EXIST_GROUP, exception.getErrorCode());
-    assertEquals(NOT_EXIST_GROUP.getMessage(), exception.getMessage());
+    assertEquals(NO_MATCHING_GROUP, exception.getErrorCode());
+    assertEquals(NO_MATCHING_GROUP.getMessage(), exception.getMessage());
   }
 
   @DisplayName("[SELECT] 모든 고객 그룹 조회")

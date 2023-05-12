@@ -195,7 +195,7 @@ public class CustomerManager {
       }
     }
 
-    if (idx == -1) throw new StoreException(NOT_EXIST_ID);
+    if (idx == -1) throw new StoreException(NO_MATCHING_ID);
 
     System.arraycopy(customers, idx + 1, customers, idx, --size - idx);
     customers[size] = null;

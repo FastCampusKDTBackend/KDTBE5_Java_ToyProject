@@ -8,8 +8,8 @@ package me.smartstore.exceptions;
 public enum StoreErrorCode {
   UNKNOWN_TYPE("Can't identify customer type"),
   NOT_EXIST_CUSTOMER("Customer doesn't exist."),
-  NOT_EXIST_ID("No matching id."),
-  NOT_EXIST_GROUP("No matching group."),
+  NO_MATCHING_ID("No matching id."),
+  NO_MATCHING_GROUP("No matching group."),
   NO_CUSTOMER("No Customers. Please input one first."),
   CANT_SORT("Elements in Array has null. Array can't be sorted."),
   NULL_INPUT("Null Input. Please input something."),

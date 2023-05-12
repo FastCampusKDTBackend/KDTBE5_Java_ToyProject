@@ -40,7 +40,8 @@ public class CustomerGroupManager {
    * @throws StoreException 그룹 타입을 알 수 없는 경우
    */
   public CustomerGroup save(CustomerGroup customerGroup) throws StoreException {
-    if (customerGroup.getCustomerType() == null) throw new StoreException(UNKNOWN_TYPE);
+    if (customerGroup == null || customerGroup.getCustomerType() == null)
+      throw new StoreException(UNKNOWN_TYPE);
 
     for (int idx = 0; idx < customerGroups.length; idx++) {
       if (customerGroup.getCustomerType() == customerGroups[idx].getCustomerType()) {

@@ -25,7 +25,7 @@ public class CustomerMenu implements Menu{
     private CustomerMenu(){};
 
     public void manage() {
-        while (true) { // 서브 메뉴 페이지를 유지하기 위한 while
+        while (true) {
             int choice = chooseMenu(new String[]{
                     "Add Customer",
                     "View Customer",
@@ -33,7 +33,7 @@ public class CustomerMenu implements Menu{
                     "Delete Customer",
                     "Back"});
             if( choice == 1){
-                createCustomer();
+                addCustomer();
             }
             else if(choice == 2){
                 viewCustomer();
@@ -49,20 +49,20 @@ public class CustomerMenu implements Menu{
         }
     }
 
-    private void createCustomer(){
+    private void addCustomer(){
         while( true ) {
             try {
                 System.out.println("How many customers to input?");
                 Integer number = formatInt(nextLine(END_MSG));
 
                 for (int i = 1; i <= number; i++) {
-                    System.out.println("====== Customer " + i + " Info. ======");
+                    System.out.printf("====== Customer %d Info. ======%n", i);
                     Customer customer = new Customer();
                     setCustomerInfo(customer);
                     allCustomers.add(customer);
                 }
                 allCustomers.refresh();
-                return;
+                break;
             }
             catch (InputEndException e){
                 break;
@@ -115,14 +115,14 @@ public class CustomerMenu implements Menu{
         System.out.println("======= Customer Info. =======");
 
         for (int i = 0; i < allCustomers.size() ; i++) {
-            System.out.println("No. " + (i+1) +" =>" + allCustomers.get(i));
+            System.out.printf("No. %d => %s%n", (i+1), allCustomers.get(i).toString());
         }
     }
 
     private void updateCustomer() {
         viewCustomer();
         while (true) {
-            System.out.println("Which customer " + "( 1 ~ " + allCustomers.size() + ")");
+            System.out.printf("Which customer ( 1 ~ %d )%n", allCustomers.size());
             try {
                 Integer index = formatInt(nextLine());
                 if (index < 1 || index > allCustomers.size()) {
@@ -143,7 +143,7 @@ public class CustomerMenu implements Menu{
     private void deleteCustomer() {
         viewCustomer();
         while (true) {
-            System.out.println("Which customer " + "( 1 ~ " + allCustomers.size() + ")");
+            System.out.printf("Which customer ( 1 ~ %d )%n", allCustomers.size());
             try {
                 Integer index = formatInt(nextLine(END_MSG));
                 if (index < 1 || index > allCustomers.size()) {

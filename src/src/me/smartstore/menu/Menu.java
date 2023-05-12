@@ -1,6 +1,5 @@
 package me.smartstore.menu;
 
-import me.smartstore.customer.Customers;
 import me.smartstore.exception.InputEndException;
 import me.smartstore.exception.InputRangeException;
 import me.smartstore.util.Message;

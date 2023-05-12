@@ -7,11 +7,10 @@ import me.smartstore.group.Group;
 import me.smartstore.group.GroupType;
 import me.smartstore.group.Groups;
 import me.smartstore.group.Parameter;
-import me.smartstore.util.Message;
 
 import java.util.InputMismatchException;
 
-import static me.smartstore.util.Message.END_MSG;
+import static me.smartstore.util.Message.*;
 
 
 public class GroupMenu implements Menu{
@@ -33,7 +32,7 @@ public class GroupMenu implements Menu{
 
     @Override
     public void manage() {
-        while ( true ) { // 서브 메뉴 페이지를 유지하기 위한 while
+        while ( true ) {
             int choice = chooseMenu(new String[]{
                     "Set Parameter",
                     "View Parameter",
@@ -72,11 +71,11 @@ public class GroupMenu implements Menu{
                 }
             }
             catch (InputEndException e){
-                System.out.println(Message.ERR_MSG_INPUT_END);
+                System.out.println(ERR_MSG_INPUT_END);
                 break;
             }
             catch (IllegalArgumentException e){
-                System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+                System.out.println(ERR_MSG_INVALID_INPUT_RANGE);
             }
         }
     }
@@ -99,11 +98,11 @@ public class GroupMenu implements Menu{
                     }
 
                     catch (InputRangeException e) {
-                        System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+                        System.out.println(ERR_MSG_INVALID_INPUT_RANGE);
                     }
 
                     catch (InputMismatchException e) {
-                        System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
+                        System.out.println(ERR_MSG_INVALID_INPUT_FORMAT);
                     }
                 }
             } else if (choice == 2) {
@@ -116,11 +115,11 @@ public class GroupMenu implements Menu{
                     }
 
                     catch (InputRangeException e) {
-                        System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+                        System.out.println(ERR_MSG_INVALID_INPUT_RANGE);
                     }
 
                     catch (InputMismatchException e) {
-                        System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
+                        System.out.println(ERR_MSG_INVALID_INPUT_FORMAT);
                     }
                 }
             } else {
@@ -138,17 +137,17 @@ public class GroupMenu implements Menu{
                 GroupType groupType = GroupType.valueOf(inputData).replaceFullName();
                 Group group = allGroups.find(groupType);
 
-                System.out.println(String.format("\nGroupType: %s", groupType.name()));
+                System.out.printf("%nGroupType: %s%n", groupType.name());
                 System.out.println("Parameter: " + group.getParameter());
             }
 
             catch (InputEndException e){
-                System.out.println(Message.ERR_MSG_INPUT_END);
+                System.out.println(ERR_MSG_INPUT_END);
                 break;
             }
 
             catch (IllegalArgumentException e){
-                System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+                System.out.println(ERR_MSG_INVALID_INPUT_RANGE);
             }
         }
     }
@@ -161,7 +160,7 @@ public class GroupMenu implements Menu{
                 Group group = allGroups.find(groupType);
 
                 if (group == null){
-                    System.out.println(Message.ERR_MSG_INVALID_ARR_EMPTY);
+                    System.out.println(ERR_MSG_INVALID_ARR_EMPTY);
                     break;
                 }
                 else{
@@ -172,11 +171,11 @@ public class GroupMenu implements Menu{
                 }
             }
             catch (InputEndException e){
-                System.out.println(Message.ERR_MSG_INPUT_END);
+                System.out.println(ERR_MSG_INPUT_END);
                 break;
             }
             catch (IllegalArgumentException e){
-                System.out.println(Message.ERR_MSG_INVALID_INPUT_RANGE);
+                System.out.println(ERR_MSG_INVALID_INPUT_RANGE);
             }
         }
     }

@@ -2,10 +2,9 @@ package me.smartstore.customer;
 
 import me.smartstore.group.Group;
 
-import java.util.Comparator;
 import java.util.Objects;
 
-public class Customer implements Comparator<Customer> {
+public class Customer {
     private String cusName;
     private String cusId;
     private Integer cusTotalTime;
@@ -65,12 +64,6 @@ public class Customer implements Comparator<Customer> {
     public void setGroup(Group group) {
         this.group = group;
     }
-
-    @Override
-    public int compare(Customer o1, Customer o2) {
-        return o1.getCusName().compareTo(o2.cusName);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -94,10 +87,4 @@ public class Customer implements Comparator<Customer> {
                 ", group=" + group +
                 '}';
     }
-
-
-//    @Override
-//    public int compareTo(Customer o) {
-//        return this.cusName.compareTo(o.cusName);
-//    }
 }

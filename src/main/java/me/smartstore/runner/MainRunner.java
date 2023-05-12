@@ -28,15 +28,17 @@ public class MainRunner {
     }
 
     public void run() {
-        int initMenu = menu.inputInitMenuNumber();
-        if (initMenu == 1) {
-            groupMenu.run();
-        } else if (initMenu == 2) {
-            customerMenu.run();
-        } else if (initMenu == 3) {
-            summaryMenu.run();
+        int initMenu = 0;
+        while (initMenu != 4) {
+            initMenu = menu.inputInitMenuNumber();
+            if (initMenu == 1) {
+                groupMenu.run();
+            } else if (initMenu == 2) {
+                customerMenu.run();
+            } else if (initMenu == 3) {
+                summaryMenu.run();
+            }
         }
-        return;
     }
 
 }

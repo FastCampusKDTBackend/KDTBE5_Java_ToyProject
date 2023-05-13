@@ -55,7 +55,7 @@ public class AddCustomer implements CustomerMenuHandler, MenuPrintable, IntegerW
         String value = "";
         while (true){
             try {
-                System.out.print("Wait for Input : ");
+                System.out.print("Wait for Input Y or N: ");
                 value = br.readLine();
             } catch (IOException e) {
                 System.out.println("Please Input Y or N");
@@ -66,6 +66,7 @@ public class AddCustomer implements CustomerMenuHandler, MenuPrintable, IntegerW
             if("n".equalsIgnoreCase(value)){
                 return false;
             }
+            System.out.println("Please Input Y or N");
         }
     }
 

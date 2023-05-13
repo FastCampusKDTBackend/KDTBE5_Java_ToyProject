@@ -1,5 +1,6 @@
 package com.smartstore.util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -118,6 +119,14 @@ public class CustomList<T> implements List<T> {
         }
         System.arraycopy(e, 0, elements, index, newSize);
         size = currentSize + newSize;
+    }
+
+    public CustomList<T> subList(int fromIndex, int toIndex){
+        CustomList<T> subList = new CustomList<>();
+        for(int i = fromIndex ; i <= toIndex ; i++){
+            subList.add((T)elements[i]);
+        }
+        return subList;
     }
 
     private void fastCopy(int index, int desPosition, int movedIndex){

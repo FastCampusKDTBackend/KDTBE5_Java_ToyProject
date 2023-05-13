@@ -8,11 +8,16 @@ import com.smartstore.util.Map;
 public class Customer {
     private String customerId;
     private String customerName;
+
+    private int usageTime;
+    private int paymentAmount;
     private MembershipType membership;
 
     public Customer(String customerName, String  customerId, int usageTime, int paymentAmount) {
         this.customerId = customerId;
         this.customerName = customerName;
+        this.usageTime = usageTime;
+        this.paymentAmount = paymentAmount;
         this.membership = setMembership(usageTime, paymentAmount);
     }
 

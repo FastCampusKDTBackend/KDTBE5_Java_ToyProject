@@ -1,9 +1,9 @@
 package com.smartstore.function.customer.add;
 
 import com.smartstore.customer.Customer;
+import com.smartstore.customer.Customers;
 import com.smartstore.function.*;
 import com.smartstore.function.customer.CustomerMenuHandler;
-import com.smartstore.function.customer.update.UpdateCustomerFunction;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -30,7 +30,7 @@ public class AddCustomer implements CustomerMenuHandler, MenuPrintable, IntegerW
             String id = "";
             int usageTime = 0;
             int paymentAmount = 0;
-
+            Customers customers = Customers.getInstance();
             //get name & id from user, usage_time&payment_amount is optional
             for(int i = 0 ; i < Integer.parseInt(numberOfUser) ; i++){
                 name = getUserData(name.getClass(),true, "Input User Name : ");
@@ -44,8 +44,7 @@ public class AddCustomer implements CustomerMenuHandler, MenuPrintable, IntegerW
                     System.out.println("Input Payment Amount");
                     paymentAmount = ("end".equalsIgnoreCase(String.valueOf(getIntegerValueOrEnd()))) ? Integer.parseInt(getIntegerValueOrEnd()) : 0;
                 }
-
-                new Customer(name, id, usageTime, paymentAmount);
+                customers.getCustomerList().add(new Customer(name, id, usageTime, paymentAmount));
             }
         }
         return true;

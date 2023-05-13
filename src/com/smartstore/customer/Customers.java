@@ -1,15 +1,25 @@
 package com.smartstore.customer;
 
+import com.smartstore.util.CustomList;
+
 import java.util.List;
 
 public class Customers {
-    private List<Customer> customerList;
+    private static Customers instance;
 
-    public Customers getInstance(){
-        return null;
+    private Customers() {
+
     }
 
-    public List<Customer> getCustomerList() {
+    public static Customers getInstance(){
+        if(instance == null){
+            instance = new Customers();
+        }
+        return instance;
+    }
+    private CustomList<Customer> customerList = new CustomList();
+
+    public CustomList<Customer> getCustomerList() {
         return customerList;
     }
 

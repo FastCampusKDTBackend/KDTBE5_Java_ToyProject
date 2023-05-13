@@ -14,12 +14,12 @@ public class Groups extends DArray<Group> {
     public static Groups getInstance() {
         if (allGroups == null) {
             allGroups = new Groups();
+            allGroups.add(new Group(new Parameter(), GroupType.NONE));
         }
         return allGroups;
     }
 
     private Groups() {
-        add(new Group(new Parameter(0, 0), GroupType.NONE));
     }
 
 //    public Group find(GroupType groupType) {

@@ -58,9 +58,7 @@ public class CustomerMenu implements Menu {
                     Customer customer = new Customer();
                     makeCustomerInfo(customer);
                     allCustomers.add(customer);
-//                    System.out.println("flag");
                 }
-                System.out.println("flag");
                 allCustomers.refresh();
                 return;
             } catch (InputEndException e) {

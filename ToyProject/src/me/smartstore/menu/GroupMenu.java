@@ -97,7 +97,7 @@ public class GroupMenu implements Menu {
                     makeParameter(parameter);
                     group = new Group(parameter, groupType);
                     allGroups.add(group);
-                    allCustomers.refresh(); // refresh 미작성, 작성 후 검토
+                    allCustomers.refresh();
                     //group.setParameter(parameter);
                     //allCustomers.refresh();
                 }

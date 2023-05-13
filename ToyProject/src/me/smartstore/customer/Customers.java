@@ -32,7 +32,7 @@ public class Customers extends DArray<Customer> {
     public void refresh() {
         for (int i=0; i< allCustomers.size(); i++) {
             Customer customer = allCustomers.get(i);
-            System.out.println("refresh -> allCustomer size configure : " + allCustomers.size());
+            System.out.println("refresh start -> allCustomer size configure : " + allCustomers.size());
             Group group = findGroupOfCustomer(customer.getCustomerTotalTime(), customer.getCustomerTotalPay());
             customer.setGroup(group);
         }
@@ -44,9 +44,7 @@ public class Customers extends DArray<Customer> {
      * @return: Group instance that corresponding with customer
      */
     public Group findGroupOfCustomer(int spentTime, int spentMoney) {
-        System.out.println("is allGroup empty? : " + allGroups.size());
-        Group group = allGroups.get(0); // NONE 등급
-        System.out.println("testing if whether NONE is printed : " + group.getGroupType());
+        Group group = allGroups.get(0);
         for (int i=1; i< allGroups.size(); i++) {
             Group pickedGroup = allGroups.get(i);
             int minSpentTime = pickedGroup.getParameter().getMinTime();

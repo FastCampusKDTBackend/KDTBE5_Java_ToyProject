@@ -1,4 +1,4 @@
-package com.smartstore.function.customer.add;
+package com.smartstore.function.customer.update;
 
 import com.smartstore.function.*;
 

@@ -1,10 +1,7 @@
 package com.smartstore.function.customer.update;
 
 import com.smartstore.function.Handleable;
-import com.smartstore.function.customer.add.UpdateCustomerHandler;
 
-
-//implement other
 public class SetId implements UpdateCustomerHandler, Handleable {
     private static SetId instance;
 

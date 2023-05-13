@@ -17,20 +17,7 @@ public interface CustomerMenuHandler extends EnumValueProvider, MenuPrintable, M
             isExit = handleChoice(getMenuNumber(new String[]{}));
         }
     }
-
-    @Override
-    default boolean handleChoice(String membershipName){
-        if(!"end".equalsIgnoreCase(membershipName)){
-            //get enum_value using string from MembershipType
-    /*        MembershipType membershipType = getMembershipType(membershipName);
-            //find requirement using type from enum_map
-            MembershipRequirement requirement = Memberships.getInstance().findByType(membershipType);
-
-            //run each function's method
-            run(membershipType, requirement);
-    */    }
-        return true;
-    }
+    boolean handleChoice(String membershipName);
 
     @Override
     default int getCurrentMenuNumber() {

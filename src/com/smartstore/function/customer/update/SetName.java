@@ -1,9 +1,5 @@
 package com.smartstore.function.customer.update;
 
-import com.smartstore.function.customer.add.UpdateCustomerHandler;
-
-
-//implement other
 public class SetName implements UpdateCustomerHandler {
     private static SetName instance;
 

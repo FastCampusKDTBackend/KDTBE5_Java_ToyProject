@@ -17,4 +17,8 @@ public class DeleteCustomer implements CustomerMenuHandler {
     }
 
 
+    @Override
+    public boolean handleChoice(String membershipName) {
+        return false;
+    }
 }

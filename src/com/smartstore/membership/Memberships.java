@@ -6,7 +6,6 @@ import com.smartstore.util.Map;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Member;
 
 public class Memberships {
     private Map<MembershipType, MembershipRequirement> membershipList = new CustomEnumMap<>(MembershipType.class);

@@ -5,7 +5,7 @@ import com.smartstore.util.CustomList;
 
 public interface EnumValueProvider<T extends Enum<T>> extends MainMenuHandler {
 
-    default String[] getEnumValues(Class<T> type){
+    default String[] enumValuesToStringArray(Class<T> type){
         CustomList<String> keyList = new CustomList<>();
         for(T enumKey : type.getEnumConstants()){
             keyList.add(enumKey.name());

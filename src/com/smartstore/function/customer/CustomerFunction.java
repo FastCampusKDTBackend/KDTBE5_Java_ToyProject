@@ -1,8 +1,7 @@
 package com.smartstore.function.customer;
 
 import com.smartstore.function.Function;
-import com.smartstore.function.MenuHandler;
-import com.smartstore.function.mainmenu.MainMenuHandler;
+import com.smartstore.function.Handleable;
 import com.smartstore.function.Back;
 import com.smartstore.function.customer.add.AddCustomer;
 import com.smartstore.function.customer.delete.DeleteCustomer;
@@ -18,10 +17,10 @@ public enum CustomerFunction implements Function {
 
 
     private final int menuNumber;
-    private final MenuHandler mainMenuHandler;
-    CustomerFunction(int menuNumber, MenuHandler mainMenuHandler) {
+    private final Handleable handler;
+    CustomerFunction(int menuNumber, Handleable handler) {
         this.menuNumber = menuNumber;
-        this.mainMenuHandler = mainMenuHandler;
+        this.handler = handler;
     }
 
     @Override
@@ -30,8 +29,8 @@ public enum CustomerFunction implements Function {
     }
 
     @Override
-    public MenuHandler getMenuController() {
-        return this.mainMenuHandler;
+    public Handleable getMenuHandler() {
+        return this.handler;
     }
 
 }

@@ -7,7 +7,7 @@ public interface MenuValidator extends Readable{
         int menu = -1;
         while (true){
             try {
-                System.out.print("Input : ");
+                System.out.print("Wait for Input : ");
                 menu = Integer.parseInt(br.readLine());
                 if (menu <= 0 || menu > values.length) {
                     // TODO: 2023-05-08 throw other exception, catch it

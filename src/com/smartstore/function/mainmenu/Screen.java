@@ -2,6 +2,7 @@ package com.smartstore.function.mainmenu;
 
 import java.util.Arrays;
 
+// TODO: 2023-05-11 Sceen과 MainMenuFunction은 통합해도 관계없을 듯
 public enum Screen {
 
     SPLASH(new String[]{"this is splash screen"}, -1),

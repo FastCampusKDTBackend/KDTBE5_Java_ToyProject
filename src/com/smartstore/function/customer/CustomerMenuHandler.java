@@ -3,10 +3,8 @@ package com.smartstore.function.customer;
 import com.smartstore.function.EnumValueProvider;
 import com.smartstore.function.MenuPrintable;
 import com.smartstore.function.MenuValidator;
+import com.smartstore.function.mainmenu.MainMenuFunction;
 import com.smartstore.membership.MembershipType;
-import com.smartstore.util.CustomList;
-
-import java.io.IOException;
 
 public interface CustomerMenuHandler extends EnumValueProvider, MenuPrintable, MenuValidator {
 
@@ -14,7 +12,7 @@ public interface CustomerMenuHandler extends EnumValueProvider, MenuPrintable, M
         boolean isExit = false;
         while (!isExit){
             //get values from enum by string array
-            printMenu(getEnumValues(MembershipType.class));
+            printMenu(enumValuesToStringArray(MembershipType.class));
 
             isExit = handleChoice(getMenuNumber(new String[]{}));
         }
@@ -34,4 +32,8 @@ public interface CustomerMenuHandler extends EnumValueProvider, MenuPrintable, M
         return true;
     }
 
+    @Override
+    default int getCurrentMenuNumber() {
+        return MainMenuFunction.CUSTOMER_MANAGEMENT.getMenuNumber();
+    }
 }

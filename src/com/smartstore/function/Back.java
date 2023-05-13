@@ -2,7 +2,7 @@ package com.smartstore.function;
 
 import com.smartstore.function.mainmenu.Screen;
 
-public class Back implements MenuHandler {
+public class Back implements Handler {
     private static Back instance;
 
     private Back(){
@@ -23,7 +23,6 @@ public class Back implements MenuHandler {
 
     @Override
     public void run(){
-
     }
 
     @Override

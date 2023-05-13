@@ -1,8 +1,7 @@
 package com.smartstore.function;
 
-public interface MenuHandler extends Readable{
+public interface Handler extends Readable, Handleable {
     boolean handleChoice(String menuNumber);
-    void run();
     void run(int menu);
     int getCurrentMenuNumber();
 

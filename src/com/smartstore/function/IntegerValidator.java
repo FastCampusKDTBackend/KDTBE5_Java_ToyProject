@@ -7,6 +7,7 @@ public interface IntegerValidator extends Readable{
         int value;
         while (true){
             try {
+                System.out.println("Wait for Input : ");
                 value = Integer.parseInt(br.readLine());
                 if(value < 0){
                     throw new IllegalArgumentException();
@@ -14,7 +15,7 @@ public interface IntegerValidator extends Readable{
                     break;
                 }
             } catch (IOException | IllegalArgumentException e) {
-                System.out.println("Input valid Integer Data 1 ~ Integer.Max");
+                System.out.print("Input valid Integer Data 1 ~ Integer.Max");
             }
         }
         return value;

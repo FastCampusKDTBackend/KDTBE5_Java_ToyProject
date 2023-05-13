@@ -1,12 +1,10 @@
 package com.smartstore.function.mainmenu;
 
-import com.smartstore.function.MenuHandler;
+import com.smartstore.function.Handler;
 import com.smartstore.function.MenuPrintable;
 import com.smartstore.function.MenuValidator;
 
-import java.io.IOException;
-
-public interface MainMenuHandler extends MenuPrintable, MenuHandler, MenuValidator {
+public interface MainMenuHandler extends MenuPrintable, Handler, MenuValidator {
 
     default void run() {
         boolean isExit = false;
@@ -31,6 +29,6 @@ public interface MainMenuHandler extends MenuPrintable, MenuHandler, MenuValidat
     @Override
     default int getCurrentMenuNumber(){
         return Screen.MAIN_MENU.getMenuNumber();
-    };
+    }
 
 }

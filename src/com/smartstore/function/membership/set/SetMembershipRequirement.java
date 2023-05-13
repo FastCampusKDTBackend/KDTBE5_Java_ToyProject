@@ -19,6 +19,7 @@ public class SetMembershipRequirement implements MembershipMenuHandler {
         return instance;
     }
 
+    //requirement null check before call method
     @Override
     public void processMembership(MembershipType membershipType, MembershipRequirement requirement) {
         if(requirement == null){

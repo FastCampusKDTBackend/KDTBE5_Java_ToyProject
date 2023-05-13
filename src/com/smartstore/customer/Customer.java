@@ -5,26 +5,37 @@ import com.smartstore.membership.MembershipType;
 import com.smartstore.membership.Memberships;
 import com.smartstore.util.Map;
 
-import java.util.Arrays;
-
 public class Customer {
-    private int customerId;
+    private String customerId;
     private String customerName;
     private MembershipType membership;
 
-    public void setMembership(int usageTime, int paymentAmount) {
-        Memberships memberships = Memberships.getInstance();
-        Map<MembershipType, MembershipRequirement> membershipList = memberships.getMembershipList();
-        for(MembershipType membershipType :MembershipType.values()){
-            if(membershipList.get(membershipType).getMinUsageTime() > usageTime && membershipList.get(membershipType).getMinPaymentAmount() > paymentAmount){
-                this.membership = membershipType;
-                return;
-            }
-        }
-        this.membership = null;
+    public Customer(String customerName, String  customerId, int usageTime, int paymentAmount) {
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.membership = setMembership(usageTime, paymentAmount);
     }
 
-    public void setCustomerId(int customerId) {
+    public MembershipType setMembership(int usageTime, int paymentAmount) {
+        Memberships memberships = Memberships.getInstance();
+        MembershipType membership = null;
+        Map<MembershipType, MembershipRequirement> membershipList = memberships.getMembershipList();
+        for(MembershipType membershipType :MembershipType.values()){
+            try {
+                if(membershipList.get(membershipType).getMinUsageTime() > usageTime && membershipList.get(membershipType).getMinPaymentAmount() > paymentAmount){
+                    membership = membershipType;
+                }
+            }catch (NullPointerException e){
+                //Set General(lowers Membership) is not Set yet
+                //Set Membership as null
+                membership = null;
+            }
+
+        }
+        return membership;
+    }
+
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
 

@@ -1,12 +1,11 @@
-package com.smartstore.function.customer.add;
+package com.smartstore.function.customer.update;
 
 import com.smartstore.function.Back;
 import com.smartstore.function.Function;
 import com.smartstore.function.Handleable;
-import com.smartstore.function.customer.update.SetName;
 import com.smartstore.function.membership.update.SetMinPaymentAmount;
 
-public enum AddCustomerFunction implements Function {
+public enum UpdateCustomerFunction implements Function {
 
     NAME(1, SetName.getInstance(), "Set Name"),
     ID(2, SetMinPaymentAmount.getInstance(), "Set ID"),
@@ -18,7 +17,7 @@ public enum AddCustomerFunction implements Function {
     private final int menuNumber;
     private final Handleable handler;
     private final String message;
-    AddCustomerFunction(int menuNumber, Handleable handler, String message) {
+    UpdateCustomerFunction(int menuNumber, Handleable handler, String message) {
         this.menuNumber = menuNumber;
         this.handler = handler;
         this.message = message;

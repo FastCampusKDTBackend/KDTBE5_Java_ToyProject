@@ -39,9 +39,9 @@ public class UpdateMembershipRequirement implements MembershipMenuHandler, Selec
             System.out.printf("Min Payment Amount: %d\n\n", requirement.getMinPaymentAmount());
             selected = membershipType;
             while (!isExit){
-                menuPrintable.printMenu(getEnumValues(UpdateMembershipRequirementFunction.class));
+                menuPrintable.printMenu(enumValuesToStringArray(UpdateMembershipRequirementFunction.class));
                 //get menu number from user until valid menu number
-                isExit = handleChoice(getMenuNumber(getEnumValues(UpdateMembershipRequirementFunction.class)));
+                isExit = handleChoice(getMenuNumber(enumValuesToStringArray(UpdateMembershipRequirementFunction.class)));
             }
         }
     }
@@ -66,11 +66,10 @@ public class UpdateMembershipRequirement implements MembershipMenuHandler, Selec
             }
         };
         while (!isExit){
-            selectSpecificPrintable.printMenu(getEnumValues(MembershipType.class));
+            selectSpecificPrintable.printMenu(enumValuesToStringArray(MembershipType.class));
             //get menu number from user until valid menu number
-            isExit = MembershipMenuHandler.super.handleChoice(getParameter(getEnumValues(MembershipType.class)));
+            isExit = MembershipMenuHandler.super.handleChoice(getParameter(enumValuesToStringArray(MembershipType.class)));
         }
     }
-
 
 }

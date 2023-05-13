@@ -1,7 +1,7 @@
 package com.smartstore.function.mainmenu;
 
 import com.smartstore.function.Back;
-import com.smartstore.function.MenuHandler;
+import com.smartstore.function.Handler;
 import com.smartstore.function.Function;
 
 public enum MainMenuFunction implements Function {
@@ -12,9 +12,9 @@ public enum MainMenuFunction implements Function {
     QUIT(4, Back.getInstance());
 
     private final int menuNumber;
-    private final MenuHandler mainMenuHandler;
+    private final Handler mainMenuHandler;
 
-    MainMenuFunction(int menuNumber, MenuHandler mainMenuHandler) {
+    MainMenuFunction(int menuNumber, Handler mainMenuHandler) {
         this.menuNumber = menuNumber;
         this.mainMenuHandler = mainMenuHandler;
     }
@@ -25,7 +25,7 @@ public enum MainMenuFunction implements Function {
     }
 
     @Override
-    public MenuHandler getMenuController() {
+    public Handler getMenuHandler() {
         return mainMenuHandler;
     }
 

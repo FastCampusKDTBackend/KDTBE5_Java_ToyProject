@@ -24,8 +24,8 @@ public class GroupMenu extends Menu implements DataCRUD {
     public void run() {
         int groupMenu = 0;
         while (groupMenu != 4) {
-            groupMenu = readNumber(4);
             printGroupInitMenu();
+            groupMenu = readNumber(4);
             if (groupMenu == 1) {
                 addData();
             } else if (groupMenu == 2) {
@@ -97,6 +97,9 @@ public class GroupMenu extends Menu implements DataCRUD {
 
     private Parameter findParameter(GroupType groupType) {
         MyArrayList<Group> groupList = groups.getGroups();
+        if (groupList.isEmpty()) {
+            throw new NullPointerException("등록된 등급 기준이 존재하지 않습니다");
+        }
         for (Group group : groupList) {
             if (group.getCustomerGroup() == groupType) {
                 return group.getParameter();

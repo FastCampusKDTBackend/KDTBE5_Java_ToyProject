@@ -3,7 +3,7 @@ package me.smartstore.group;
 import me.smartstore.collections.MyArrayList;
 
 public class Groups {
-    private MyArrayList<Group> groups;
+    private MyArrayList<Group> groups = new MyArrayList<>();
     private static Groups instance;
 
     private Groups() {

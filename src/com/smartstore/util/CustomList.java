@@ -94,7 +94,9 @@ public class CustomList<T> implements List<T> {
             if (index < 0){
                 return false;
             }
-            remove(index);
+            if(remove(index)){
+                return true;
+            };
         }
         throw new IllegalArgumentException("Null Can't be found");
     }

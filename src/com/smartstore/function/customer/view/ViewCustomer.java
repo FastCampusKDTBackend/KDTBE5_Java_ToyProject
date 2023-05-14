@@ -1,10 +1,12 @@
 package com.smartstore.function.customer.view;
 
-import com.smartstore.function.*;
 import com.smartstore.function.customer.CustomerMenuHandler;
-import com.smartstore.function.membership.update.UpdateMembershipRequirementFunction;
+import com.smartstore.util.Function;
+import com.smartstore.util.Handleable;
+import com.smartstore.util.Printer;
+import com.smartstore.util.Validator;
 
-public class ViewCustomer implements CustomerMenuHandler, MenuValidator, Handleable {
+public class ViewCustomer implements CustomerMenuHandler, Handleable {
 
     private static ViewCustomer instance;
 
@@ -23,9 +25,9 @@ public class ViewCustomer implements CustomerMenuHandler, MenuValidator, Handlea
         boolean isExit = false;
 
         while (!isExit){
-            printMenu(getMenuListFromEnum(ViewCustomerFunction.class));
+            Printer.printMenu(getMenuListFromEnum(ViewCustomerFunction.class));
             //get menu number from user until valid menu number
-            isExit = handleChoice(getMenuNumber(getMenuListFromEnum(ViewCustomerFunction.class)));
+            isExit = handleChoice(Validator.getMenuNumber(getMenuListFromEnum(ViewCustomerFunction.class)));
         }
     }
 

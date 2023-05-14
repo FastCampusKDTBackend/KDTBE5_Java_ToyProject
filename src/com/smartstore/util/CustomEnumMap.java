@@ -8,7 +8,7 @@ public class CustomEnumMap<K extends Enum<K>, V> implements Map<K, V>{
     //keyType must be Enum
     private final Class<K> keyType;
 
-    private Object[] values;
+    private final Object[] values;
 
     private int size = 0;
 

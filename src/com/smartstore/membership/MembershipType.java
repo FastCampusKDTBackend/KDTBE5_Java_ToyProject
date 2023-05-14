@@ -1,7 +1,7 @@
 
 package com.smartstore.membership;
 
-import com.smartstore.function.MenuProvider;
+import com.smartstore.util.MenuProvider;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -11,8 +11,8 @@ public enum MembershipType implements MenuProvider {
     VIP(new String[] {"V", "VIP", "우수"}, "VIP"),
     VVIP(new String[] {"VV", "VVIP", "최우수"}, "VVIP");
 
-    private String[] membershipNames;
-    private String menuText;
+    private final String[] membershipNames;
+    private final String menuText;
     MembershipType(String[] membershipNames, String menuText) {
         this.membershipNames = membershipNames;
         this.menuText = menuText;

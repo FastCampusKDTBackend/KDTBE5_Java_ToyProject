@@ -1,8 +1,7 @@
 package com.smartstore.function.customer.update;
 
 import com.smartstore.customer.Customer;
-import com.smartstore.customer.Customers;
-import com.smartstore.util.CustomList;
+import com.smartstore.util.Validator;
 
 public class SetName implements UpdateCustomerHandler {
     private static SetName instance;
@@ -22,7 +21,7 @@ public class SetName implements UpdateCustomerHandler {
     public <T> void run(T value) {
         String name = "";
         Customer customer = (Customer) value;
-        name = getValueOrEnd("Input New Name\n Wait for input... 'end' to exit", String.class);
+        name = Validator.getValueOrEnd("Input New Name\n Wait for input... 'end' to exit", String.class);
         if(name.isBlank() || "end".equals(name)){
             System.out.println("Change not saved");
             return;

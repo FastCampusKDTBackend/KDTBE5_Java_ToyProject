@@ -2,22 +2,23 @@ package com.smartstore.function.customer;
 
 import com.smartstore.customer.Customer;
 import com.smartstore.customer.Customers;
-import com.smartstore.function.*;
 import com.smartstore.function.customer.update.UpdateCustomerFunction;
 import com.smartstore.function.mainmenu.MainMenuFunction;
-import com.smartstore.membership.MembershipRequirement;
 import com.smartstore.membership.MembershipType;
-import com.smartstore.membership.Memberships;
+import com.smartstore.util.EnumValueProvider;
+import com.smartstore.util.Handler;
+import com.smartstore.util.Printer;
+import com.smartstore.util.Validator;
 
-public interface CustomerMenuHandler extends EnumValueProvider, MenuPrintable, MenuValidator, Handler {
+public interface CustomerMenuHandler extends EnumValueProvider, Handler {
 
     default void run() {
         boolean isExit = false;
         while (!isExit){
             //get values from enum by string array
-            printMenu(getMenuListFromEnum(MembershipType.class));
+            Printer.printMenu(getMenuListFromEnum(MembershipType.class));
 
-            isExit = handleChoice(getMenuNumber(new String[]{}));
+            isExit = handleChoice(Validator.getMenuNumber(new String[]{}));
         }
     }
 
@@ -34,9 +35,9 @@ public interface CustomerMenuHandler extends EnumValueProvider, MenuPrintable, M
             }
             System.out.printf("Current Customer Info\n%s", selected);
             while (!isExit){
-                printMenu(getMenuListFromEnum(UpdateCustomerFunction.class));
+                Printer.printMenu(getMenuListFromEnum(UpdateCustomerFunction.class));
                 //get menu number from user until valid menu number
-                isExit = handleChoice(getMenuNumber(getMenuListFromEnum(UpdateCustomerFunction.class)));
+                isExit = handleChoice(Validator.getMenuNumber(getMenuListFromEnum(UpdateCustomerFunction.class)));
             }
         }
         return true;
@@ -45,5 +46,5 @@ public interface CustomerMenuHandler extends EnumValueProvider, MenuPrintable, M
     @Override
     default int getCurrentMenuNumber(){
         return MainMenuFunction.CUSTOMER_MANAGEMENT.getMenuNumber();
-    };
+    }
 }

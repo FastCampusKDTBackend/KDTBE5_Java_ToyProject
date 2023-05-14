@@ -1,6 +1,6 @@
 package com.smartstore;
 
-import com.smartstore.function.Function;
+import com.smartstore.util.Function;
 import com.smartstore.function.mainmenu.MainMenuFunction;
 
 public class SmartStore {

@@ -1,7 +1,6 @@
 package com.smartstore.function.membership.update;
 
-import com.smartstore.function.HandleableParam;
-import com.smartstore.function.IntegerValidator;
+import com.smartstore.util.HandleableParam;
 import com.smartstore.function.membership.MembershipMenuHandler;
 import com.smartstore.membership.MembershipRequirement;
 import com.smartstore.membership.MembershipType;

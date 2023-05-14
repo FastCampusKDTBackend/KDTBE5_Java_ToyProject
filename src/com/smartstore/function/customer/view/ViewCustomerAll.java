@@ -2,7 +2,7 @@ package com.smartstore.function.customer.view;
 
 import com.smartstore.customer.Customer;
 import com.smartstore.customer.Customers;
-import com.smartstore.function.*;
+import com.smartstore.util.Handleable;
 import com.smartstore.util.List;
 
 public class ViewCustomerAll implements Handleable {
@@ -30,7 +30,7 @@ public class ViewCustomerAll implements Handleable {
         }
         System.out.println("List of Customers");
         System.out.println("======================================");
-        System.out.println(customerList.toString());
+        System.out.println(customerList);
         System.out.println("======================================");
     }
 }

@@ -1,4 +1,4 @@
-package com.smartstore.function;
+package com.smartstore.util;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

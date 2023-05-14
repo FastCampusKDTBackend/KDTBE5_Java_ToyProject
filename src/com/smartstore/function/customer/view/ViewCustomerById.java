@@ -2,9 +2,10 @@ package com.smartstore.function.customer.view;
 
 import com.smartstore.customer.Customer;
 import com.smartstore.customer.Customers;
-import com.smartstore.function.*;
+import com.smartstore.util.Handleable;
+import com.smartstore.util.Validator;
 
-public class ViewCustomerById implements ValueWithEndValidator, Handleable {
+public class ViewCustomerById implements Handleable {
 
     private static ViewCustomerById instance;
 
@@ -23,7 +24,7 @@ public class ViewCustomerById implements ValueWithEndValidator, Handleable {
     public void run() {
         Customers customers = Customers.getInstance();
         Customer customer = null;
-        String value = getValueOrEnd("Type User Id to Find | 'end' to cancel : ", String.class);
+        String value = Validator.getValueOrEnd("Type User Id to Find | 'end' to cancel : ", String.class);
         String msg="";
 
         if(!"end".equalsIgnoreCase(value)){

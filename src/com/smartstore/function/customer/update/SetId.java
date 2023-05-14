@@ -1,11 +1,8 @@
 package com.smartstore.function.customer.update;
 
 import com.smartstore.customer.Customer;
-import com.smartstore.customer.Customers;
-import com.smartstore.function.HandleableParam;
-import com.smartstore.function.IdDuplicateChecker;
-import com.smartstore.function.ValueWithEndValidator;
-import com.smartstore.util.CustomList;
+import com.smartstore.util.DuplicateChecker;
+import com.smartstore.util.Validator;
 
 public class SetId implements UpdateCustomerHandler {
     private static SetId instance;
@@ -26,12 +23,12 @@ public class SetId implements UpdateCustomerHandler {
     public <T> void run(T value) {
         String id;
         while (true){
-            id = getValueOrEnd("Input New Id\n Wait for input... 'end' to exit", String.class);
+            id = Validator.getValueOrEnd("Input New Id\n Wait for input... 'end' to exit", String.class);
             if(id.isBlank() || "end".equals(id)){
                 System.out.println("Change not saved");
                 break;
             }
-            if(!isIdDuplicated(id)){
+            if(!DuplicateChecker.isIdDuplicated(id)){
                 System.out.println("Change Successfully Saved");
                 ((Customer) value).setCustomerId(id);
                 break;

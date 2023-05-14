@@ -1,22 +1,25 @@
 package com.smartstore.function.membership;
 
-import com.smartstore.function.*;
 import com.smartstore.function.mainmenu.MainMenuFunction;
 import com.smartstore.membership.MembershipRequirement;
 import com.smartstore.membership.MembershipType;
 import com.smartstore.membership.Memberships;
+import com.smartstore.util.EnumValueProvider;
+import com.smartstore.util.Handler;
+import com.smartstore.util.Printer;
+import com.smartstore.util.Validator;
 
 import java.util.NoSuchElementException;
 
-public interface MembershipMenuHandler extends SelectablePrintable, EnumValueProvider, Handler, ParameterValidator, MenuValidator {
+public interface MembershipMenuHandler extends EnumValueProvider, Handler {
 
     default void run() {
         boolean isExit = false;
         while (!isExit){
             //get values from enum by string array
-            printSelectable(getMenuListFromEnum(MembershipType.class));
+            Printer.printSelectable(getMenuListFromEnum(MembershipType.class));
 
-            isExit = handleChoice(getParameter(getMenuListFromEnum(MembershipType.class)));
+            isExit = handleChoice(Validator.getParameter(getMenuListFromEnum(MembershipType.class)));
         }
     }
 

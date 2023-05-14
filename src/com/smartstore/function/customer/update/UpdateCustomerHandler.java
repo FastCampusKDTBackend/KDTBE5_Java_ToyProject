@@ -1,7 +1,7 @@
 package com.smartstore.function.customer.update;
 
-import com.smartstore.function.*;
+import com.smartstore.util.HandleableParam;
 
-public interface UpdateCustomerHandler extends HandleableParam, ValueWithEndValidator, IdDuplicateChecker {
+public interface UpdateCustomerHandler extends HandleableParam {
 
 }

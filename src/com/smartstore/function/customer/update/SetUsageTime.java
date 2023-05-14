@@ -1,6 +1,7 @@
 package com.smartstore.function.customer.update;
 
 import com.smartstore.customer.Customer;
+import com.smartstore.util.Validator;
 
 public class SetUsageTime implements UpdateCustomerHandler {
     private static SetUsageTime instance;
@@ -19,7 +20,7 @@ public class SetUsageTime implements UpdateCustomerHandler {
     @Override
     public <T> void run(T value) {
         String usageTime;
-        usageTime = getValueOrEnd("Input New UsageTime\n Wait for input... 'end' to exit", Integer.class);
+        usageTime = Validator.getValueOrEnd("Input New UsageTime\n Wait for input... 'end' to exit", Integer.class);
         if(usageTime.isBlank() || "end".equals(usageTime)){
             System.out.println("Change not saved");
             return;

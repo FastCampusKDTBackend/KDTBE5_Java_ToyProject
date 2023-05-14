@@ -1,8 +1,8 @@
 package com.smartstore.function.customer.view;
 
 import com.smartstore.function.Back;
-import com.smartstore.function.Function;
-import com.smartstore.function.Handleable;
+import com.smartstore.util.Function;
+import com.smartstore.util.Handleable;
 
 public enum ViewCustomerFunction implements Function {
 

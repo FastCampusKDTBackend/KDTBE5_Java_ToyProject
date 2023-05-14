@@ -1,6 +1,7 @@
 package com.smartstore.function.customer.update;
 
 import com.smartstore.customer.Customer;
+import com.smartstore.util.Validator;
 
 public class SetPaymentAmount implements UpdateCustomerHandler {
     private static SetPaymentAmount instance;
@@ -19,7 +20,7 @@ public class SetPaymentAmount implements UpdateCustomerHandler {
     @Override
     public <T> void run(T value) {
         String paymentAmount;
-        paymentAmount = getValueOrEnd("Input New PaymentAmount\n Wait for input... 'end' to exit", Integer.class);
+        paymentAmount = Validator.getValueOrEnd("Input New PaymentAmount\n Wait for input... 'end' to exit", Integer.class);
         if(paymentAmount.isBlank() || "end".equals(paymentAmount)){
             System.out.println("Change not saved");
             return;

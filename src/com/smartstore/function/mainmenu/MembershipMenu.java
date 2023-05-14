@@ -1,7 +1,9 @@
 package com.smartstore.function.mainmenu;
 
 import com.smartstore.function.membership.MembershipFunction;
-import com.smartstore.function.Function;
+import com.smartstore.util.Function;
+import com.smartstore.util.Printer;
+import com.smartstore.util.Validator;
 
 public class MembershipMenu implements MainMenuHandler {
     private static MembershipMenu instance;
@@ -19,9 +21,9 @@ public class MembershipMenu implements MainMenuHandler {
     public void run() {
         boolean isExit = false;
         while (!isExit){
-            printMenu(getMenuListFromEnum(MembershipFunction.class));
+            Printer.printMenu(getMenuListFromEnum(MembershipFunction.class));
             //get menu number from user until valid menu number
-            isExit = handleChoice(getMenuNumber(getMenuListFromEnum(MembershipFunction.class)));
+            isExit = handleChoice(Validator.getMenuNumber(getMenuListFromEnum(MembershipFunction.class)));
         }
     }
 

@@ -1,9 +1,8 @@
 package com.smartstore.function.membership;
 
 import com.smartstore.function.Back;
-import com.smartstore.function.Function;
-import com.smartstore.function.Handleable;
-import com.smartstore.function.Handler;
+import com.smartstore.util.Function;
+import com.smartstore.util.Handleable;
 import com.smartstore.function.membership.set.SetMembershipRequirement;
 import com.smartstore.function.membership.update.UpdateMembershipRequirement;
 import com.smartstore.function.membership.view.ViewMembershipRequirement;
@@ -17,7 +16,7 @@ public enum MembershipFunction implements Function {
 
     private final int menuNumber;
     private final Handleable handler;
-    private String menuText;
+    private final String menuText;
     MembershipFunction(int menuNumber, Handleable handler, String menuText) {
         this.menuNumber = menuNumber;
         this.handler = handler;

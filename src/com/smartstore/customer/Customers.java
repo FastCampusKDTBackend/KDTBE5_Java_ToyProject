@@ -3,9 +3,7 @@ package com.smartstore.customer;
 import com.smartstore.util.CustomList;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 public class Customers {
     private static Customers instance;
@@ -20,7 +18,7 @@ public class Customers {
         }
         return instance;
     }
-    private CustomList<Customer> customerList = new CustomList();
+    private final CustomList<Customer> customerList = new CustomList();
 
     public CustomList<Customer> getCustomerList() {
         return customerList;

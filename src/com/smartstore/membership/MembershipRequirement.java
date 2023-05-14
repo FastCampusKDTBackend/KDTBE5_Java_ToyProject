@@ -1,8 +1,8 @@
 package com.smartstore.membership;
 
 public class MembershipRequirement {
-    private int minUsageTime;
-    private int minPaymentAmount;
+    private final int minUsageTime;
+    private final int minPaymentAmount;
 
     public MembershipRequirement(int minUsageTime, int minPaymentAmount) {
         this.minUsageTime = minUsageTime;

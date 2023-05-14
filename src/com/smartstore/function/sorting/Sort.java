@@ -1,4 +1,4 @@
-package com.smartstore.function.customer.update;
+package com.smartstore.function.sorting;
 
 import com.smartstore.customer.Customer;
 import com.smartstore.customer.Customers;
@@ -8,30 +8,30 @@ import com.smartstore.util.Printer;
 import com.smartstore.util.Validator;
 
 
-public class UpdateCustomer implements CustomerMenuHandler {
+public class Sort implements CustomerMenuHandler {
 
-    private static UpdateCustomer instance;
+    private static Sort instance;
 
-    private UpdateCustomer(){
+    private Sort(){
 
     }
 
     private Customer selected;
 
-    public static UpdateCustomer getInstance() {
+    public static Sort getInstance() {
         if(instance == null){
-            return new UpdateCustomer();
+            return new Sort();
         }
         return instance;
     }
 
     @Override
     public boolean handleChoice(String menuNumber) {
-        if(Integer.parseInt(menuNumber) == UpdateCustomerFunction.BACK.getMenuNumber()) {
+        if(Integer.parseInt(menuNumber) == SortFunction.BACK.getMenuNumber()) {
             return true;
         }
         //call Menu with menuNumber
-        Function.of(Integer.parseInt(menuNumber), UpdateCustomerFunction.class).run(selected);
+        Function.of(Integer.parseInt(menuNumber), SortFunction.class).run(selected);
         return false;
     }
 
@@ -52,8 +52,8 @@ public class UpdateCustomer implements CustomerMenuHandler {
         System.out.println(selected.toString());
         System.out.println();
         while (!isExit){
-            Printer.printMenu(getMenuListFromEnum(UpdateCustomerFunction.class));
-            isExit = handleChoice(Validator.getMenuNumber(getMenuListFromEnum(UpdateCustomerFunction.class)));
+            Printer.printMenu(getMenuListFromEnum(SortFunction.class));
+            isExit = handleChoice(Validator.getMenuNumber(getMenuListFromEnum(SortFunction.class)));
         }
 
     }

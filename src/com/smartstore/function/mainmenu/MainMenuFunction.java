@@ -1,6 +1,8 @@
 package com.smartstore.function.mainmenu;
 
 import com.smartstore.function.*;
+import com.smartstore.util.Function;
+import com.smartstore.util.Handleable;
 
 public enum MainMenuFunction implements Function<Handleable> {
     SPLASH_SCREEN(0, MainMenu.getInstance(), "SPLASH_SCREEN"),
@@ -12,7 +14,7 @@ public enum MainMenuFunction implements Function<Handleable> {
     private final int menuNumber;
     private final Handleable handler;
 
-    private String menuText;
+    private final String menuText;
 
     MainMenuFunction(int menuNumber, Handleable handler, String menuText) {
         this.menuNumber = menuNumber;

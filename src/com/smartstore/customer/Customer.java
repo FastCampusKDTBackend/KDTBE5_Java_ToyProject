@@ -4,9 +4,6 @@ import com.smartstore.membership.MembershipRequirement;
 import com.smartstore.membership.MembershipType;
 import com.smartstore.membership.Memberships;
 import com.smartstore.util.CustomEnumMap;
-import com.smartstore.util.Map;
-
-import java.util.Arrays;
 
 public class Customer {
     private String customerId;

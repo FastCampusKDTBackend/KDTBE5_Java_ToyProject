@@ -74,7 +74,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         ideal size is expected entries * 0.75
         key Not allowed null, value allowed null
      */
-    private Node<K, V>[] entries;
+    private final Node<K, V>[] entries;
 
     //The default initial capacity - MUST be a power of two.
     //use bitwise to code readability

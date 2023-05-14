@@ -1,9 +1,8 @@
 package com.smartstore.function.membership.update;
 
 import com.smartstore.function.Back;
-import com.smartstore.function.Function;
-import com.smartstore.function.HandleableParam;
-import com.smartstore.function.Handler;
+import com.smartstore.util.Function;
+import com.smartstore.util.HandleableParam;
 
 public enum UpdateMembershipRequirementFunction implements Function {
 
@@ -13,7 +12,7 @@ public enum UpdateMembershipRequirementFunction implements Function {
 
     private final int menuNumber;
     private final HandleableParam handler;
-    private String menuText;
+    private final String menuText;
     UpdateMembershipRequirementFunction(int menuNumber, HandleableParam handler, String menuText) {
         this.menuNumber = menuNumber;
         this.handler = handler;

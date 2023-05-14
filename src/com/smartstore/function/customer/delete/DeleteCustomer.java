@@ -2,14 +2,10 @@ package com.smartstore.function.customer.delete;
 
 import com.smartstore.customer.Customer;
 import com.smartstore.customer.Customers;
-import com.smartstore.function.AnswerValidator;
-import com.smartstore.function.Function;
-import com.smartstore.function.ValueWithEndValidator;
-import com.smartstore.function.customer.CustomerFunction;
+import com.smartstore.util.Validator;
 import com.smartstore.function.customer.CustomerMenuHandler;
-import com.smartstore.function.customer.update.UpdateCustomerFunction;
 
-public class DeleteCustomer implements CustomerMenuHandler, ValueWithEndValidator, AnswerValidator {
+public class DeleteCustomer implements CustomerMenuHandler {
     private static DeleteCustomer instance;
 
     private Customer selected;
@@ -28,7 +24,7 @@ public class DeleteCustomer implements CustomerMenuHandler, ValueWithEndValidato
     public void run(){
         String id;
         boolean isExit = false;
-        id = getValueOrEnd("Type User Id to Delete : ", String.class);
+        id = Validator.getValueOrEnd("Type User Id to Delete : ", String.class);
         if("end".equalsIgnoreCase(id)){
             return;
         }
@@ -39,7 +35,7 @@ public class DeleteCustomer implements CustomerMenuHandler, ValueWithEndValidato
         }
         System.out.println("Selected Customer's Info");
         System.out.println(selected.toString());
-        if(isAnswerYes("Did you Really Want to Delete This User? | y or n")){
+        if(Validator.isAnswerYes("Did you Really Want to Delete This User? | y or n")){
             Customers.getInstance().getCustomerList().remove(selected);
             System.out.printf("User %s Successfully Deleted\n", id);
         }

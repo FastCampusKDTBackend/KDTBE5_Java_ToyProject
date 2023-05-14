@@ -1,10 +1,6 @@
 package com.smartstore.function.mainmenu;
 
-import com.smartstore.function.EnumValueProvider;
-import com.smartstore.function.Function;
-import com.smartstore.function.MenuPrintable;
-
-import java.util.Arrays;
+import com.smartstore.util.Function;
 
 public class MainMenu implements MainMenuHandler {
     private static MainMenu instance;

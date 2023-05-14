@@ -1,7 +1,7 @@
 package com.smartstore.function.customer;
 
-import com.smartstore.function.Function;
-import com.smartstore.function.Handleable;
+import com.smartstore.util.Function;
+import com.smartstore.util.Handleable;
 import com.smartstore.function.Back;
 import com.smartstore.function.customer.add.AddCustomer;
 import com.smartstore.function.customer.delete.DeleteCustomer;
@@ -18,7 +18,7 @@ public enum CustomerFunction implements Function<Handleable> {
     private final int menuNumber;
     private final Handleable handler;
 
-    private String menuText;
+    private final String menuText;
     CustomerFunction(int menuNumber, Handleable handler, String menuText) {
         this.menuNumber = menuNumber;
         this.handler = handler;

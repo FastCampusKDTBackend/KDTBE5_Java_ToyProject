@@ -1,10 +1,8 @@
 package com.smartstore.function.customer.update;
 
 import com.smartstore.function.Back;
-import com.smartstore.function.Function;
-import com.smartstore.function.Handleable;
-import com.smartstore.function.HandleableParam;
-import com.smartstore.function.membership.update.SetMinPaymentAmount;
+import com.smartstore.util.Function;
+import com.smartstore.util.HandleableParam;
 
 public enum UpdateCustomerFunction implements Function {
 

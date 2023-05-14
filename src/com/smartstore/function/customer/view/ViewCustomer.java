@@ -38,5 +38,7 @@ public class ViewCustomer implements CustomerMenuHandler, MenuValidator, Handlea
         }
         //call Menu with menuNumber
         Function.of(Integer.parseInt(menuNumber), ViewCustomerFunction.class).run();
-        return true;    }
+        return true;
+    }
+
 }

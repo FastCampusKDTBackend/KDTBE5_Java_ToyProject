@@ -51,8 +51,8 @@ public class UpdateMembershipRequirement implements MembershipMenuHandler, Selec
         if(Integer.parseInt(menuNumber) == UpdateMembershipRequirementFunction.BACK.getMenuNumber()) {
             return true;
         }
-        //call Menu with menuNumber
-        Function.of(Integer.parseInt(menuNumber), UpdateMembershipRequirementFunction.class).run(selected.ordinal());
+        //call Menu with MembershipType
+        Function.of(Integer.parseInt(menuNumber), UpdateMembershipRequirementFunction.class).run(selected);
         return true;
     }
 

@@ -31,16 +31,9 @@ public class SetMinUsage implements MembershipMenuHandler, HandleableParam {
     }
 
     @Override
-    public void run(int ordinal) {
-        MembershipType membershipType = null;
-        for(MembershipType membership :MembershipType.values()){
-            if(membership.ordinal() == ordinal){
-                membershipType = membership;
-                break;
-            }
-        }
-        if(membershipType.name() != null){
-            processMembership(membershipType, Memberships.getInstance().findByType(membershipType));
+    public <T> void run(T value) {
+        if(value.getClass().getName() != null){
+            processMembership((MembershipType) value, Memberships.getInstance().findByType((MembershipType) value));
         }
     }
 }

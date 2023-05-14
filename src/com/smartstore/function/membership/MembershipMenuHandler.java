@@ -1,7 +1,7 @@
 package com.smartstore.function.membership;
 
 import com.smartstore.function.*;
-import com.smartstore.function.mainmenu.Screen;
+import com.smartstore.function.mainmenu.MainMenuFunction;
 import com.smartstore.membership.MembershipRequirement;
 import com.smartstore.membership.MembershipType;
 import com.smartstore.membership.Memberships;
@@ -49,7 +49,7 @@ public interface MembershipMenuHandler extends SelectablePrintable, EnumValuePro
 
     @Override
     default int getCurrentMenuNumber(){
-        return Screen.MEMBERSHIP.getMenuNumber();
+        return MainMenuFunction.MEMBERSHIP_MANAGEMENT.getMenuNumber();
     }
 
     void processMembership(MembershipType membershipType, MembershipRequirement requirement);

@@ -20,7 +20,7 @@ public class Back implements Handleable, HandleableParam {
     }
 
     @Override
-    public void run(int menu) {
+    public <T> void run(T value) {
 
     }
 

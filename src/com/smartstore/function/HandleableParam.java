@@ -1,5 +1,5 @@
 package com.smartstore.function;
 
 public interface HandleableParam {
-    void run(int menu);
+    <T> void run(T value);
 }

@@ -16,12 +16,12 @@ public interface MainMenuHandler extends MenuPrintable, EnumValueProvider, Handl
     }
 
     @Override
-    default void run(int menuNumber) {
+    default <T> void run(T value) {
         boolean isExit = false;
         while (!isExit){
             printMenu(getMenuListFromEnum(MainMenuFunction.class, MainMenuFunction.MEMBERSHIP_MANAGEMENT.getMenuNumber(), MainMenuFunction.QUIT.getMenuNumber()));
             //get menu number from user until valid menu number
-            isExit = handleChoice(String.valueOf(menuNumber));
+            isExit = handleChoice(String.valueOf(value));
         }
     }
 

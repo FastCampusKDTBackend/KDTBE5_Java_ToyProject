@@ -1,5 +1,6 @@
 package com.smartstore.function.membership.update;
 
+import com.smartstore.function.Handleable;
 import com.smartstore.function.HandleableParam;
 import com.smartstore.function.membership.MembershipMenuHandler;
 import com.smartstore.membership.MembershipRequirement;
@@ -30,16 +31,9 @@ public class SetMinPaymentAmount implements MembershipMenuHandler, HandleablePar
     }
 
     @Override
-    public void run(int ordinal) {
-        MembershipType membershipType = null;
-        for(MembershipType membership :MembershipType.values()){
-            if(membership.ordinal() == ordinal){
-                membershipType = membership;
-                break;
-            }
-        }
-        if(membershipType.name() != null){
-            processMembership(membershipType, Memberships.getInstance().findByType(membershipType));
+    public <T> void run(T value) {
+        if(value.getClass().getName() != null){
+            processMembership((MembershipType) value, Memberships.getInstance().findByType((MembershipType) value));
         }
     }
 

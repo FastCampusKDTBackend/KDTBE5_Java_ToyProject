@@ -35,7 +35,7 @@ public enum MainMenuFunction implements Function<Handleable> {
     }
 
     @Override
-    public void run(int menuNumber) {
+    public <T> void run(T value) {
         getMenuHandler().run();
     }
 }

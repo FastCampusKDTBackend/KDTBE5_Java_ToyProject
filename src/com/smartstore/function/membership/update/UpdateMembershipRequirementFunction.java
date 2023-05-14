@@ -30,10 +30,6 @@ public enum UpdateMembershipRequirementFunction implements Function {
         return this.menuNumber;
     }
 
-    public void run(int ordinal){
-        getMenuHandler().run(ordinal);
-    }
-
     @Override
     public HandleableParam getMenuHandler() {
         return this.handler;

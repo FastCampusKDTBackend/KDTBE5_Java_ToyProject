@@ -47,6 +47,38 @@ public class Customer {
         return customerId;
     }
 
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public int getUsageTime() {
+        return usageTime;
+    }
+
+    public int getPaymentAmount() {
+        return paymentAmount;
+    }
+
+    public MembershipType getMembership() {
+        return membership;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public void setUsageTime(int usageTime) {
+        this.usageTime = usageTime;
+    }
+
+    public void setPaymentAmount(int paymentAmount) {
+        this.paymentAmount = paymentAmount;
+    }
+
     @Override
     public String toString() {
         return "customerId='" + customerId + '\'' +

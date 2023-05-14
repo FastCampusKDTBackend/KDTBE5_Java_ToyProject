@@ -1,7 +1,5 @@
 package com.smartstore.function;
 
-import com.smartstore.function.mainmenu.MainMenuFunction;
-
 import java.util.Arrays;
 
 public interface EnumValueProvider<T extends Enum<T> & MenuProvider> {

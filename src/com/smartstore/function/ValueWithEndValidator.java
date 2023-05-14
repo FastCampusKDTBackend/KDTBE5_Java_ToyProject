@@ -5,7 +5,6 @@ import java.io.IOException;
 public interface ValueWithEndValidator extends Readable{
 
     default <T> String getValueOrEnd(String msg, Class<T> type){
-        System.out.println(Number.class.isAssignableFrom(type));
         String value;
         while (true){
             try {

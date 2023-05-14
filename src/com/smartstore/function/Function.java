@@ -24,7 +24,7 @@ public interface Function<T> extends MenuProvider, Handleable, HandleableParam {
     }
 
     @Override
-    default void run(int menuNumber) {
-        ((HandleableParam) getMenuHandler()).run(menuNumber);
+    default <T> void run(T value) {
+        ((HandleableParam) getMenuHandler()).run(value);
     }
 }

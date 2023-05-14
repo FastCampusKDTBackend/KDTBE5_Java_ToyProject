@@ -36,6 +36,16 @@ public class Customers {
         return customerOptional.orElse(null);
     }
 
+    public void updateMembership(){
+        if(customerList.size() == 0){
+            return;
+        }
+        Customer[] customerArray = customerList.toArray(new Customer[customerList.size()]);
+        for(Customer customer : customerArray){
+            customer.setMembership(customer.getUsageTime(), customer.getPaymentAmount());
+        }
+    }
+
     public int getIndexOfCustomer(Customer customer){
         if(customerList.size() == 0){
             return -1;

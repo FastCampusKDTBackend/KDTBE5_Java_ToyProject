@@ -25,6 +25,8 @@ public class SetPaymentAmount implements UpdateCustomerHandler {
             return;
         }
         ((Customer) value).setPaymentAmount(Integer.parseInt(paymentAmount));
+        //update membership
+        ((Customer) value).updateMembership();
         System.out.println("Change Successfully Saved");
     }
 }

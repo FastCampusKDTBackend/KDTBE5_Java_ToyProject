@@ -3,7 +3,10 @@ package com.smartstore.customer;
 import com.smartstore.membership.MembershipRequirement;
 import com.smartstore.membership.MembershipType;
 import com.smartstore.membership.Memberships;
+import com.smartstore.util.CustomEnumMap;
 import com.smartstore.util.Map;
+
+import java.util.Arrays;
 
 public class Customer {
     private String customerId;
@@ -21,16 +24,17 @@ public class Customer {
         this.customerName = customerName;
         this.usageTime = usageTime;
         this.paymentAmount = paymentAmount;
-        this.membership = setMembership(usageTime, paymentAmount);
+        setMembership(usageTime, paymentAmount);
     }
 
-    public MembershipType setMembership(int usageTime, int paymentAmount) {
+    public void setMembership(int usageTime, int paymentAmount) {
         Memberships memberships = Memberships.getInstance();
         MembershipType membership = null;
-        Map<MembershipType, MembershipRequirement> membershipList = memberships.getMembershipList();
+        //Map is CustomMap
+        CustomEnumMap<MembershipType, MembershipRequirement> membershipList = memberships.getMembershipList();
         for(MembershipType membershipType :MembershipType.values()){
             try {
-                if(membershipList.get(membershipType).getMinUsageTime() > usageTime && membershipList.get(membershipType).getMinPaymentAmount() > paymentAmount){
+                if(usageTime >= membershipList.get(membershipType).getMinUsageTime() && paymentAmount >= membershipList.get(membershipType).getMinPaymentAmount()){
                     membership = membershipType;
                 }
             }catch (NullPointerException e){
@@ -40,7 +44,11 @@ public class Customer {
             }
 
         }
-        return membership;
+        this.membership = membership;
+    }
+
+    public void updateMembership(){
+        setMembership(usageTime, paymentAmount);
     }
 
     public String getCustomerId() {
@@ -78,7 +86,6 @@ public class Customer {
     public void setPaymentAmount(int paymentAmount) {
         this.paymentAmount = paymentAmount;
     }
-
     @Override
     public String toString() {
         return "customerId='" + customerId + '\'' +

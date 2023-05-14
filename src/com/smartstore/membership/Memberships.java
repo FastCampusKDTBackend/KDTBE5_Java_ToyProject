@@ -1,5 +1,7 @@
 package com.smartstore.membership;
 
+import com.smartstore.customer.Customer;
+import com.smartstore.customer.Customers;
 import com.smartstore.util.CustomEnumMap;
 import com.smartstore.util.Map;
 
@@ -8,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Memberships {
-    private Map<MembershipType, MembershipRequirement> membershipList = new CustomEnumMap<>(MembershipType.class);
+    private CustomEnumMap<MembershipType, MembershipRequirement> membershipList = new CustomEnumMap<>(MembershipType.class);
     private static Memberships instance;
 
     public static Memberships getInstance(){
@@ -22,7 +24,7 @@ public class Memberships {
 
     }
 
-    public Map<MembershipType, MembershipRequirement> getMembershipList() {
+    public CustomEnumMap<MembershipType, MembershipRequirement> getMembershipList() {
         return membershipList;
     }
 
@@ -44,6 +46,8 @@ public class Memberships {
 
     public void setMembershipRequirement(MembershipType membershipType, int minUsage, int minPaymentAmount){
         membershipList.put(membershipType, new MembershipRequirement(minUsage, minPaymentAmount));
+        //update membership
+        Customers.getInstance().updateMembership();
     }
 
     public int setMinUsage(){

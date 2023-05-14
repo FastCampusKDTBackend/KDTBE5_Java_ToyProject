@@ -25,6 +25,8 @@ public class SetUsageTime implements UpdateCustomerHandler {
             return;
         }
         ((Customer) value).setUsageTime(Integer.parseInt(usageTime));
+        //update membership
+        ((Customer) value).updateMembership();
         System.out.println("Change Successfully Saved");
     }
 }

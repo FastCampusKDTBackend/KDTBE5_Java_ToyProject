@@ -2,13 +2,13 @@ package com.smartstore.function.membership.update;
 
 import com.smartstore.function.Function;
 import com.smartstore.function.MenuPrintable;
-import com.smartstore.function.SelectSpecificPrintable;
+import com.smartstore.function.SelectablePrintable;
 import com.smartstore.function.membership.MembershipMenuHandler;
 import com.smartstore.membership.MembershipRequirement;
 import com.smartstore.membership.MembershipType;
 
 
-public class UpdateMembershipRequirement implements MembershipMenuHandler, SelectSpecificPrintable, MenuPrintable {
+public class UpdateMembershipRequirement implements MembershipMenuHandler, SelectablePrintable, MenuPrintable {
     private static UpdateMembershipRequirement instance;
     private MembershipType selected;
 
@@ -39,9 +39,9 @@ public class UpdateMembershipRequirement implements MembershipMenuHandler, Selec
             System.out.printf("Min Payment Amount: %d\n\n", requirement.getMinPaymentAmount());
             selected = membershipType;
             while (!isExit){
-                menuPrintable.printMenu(enumValuesToStringArray(UpdateMembershipRequirementFunction.class));
+                menuPrintable.printMenu(getMenuListFromEnum(UpdateMembershipRequirementFunction.class));
                 //get menu number from user until valid menu number
-                isExit = handleChoice(getMenuNumber(enumValuesToStringArray(UpdateMembershipRequirementFunction.class)));
+                isExit = handleChoice(getMenuNumber(getMenuListFromEnum(UpdateMembershipRequirementFunction.class)));
             }
         }
     }
@@ -59,17 +59,13 @@ public class UpdateMembershipRequirement implements MembershipMenuHandler, Selec
     @Override
     public void run(){
         boolean isExit = false;
-        SelectSpecificPrintable selectSpecificPrintable = new SelectSpecificPrintable() {
-            @Override
-            public void printMenu(String[] menus) {
-                SelectSpecificPrintable.super.printMenu(menus);
-            }
-        };
+
         while (!isExit){
-            selectSpecificPrintable.printMenu(enumValuesToStringArray(MembershipType.class));
+            printSelectable(getMenuListFromEnum(MembershipType.class));
             //get menu number from user until valid menu number
-            isExit = MembershipMenuHandler.super.handleChoice(getParameter(enumValuesToStringArray(MembershipType.class)));
+            isExit = MembershipMenuHandler.super.handleChoice(getParameter(getMenuListFromEnum(MembershipType.class)));
         }
     }
+
 
 }

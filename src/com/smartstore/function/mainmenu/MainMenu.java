@@ -1,6 +1,8 @@
 package com.smartstore.function.mainmenu;
 
+import com.smartstore.function.EnumValueProvider;
 import com.smartstore.function.Function;
+import com.smartstore.function.MenuPrintable;
 
 import java.util.Arrays;
 
@@ -17,8 +19,8 @@ public class MainMenu implements MainMenuHandler {
 
     }
 
-    private void printSlashScreen(){
-        System.out.println(Arrays.toString(Screen.of(-1).getMenus()));
+    private void printSplashScreen(){
+        System.out.println(Function.of(0, MainMenuFunction.class).getMenuText());
     }
 
     @Override
@@ -27,13 +29,13 @@ public class MainMenu implements MainMenuHandler {
             return true;
         }
         //call Menu with menuNumber
-        Function.of(Integer.parseInt(menuNumber), MainMenuFunction.class).run();
+        Function.of(Integer.parseInt(menuNumber), MainMenuFunction.class).run(Integer.parseInt(menuNumber));
         return false;
     }
 
     @Override
     public void run() {
-        printSlashScreen();
+        printSplashScreen();
         MainMenuHandler.super.run();
     }
 

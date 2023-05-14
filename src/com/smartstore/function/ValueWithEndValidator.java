@@ -2,19 +2,19 @@ package com.smartstore.function;
 
 import java.io.IOException;
 
-public interface IntegerWithEndValidator extends Readable{
+public interface ValueWithEndValidator extends Readable{
 
-    //change to validate name of user
-    default String getIntegerValueOrEnd(){
+    default <T> String getValueOrEnd(String msg, Class<T> type){
+        System.out.println(Number.class.isAssignableFrom(type));
         String value;
         while (true){
             try {
-                System.out.print("Wait for Input : ");
+                System.out.println(msg);
                 value = br.readLine();
                 if("end".equalsIgnoreCase(String.valueOf(value))){
                     break;
                 }
-                if(Integer.parseInt(value) < 0){
+                if(Number.class.isAssignableFrom(type) && Integer.parseInt(value) < 0){
                     throw new IllegalArgumentException();
                 }else {
                     break;

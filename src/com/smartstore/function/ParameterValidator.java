@@ -18,12 +18,12 @@ public interface ParameterValidator extends Readable{
                         break;
                     }
                     for (String membershipName : values) {
-                        if (MembershipType.valueOf(membershipName).isMatchedName(valueName)) {
+                        if (MembershipType.valueOf(membershipName.toUpperCase()).isMatchedName(valueName)) {
                             isExit = true;
                             break;
                         }
                     }
-                } catch (IOException | NullPointerException e) {
+                } catch (IOException | IllegalArgumentException | NullPointerException e) {
                     System.out.println("Invalid Parameter");
                 }
             }

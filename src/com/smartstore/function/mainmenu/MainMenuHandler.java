@@ -1,17 +1,17 @@
 package com.smartstore.function.mainmenu;
 
-import com.smartstore.function.Handler;
-import com.smartstore.function.MenuPrintable;
-import com.smartstore.function.MenuValidator;
+import com.smartstore.function.*;
 
-public interface MainMenuHandler extends MenuPrintable, Handler, MenuValidator {
+public interface MainMenuHandler extends MenuPrintable, EnumValueProvider, Handler, MenuValidator, HandleableParam {
 
     default void run() {
         boolean isExit = false;
         while (!isExit){
-            printMenu(Screen.of(getCurrentMenuNumber()).getMenus());
+            printMenu(getMenuListFromEnum(MainMenuFunction.class, MainMenuFunction.MEMBERSHIP_MANAGEMENT.getMenuNumber(), MainMenuFunction.QUIT.getMenuNumber()));
             //get menu number from user until valid menu number
-            isExit = handleChoice(getMenuNumber(Screen.of(getCurrentMenuNumber()).getMenus()));
+            //isExit = handleChoice(getMenuNumber(Screen.of(getCurrentMenuNumber()).getMenus()));
+            isExit = handleChoice(getMenuNumber(getMenuListFromEnum(MainMenuFunction.class, MainMenuFunction.MEMBERSHIP_MANAGEMENT.getMenuNumber(), MainMenuFunction.QUIT.getMenuNumber())));
+
         }
     }
 
@@ -19,9 +19,9 @@ public interface MainMenuHandler extends MenuPrintable, Handler, MenuValidator {
     default void run(int menuNumber) {
         boolean isExit = false;
         while (!isExit){
-            printMenu(Screen.of(menuNumber).getMenus());
+            printMenu(getMenuListFromEnum(MainMenuFunction.class, MainMenuFunction.MEMBERSHIP_MANAGEMENT.getMenuNumber(), MainMenuFunction.QUIT.getMenuNumber()));
             //get menu number from user until valid menu number
-            isExit = handleChoice(getMenuNumber(Screen.of(menuNumber).getMenus()));
+            isExit = handleChoice(String.valueOf(menuNumber));
         }
     }
 

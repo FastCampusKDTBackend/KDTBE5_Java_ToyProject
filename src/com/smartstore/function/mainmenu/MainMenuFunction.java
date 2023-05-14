@@ -1,22 +1,28 @@
 package com.smartstore.function.mainmenu;
 
-import com.smartstore.function.Back;
-import com.smartstore.function.Handler;
-import com.smartstore.function.Function;
+import com.smartstore.function.*;
 
-public enum MainMenuFunction implements Function {
-    MAIN_MENU(0, MainMenu.getInstance()),
-    MEMBERSHIP_MANAGEMENT(1, MembershipMenu.getInstance()),
-    CUSTOMER_MANAGEMENT(2, CustomerMenu.getInstance()),
-    REPORT_MANAGEMENT(3, Back.getInstance()),
-    QUIT(4, Back.getInstance());
+public enum MainMenuFunction implements Function<Handleable> {
+    SPLASH_SCREEN(0, MainMenu.getInstance(), "SPLASH_SCREEN"),
+    MEMBERSHIP_MANAGEMENT(1, MembershipMenu.getInstance(), "Membership Management"),
+    CUSTOMER_MANAGEMENT(2, CustomerMenu.getInstance(), "Customer Management"),
+    REPORT_MANAGEMENT(3, Back.getInstance(), "Report"),
+    QUIT(4, Back.getInstance(), "Quit");
 
     private final int menuNumber;
-    private final Handler mainMenuHandler;
+    private final Handleable handler;
 
-    MainMenuFunction(int menuNumber, Handler mainMenuHandler) {
+    private String menuText;
+
+    MainMenuFunction(int menuNumber, Handleable handler, String menuText) {
         this.menuNumber = menuNumber;
-        this.mainMenuHandler = mainMenuHandler;
+        this.handler = handler;
+        this.menuText = menuText;
+    }
+
+    @Override
+    public String getMenuText() {
+        return menuText;
     }
 
     @Override
@@ -24,13 +30,12 @@ public enum MainMenuFunction implements Function {
         return menuNumber;
     }
 
-    @Override
-    public Handler getMenuHandler() {
-        return mainMenuHandler;
+    public Handleable getMenuHandler() {
+        return handler;
     }
 
     @Override
-    public void run() {
-        mainMenuHandler.run(menuNumber);
+    public void run(int menuNumber) {
+        getMenuHandler().run();
     }
 }

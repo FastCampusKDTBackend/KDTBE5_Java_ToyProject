@@ -8,19 +8,26 @@ import com.smartstore.function.customer.delete.DeleteCustomer;
 import com.smartstore.function.customer.update.UpdateCustomer;
 import com.smartstore.function.customer.view.ViewCustomer;
 
-public enum CustomerFunction implements Function {
-    ADD(1, AddCustomer.getInstance()),
-    VIEW(2, ViewCustomer.getInstance()),
-    UPDATE(3, UpdateCustomer.getInstance()),
-    DELETE(4, DeleteCustomer.getInstance()),
-    BACK(5, Back.getInstance());
-
+public enum CustomerFunction implements Function<Handleable> {
+    ADD(1, AddCustomer.getInstance(), "Add Customer Data"),
+    VIEW(2, ViewCustomer.getInstance(), "View Customer Data"),
+    UPDATE(3, UpdateCustomer.getInstance(), "Update Customer Data"),
+    DELETE(4, DeleteCustomer.getInstance(), "Delete Customer Data"),
+    BACK(5, Back.getInstance(), "Return to Prev Menu");
 
     private final int menuNumber;
     private final Handleable handler;
-    CustomerFunction(int menuNumber, Handleable handler) {
+
+    private String menuText;
+    CustomerFunction(int menuNumber, Handleable handler, String menuText) {
         this.menuNumber = menuNumber;
         this.handler = handler;
+        this.menuText = menuText;
+    }
+
+    @Override
+    public String getMenuText() {
+        return menuText;
     }
 
     @Override

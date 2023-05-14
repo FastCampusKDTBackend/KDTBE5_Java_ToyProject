@@ -2,7 +2,7 @@ package com.smartstore.function;
 
 import java.util.Arrays;
 
-public interface Function {
+public interface Function<T> extends MenuProvider, Handleable, HandleableParam {
     static <E extends Enum<E> & Function> E of(int menuNumber, Class<E> enumClass){
 
         return Arrays.stream(enumClass.getEnumConstants())
@@ -12,14 +12,19 @@ public interface Function {
 
     int getMenuNumber();
 
-    <T extends Handleable> T getMenuHandler();
+    T getMenuHandler();
 
     default boolean isMatchedMenuNumber(int menuNumber){
         return getMenuNumber() == menuNumber;
     }
 
+    @Override
     default void run() {
-        getMenuHandler().run();
+        ((Handleable) getMenuHandler()).run();
     }
 
+    @Override
+    default void run(int menuNumber) {
+        ((HandleableParam) getMenuHandler()).run(menuNumber);
+    }
 }

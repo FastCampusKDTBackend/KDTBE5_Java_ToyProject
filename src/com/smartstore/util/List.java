@@ -10,7 +10,10 @@ public interface List<T> {
     void add(int index, T object);
     boolean remove(int index);
     boolean remove(T object);
+    CustomList<T> subList(int fromIndex, int toIndex);
+
+    @SuppressWarnings("unchked")
+    T[] toArray(T[] type);
 
     Object[] toArray();
-    Object[] toArray(Class<T[]> type);
 }

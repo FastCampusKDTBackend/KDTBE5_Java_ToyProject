@@ -1,12 +1,13 @@
 package com.smartstore.function.membership.update;
 
+import com.smartstore.function.HandleableParam;
 import com.smartstore.function.IntegerValidator;
 import com.smartstore.function.membership.MembershipMenuHandler;
 import com.smartstore.membership.MembershipRequirement;
 import com.smartstore.membership.MembershipType;
 import com.smartstore.membership.Memberships;
 
-public class SetMinUsage implements MembershipMenuHandler, IntegerValidator {
+public class SetMinUsage implements MembershipMenuHandler, HandleableParam {
     private static SetMinUsage instance;
 
     private SetMinUsage(){

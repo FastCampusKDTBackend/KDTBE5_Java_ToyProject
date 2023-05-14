@@ -16,6 +16,16 @@ public class MembershipMenu implements MainMenuHandler {
     }
 
     @Override
+    public void run() {
+        boolean isExit = false;
+        while (!isExit){
+            printMenu(getMenuListFromEnum(MembershipFunction.class));
+            //get menu number from user until valid menu number
+            isExit = handleChoice(getMenuNumber(getMenuListFromEnum(MembershipFunction.class)));
+        }
+    }
+
+    @Override
     public boolean handleChoice(String menuNumber) {
         if(Integer.parseInt(menuNumber) == MembershipFunction.BACK.getMenuNumber()) {
             return true;

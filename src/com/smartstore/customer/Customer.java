@@ -13,6 +13,9 @@ public class Customer {
     private int paymentAmount;
     private MembershipType membership;
 
+    public Customer() {
+    }
+
     public Customer(String customerName, String  customerId, int usageTime, int paymentAmount) {
         this.customerId = customerId;
         this.customerName = customerName;
@@ -40,13 +43,17 @@ public class Customer {
         return membership;
     }
 
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    @Override
+    public String toString() {
+        return "customerId='" + customerId + '\'' +
+                ", customerName='" + customerName + '\'' +
+                ", usageTime=" + usageTime +
+                ", paymentAmount=" + paymentAmount +
+                ", membership=" + membership +
+                "\n";
     }
-
-
 }

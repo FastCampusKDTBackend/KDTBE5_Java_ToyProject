@@ -1,11 +1,12 @@
 package com.smartstore.function.membership.update;
 
+import com.smartstore.function.HandleableParam;
 import com.smartstore.function.membership.MembershipMenuHandler;
 import com.smartstore.membership.MembershipRequirement;
 import com.smartstore.membership.MembershipType;
 import com.smartstore.membership.Memberships;
 
-public class SetMinPaymentAmount implements MembershipMenuHandler {
+public class SetMinPaymentAmount implements MembershipMenuHandler, HandleableParam {
     private static SetMinPaymentAmount instance;
 
     private SetMinPaymentAmount(){

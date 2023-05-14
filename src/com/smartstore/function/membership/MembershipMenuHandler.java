@@ -8,24 +8,24 @@ import com.smartstore.membership.Memberships;
 
 import java.util.NoSuchElementException;
 
-public interface MembershipMenuHandler extends SelectSpecificPrintable, EnumValueProvider, Handler, ParameterValidator, MenuValidator {
+public interface MembershipMenuHandler extends SelectablePrintable, EnumValueProvider, Handler, ParameterValidator, MenuValidator {
 
     default void run() {
         boolean isExit = false;
         while (!isExit){
             //get values from enum by string array
-            printMenu(enumValuesToStringArray(MembershipType.class));
+            printSelectable(getMenuListFromEnum(MembershipType.class));
 
-            isExit = handleChoice(getParameter(enumValuesToStringArray(MembershipType.class)));
+            isExit = handleChoice(getParameter(getMenuListFromEnum(MembershipType.class)));
         }
     }
 
     default MembershipType getMembershipType(String membershipNames){
-        String[] values = enumValuesToStringArray(MembershipType.class);
+        String[] values = getMenuListFromEnum(MembershipType.class);
         for (String membershipName : values) {
             try{
-                if (MembershipType.valueOf(membershipName).findByName(membershipNames)) {
-                    return MembershipType.valueOf(membershipName);
+                if (MembershipType.valueOf(membershipName.toUpperCase()).findByName(membershipNames)) {
+                    return MembershipType.valueOf(membershipName.toUpperCase());
                 }
             }catch (NoSuchElementException e) {
                 System.out.println(e.getMessage());
@@ -54,13 +54,4 @@ public interface MembershipMenuHandler extends SelectSpecificPrintable, EnumValu
 
     void processMembership(MembershipType membershipType, MembershipRequirement requirement);
 
-    @Override
-    default String[] enumValuesToStringArray(Class type) {
-        return EnumValueProvider.super.enumValuesToStringArray(type);
-    }
-
-    @Override
-    default void printMenu(String[] menus) {
-        SelectSpecificPrintable.super.printMenu(menus);
-    }
 }

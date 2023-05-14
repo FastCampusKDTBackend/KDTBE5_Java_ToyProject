@@ -3,7 +3,8 @@ package com.smartstore.function.customer.update;
 import com.smartstore.function.*;
 import com.smartstore.function.customer.CustomerMenuHandler;
 
-public class UpdateCustomer implements CustomerMenuHandler, IntegerValidator, MenuPrintable, EnumValueProvider, IntegerWithEndValidator {
+
+public class UpdateCustomer implements CustomerMenuHandler, IntegerValidator, ValueWithEndValidator {
 
     private static UpdateCustomer instance;
 
@@ -23,7 +24,7 @@ public class UpdateCustomer implements CustomerMenuHandler, IntegerValidator, Me
         if(!"end".equalsIgnoreCase(numberOfUser)){
             boolean isExit = false;
             int value=0;
-            String[] menus = enumValuesToStringArray(UpdateCustomerFunction.class);
+            String[] menus = getMenuListFromEnum(UpdateCustomerFunction.class);
             for(int i = 0 ; i < Integer.parseInt(numberOfUser) ; i++){
                 printMenu(menus);
                 value = Integer.parseInt(getMenuNumber(menus));
@@ -38,8 +39,7 @@ public class UpdateCustomer implements CustomerMenuHandler, IntegerValidator, Me
     public void run() {
         boolean isExit = false;
         while (!isExit){
-            System.out.println("How many Customers to Input ? | type 'end' to cancel");
-            isExit = handleChoice(String.valueOf(getIntegerValueOrEnd()));
+            isExit = handleChoice(String.valueOf(getValueOrEnd("\nHow many Customers to Input ? | type 'end' to cancel ...", Integer.class)));
         }
     }
 }

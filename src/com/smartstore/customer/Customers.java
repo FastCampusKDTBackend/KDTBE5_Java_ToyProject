@@ -2,7 +2,10 @@ package com.smartstore.customer;
 
 import com.smartstore.util.CustomList;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 public class Customers {
     private static Customers instance;
@@ -23,7 +26,14 @@ public class Customers {
         return customerList;
     }
 
-    public void refresh(){
-
+    public Customer getCustomerById(String id){
+        if(customerList.size() == 0){
+            return null;
+        }
+        Optional<Customer> customerOptional = Arrays.stream(customerList.toArray(new Customer[customerList.size()]))
+            .filter(customer -> id.equals(customer.getCustomerId()))
+            .findFirst();
+        return customerOptional.orElse(null);
     }
+
 }

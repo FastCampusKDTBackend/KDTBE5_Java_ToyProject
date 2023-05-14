@@ -1,6 +1,5 @@
 package com.smartstore.util;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -52,14 +51,14 @@ public class CustomList<T> implements List<T> {
 
     @Override
     @SuppressWarnings("unchked")
-    public T[] toArray(Class<T[]> type){
-        return (T[])Arrays.copyOf(elements, size, type);
+    public T[] toArray(T[] type){
+        return (T[]) Arrays.copyOf(elements, size, type.getClass());
     }
 
     @Override
     @SuppressWarnings("unchked")
     public T[] toArray(){
-        return (T[])Arrays.copyOf(elements, size);
+        return (T[]) Arrays.copyOf(elements, size);
     }
     @Override
     public void add(T object) {
@@ -148,10 +147,21 @@ public class CustomList<T> implements List<T> {
 
     @Override
     public String toString() {
-        return Arrays.toString(elements);
+        if (elements == null)
+            return "";
+
+        int iMax = elements.length - 1;
+        if (iMax == -1)
+            return "";
+
+        StringBuilder b = new StringBuilder();
+        for (int i = 0; ; i++) {
+            b.append(elements[i]);
+            if (i == iMax)
+                return b.toString();
+        }
     }
 
-    //private static final int CAPACITY_SIZE = 10;
     private int size;
 
     private Object[] elements;

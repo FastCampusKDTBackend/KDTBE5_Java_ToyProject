@@ -1,16 +1,29 @@
 package com.smartstore.function;
 
-import com.smartstore.function.mainmenu.MainMenuHandler;
-import com.smartstore.util.CustomList;
+import com.smartstore.function.mainmenu.MainMenuFunction;
 
-public interface EnumValueProvider<T extends Enum<T>> extends MainMenuHandler {
+import java.util.Arrays;
 
-    default String[] enumValuesToStringArray(Class<T> type){
-        CustomList<String> keyList = new CustomList<>();
-        for(T enumKey : type.getEnumConstants()){
-            keyList.add(enumKey.name());
+public interface EnumValueProvider<T extends Enum<T> & MenuProvider> {
+
+    default String[] getMenuListFromEnum(Class<T> type){
+        T[] enumConstants = type.getEnumConstants();
+        String[] menus = new String[enumConstants.length];
+        for (int i = 0; i < enumConstants.length; i++) {
+            menus[i] = enumConstants[i].getMenuText();
         }
-        return keyList.toArray(String[].class);
+        return menus;
+    }
+    default String[] getMenuListFromEnum(Class<T> type, int fromIndex, int toIndex){
+        T[] enumConstants = type.getEnumConstants();
+        String[] menus = new String[enumConstants.length];
+        int count = 0;
+        for (int i = fromIndex; i <= toIndex; i++) {
+            menus[count] = enumConstants[i].getMenuText();
+            count++;
+        }
+        menus = Arrays.copyOf(menus,count);
+        return menus;
     }
 
 }

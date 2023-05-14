@@ -5,10 +5,7 @@ import com.smartstore.customer.Customers;
 import com.smartstore.function.*;
 import com.smartstore.function.customer.CustomerMenuHandler;
 
-import java.io.IOException;
-import java.util.Arrays;
-
-public class AddCustomer implements CustomerMenuHandler, MenuPrintable, IntegerWithEndValidator,UserDataValidator {
+public class AddCustomer implements CustomerMenuHandler, MenuPrintable, ValueWithEndValidator,UserDataValidator, AnswerValidator {
 
     private static AddCustomer instance;
 
@@ -35,14 +32,14 @@ public class AddCustomer implements CustomerMenuHandler, MenuPrintable, IntegerW
             for(int i = 0 ; i < Integer.parseInt(numberOfUser) ; i++){
                 name = getUserData(name.getClass(),true, "Input User Name : ");
                 id = getUserData(id.getClass(),true, "Input User ID : ");
-                if(!isOptionalInfoPassed()){
+                if(!isAnswerYes("Do you Want Set Optional Info?")){
                     usageTime = 0;
                     paymentAmount = 0;
                 }else {
-                    System.out.println("Input Usage Time");
-                    usageTime = ("end".equalsIgnoreCase(String.valueOf(getIntegerValueOrEnd()))) ? Integer.parseInt(getIntegerValueOrEnd()) : 0;
-                    System.out.println("Input Payment Amount");
-                    paymentAmount = ("end".equalsIgnoreCase(String.valueOf(getIntegerValueOrEnd()))) ? Integer.parseInt(getIntegerValueOrEnd()) : 0;
+                    String value = getValueOrEnd("Input Usage Time\nWait for Input Type 'end' to exit : ", Integer.class);
+                    usageTime = ("end".equalsIgnoreCase(String.valueOf(value))) ? 0 : Integer.parseInt(value);
+                    value = getValueOrEnd("Input Payment Amount\nWait for Input Type 'end' to exit : ", Integer.class);
+                    paymentAmount = ("end".equalsIgnoreCase(String.valueOf(value))) ? 0 : Integer.parseInt(value);
                 }
                 customers.getCustomerList().add(new Customer(name, id, usageTime, paymentAmount));
             }
@@ -50,32 +47,11 @@ public class AddCustomer implements CustomerMenuHandler, MenuPrintable, IntegerW
         return true;
     }
 
-    boolean isOptionalInfoPassed(){
-        System.out.println("Do you Want Set Optional Info?");
-        String value = "";
-        while (true){
-            try {
-                System.out.print("Wait for Input Y or N: ");
-                value = br.readLine();
-            } catch (IOException e) {
-                System.out.println("Please Input Y or N");
-            }
-            if("y".equalsIgnoreCase(value)){
-                return true;
-            }
-            if("n".equalsIgnoreCase(value)){
-                return false;
-            }
-            System.out.println("Please Input Y or N");
-        }
-    }
-
     @Override
     public void run() {
         boolean isExit = false;
         while (!isExit){
-            System.out.println("How many Customers to Input ? | type 'end' to cancel");
-            isExit = handleChoice(String.valueOf(getIntegerValueOrEnd()));
+            isExit = handleChoice(String.valueOf(getValueOrEnd("How many Customers to Input ? | type 'end' or '0' to cancel ...", Integer.class)));
         }
     }
 }

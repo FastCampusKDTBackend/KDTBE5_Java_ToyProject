@@ -1,17 +1,25 @@
 
 package com.smartstore.membership;
 
+import com.smartstore.function.MenuProvider;
+
 import java.util.Arrays;
 import java.util.Optional;
 
-public enum MembershipType {
-    GENERAL(new String[] {"G", "GENERAL", "일반"}),
-    VIP(new String[] {"V", "VIP", "우수"}),
-    VVIP(new String[] {"VV", "VVIP", "최우수"});
+public enum MembershipType implements MenuProvider {
+    GENERAL(new String[] {"G", "GENERAL", "일반"}, "General"),
+    VIP(new String[] {"V", "VIP", "우수"}, "VIP"),
+    VVIP(new String[] {"VV", "VVIP", "최우수"}, "VVIP");
 
-    private String[] membershipNames={};
-    MembershipType(String[] membershipNames) {
+    private String[] membershipNames;
+    private String menuText;
+    MembershipType(String[] membershipNames, String menuText) {
         this.membershipNames = membershipNames;
+        this.menuText = menuText;
+    }
+
+    public String getMenuText() {
+        return menuText;
     }
 
     public String[] getMembership() {

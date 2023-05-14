@@ -16,11 +16,16 @@ public enum UpdateCustomerFunction implements Function {
 
     private final int menuNumber;
     private final Handleable handler;
-    private final String message;
-    UpdateCustomerFunction(int menuNumber, Handleable handler, String message) {
+    private final String menuText;
+    UpdateCustomerFunction(int menuNumber, Handleable handler, String menuText) {
         this.menuNumber = menuNumber;
         this.handler = handler;
-        this.message = message;
+        this.menuText = menuText;
+    }
+
+    @Override
+    public String getMenuText() {
+        return menuText;
     }
 
     @Override

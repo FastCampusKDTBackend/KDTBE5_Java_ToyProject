@@ -3,16 +3,19 @@ package domain.menu;
 import Service.SummaryService;
 import domain.customer.Customers;
 import domain.group.Groups;
+import handler.exception.InputEmptyException;
 import handler.exception.InputEndException;
 import handler.exception.InputFormatException;
+import handler.exception.InputRangeException;
+
+import java.util.InputMismatchException;
 
 import static resources.Message.END_MSG;
 import static resources.Message.ERR_MSG_INVALID_INPUT_RANGE;
 
 public class SummaryMenu implements Menu {
 
-    // singleton
-    private final SummaryService summaryService = SummaryService.getInstance();
+    private static final SummaryService summaryService = SummaryService.getInstance();
     private static SummaryMenu summaryMenu;
 
     public static SummaryMenu getInstance() {
@@ -52,7 +55,7 @@ public class SummaryMenu implements Menu {
                     summaryService.showByPayment(sortOrder);
                 }
                 if (choice == 5) break;
-            } catch (InputEndException | InputFormatException e) {
+            } catch (InputRangeException | InputFormatException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -61,44 +64,19 @@ public class SummaryMenu implements Menu {
     /**
      * 하위 메서드에서 발생한 Exception을 상위 메서드로 전달하려면 어떤 방법이 더 좋을까?
      * break로 제어를 하는게 좋은 방법일까?
+     *
      * @return sortOrder - ASC : false / DESC : ture
      * @throws InputEndException
      */
-    private boolean getSortOrder() throws InputEndException {
+    private boolean getSortOrder() {
         try {
             System.out.println("Which order (ASCENDING (A), DESCENDING (D))?");
             String order = summaryMenu.nextLineUpper(END_MSG);
             if (order.equals("A")) return false;
-            if (order.equals("D")) return true;
-        } catch (InputFormatException e) {
-            System.out.println(e.getMessage());
+            else if (order.equals("D")) return true;
+            else throw new InputFormatException();
+        } catch (InputEmptyException e) {
+            throw new InputRangeException();
         }
-        //정확한 입력이 아니랴면 재귀적 호출
-        System.out.println(ERR_MSG_INVALID_INPUT_RANGE);
-        return getSortOrder();
     }
-
-//    private boolean getSortOrder() throws InputEndException {
-//        boolean sortOrder = false;
-//        while (true) {
-//            try {
-//                System.out.println("Which order (ASCENDING (A), DESCENDING (D))?");
-//                String order = summaryMenu.nextLineUpper(END_MSG);
-//                if (order.equals("A")) {
-//                    break;
-//                }
-//                if (order.equals("D")) {
-//                    sortOrder = true;
-//                    break;
-//                }
-//            } catch (InputFormatException e) {
-//                System.out.println(e.getMessage());
-//            } catch (InputEndException e) {
-//                throw new InputEndException();
-//            }
-//            System.out.println(ERR_MSG_INVALID_INPUT_RANGE);
-//        }
-//        return sortOrder;
-//    }
 }
-

@@ -12,8 +12,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class SummaryService {
 
-    private final Customers customers = Customers.getInstance();
-    private final Groups groups = Groups.getInstance();
+    private static final Customers customers = Customers.getInstance();
+    private static final Groups groups = Groups.getInstance();
     private static SummaryService summaryService;
 
     public static SummaryService getInstance() {

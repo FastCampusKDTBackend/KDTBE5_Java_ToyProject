@@ -1,10 +1,8 @@
 package domain.menu;
 
 import Service.CustomerService;
-import handler.exception.InputEmptyException;
-import handler.exception.InputEndException;
-
-import java.util.NoSuchElementException;
+import handler.exception.InputFormatException;
+import handler.exception.InputRangeException;
 
 public class CustomerMenu implements Menu {
 
@@ -37,8 +35,7 @@ public class CustomerMenu implements Menu {
                 else if (choice == 3) customerService.updateCustomer();
                 else if (choice == 4) customerService.deleteCustomer();
                 else if (choice == 5) break;
-            } catch (NoSuchElementException | InputEmptyException e) {
-                //하위 메뉴에서 InputEmptyException 발생시 입력 중단하고 상위 메뉴로 이동
+            } catch (InputRangeException | InputFormatException e) {
                 System.out.println(e.getMessage());
             }
         }

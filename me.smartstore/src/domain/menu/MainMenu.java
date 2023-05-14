@@ -1,14 +1,16 @@
 package domain.menu;
 
 import domain.group.Groups;
+import handler.exception.InputFormatException;
+import handler.exception.InputRangeException;
 
 import java.util.NoSuchElementException;
 
 public class MainMenu implements Menu {
 
-    private final CustomerMenu customerMenu = CustomerMenu.getInstance();
-    private final GroupMenu groupMenu = GroupMenu.getInstance();
-    private final SummaryMenu summaryMenu = SummaryMenu.getInstance();
+    private static final CustomerMenu customerMenu = CustomerMenu.getInstance();
+    private static final GroupMenu groupMenu = GroupMenu.getInstance();
+    private static final SummaryMenu summaryMenu = SummaryMenu.getInstance();
 
     private static MainMenu mainMenu;
 
@@ -38,7 +40,7 @@ public class MainMenu implements Menu {
                     System.out.println("Program Finished");
                     break;
                 }
-            } catch (NoSuchElementException e) {
+            } catch (InputRangeException | InputFormatException e) {
                 System.out.println(e.getMessage());
             }
         }

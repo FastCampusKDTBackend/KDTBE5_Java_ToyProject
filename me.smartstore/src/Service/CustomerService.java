@@ -8,6 +8,7 @@ import domain.group.Groups;
 import domain.menu.CustomerMenu;
 import handler.exception.*;
 
+import java.util.NoSuchElementException;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
@@ -15,9 +16,9 @@ import static resources.Message.*;
 
 public class CustomerService {
 
-    private final Customers customers = Customers.getInstance();
-    private final CustomerMenu customerMenu = CustomerMenu.getInstance();
-    private final Groups groups = Groups.getInstance();
+    private static final Customers customers = Customers.getInstance();
+    private static final CustomerMenu customerMenu = CustomerMenu.getInstance();
+    private static final Groups groups = Groups.getInstance();
 
     private static CustomerService customerService;
 
@@ -31,10 +32,23 @@ public class CustomerService {
     private CustomerService() {
     }
 
-    //TODO BugFix
     public void addCustomer() {
-        int repeatNum = getRegisterNumber();
-        //고객등록이 완료되면 Customers 배열 객체에 add 한다.
+
+        while (true) {
+            try {
+                System.out.println("How many customer to input?");
+                int repeatNum = customerMenu.nextInt(END_MSG);
+                addCustomerDetail(repeatNum);
+            } catch (InputEndException e) {
+                System.out.println(e.getMessage());
+                break;
+            } catch (InputFormatException | NoSuchElementException | IllegalStateException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private void addCustomerDetail(int repeatNum) {
 
         for (int count = 0; count < repeatNum; count++) {
             try {
@@ -44,6 +58,8 @@ public class CustomerService {
                 //신규 Customer 객체 생성 후 개별 요소 set
                 Customer regCustomer = getCustomerDetail();
                 regCustomer.setGroupType(findGroupType(regCustomer));
+
+                //고객등록이 완료되면 Customers 배열 객체에 add 한다.
                 customers.add(regCustomer);
                 System.out.println("[Registration Complete] => " + regCustomer);
 
@@ -51,63 +67,42 @@ public class CustomerService {
                 //end 입력시 입력 루틴을 종료
                 System.out.println(e.getMessage());
                 break;
-            } catch (InputRangeException | InputFormatException | NumberFormatException e) {
+            } catch (InputRangeException | InputFormatException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
-    private void setCustomerGroupType(Customer regCustomer) {
-        regCustomer.setGroupType(findGroupType(regCustomer));
-        customers.add(regCustomer);
-        System.out.println("Registration is complete. => " + regCustomer);
-    }
-
-    private int getRegisterNumber() {
-        while (true) {
-            try {
-                System.out.println("How many customer to input?");
-                return customerMenu.nextInt(END_MSG);
-            } catch (NullPointerException e) {
-                throw new InputEmptyException();
-            } catch (InputFormatException | InputEmptyException | NumberFormatException e) {
-                System.out.println(e.getMessage());
-            } catch (InputEndException e) {
-                System.out.println();
-                break;
-            }
-        }
-        throw new InputEmptyException();
-    }
 
     private Customer getCustomerDetail() {
         String cusName = "";
         String cusCusId = "";
-        Integer cusTotalTime = 0;
-        Integer cusTotalPay = 0;
+        Integer cusTotalTime = null;
+        Integer cusTotalPay = null;
 
         while (true) {
             try {
                 int choice = showCustomerDetailMenu();
+
                 if (choice == 1) cusName = getCustomerName();
                 if (choice == 2) cusCusId = getCustomerId();
                 if (choice == 3) cusTotalTime = getCustomerTotalTime();
                 if (choice == 4) cusTotalPay = getCustomerTotalPay();
                 if (choice == 5) {
                     //입력 종료시 name과 id가 입력되지 않았다면 재입력 유도
-                    if (cusName.isEmpty() || cusCusId.isEmpty()) {
+                    if (cusName.isEmpty() || cusCusId.isEmpty() || cusTotalTime == null ||
+                            cusTotalPay == null) {
                         throw new InputEmptyException();
-                    } else {
-                        return new Customer(cusName, cusCusId, cusTotalTime, cusTotalPay);
                     }
+                    break;
                 }
             } catch (InputRangeException | NumberFormatException e) {
                 System.out.println(e.getMessage());
             } catch (InputEmptyException e) {
                 System.out.println("[ERROR] => " + e.getMessage());
-            }
-            //end of try-catch
-        }//end of while
+            } //end of try-catch
+        } //end of while
+        return new Customer(cusName, cusCusId, cusTotalTime, cusTotalPay);
     }
 
     private int showCustomerDetailMenu() {
@@ -126,33 +121,36 @@ public class CustomerService {
      * @return Customer Name
      */
     private String getCustomerName() {
+        String name = "";
         while (true) {
             try {
                 System.out.println("Input Customer's Name:");
-                return customerMenu.nextLine(END_MSG);
+                name = customerMenu.nextLine(END_MSG);
+                if (name.isEmpty()) throw new InputEmptyException();
+                break;
             } catch (InputEndException e) {
                 System.out.println(e.getMessage());
                 break;
-            } catch (NullPointerException e) {
+            } catch (NullPointerException | NoSuchElementException | IllegalStateException e) {
                 throw new InputEmptyException();
             }
         }
-        return null;
+        return name;
     }
 
     private String getCustomerId() {
+        String inputId = "";
         while (true) {
             try {
                 //customerId는 중복이 있을 수 없으므로 중복 체크 후 값을 반환
                 System.out.println("Input Customer's ID:");
-                String inputId = customerMenu.nextLine(END_MSG);
-
+                inputId = customerMenu.nextLine(END_MSG);
+                if (inputId.isEmpty()) throw new InputEmptyException();
                 //true : id 중복 / false : id 중복 아님
                 if (isDupeCusId.test(inputId)) {
                     //중복이면 다시 입력.
                     System.out.println("[ERROR] => " + ERR_MSG_DUPLICATE_ID);
-                }
-                return inputId;
+                } else break;
             } catch (InputEndException e) {
                 System.out.println(e.getMessage());
                 break;
@@ -160,10 +158,11 @@ public class CustomerService {
                 throw new InputEmptyException();
             }
         }
-        return null;
+        return inputId;
     }
 
     private Integer getCustomerTotalTime() {
+        Integer totalTime = null;
         while (true) {
             try {
                 System.out.println("Input Customer's Spent Time:");
@@ -213,35 +212,54 @@ public class CustomerService {
             System.out.println(ERR_MSG_INVALID_ARR_EMPTY);
             return;
         }
+        //1. 먼저 등록된 고객 목록을 모두 보여주고 index 번호를 입력받는다.
         showCustomerAll();
+        int input = getCusIndex();
 
+        //2. 입력받은 index가 정상이라면 세부 설정 항목으로 이동
+        Customer target = customers.get(input - 1); //index는 0부터 시작
+        while (true) {
+            try {
+                int choice = showCustomerDetailMenu();
+
+                if (choice == 1) target.setCusName(getCustomerName());
+                if (choice == 2) target.setCusId(getCustomerId());
+                if (choice == 3) target.setCusTotalTime(getCustomerTotalTime());
+                if (choice == 4) target.setCusTotalPay(getCustomerTotalPay());
+                if (choice == 5) break;
+            } catch (InputRangeException | NumberFormatException e) {
+                System.out.println(e.getMessage());
+            }
+            //end of try-catch
+        }//end of while
+    }
+
+    private int getCusIndex() {
+        int choice = 0;
         while (true) {
             try {
                 System.out.print("Which customer ( 1 ~ " + customers.size() + " )? ");
-                int input = customerMenu.nextInt(END_MSG);
-
-                //true - 범위를 벗어남 / false - 범위 내
-                if (customerMenu.isInvalidRange(input, customers.size())) {
+                choice = customerMenu.nextInt(END_MSG);
+                if (customerMenu.isInvalidRange(choice, customers.size())) {
                     throw new InputRangeException();
-                } else {
-                    setCustomerDetail(customers.get(input - 1));
-                    break;
                 }
+                break;
             } catch (InputEndException e) {
                 System.out.println(e.getMessage());
                 break;
-            } catch (NumberFormatException | InputRangeException | IndexOutOfBoundsException e) {
+            } catch (InputRangeException | InputFormatException e) {
                 System.out.println(e.getMessage());
             }
         }
+        return choice;
     }
 
     private void setCustomerDetail(Customer targetCustomer) {
 
         while (true) {
             try {
-                showCustomerDetailMenu();
                 int choice = showCustomerDetailMenu();
+
                 if (choice == 1) targetCustomer.setCusName(getCustomerName());
                 if (choice == 2) targetCustomer.setCusId(getCustomerId());
                 if (choice == 3) targetCustomer.setCusTotalTime(getCustomerTotalTime());
@@ -277,7 +295,7 @@ public class CustomerService {
             } catch (InputEndException e) {
                 System.out.println(e.getMessage());
                 break;
-            } catch (NumberFormatException | InputRangeException | IndexOutOfBoundsException e) {
+            } catch (InputFormatException | InputRangeException e) {
                 System.out.println(e.getMessage());
             }
         }

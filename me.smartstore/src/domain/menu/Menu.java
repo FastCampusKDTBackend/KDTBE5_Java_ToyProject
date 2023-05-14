@@ -17,10 +17,9 @@ public interface Menu {
 
     default String nextLine() {
         return sc.nextLine();
-
     }
 
-    default String nextLine(String END_MSG) throws InputEndException {
+    default String nextLine(String END_MSG) {
         System.out.println("** Press 'end', if you want to exit! **");
         String str = sc.nextLine();
         if (str.toUpperCase().equals(END_MSG)) {
@@ -33,7 +32,7 @@ public interface Menu {
         return sc.nextLine().toUpperCase();
     }
 
-    default String nextLineUpper(String END_MSG) throws InputEndException {
+    default String nextLineUpper(String END_MSG) {
         System.out.println("** Press 'end', if you want to exit! **");
         String str = sc.nextLine().toUpperCase();
         if (str.equals(END_MSG)) {
@@ -43,17 +42,25 @@ public interface Menu {
     }
 
     default int nextInt() {
-        return Integer.parseInt(sc.nextLine());
+        try {
+            return Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            throw new InputFormatException();
+        }
     }
 
-    default int nextInt(String END_MSG) throws InputEndException {
-        System.out.println("** Press 'end', if you want to exit! **");
-        String str = sc.nextLine().toUpperCase();
+    default int nextInt(String END_MSG) {
+        try {
+            System.out.println("** Press 'end', if you want to exit! **");
+            String str = sc.nextLine().toUpperCase();
 
-        if (str.equals(END_MSG)) {
-            throw new InputEndException();
+            if (str.equals(END_MSG)) {
+                throw new InputEndException();
+            }
+            return Integer.parseInt(str);
+        } catch (NumberFormatException e) {
+            throw new InputFormatException();
         }
-        return Integer.parseInt(str);
     }
 
     /**
@@ -82,12 +89,13 @@ public interface Menu {
                 showMenu(menus);
                 int choice = nextInt();
                 //사용자가 입력한 메뉴번호가 범위에서 벗어나면 Exception을 발생시킨다.
-                if (isInvalidRange(choice, menus.length)) throw new InputRangeException();
-
+                if (isInvalidRange(choice, menus.length)) {
+                    throw new InputRangeException();
+                }
                 return choice;
 
-            } catch (InputRangeException | InputFormatException | NumberFormatException e) {
-                System.out.println(e.getMessage());
+            } catch (NoSuchElementException  | IllegalStateException | NumberFormatException e) {
+                throw new InputFormatException();
             }
         }
     }

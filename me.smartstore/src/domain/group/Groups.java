@@ -1,5 +1,6 @@
 package domain.group;
 
+import handler.exception.ArrayEmptyException;
 import util.DArray;
 
 public class Groups extends DArray<Group> {
@@ -17,13 +18,17 @@ public class Groups extends DArray<Group> {
     }
 
     public Group findGroup(GroupType groupType) {
-        int index = 0;
-        for (int i = 0; i < groups.size; i++) {
-            if (groups.get(i).getGroupType() == groupType) {
-                index = i;
-                System.out.println("findGroup index : " + index);
+        try {
+            int index = 0;
+            for (int i = 0; i < groups.size; i++) {
+                if (groups.get(i).getGroupType() == groupType) {
+                    index = i;
+    //                System.out.println("findGroup index : " + index);
+                }
             }
+            return groups.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new ArrayEmptyException();
         }
-        return groups.get(index);
     }
 }

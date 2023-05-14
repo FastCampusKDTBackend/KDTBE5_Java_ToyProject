@@ -13,18 +13,7 @@ public class Groups extends DArray<Group> {
         return groups;
     }
 
-    private Groups() {}
-
-    public void init() {
-        Group none = new Group(GroupType.NONE);
-        Group general = new Group(GroupType.GENERAL);
-        Group vip = new Group(GroupType.VIP);
-        Group vVip = new Group(GroupType.VVIP);
-
-        groups.add(none);
-        groups.add(general);
-        groups.add(vip);
-        groups.add(vVip);
+    private Groups() {
     }
 
     public Group findGroup(GroupType groupType) {
@@ -36,12 +25,5 @@ public class Groups extends DArray<Group> {
             }
         }
         return groups.get(index);
-    }
-    public boolean isExist(GroupType groupType) {
-        Group target = findGroup(groupType);
-        if (target.getParameter() != null) {
-            return false;
-        }
-        return true;
     }
 }

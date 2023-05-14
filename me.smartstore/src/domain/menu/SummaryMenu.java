@@ -11,9 +11,6 @@ import static resources.Message.ERR_MSG_INVALID_INPUT_RANGE;
 
 public class SummaryMenu implements Menu {
 
-    private final Customers customers = Customers.getInstance();
-    private final Groups groups = Groups.getInstance();
-
     // singleton
     private final SummaryService summaryService = SummaryService.getInstance();
     private static SummaryMenu summaryMenu;
@@ -41,18 +38,18 @@ public class SummaryMenu implements Menu {
                         "Back"
                 });
 
-                if (choice == 1) summaryService.showDefaultSummary(customers, groups);
+                if (choice == 1) summaryService.showDefaultSummary();
                 if (choice == 2) {
                     boolean sortOrder = getSortOrder();
-                    summaryService.showByName(customers, sortOrder, groups);
+                    summaryService.showByName(sortOrder);
                 }
                 if (choice == 3) {
                     boolean sortOrder = getSortOrder();
-                    summaryService.showByTime(customers, sortOrder, groups);
+                    summaryService.showByTime(sortOrder);
                 }
                 if (choice == 4) {
                     boolean sortOrder = getSortOrder();
-                    summaryService.showByPayment(customers, sortOrder, groups);
+                    summaryService.showByPayment(sortOrder);
                 }
                 if (choice == 5) break;
             } catch (InputEndException | InputFormatException e) {
@@ -61,8 +58,12 @@ public class SummaryMenu implements Menu {
         }
     }
 
-    //TODO 하위 메서드에서 발생한 Exception을 상위 메서드로 전달하려면 어떤 방법이 더 좋은가?
-    //TODO break로 제어를 하는게 좋은 방법일까?
+    /**
+     * 하위 메서드에서 발생한 Exception을 상위 메서드로 전달하려면 어떤 방법이 더 좋을까?
+     * break로 제어를 하는게 좋은 방법일까?
+     * @return sortOrder - ASC : false / DESC : ture
+     * @throws InputEndException
+     */
     private boolean getSortOrder() throws InputEndException {
         try {
             System.out.println("Which order (ASCENDING (A), DESCENDING (D))?");

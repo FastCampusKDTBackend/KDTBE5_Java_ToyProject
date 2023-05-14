@@ -77,7 +77,8 @@ public class GroupMenu implements Menu {
                 Parameter parameter = new Parameter();
                 // time, pay 사용자 입력받은 후, 설정 필요
                 setParameterValue(parameter);
-                customerService.refresh(groups); // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
+                // 파라미터가 변경되었거나 추가되는 경우, 고객 등급 분류를 다시 해야 한다.
+                customerService.refresh();
             }
         }
     }

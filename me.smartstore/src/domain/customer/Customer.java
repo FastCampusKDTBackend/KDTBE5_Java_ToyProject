@@ -10,7 +10,11 @@ public class Customer {
     private String cusId;
     private Integer cusTotalTime;
     private Integer cusTotalPay;
-    private GroupType groupType; // 현재 분류 기준에 의해 각 고객을 분류된 결과
+    //    private Group group;
+
+    //Customer가 그룹 객체 자체를 가지고 있을 필요가 있나?
+    //필요한 것은 분류된 GroupType만 있으면 된다.
+    private GroupType groupType;
 
     public Customer() {
     }

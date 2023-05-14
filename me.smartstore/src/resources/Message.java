@@ -10,5 +10,6 @@ public interface Message {
     String ERR_MSG_INVALID_INPUT_TYPE = "Invalid Type for Input. Please try again.";
     String ERR_MSG_INVALID_INPUT_FORMAT = "Invalid Format for Input. Please try again.";
     String ERR_MSG_INPUT_END = "END is pressed. Exit this domain.menu.";
+    String ERR_MSG_DUPLICATE_ID = "Input id is Duplicated. Please input different id.";
     String END_MSG = "END";
 }

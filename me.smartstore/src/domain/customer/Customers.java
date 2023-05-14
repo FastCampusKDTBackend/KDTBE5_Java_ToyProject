@@ -2,6 +2,9 @@ package domain.customer;
 
 import util.DArray;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.stream.IntStream;
 
 //정적인 객체 배열을 동적 배열로 만들어주는 DArray를 상속

@@ -1,7 +1,10 @@
 package handler.exception;
 
+import static resources.Message.ERR_MSG_NULL_ARR_ELEMENT;
+
 public class NullArgumentException extends RuntimeException {
     public NullArgumentException() {
+        super(ERR_MSG_NULL_ARR_ELEMENT);
     }
     public NullArgumentException(String message) {
         super(message);

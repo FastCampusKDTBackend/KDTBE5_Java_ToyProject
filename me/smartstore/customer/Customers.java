@@ -3,7 +3,6 @@ package me.smartstore.customer;
 
 import me.smartstore.arrays.DArray;
 import me.smartstore.group.Group;
-import me.smartstore.group.GroupType;
 import me.smartstore.group.Groups;
 
 import java.util.Arrays;
@@ -40,6 +39,28 @@ public class Customers extends DArray<Customer> {
                 }
             }
         }
+    }
+
+    public int groupCount(Group group) {
+        int count = 0;
+        for(int i = 0; i < this.size; i++) {
+            if(this.get(i).getGroup() == group) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public Customer[] findCustomerByGroup(Group group) {
+        Customer[] customers = new Customer[groupCount(group)];
+
+        int index = 0;
+        for(int i = 0; i < this.size; i++) {
+            if(this.get(i).getGroup() == group) {
+                customers[index++] = this.get(i);
+            }
+        }
+        return customers;
     }
 
 }

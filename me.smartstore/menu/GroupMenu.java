@@ -1,12 +1,11 @@
-package menu.subMenu;
+package menu;
 
 import domain.group.Group;
 import domain.group.GroupType;
 import exception.*;
-import menu.SubMenu;
-import util.MenuManager;
 import service.GroupService;
 import service.SummaryService;
+import util.MenuManager;
 import util.view.Input;
 import util.view.Output;
 

@@ -1,9 +1,9 @@
 import domain.customer.Customers;
 import domain.group.Groups;
+import menu.CustomerMenu;
+import menu.GroupMenu;
 import menu.MainMenu;
-import menu.subMenu.CustomerMenu;
-import menu.subMenu.GroupMenu;
-import menu.subMenu.SummaryMenu;
+import menu.SummaryMenu;
 import service.CustomerService;
 import service.GroupService;
 import service.SummaryService;

@@ -1,7 +1,7 @@
 package me.smartstore.core.service;
 
 import java.util.Arrays;
-import me.smartstore.core.domain.CustomerGroup;
+
 import me.smartstore.core.domain.CustomerGroupDTO;
 import me.smartstore.core.domain.Parameter;
 import me.smartstore.core.manager.CustomerGroupManager;
@@ -64,7 +64,7 @@ public class CustomerGroupService {
    * @throws StoreException 데이터베이스에 일치하는 그룹이 없을 경우
    */
   public CustomerGroupDTO find(CustomerType customerType) throws StoreException {
-    return CustomerGroupDTO.from(
+    return CustomerGroupDTO.fromEntity(
         customerGroupManager.selectCustomerGroupByCustomerType(customerType));
   }
 
@@ -74,7 +74,7 @@ public class CustomerGroupService {
    */
   public CustomerGroupDTO[] findAll() throws StoreException {
     return Arrays.stream(customerGroupManager.selectAllCustomerGroup())
-        .map(CustomerGroupDTO::from)
+        .map(CustomerGroupDTO::fromEntity)
         .toArray(CustomerGroupDTO[]::new);
   }
 }

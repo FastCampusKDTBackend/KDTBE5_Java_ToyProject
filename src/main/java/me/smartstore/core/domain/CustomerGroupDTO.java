@@ -9,8 +9,12 @@ import me.smartstore.enums.CustomerType;
  * @param parameter 그룹별 분류 기준
  */
 public record CustomerGroupDTO(CustomerType customerType, Parameter parameter) {
-  public static CustomerGroupDTO from(CustomerGroup customerGroup) {
+  public static CustomerGroupDTO fromEntity(CustomerGroup customerGroup) {
     return new CustomerGroupDTO(customerGroup.getCustomerType(), customerGroup.getParameter());
+  }
+
+  public static CustomerGroup toEntity(CustomerGroupDTO customerGroupDTO) {
+    return new CustomerGroup(customerGroupDTO.customerType(), customerGroupDTO.parameter());
   }
 
   public static CustomerGroupDTO of(CustomerType customerType, Parameter parameter) {
@@ -25,15 +29,16 @@ public record CustomerGroupDTO(CustomerType customerType, Parameter parameter) {
       sb.append(" ( Time : null, Pay Amount : null )\n");
     } else {
       sb.append(" ( Time :")
-              .append(parameter.getMinSpentTime())
-              .append(", Pay Amount :")
-              .append(parameter.getMinPayAmount())
-              .append(" )\n");
+          .append(parameter.getMinSpentTime())
+          .append(", Pay Amount :")
+          .append(parameter.getMinPayAmount())
+          .append(" )\n");
     }
     sb.append("==============================");
 
     return sb.toString();
   }
+
   @Override
   public String toString() {
     String parameterStr = parameter == null ? "null" : parameter.toString();

@@ -4,6 +4,7 @@ public class Parameter {
     private int minimumHours;
     private int minimumTotalAmount;
 
+    public Parameter(){}
     public Parameter(int minimumHours, int minimumTotalAmount) {
         this.minimumHours = minimumHours;
         this.minimumTotalAmount = minimumTotalAmount;

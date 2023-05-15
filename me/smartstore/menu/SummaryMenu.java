@@ -2,6 +2,8 @@ package me.smartstore.menu;
 
 import me.smartstore.customer.Customer;
 import me.smartstore.customer.Customers;
+import me.smartstore.exception.InputEndException;
+import me.smartstore.exception.InputTypeException;
 import me.smartstore.group.Group;
 import me.smartstore.group.Groups;
 import me.smartstore.util.Message;
@@ -67,110 +69,181 @@ public class SummaryMenu implements Menu {
 
     public void summaryByName(){
         Customer[] customers = toArray();
-        System.out.println("Which order (ASCENDING (A), DESCENDING (D))?");
-        String order = nextLine(Message.END_MSG);
+        String order = "";
+        while(true){
+            System.out.println("Which order (ASCENDING (A), DESCENDING (D))?");
+            try{
+                order = nextLine(Message.END_MSG);
 
-        if(order.equals("A"))
-            Arrays.sort(customers, new Comparator<Customer>() {
-                @Override
-                public int compare(Customer o1, Customer o2) {
-                    return o1.getCusName().compareTo(o2.getCusName());
-                }
-            });
-        if(order.equals("D"))
-            Arrays.sort(customers, new Comparator<Customer>() {
-                @Override
-                public int compare(Customer o1, Customer o2) {
-                    return o1.getCusName().compareTo(o2.getCusName()) * -1;
-                }
-            });
+                if(order.equals("A")){
+                    Arrays.sort(customers, new Comparator<Customer>() {
+                        @Override
+                        public int compare(Customer o1, Customer o2) {
+                            return o1.getCusName().compareTo(o2.getCusName());
+                        }
+                    });
 
-        for(int i = 0; i < allGroups.size(); i++){
-            Group group = allGroups.get(i);
-            System.out.println("==============================");
-            System.out.println("Group : " + group.getGroupType() +
-                    " ( Time : " + group.getParameter().getMinTime() + ", Pay : "
-                    + group.getParameter().getMinPay() + " )");
-            System.out.println("==============================");
+                    for(int i = 0; i < allGroups.size(); i++){
+                        Group group = allGroups.get(i);
+                        System.out.println("==============================");
+                        System.out.println("Group : " + group.getGroupType() +
+                                " ( Time : " + group.getParameter().getMinTime() + ", Pay : "
+                                + group.getParameter().getMinPay() + " )");
+                        System.out.println("==============================");
 
-            for(int j = 0; j < customers.length; j++){
-                if(allGroups.get(i).getGroupType().equals(customers[j].getGroup().getGroupType())){
-                    System.out.println("No. " + (j + 1) + " => " + customers[j]);
+                        for(int j = 0; j < customers.length; j++){
+                            if(allGroups.get(i).getGroupType().equals(customers[j].getGroup().getGroupType())){
+                                System.out.println("No. " + (j + 1) + " => " + customers[j]);
+                            }
+                        }
+                    }
                 }
+
+                if(order.equals("D")){
+                    Arrays.sort(customers, new Comparator<Customer>() {
+                        @Override
+                        public int compare(Customer o1, Customer o2) {
+                            return o1.getCusName().compareTo(o2.getCusName()) * -1;
+                        }
+                    });
+
+                    for(int i = 0; i < allGroups.size(); i++){
+                        Group group = allGroups.get(i);
+                        System.out.println("==============================");
+                        System.out.println("Group : " + group.getGroupType() +
+                                " ( Time : " + group.getParameter().getMinTime() + ", Pay : "
+                                + group.getParameter().getMinPay() + " )");
+                        System.out.println("==============================");
+
+                        for(int j = 0; j < customers.length; j++){
+                            if(allGroups.get(i).getGroupType().equals(customers[j].getGroup().getGroupType())){
+                                System.out.println("No. " + (j + 1) + " => " + customers[j]);
+                            }
+                        }
+                    }
+                }
+
+            }catch (InputEndException e){
+                System.out.println(Message.ERR_MSG_INPUT_END);
+                break;
             }
         }
+
+
+
     }
 
     private void summaryByTime() {
         Customer[] customers = toArray();
-        System.out.println("Which order (ASCENDING (A), DESCENDING (D))?");
-        String order = nextLine(Message.END_MSG);
+        String order = "";
+        while(true){
+            System.out.println("Which order (ASCENDING (A), DESCENDING (D))?");
+            try{
+                order = nextLine(Message.END_MSG);
 
-        if(order.equals("A"))
-            Arrays.sort(customers, new Comparator<Customer>() {
-                @Override
-                public int compare(Customer o1, Customer o2) {
-                    return o1.getCusTotalTime().compareTo(o2.getCusTotalTime());
-                }
-            });
-        if(order.equals("D"))
-            Arrays.sort(customers, new Comparator<Customer>() {
-                @Override
-                public int compare(Customer o1, Customer o2) {
-                    return o1.getCusTotalTime().compareTo(o2.getCusTotalTime()) * -1;
-                }
-            });
+                if(order.equals("A")){
+                    Arrays.sort(customers, new Comparator<Customer>() {
+                        @Override
+                        public int compare(Customer o1, Customer o2) {
+                            return o1.getCusTotalTime().compareTo(o2.getCusTotalTime());
+                        }
+                    });
 
-        for(int i = 0; i < allGroups.size(); i++){
-            Group group = allGroups.get(i);
-            System.out.println("==============================");
-            System.out.println("Group : " + group.getGroupType() +
-                    " ( Time : " + group.getParameter().getMinTime() + ", Pay : "
-                    + group.getParameter().getMinPay() + " )");
-            System.out.println("==============================");
+                    for(int i = 0; i < allGroups.size(); i++){
+                        Group group = allGroups.get(i);
+                        System.out.println("==============================");
+                        System.out.println("Group : " + group.getGroupType() +
+                                " ( Time : " + group.getParameter().getMinTime() + ", Pay : "
+                                + group.getParameter().getMinPay() + " )");
+                        System.out.println("==============================");
 
-            for(int j = 0; j < customers.length; j++){
-                if(allGroups.get(i).getGroupType().equals(customers[j].getGroup().getGroupType())){
-                    System.out.println("No. " + (j + 1) + " => " + customers[j]);
+                        for(int j = 0; j < customers.length; j++){
+                            if(allGroups.get(i).getGroupType().equals(customers[j].getGroup().getGroupType())){
+                                System.out.println("No. " + (j + 1) + " => " + customers[j]);
+                            }
+                        }
+                    }
                 }
+
+                if(order.equals("D")) {
+                    Arrays.sort(customers, new Comparator<Customer>() {
+                        @Override
+                        public int compare(Customer o1, Customer o2) {
+                            return o1.getCusTotalTime().compareTo(o2.getCusTotalTime()) * -1;
+                        }
+                    });
+
+                    for(int i = 0; i < allGroups.size(); i++){
+                        Group group = allGroups.get(i);
+                        System.out.println("==============================");
+                        System.out.println("Group : " + group.getGroupType() +
+                                " ( Time : " + group.getParameter().getMinTime() + ", Pay : "
+                                + group.getParameter().getMinPay() + " )");
+                        System.out.println("==============================");
+
+                        for(int j = 0; j < customers.length; j++){
+                            if(allGroups.get(i).getGroupType().equals(customers[j].getGroup().getGroupType())){
+                                System.out.println("No. " + (j + 1) + " => " + customers[j]);
+                            }
+                        }
+                    }
+                }
+
+            }catch (InputEndException e){
+                System.out.println(Message.ERR_MSG_INPUT_END);
+                break;
             }
+
+
         }
+
     }
 
     public void summaryByPay(){
         Customer[] customers = toArray();
-        System.out.println("Which order (ASCENDING (A), DESCENDING (D))?");
-        String order = nextLine(Message.END_MSG);
+        String order = "";
 
-        if(order.equals("A"))
-            Arrays.sort(customers, new Comparator<Customer>() {
-                @Override
-                public int compare(Customer o1, Customer o2) {
-                    return o1.getCusTotalPay().compareTo(o2.getCusTotalPay());
-                }
-            });
-        if(order.equals("D"))
-            Arrays.sort(customers, new Comparator<Customer>() {
-                @Override
-                public int compare(Customer o1, Customer o2) {
-                    return o1.getCusTotalPay().compareTo(o2.getCusTotalPay()) * -1;
-                }
-            });
+        while(true){
+            System.out.println("Which order (ASCENDING (A), DESCENDING (D))?");
+            try{
+                order = nextLine(Message.END_MSG);
 
-        for(int i = 0; i < allGroups.size(); i++){
-            Group group = allGroups.get(i);
-            System.out.println("==============================");
-            System.out.println("Group : " + group.getGroupType() +
-                    " ( Time : " + group.getParameter().getMinTime() + ", Pay : "
-                    + group.getParameter().getMinPay() + " )");
-            System.out.println("==============================");
+                if(order.equals("A"))
+                    Arrays.sort(customers, new Comparator<Customer>() {
+                        @Override
+                        public int compare(Customer o1, Customer o2) {
+                            return o1.getCusTotalPay().compareTo(o2.getCusTotalPay());
+                        }
+                    });
+                if(order.equals("D"))
+                    Arrays.sort(customers, new Comparator<Customer>() {
+                        @Override
+                        public int compare(Customer o1, Customer o2) {
+                            return o1.getCusTotalPay().compareTo(o2.getCusTotalPay()) * -1;
+                        }
+                    });
 
-            for(int j = 0; j < customers.length; j++){
-                if(allGroups.get(i).getGroupType().equals(customers[j].getGroup().getGroupType())){
-                    System.out.println("No. " + (j + 1) + " => " + customers[j]);
+                for(int i = 0; i < allGroups.size(); i++){
+                    Group group = allGroups.get(i);
+                    System.out.println("==============================");
+                    System.out.println("Group : " + group.getGroupType() +
+                            " ( Time : " + group.getParameter().getMinTime() + ", Pay : "
+                            + group.getParameter().getMinPay() + " )");
+                    System.out.println("==============================");
+
+                    for(int j = 0; j < customers.length; j++){
+                        if(allGroups.get(i).getGroupType().equals(customers[j].getGroup().getGroupType())){
+                            System.out.println("No. " + (j + 1) + " => " + customers[j]);
+                        }
+                    }
                 }
+            }catch (InputEndException e){
+                System.out.println(Message.ERR_MSG_INPUT_END);
+                break;
             }
         }
+
+
     }
     public Customer[] toArray(){
         Customer[] customers = new Customer[allCustomers.size()];

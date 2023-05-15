@@ -31,15 +31,22 @@ public class Customers {
             int hours = currentCustomer.getHours();
             int totalAmount = currentCustomer.getTotalAmount();
 
-            for (int j = 0; j < groupList.size(); j++) {
-                int minimumHours = groupList.get(i).getParameter().getMinimumHours();
-                int minimumTotalAmount = groupList.get(i).getParameter().getMinimumTotalAmount();
-                if (hours < minimumHours || totalAmount < minimumTotalAmount) {
+            for (int j = 0; j < groupList.size() - 1; j++) {
+                int currentMinimumHours = groupList.get(i).getParameter().getMinimumHours();
+                int currentMinimumTotalAmount = groupList.get(i).getParameter().getMinimumTotalAmount();
+                int nextMinimumHours = groupList.get(i + 1).getParameter().getMinimumHours();
+                int nextMinimumTotalAmount = groupList.get(i + 1).getParameter().getMinimumTotalAmount();
+                //어떤 기준도 충족 못시킬 때
+                if (hours <= currentMinimumHours || totalAmount <= currentMinimumTotalAmount) {
+                    currentCustomer.setGroup(GroupType.getGroupType(0));
+                    return;
+                }
+                if (hours <= nextMinimumHours && totalAmount <= nextMinimumTotalAmount) {
                     currentCustomer.setGroup(GroupType.getGroupType(i));
                     return;
                 }
             }
-            currentCustomer.setGroup(GroupType.VVIP);
+            currentCustomer.setGroup(GroupType.getGroupType(groupList.size() - 1));
         }
     }
 

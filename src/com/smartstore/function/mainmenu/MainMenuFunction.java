@@ -8,7 +8,7 @@ public enum MainMenuFunction implements Function<Handleable> {
     MAIN_MENU(0, MainMenu.getInstance(), "Main Menu"),
     MEMBERSHIP_MANAGEMENT(1, MembershipMenu.getInstance(), "Membership Management"),
     CUSTOMER_MANAGEMENT(2, CustomerMenu.getInstance(), "Customer Management"),
-    REPORT_MANAGEMENT(3, Back.getInstance(), "Report"),
+    REPORT_MANAGEMENT(3, SummaryMenu.getInstance(), "Report"),
     QUIT(4, Back.getInstance(), "Quit");
 
     private final int menuNumber;

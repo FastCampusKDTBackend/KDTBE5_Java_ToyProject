@@ -11,6 +11,7 @@ public enum MembershipFunction implements Function {
     SET(1, SetMembershipRequirement.getInstance(), "Set Membership Requirement"),
     VIEW(2, ViewMembershipRequirement.getInstance(), "View Membership Requirement"),
     UPDATE(3, UpdateMembershipRequirement.getInstance(), "Update Membership Requirement"),
+
     BACK(4, Back.getInstance(), "Return to Prev Menu");
 
 

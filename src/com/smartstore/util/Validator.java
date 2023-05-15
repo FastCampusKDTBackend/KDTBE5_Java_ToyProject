@@ -68,10 +68,10 @@ public class Validator implements Readable {
                             break;
                         }
                     }
+                    System.out.println("Invalid Parameter");
                 } catch (IOException | IllegalArgumentException | NullPointerException e) {
                     System.out.println("Invalid Parameter");
                 }
-                System.out.println("Invalid Parameter");
             }
         }
         return valueName;

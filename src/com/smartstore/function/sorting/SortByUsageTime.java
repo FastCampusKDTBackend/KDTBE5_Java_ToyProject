@@ -5,16 +5,16 @@ import com.smartstore.customer.Customers;
 import com.smartstore.util.CustomList;
 import com.smartstore.util.MergeSort;
 
-public class SortByName implements SortHandler, MergeSort {
-    private static SortByName instance;
+public class SortByUsageTime implements SortHandler, MergeSort {
+    private static SortByUsageTime instance;
 
-    private SortByName(){
+    private SortByUsageTime(){
 
     }
 
-    public static SortByName getInstance(){
+    public static SortByUsageTime getInstance(){
         if(instance == null){
-            return new SortByName();
+            return new SortByUsageTime();
         }
         return instance;
     }
@@ -27,8 +27,8 @@ public class SortByName implements SortHandler, MergeSort {
         Customer[] mergedArr = new Customer[leftLen + rightLen];
 
         while (i < leftLen && j < rightLen) {
-            if ((ascending && leftArr[i].getCustomerName().compareTo(rightArr[j].getCustomerName()) <= 0) ||
-                    (!ascending && leftArr[i].getCustomerName().compareTo(rightArr[j].getCustomerName()) >= 0)) {
+            if ((ascending && leftArr[i].getUsageTime() <= rightArr[j].getUsageTime()) ||
+                    (!ascending && leftArr[i].getUsageTime() >= rightArr[j].getUsageTime())) {
                 mergedArr[k] = leftArr[i];
                 i++;
             } else {

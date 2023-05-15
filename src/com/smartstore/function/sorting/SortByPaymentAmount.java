@@ -5,19 +5,20 @@ import com.smartstore.customer.Customers;
 import com.smartstore.util.CustomList;
 import com.smartstore.util.MergeSort;
 
-public class SortByName implements SortHandler, MergeSort {
-    private static SortByName instance;
+public class SortByPaymentAmount implements SortHandler, MergeSort {
+    private static SortByPaymentAmount instance;
 
-    private SortByName(){
+    private SortByPaymentAmount(){
 
     }
 
-    public static SortByName getInstance(){
+    public static SortByPaymentAmount getInstance(){
         if(instance == null){
-            return new SortByName();
+            return new SortByPaymentAmount();
         }
         return instance;
     }
+
 
     @Override
     public Customer[] mergeSort(Customer[] leftArr, Customer[] rightArr, boolean ascending) {
@@ -27,8 +28,8 @@ public class SortByName implements SortHandler, MergeSort {
         Customer[] mergedArr = new Customer[leftLen + rightLen];
 
         while (i < leftLen && j < rightLen) {
-            if ((ascending && leftArr[i].getCustomerName().compareTo(rightArr[j].getCustomerName()) <= 0) ||
-                    (!ascending && leftArr[i].getCustomerName().compareTo(rightArr[j].getCustomerName()) >= 0)) {
+            if ((ascending && leftArr[i].getPaymentAmount() <= rightArr[j].getPaymentAmount()) ||
+                    (!ascending && leftArr[i].getPaymentAmount() >= rightArr[j].getPaymentAmount())) {
                 mergedArr[k] = leftArr[i];
                 i++;
             } else {

@@ -83,13 +83,7 @@ public class CustomerMenu extends Menu implements DataCRUD {
         int listSize = customerList.size();
         System.out.print("수정을 희망하는 고객 번호를 입력해주세요");
         System.out.print(listSize >= 2 ? "(1~" + listSize + ")" : "");
-        int customerNumber = 0;
-        try {
-            customerNumber = Integer.parseInt(br.readLine());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            //@Todo: 숫자 입력 받는 부분에서 문자열 등 입력 시 날 수 있는 예외 테스트로 파악, 예외처리 할 것.
-        }
+        int customerNumber = readNumber(listSize);
 
         printCustomerUpdateMessage();
         int updateMenuNumber = 0;
@@ -128,7 +122,7 @@ public class CustomerMenu extends Menu implements DataCRUD {
 
     private void inputNewData(int updateMenuNumber, int customerNumber) throws IOException {
         MyArrayList<Customer> customerList = customers.getCustomers();
-        Customer customer = customerList.get(customerNumber);
+        Customer customer = customerList.get(customerNumber - 1);
 
         if (updateMenuNumber == 1) {
             System.out.println("새로운 이름을 입력해주세요.");
@@ -165,13 +159,7 @@ public class CustomerMenu extends Menu implements DataCRUD {
         //@Todo 뒤로가기 추가
         System.out.print("삭제할 고객 번호를 입력해주세요");
         System.out.print(listSize >= 2 ? "(1~" + listSize + ")" : "");
-        int customerNumber = 0;
-        try {
-            customerNumber = Integer.parseInt(br.readLine());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            //@Todo: 숫자 입력 받는 부분에서 문자열 등 입력 시 날 수 있는 예외 테스트로 파악, 예외처리 할 것.
-        }
+        int customerNumber = readNumber(listSize);
         customerList.remove(customerNumber);
     }
 

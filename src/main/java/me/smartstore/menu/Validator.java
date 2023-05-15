@@ -25,8 +25,11 @@ public class Validator {
 
     public boolean isCustomerListEmpty() {
         MyArrayList<Customer> customerList = customers.getCustomers();
-        System.out.println("등록된 고객 정보가 존재하지 않습니다.");
-        return customerList.isEmpty();
+        if (customerList.isEmpty()) {
+            System.out.println("등록된 고객 정보가 존재하지 않습니다.");
+            return true;
+        }
+        return false;
     }
 
     public boolean isGroupListEmpty() {

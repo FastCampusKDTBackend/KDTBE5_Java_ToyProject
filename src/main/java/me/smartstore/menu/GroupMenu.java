@@ -87,22 +87,26 @@ public class GroupMenu extends Menu implements DataCRUD {
                 System.out.println("누적 이용 시간을 입력해주세요.");
                 int hours = Integer.parseInt(br.readLine());
                 parameter.setMinimumHours(hours);
+            } else if (parameterNumber == 2) {
+                //누적 결제 금액 입력 받음
+                System.out.println("누적 결제 금액을 입력해주세요.");
+                int totalAmount = Integer.parseInt(br.readLine());
+                parameter.setMinimumTotalAmount(totalAmount);
+            } else {
                 return;
             }
-            //누적 결제 금액 입력 받음
-            System.out.println("누적 결제 금액을 입력해주세요.");
-            int totalAmount = Integer.parseInt(br.readLine());
-            parameter.setMinimumTotalAmount(totalAmount);
+            insertInputParameter(parameter);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    private void printInsertParameterMessage(){
+    private void printInsertParameterMessage() {
         System.out.println("==============================");
         System.out.println("다음 중 입력할 기준을 선택해주세요.");
         System.out.println("1. 누적 이용 시간");
         System.out.println("2. 누적 결제 금액");
+        System.out.println("3. 뒤로 가기");
         System.out.println("==============================");
     }
 

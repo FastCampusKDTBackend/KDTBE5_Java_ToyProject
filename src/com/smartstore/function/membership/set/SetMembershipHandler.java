@@ -1,7 +1,6 @@
 package com.smartstore.function.membership.set;
 
 import com.smartstore.customer.Customers;
-import com.smartstore.function.membership.MembershipMenuHandler;
 import com.smartstore.membership.MembershipRequirement;
 import com.smartstore.membership.MembershipType;
 import com.smartstore.membership.Memberships;
@@ -61,7 +60,6 @@ public interface SetMembershipHandler extends HandleableParam, Handleable {
             System.out.printf("isValidUsage & isValidPaymentAmount Must Satisfy the AND Operation. Current Situation : %s, %s\n",isValidUsage, isValidPaymentAmount);
         }
         setMembershipRequirement(membershipType, minUsageTime, minPaymentAmount);
-        // TODO: 2023-05-15 check minUsage, minPayment Bigger than prev Membership
     }
 
     default void setMembershipRequirement(MembershipType membershipType, int minUsage, int minPaymentAmount){

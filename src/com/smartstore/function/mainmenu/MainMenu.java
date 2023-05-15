@@ -2,6 +2,7 @@ package com.smartstore.function.mainmenu;
 
 import com.smartstore.util.Define;
 import com.smartstore.util.Function;
+import com.smartstore.util.PrettyTerminal;
 
 public class MainMenu implements MainMenuHandler {
     private static MainMenu instance;
@@ -27,6 +28,7 @@ public class MainMenu implements MainMenuHandler {
         }
         //call Menu with menuNumber
         Function.of(Integer.parseInt(menuNumber), MainMenuFunction.class).run(Integer.parseInt(menuNumber));
+        PrettyTerminal.cls();
         return false;
     }
 

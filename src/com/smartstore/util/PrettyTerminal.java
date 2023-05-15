@@ -17,26 +17,8 @@ public enum PrettyTerminal {
         this.attribute = attribute;
     }
     public static void cls(){
-
-        String osName = System.getProperty("os.name");
-        try{
-            if (osName.contains("Windows")) {
-                String terminal = System.getenv("TERM");
-                if (terminal != null && terminal.contains("xterm")) {
-                    System.out.print("\033[H\033[2J");
-                    System.out.flush();
-                } else if (osName.contains("Windows 10")) {
-                    new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                } else {
-                    new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                }
-            } else {
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
-            }
-        }
-
-        catch (Exception e){
+        for (int i = 0; i < 15; i++) {
+            System.out.println();
         }
     }
 

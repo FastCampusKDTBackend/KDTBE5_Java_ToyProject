@@ -21,5 +21,5 @@ public class Define {
                     ".　　 ｌ　　 ＼ |　　　　 l:::::::::::::::::l.　　＼＿__/　|／　　 ヽ\n" +
                     "　　 Ｌ.＿＿__ﾊ　　　o|::::::::::::::::::ヽ.-　　　　　　|＿__,.. イ\n" +
                     ".　　 |　 ＿　l　} 　 　 l:::::::::::::::::::::::＼　__　　　　|　　 　 |\n"+
-"By JY_B" + PrettyTerminal.RESET.getAttribute();
+"By JY_B\n\n" + PrettyTerminal.RESET.getAttribute();
 }

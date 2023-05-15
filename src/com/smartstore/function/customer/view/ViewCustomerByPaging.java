@@ -2,10 +2,7 @@ package com.smartstore.function.customer.view;
 
 import com.smartstore.customer.Customer;
 import com.smartstore.customer.Customers;
-import com.smartstore.util.Define;
-import com.smartstore.util.Handleable;
-import com.smartstore.util.List;
-import com.smartstore.util.Validator;
+import com.smartstore.util.*;
 
 public class ViewCustomerByPaging implements Handleable {
 
@@ -57,6 +54,6 @@ public class ViewCustomerByPaging implements Handleable {
             System.out.print(customerList);
         }
 
-        System.out.println("======================================");
+        System.out.println("======================================\n\n");
     }
 }

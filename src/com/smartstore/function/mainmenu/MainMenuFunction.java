@@ -3,7 +3,6 @@ package com.smartstore.function.mainmenu;
 import com.smartstore.function.*;
 import com.smartstore.util.Function;
 import com.smartstore.util.Handleable;
-import com.smartstore.util.HandleableParam;
 
 public enum MainMenuFunction implements Function<Handleable> {
     MAIN_MENU(0, MainMenu.getInstance(), "Main Menu"),

@@ -1,10 +1,11 @@
 package com.smartstore.function.membership.set;
 
+import com.smartstore.function.membership.MembershipMenuHandler;
 import com.smartstore.membership.MembershipRequirement;
 import com.smartstore.membership.MembershipType;
 import com.smartstore.membership.Memberships;
 
-public class SetMembershipRequirement implements SetMembershipHandler {
+public class SetMembershipRequirement implements MembershipMenuHandler, SetMembershipHandler {
     private static SetMembershipRequirement instance;
 
     private SetMembershipRequirement(){
@@ -32,7 +33,7 @@ public class SetMembershipRequirement implements SetMembershipHandler {
         MembershipRequirement requirement = Memberships.getInstance().getMembershipMap().get(membershipType);
         if(requirement == null){
             if(isPrevMembershipExist(membershipType)){
-                setMembershipRequirement(membershipType);
+                setMembershipRequirement(membershipType,true,true);
                 System.out.printf("Set %s Successfully\n\n\n",membershipType.name());
             }
             else {
@@ -42,5 +43,10 @@ public class SetMembershipRequirement implements SetMembershipHandler {
         }else {
             System.out.printf("Membership '%s' Already Defined\n", membershipType.name());
         }
+    }
+
+    @Override
+    public void run() {
+        MembershipMenuHandler.super.run();
     }
 }

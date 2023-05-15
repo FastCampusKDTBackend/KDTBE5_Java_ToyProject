@@ -2,13 +2,10 @@ package com.smartstore.function.mainmenu;
 
 import com.smartstore.function.sorting.SortFunction;
 import com.smartstore.function.sorting.SortHandler;
-import com.smartstore.util.Function;
-import com.smartstore.util.Handler;
-import com.smartstore.util.Printer;
-import com.smartstore.util.Validator;
+import com.smartstore.util.*;
 
 
-public class SummaryMenu implements SortHandler, Handler {
+public class SummaryMenu implements SortHandler, Handler, HandleableParam {
 
     private static SummaryMenu instance;
 
@@ -48,4 +45,8 @@ public class SummaryMenu implements SortHandler, Handler {
 
     }
 
+    @Override
+    public <T> void run(T value) {
+        run();
+    }
 }

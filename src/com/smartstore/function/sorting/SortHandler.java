@@ -11,6 +11,10 @@ public interface SortHandler extends EnumValueProvider, Handleable, MergeSort {
     @Override
     default void run() {
         CustomList<Customer> customerList = Customers.getInstance().getCustomerList();
+        if(customerList.size() == 0){
+            System.out.println("There is No Data Yet");
+            return;
+        }
         Customer[] customerArr = customerList.toArray(new Customer[customerList.size()]);
         for(MembershipType membershipType : MembershipType.values()){
             System.out.println(membershipType.toString());

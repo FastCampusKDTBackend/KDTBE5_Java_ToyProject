@@ -1,6 +1,7 @@
 package com.smartstore.function.membership.set;
 
 import com.smartstore.customer.Customers;
+import com.smartstore.function.membership.MembershipMenuHandler;
 import com.smartstore.membership.MembershipRequirement;
 import com.smartstore.membership.MembershipType;
 import com.smartstore.membership.Memberships;
@@ -25,9 +26,9 @@ public interface SetMembershipHandler extends HandleableParam, Handleable {
         boolean isValidPaymentAmount;
 
         while (true) {
-            minUsageTime = isUpdateUsageTime ? Validator.getInteger("Input minUsageTime : ") : Memberships.getInstance().findByType(membershipType).getMinUsageTime();
+            minUsageTime = Memberships.getInstance().findByType(membershipType) == null && isUpdateUsageTime  ? Validator.getInteger("Input minUsageTime : ") : Memberships.getInstance().findByType(membershipType).getMinUsageTime();
             isValidUsage = Validator.isValidMinUsage(membershipType, minUsageTime);
-            minPaymentAmount = isUpdatePaymentAmount ? Validator.getInteger("Input minPaymentAmount : ") : Memberships.getInstance().findByType(membershipType).getMinPaymentAmount();
+            minPaymentAmount = Memberships.getInstance().findByType(membershipType) == null && isUpdatePaymentAmount ? Validator.getInteger("Input minPaymentAmount : ") : Memberships.getInstance().findByType(membershipType).getMinPaymentAmount();
             isValidPaymentAmount = Validator.isValidMinPayment(membershipType, minPaymentAmount);
 
             if(membershipType != MembershipType.values()[0] && membershipType != MembershipType.values()[1]){

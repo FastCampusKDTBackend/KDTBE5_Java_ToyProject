@@ -44,8 +44,11 @@ public class SortByMembership implements SortHandler, MergeSort {
                 }
                 //copy and add to list of Customers Group by membership
             }
-
-            sortedCustomerMap.put(membershipType, Arrays.copyOfRange(customersSortByMembership,0, index != 0 ? index-1 : customersSortByMembership.length-1));
+            if(index == 0){
+                sortedCustomerMap.put(membershipType, customersSortByMembership);
+                break;
+            }
+            sortedCustomerMap.put(membershipType, Arrays.copyOfRange(customersSortByMembership,0, index-1));
             //resize sorted Arr
             customersSortByMembership = Arrays.copyOfRange(customersSortByMembership, index, customersSortByMembership.length-1);
             index=0;

@@ -59,7 +59,6 @@ public class Validator implements Readable {
                     System.out.print("Input : ");
                     valueName = br.readLine();
                     if("end".equals(valueName)){
-                        isExit = true;
                         break;
                     }
                     for (String membershipName : values) {
@@ -78,7 +77,7 @@ public class Validator implements Readable {
     }
 
     public static String getMenuNumber(String[] values) {
-        int menu = -1;
+        int menu;
         while (true){
             try {
                 System.out.print("Wait for Input : ");

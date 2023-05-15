@@ -43,9 +43,9 @@ public class CustomHashMap<K, V> implements Map<K, V> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("CustomHashMap { \n");
-        for(int i = 0; i < entries.length; i++){
-            if(entries[i] != null){
-                sb.append(entries[i]);
+        for (Node<K, V> entry : entries) {
+            if (entry != null) {
+                sb.append(entry);
             }
         }
         sb.append("}");

@@ -8,8 +8,8 @@ public class Printer {
         }
     }
     public static void printSelectable(String[] menus){
-        for(int i = 0 ; i < menus.length ; i++){
-            System.out.printf("| %s ",menus[i]);
+        for (String menu : menus) {
+            System.out.printf("| %s ", menu);
         }
         System.out.println("| or 'end'");
     }

@@ -19,7 +19,7 @@ public class SetName implements UpdateCustomerHandler {
 
     @Override
     public <T> void run(T value) {
-        String name = "";
+        String name;
         Customer customer = (Customer) value;
         name = Validator.getValueOrEnd("Input New Name\n Wait for input... 'end' to exit", String.class);
         if(name.isBlank() || "end".equals(name)){

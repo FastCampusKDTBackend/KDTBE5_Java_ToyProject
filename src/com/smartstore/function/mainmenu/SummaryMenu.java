@@ -1,8 +1,5 @@
 package com.smartstore.function.mainmenu;
 
-import com.smartstore.customer.Customer;
-import com.smartstore.customer.Customers;
-import com.smartstore.function.customer.CustomerMenuHandler;
 import com.smartstore.function.sorting.SortFunction;
 import com.smartstore.function.sorting.SortHandler;
 import com.smartstore.util.Function;

@@ -24,10 +24,10 @@ public class AddCustomer implements CustomerMenuHandler {
     @Override
     public boolean handleChoice(String numberOfUser) {
         if(!"end".equalsIgnoreCase(numberOfUser)){
-            String name = "";
-            String id = "";
-            int usageTime = 0;
-            int paymentAmount = 0;
+            String name;
+            String id;
+            int usageTime;
+            int paymentAmount;
             Customers customers = Customers.getInstance();
             //get name & id from user, usage_time&payment_amount is optional
             for(int i = 0 ; i < Integer.parseInt(numberOfUser) ; i++){

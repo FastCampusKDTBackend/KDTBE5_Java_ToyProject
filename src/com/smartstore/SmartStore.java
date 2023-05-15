@@ -8,7 +8,6 @@ import com.smartstore.util.CustomList;
 import com.smartstore.util.Function;
 import com.smartstore.function.mainmenu.MainMenuFunction;
 
-import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 

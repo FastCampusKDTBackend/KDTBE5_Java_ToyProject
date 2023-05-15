@@ -29,17 +29,17 @@ public class Customer {
         MembershipType membership = MembershipType.NONE;
         //Map is CustomMap
         CustomEnumMap<MembershipType, MembershipRequirement> membershipList = memberships.getMembershipList();
-        int currentUsageTime = 0;
-        int currentPaymentTime = 0;
-        boolean isUsageLowerThenCurrent = false;
-        boolean isPaymentLowerThenCurrent = false;
+        int currentUsageTime;
+        int currentPaymentTime;
+        boolean isUsageLowerThenCurrent;
+        boolean isPaymentLowerThenCurrent;
         for(MembershipType membershipType : MembershipType.values()){
             try {
                 currentUsageTime = membershipType == MembershipType.NONE ? 0 : membershipList.get(membershipType).getMinUsageTime();
                 currentPaymentTime = membershipType == MembershipType.NONE ? 0 : membershipList.get(membershipType).getMinPaymentAmount();
 
-                isUsageLowerThenCurrent = usageTime >= currentUsageTime ? false : true;
-                isPaymentLowerThenCurrent = paymentAmount >= currentPaymentTime ? false : true;
+                isUsageLowerThenCurrent = usageTime < currentUsageTime;
+                isPaymentLowerThenCurrent = paymentAmount < currentPaymentTime;
 
                 if(!isUsageLowerThenCurrent){
                     if (!isPaymentLowerThenCurrent){

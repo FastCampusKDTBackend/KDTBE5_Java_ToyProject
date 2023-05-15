@@ -23,7 +23,7 @@ public class ViewCustomerById implements Handleable {
     @Override
     public void run() {
         Customers customers = Customers.getInstance();
-        Customer customer = null;
+        Customer customer;
         String value = Validator.getValueOrEnd("Type User Id to Find | 'end' to cancel : ", String.class);
         String msg="";
 

@@ -1,8 +1,6 @@
 package com.smartstore.function.sorting;
 
 import com.smartstore.customer.Customer;
-import com.smartstore.customer.Customers;
-import com.smartstore.util.CustomList;
 import com.smartstore.util.MergeSort;
 
 public class SortByName implements SortHandler, MergeSort {

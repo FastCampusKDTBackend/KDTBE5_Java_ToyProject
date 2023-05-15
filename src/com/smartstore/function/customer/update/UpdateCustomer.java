@@ -37,7 +37,7 @@ public class UpdateCustomer implements CustomerMenuHandler {
 
     @Override
     public void run(){
-        String id="";
+        String id;
         boolean isExit = false;
         id = Validator.getValueOrEnd("Type User Id to Update : ", String.class);
         if("end".equalsIgnoreCase(id)){

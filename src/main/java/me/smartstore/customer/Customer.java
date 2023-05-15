@@ -28,11 +28,11 @@ public class Customer implements Comparable<Customer> {
         //정렬된 groups요소를 돌며 그 요소의 기준 미만이라면 그 grouptype으로 설정
         Groups groups = Groups.getInstance();
         MyArrayList<Group> groupList = groups.getGroups();
-        for (Group group : groupList) {
-            int minimumHours = group.getParameter().getMinimumHours();
-            int minimumTotalAmount = group.getParameter().getMinimumTotalAmount();
+        for (int i = 0; i < groupList.size(); i++) {
+            int minimumHours = groupList.get(i).getParameter().getMinimumHours();
+            int minimumTotalAmount = groupList.get(i).getParameter().getMinimumTotalAmount();
             if (hours < minimumHours || totalAmount < minimumTotalAmount) {
-                return group.getCustomerGroup();
+                return groupList.get(i).getCustomerGroup();
             }
         }
         return GroupType.VVIP;

@@ -7,7 +7,7 @@ public class Groups {
     private static Groups instance;
 
     private Groups() {
-        groups.add(new Group(GroupType.General, new Parameter()));
+        groups.add(new Group(GroupType.GENERAL, new Parameter()));
         groups.add(new Group(GroupType.VIP, new Parameter()));
         groups.add(new Group(GroupType.VVIP, new Parameter()));
     }

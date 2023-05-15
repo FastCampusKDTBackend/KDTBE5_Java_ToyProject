@@ -27,7 +27,7 @@ public class ClassifiedCustomers {
         initCustomerList();
 
         for (Customer customer : customerList) {
-            if (customer.getGroup() == GroupType.General) {
+            if (customer.getGroup() == GroupType.GENERAL) {
                 classifiedByGeneral.add(customer);
                 continue;
             }

@@ -1,7 +1,6 @@
 package me.smartstore.menu;
 
 import me.smartstore.collections.MyArrayList;
-import me.smartstore.customer.Customer;
 import me.smartstore.group.Group;
 import me.smartstore.group.GroupType;
 import me.smartstore.group.Parameter;
@@ -51,7 +50,7 @@ public class GroupMenu extends Menu implements DataCRUD {
 
     private void printGroupSelectionMessage() {
         System.out.println("다음 등급 중 하나를 선택해주세요.");
-        System.out.println("1. General");
+        System.out.println("1. GENERAL");
         System.out.println("2. VIP");
         System.out.println("3. VVIP");
         System.out.println("==============================");
@@ -60,7 +59,7 @@ public class GroupMenu extends Menu implements DataCRUD {
 
     private GroupType groupNumberToGroupType(int groupNumber) {
         if (groupNumber == 1) {
-            return GroupType.General;
+            return GroupType.GENERAL;
         }
         if (groupNumber == 2) {
             return GroupType.VIP;

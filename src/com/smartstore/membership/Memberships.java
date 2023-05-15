@@ -37,8 +37,9 @@ public class Memberships {
         int minUsageTime;
         int minPaymentAmount;
 
-        minUsageTime = setMinUsage();
-        minPaymentAmount = setMinPaymentAmount();
+        minUsageTime = getMinUsageFromInput();
+        minPaymentAmount = getMinPaymentAmountFromInput();
+        // TODO: 2023-05-15 check minUsage, minPayment Bigger than prev Membership
         membershipList.put(membershipType, new MembershipRequirement(minUsageTime, minPaymentAmount));
     }
 
@@ -48,11 +49,11 @@ public class Memberships {
         Customers.getInstance().updateMembership();
     }
 
-    public int setMinUsage(){
+    public int getMinUsageFromInput(){
         return getInputFromConsole("Input minUsageTime : ");
     }
 
-    public int setMinPaymentAmount(){
+    public int getMinPaymentAmountFromInput(){
         return getInputFromConsole("Input minPaymentAmount : ");
     }
 

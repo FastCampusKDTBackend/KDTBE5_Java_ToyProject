@@ -22,7 +22,7 @@ public class SetMinPaymentAmount implements MembershipMenuHandler, HandleablePar
     @Override
     public void processMembership(MembershipType membershipType, MembershipRequirement requirement) {
         if(requirement != null){
-            Memberships.getInstance().setMembershipRequirement(membershipType, requirement.getMinUsageTime(), Memberships.getInstance().setMinPaymentAmount());
+            Memberships.getInstance().setMembershipRequirement(membershipType, requirement.getMinUsageTime(), Memberships.getInstance().getMinPaymentAmountFromInput());
             System.out.printf("Set %s Minimum Payment Amount Successfully\n\n\n",membershipType.name());
         }else {
             System.out.printf("Membership '%s' Defined Yet\n", membershipType.name());

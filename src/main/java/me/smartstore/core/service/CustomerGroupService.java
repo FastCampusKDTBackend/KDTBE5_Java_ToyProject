@@ -64,8 +64,12 @@ public class CustomerGroupService {
    * @throws StoreException 데이터베이스에 일치하는 그룹이 없을 경우
    */
   public CustomerGroupDTO find(CustomerType customerType) throws StoreException {
-    return CustomerGroupDTO.fromEntity(
-        customerGroupManager.selectCustomerGroupByCustomerType(customerType));
+    CustomerGroup customerGroup =
+        customerGroupManager.selectCustomerGroupByCustomerType(customerType);
+
+    if (customerGroup == null) throw new StoreException(NO_MATCHING_GROUP);
+
+    return CustomerGroupDTO.fromEntity(customerGroup);
   }
 
   /**

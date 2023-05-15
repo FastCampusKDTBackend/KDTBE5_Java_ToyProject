@@ -6,7 +6,6 @@ import static me.smartstore.exceptions.StoreErrorCode.*;
 import static me.smartstore.utils.StoreUtility.convertInputStrToCustomerType;
 
 import me.smartstore.core.domain.CustomerGroupDTO;
-import me.smartstore.core.domain.Parameter;
 import me.smartstore.core.service.CustomerGroupService;
 import me.smartstore.enums.CustomerType;
 import me.smartstore.exceptions.StoreException;
@@ -50,12 +49,11 @@ public class ParameterMenu extends AbstractMenu {
 
               if (customerGroupDTO.parameter() != null) {
                 System.out.println(GROUP_ALREADY_SET.getMessage());
-                System.out.println(customerGroupDTO);
-                continue;
+              } else {
+                customerGroupDTO =
+                    customerGroupService.setGroupParameter(
+                        customerGroupDTO, parameterSubMenu.inputParameter());
               }
-
-              Parameter parameter = parameterSubMenu.inputParameter();
-              customerGroupDTO = customerGroupService.setParameter(customerType, parameter);
 
               System.out.println(customerGroupDTO);
             }
@@ -77,8 +75,9 @@ public class ParameterMenu extends AbstractMenu {
 
               if (customerGroupDTO.parameter() == null) throw new StoreException(NO_PARAMETER);
 
-              Parameter parameter = parameterSubMenu.inputParameter();
-              customerGroupDTO = customerGroupService.setParameter(customerType, parameter);
+              customerGroupDTO =
+                  customerGroupService.setGroupParameter(
+                      customerGroupDTO, parameterSubMenu.inputParameter());
 
               System.out.println(customerGroupDTO);
             }

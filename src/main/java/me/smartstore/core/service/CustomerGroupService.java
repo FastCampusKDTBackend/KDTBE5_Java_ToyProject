@@ -1,7 +1,9 @@
 package me.smartstore.core.service;
 
-import java.util.Arrays;
+import static me.smartstore.exceptions.StoreErrorCode.NO_MATCHING_GROUP;
 
+import java.util.Arrays;
+import me.smartstore.core.domain.CustomerGroup;
 import me.smartstore.core.domain.CustomerGroupDTO;
 import me.smartstore.core.domain.Parameter;
 import me.smartstore.core.manager.CustomerGroupManager;
@@ -28,34 +30,32 @@ public class CustomerGroupService {
   }
 
   /**
-   * 고객 그룹 분류 기준 설정. 분류 기준이 새로 설정된 경우 고객 정보도 함께 업데이트
+   * 그룹 파라미터 설정 후 저장
    *
-   * @param customerType 고객 유형
+   * @param customerGroupDTO 고객 그룹 DTO
    * @param parameter 분류 기준
    * @return 설정이 완료된 고객 그룹
-   * @throws StoreException 일치하는 고객 그룹이 데이터베이스 없는 경우
    */
-  public CustomerGroupDTO setParameter(CustomerType customerType, Parameter parameter)
-      throws StoreException {
-    CustomerGroup customerGroup =
-        customerGroupManager.selectCustomerGroupByCustomerType(customerType);
+  public CustomerGroupDTO setGroupParameter(
+      CustomerGroupDTO customerGroupDTO, Parameter parameter) {
+    Parameter updatedParameter = customerGroupDTO.parameter();
 
-    if (customerGroup.getParameter() == null) {
-      customerGroup.setParameter(parameter);
+    if (customerGroupDTO.parameter() != null) {
+      if (parameter.getMinSpentTime() != null)
+        updatedParameter.setMinSpentTime(parameter.getMinSpentTime());
+      if (parameter.getMinPayAmount() != null)
+        updatedParameter.setMinPayAmount(parameter.getMinPayAmount());
     } else {
-      if (parameter.getMinSpentTime() != null) {
-        customerGroup.getParameter().setMinSpentTime(parameter.getMinSpentTime());
-      }
-
-      if (parameter.getMinPayAmount() != null) {
-        customerGroup.getParameter().setMinPayAmount(parameter.getMinPayAmount());
-      }
+      updatedParameter = parameter;
     }
 
-    customerGroup = customerGroupManager.save(customerGroup);
+    CustomerGroupDTO updatedDTO =
+        CustomerGroupDTO.of(customerGroupDTO.customerType(), updatedParameter);
+
+    customerGroupManager.save(CustomerGroupDTO.toEntity(updatedDTO));
     customerService.classifyAllCustomers();
 
-    return CustomerGroupDTO.from(customerGroup);
+    return updatedDTO;
   }
 
   /**

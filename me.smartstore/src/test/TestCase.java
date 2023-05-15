@@ -17,7 +17,6 @@ public class TestCase {
     private final CustomerService customerService = CustomerService.getInstance();
 
     public void buildTestCase() {
-        groups.add(new Group(new Parameter(0, 0), GroupType.NONE));
         groups.add(new Group(new Parameter(10, 100000), GroupType.GENERAL));
         groups.add(new Group(new Parameter(20, 200000), GroupType.VIP));
         groups.add(new Group(new Parameter(30, 300000), GroupType.VVIP));

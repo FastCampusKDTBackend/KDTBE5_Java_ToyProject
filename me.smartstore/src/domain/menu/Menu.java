@@ -28,10 +28,6 @@ public interface Menu {
         return str;
     }
 
-    default String nextLineUpper() {
-        return sc.nextLine().toUpperCase();
-    }
-
     default String nextLineUpper(String END_MSG) {
         System.out.println("** Press 'end', if you want to exit! **");
         String str = sc.nextLine().toUpperCase();

@@ -10,6 +10,8 @@ import handler.exception.ArrayEmptyException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static resources.Message.*;
+
 public class SummaryService {
 
     private static final Customers customers = Customers.getInstance();
@@ -43,6 +45,10 @@ public class SummaryService {
     }
 
     public void showDefaultSummary() {
+        if (customers.size() == 0) {
+            System.out.println(ERR_MSG_INVALID_ARR_EMPTY);
+            return;
+        }
 
         Customer[] customerArr = customers.getCustomers();
         showSummary(customerArr);
@@ -54,8 +60,10 @@ public class SummaryService {
                 System.out.println(showSummaryHeader(groups.get(i)));
                 Customer[] resultArr = arrayByGroupType(groups.get(i), customerArr);
 
-                if (resultArr.length == 0) { //그룹별로 분류한 배열의 사이즈가 0이면 예외 발생시키기
-                    throw new ArrayEmptyException();
+                //그룹별로 분류한 배열의 사이즈가 0이면 해당 고객이 존재하지 않는 그룹이므로 넘기기
+                if (resultArr.length == 0) {
+                    System.out.println(ERR_MSG_GROUP_CUSTOMER_EMPTY);
+                    continue;
                 }
 
                 AtomicInteger index = new AtomicInteger();

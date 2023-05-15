@@ -26,12 +26,12 @@ public class Group {
         this.parameter = parameter;
     }
 
-    public GroupType getGroupType() {
-        return groupType;
-    }
-
     public void setGroupType(GroupType groupType) {
         this.groupType = groupType;
+    }
+
+    public GroupType getGroupType() {
+        return groupType;
     }
 
     @Override

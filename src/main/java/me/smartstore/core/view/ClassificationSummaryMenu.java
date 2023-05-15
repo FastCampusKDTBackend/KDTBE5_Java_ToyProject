@@ -61,7 +61,7 @@ public class ClassificationSummaryMenu extends AbstractMenu {
           case 2 -> {
             while (true) {
               try {
-                displayClassifiedCustomerData(NAME, inputSortOrder());
+                displayClassifiedCustomerDataSortBy(NAME, inputSortOrder());
               } catch (StoreException e) {
                 if (e.getErrorCode() == INPUT_END) break;
                 System.out.println(e.getMessage());
@@ -73,7 +73,7 @@ public class ClassificationSummaryMenu extends AbstractMenu {
           case 3 -> {
             while (true) {
               try {
-                displayClassifiedCustomerData(SPENT_TIME, inputSortOrder());
+                displayClassifiedCustomerDataSortBy(SPENT_TIME, inputSortOrder());
               } catch (StoreException e) {
                 if (e.getErrorCode() == INPUT_END) break;
                 System.out.println(e.getMessage());
@@ -85,7 +85,7 @@ public class ClassificationSummaryMenu extends AbstractMenu {
           case 4 -> {
             while (true) {
               try {
-                displayClassifiedCustomerData(PAY_AMOUNT, inputSortOrder());
+                displayClassifiedCustomerDataSortBy(PAY_AMOUNT, inputSortOrder());
               } catch (StoreException e) {
                 if (e.getErrorCode() == INPUT_END) break;
                 System.out.println(e.getMessage());
@@ -129,7 +129,7 @@ public class ClassificationSummaryMenu extends AbstractMenu {
     displayClassifiedCustomerData(customerGroupDTOs, classifiedCustomerDTOs);
   }
 
-  private void displayClassifiedCustomerData(SortBy sortBy, SortOrder sortOrder) {
+  private void displayClassifiedCustomerDataSortBy(SortBy sortBy, SortOrder sortOrder) {
     CustomerGroupDTO[] customerGroupDTOs = customerGroupService.findAll();
     CustomerDTO[][] classifiedCustomerDTOs =
         customerService.getClassifiedCustomerData(sortBy, sortOrder);

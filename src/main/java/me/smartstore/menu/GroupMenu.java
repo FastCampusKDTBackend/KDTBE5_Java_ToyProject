@@ -80,14 +80,17 @@ public class GroupMenu extends Menu implements DataCRUD {
     private void insertInputParameter(Parameter parameter) {
         //기준을 입력할 메뉴 입력 1: 누적 시간/ 2: 누적 결제 금액
         try {
+            printInsertParameterMessage();
             int parameterNumber = Integer.parseInt(br.readLine());
             //누적 시간 입력 받음
             if (parameterNumber == 1) {
+                System.out.println("누적 이용 시간을 입력해주세요.");
                 int hours = Integer.parseInt(br.readLine());
                 parameter.setMinimumHours(hours);
                 return;
             }
             //누적 결제 금액 입력 받음
+            System.out.println("누적 결제 금액을 입력해주세요.");
             int totalAmount = Integer.parseInt(br.readLine());
             parameter.setMinimumTotalAmount(totalAmount);
         } catch (IOException e) {
@@ -95,12 +98,20 @@ public class GroupMenu extends Menu implements DataCRUD {
         }
     }
 
+    private void printInsertParameterMessage(){
+        System.out.println("==============================");
+        System.out.println("다음 중 입력할 기준을 선택해주세요.");
+        System.out.println("1. 누적 이용 시간");
+        System.out.println("2. 누적 결제 금액");
+        System.out.println("==============================");
+    }
+
     private Parameter findParameter(GroupType groupType) {
-        if(validator.isGroupListEmpty()){
+        if (validator.isGroupListEmpty()) {
             return null;
         }
         MyArrayList<Group> groupList = groups.getGroups();
-        for(int i=0; i<groupList.size(); i++){
+        for (int i = 0; i < groupList.size(); i++) {
             if (groupList.get(i).getCustomerGroup() == groupType) {
                 return groupList.get(i).getParameter();
             }

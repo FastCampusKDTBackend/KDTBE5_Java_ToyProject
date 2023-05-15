@@ -32,18 +32,18 @@ public class Customers {
             int totalAmount = currentCustomer.getTotalAmount();
 
             for (int j = 0; j < groupList.size() - 1; j++) {
-                int currentMinimumHours = groupList.get(i).getParameter().getMinimumHours();
-                int currentMinimumTotalAmount = groupList.get(i).getParameter().getMinimumTotalAmount();
-                int nextMinimumHours = groupList.get(i + 1).getParameter().getMinimumHours();
-                int nextMinimumTotalAmount = groupList.get(i + 1).getParameter().getMinimumTotalAmount();
+                int currentMinimumHours = groupList.get(j).getParameter().getMinimumHours();
+                int currentMinimumTotalAmount = groupList.get(j).getParameter().getMinimumTotalAmount();
+                int nextMinimumHours = groupList.get(j + 1).getParameter().getMinimumHours();
+                int nextMinimumTotalAmount = groupList.get(j + 1).getParameter().getMinimumTotalAmount();
                 //어떤 기준도 충족 못시킬 때
                 if (hours <= currentMinimumHours || totalAmount <= currentMinimumTotalAmount) {
-                    currentCustomer.setGroup(GroupType.getGroupType(0));
-                    return;
+                    currentCustomer.setGroup(GroupType.getGroupType(j));
+                    break;
                 }
                 if (hours <= nextMinimumHours && totalAmount <= nextMinimumTotalAmount) {
-                    currentCustomer.setGroup(GroupType.getGroupType(i));
-                    return;
+                    currentCustomer.setGroup(GroupType.getGroupType(j));
+                    break;
                 }
             }
             currentCustomer.setGroup(GroupType.getGroupType(groupList.size() - 1));

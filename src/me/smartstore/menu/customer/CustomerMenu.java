@@ -47,16 +47,21 @@ public class CustomerMenu implements Menu {
 
 
     public void viewCustomer(){
-        System.out.println("======= Customer Info. =======");
-        for (int i = 0; i < allCustomers.size(); i++) {
+        if(allCustomers.size() == 0){
+            System.out.println("No Customers. Please input one first.");
+        }
+        else {
+            System.out.println("======= Customer Info. =======");
+            for (int i = 0; i < allCustomers.size(); i++) {
 
-            System.out.printf("No. %d => Customer{userId='%s', name='%s', spentTime=%d, totalPay=%d, "
-                    , i+1,allCustomers.get(i).getCustomerId(),allCustomers.get(i).getCustomerName(),allCustomers.get(i).getCustomerTotalTime(),allCustomers.get(i).getCustomerTotalPay());
-            if (allCustomers.get(i).getGroup() == null){
-                System.out.println("group=GroupType: null");
-            }
-            else {
-                System.out.println("group=GroupType: " + allCustomers.get(i).getGroup().getGroupType());
+                System.out.printf("No. %d => Customer{userId='%s', name='%s', spentTime=%d, totalPay=%d, "
+                        , i+1,allCustomers.get(i).getCustomerId(),allCustomers.get(i).getCustomerName(),allCustomers.get(i).getCustomerTotalTime(),allCustomers.get(i).getCustomerTotalPay());
+                if (allCustomers.get(i).getGroup() == null){
+                    System.out.println("group=GroupType: null");
+                }
+                else {
+                    System.out.println("group=GroupType: " + allCustomers.get(i).getGroup().getGroupType());
+                }
             }
         }
     }
@@ -65,13 +70,14 @@ public class CustomerMenu implements Menu {
         // 고객객체를 업데이트 할 때 기존 정보를 불려와야함.
         viewCustomer();
         while (true){
+            if(allCustomers.size() == 0) break;
             System.out.printf("\nWhich customer (1 ~ %d) ?", allCustomers.size());
             try {
                 int num = scanner.nextInt();
                 scanner.nextLine();
-                if (num > allCustomers.size()) throw new InputMismatchException();
+                if (num > allCustomers.size() || 0 > allCustomers.size()) throw new InputMismatchException();
                 allCustomers.set(num-1, addCustomer.inputCustomerInfo(allCustomers.get(num-1)));
-                allCustomers.refresh(allGroups);
+                allCustomers.refresh();
                 break;
             }catch (InputMismatchException e) {
                 System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
@@ -85,6 +91,7 @@ public class CustomerMenu implements Menu {
     public void deleteCustomer(){
         viewCustomer();
         while (true){
+            if(allCustomers.size() == 0) break;
             System.out.printf("\nWhich customer (1 ~ %d)? ", allCustomers.size());
             try {
                 int num = scanner.nextInt();

@@ -65,7 +65,7 @@ public class GroupMenu implements Menu{
         while ( true ) {
             GroupType groupType = chooseGroup();
             if (groupType == null){ //chooseGroup에서 end입력되면 null리턴함
-                allCustomers.refresh(allGroups); // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
+                allCustomers.refresh(); // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
                 break;
             }
 
@@ -95,7 +95,7 @@ public class GroupMenu implements Menu{
                         group = allGroups.find(groupType);
                         System.out.println("\nGroupType: " + group.getGroupType());
                         System.out.println("Parameter: " + group.getParameter());
-                        allCustomers.refresh(allGroups);
+                        allCustomers.refresh();
                         break;
                     }
                 }
@@ -115,6 +115,7 @@ public class GroupMenu implements Menu{
                 System.out.println("Parameter: " + group.getParameter());
             } catch (NullPointerException e){
                 System.out.println("There is no Group Parmeter.\nPlease set a Parameter.");
+                break;
             }
 
         }
@@ -122,41 +123,44 @@ public class GroupMenu implements Menu{
 
     public void updateParameter(){
         while( true ) {
-            GroupType groupType = chooseGroup();
-            if (groupType == null){ //chooseGroup에서 end입력되면 null리턴함
-                allCustomers.refresh(allGroups); // 파라미터가 변경되었거나 추가되는 경우, 고객 분류를 다시 해야함
-                break;
-            }
-
-            Group group = allGroups.find(groupType);
-            System.out.println("\nGroupType: " + group.getGroupType());
-            System.out.println("Parameter: " + group.getParameter());
-
-            while ( true ){
-                int choice = chooseMenu(new String[]{
-                        "Minimum Spent Time",
-                        "Minimum Total Pay",
-                        "Back"});
-
-                if (choice == 1) {
-                    Integer minimumSpentTime = inputMinimumSpentTime();
-                    if (minimumSpentTime == null) continue;
-                    else group.getParameter().setMinTime(minimumSpentTime);
-                }
-                else if (choice == 2) {
-                    Integer minimumTotalPay = inputMinimumTotalPay();
-                    if (minimumTotalPay == null) continue;
-                    else group.getParameter().setMinPay(minimumTotalPay);
-                }
-                else{
-                    System.out.println("\nGroupType: " + group.getGroupType());
-                    System.out.println("Parameter: " + group.getParameter());
-                    allCustomers.refresh(allGroups);
+            try {
+                GroupType groupType = chooseGroup();
+                if (groupType == null){ //chooseGroup에서 end입력되면 null리턴함
+                    allCustomers.refresh();
                     break;
                 }
+
+                Group group = allGroups.find(groupType);
+                System.out.println("\nGroupType: " + group.getGroupType());
+                System.out.println("Parameter: " + group.getParameter());
+
+                while ( true ){
+                    int choice = chooseMenu(new String[]{
+                            "Minimum Spent Time",
+                            "Minimum Total Pay",
+                            "Back"});
+
+                    if (choice == 1) {
+                        Integer minimumSpentTime = inputMinimumSpentTime();
+                        if (minimumSpentTime == null) continue;
+                        else group.getParameter().setMinTime(minimumSpentTime);
+                    }
+                    else if (choice == 2) {
+                        Integer minimumTotalPay = inputMinimumTotalPay();
+                        if (minimumTotalPay == null) continue;
+                        else group.getParameter().setMinPay(minimumTotalPay);
+                    }
+                    else{
+                        System.out.println("\nGroupType: " + group.getGroupType());
+                        System.out.println("Parameter: " + group.getParameter());
+                        allCustomers.refresh();
+                        break;
+                    }
+                }
+            } catch (NullPointerException e){
+                System.out.println("There is no Group Parmeter.\nPlease set a Parameter.");
+                break;
             }
-
-
         }
     }
 

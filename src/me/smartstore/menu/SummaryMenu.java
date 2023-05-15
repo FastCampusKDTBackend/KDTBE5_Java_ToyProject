@@ -83,22 +83,13 @@ public class SummaryMenu implements Menu{
 
 
     public void sortByGroup(Customer[] customers){
-        for (int i = 0; i < allGroups.size(); i++) {
-            int count = 1;
-            if (allGroups.get(i).getGroupType()==GroupType.NONE){
-                count = forSortbyGroup(i, count, customers);
-            }
-
-            else if (allGroups.get(i).getGroupType()==GroupType.GENERAL){
-                count = forSortbyGroup(i, count, customers);
-            }
-
-            else if (allGroups.get(i).getGroupType()==GroupType.VIP){
-                count = forSortbyGroup(i, count, customers);
-            }
-
-            else if (allGroups.get(i).getGroupType()==GroupType.VVIP){
-                count = forSortbyGroup(i, count, customers);
+        GroupType[] groupTypes = new GroupType[]{GroupType.NONE, GroupType.GENERAL, GroupType.VIP, GroupType.VVIP};
+        for (int j = 0; j < groupTypes.length; j++) {
+            for (int i = 0; i < allGroups.size(); i++) {
+                int count = 1;
+                if (allGroups.get(i).getGroupType() == groupTypes[j]) {
+                    count = forSortbyGroup(i, count, customers);
+                }
             }
 
         }

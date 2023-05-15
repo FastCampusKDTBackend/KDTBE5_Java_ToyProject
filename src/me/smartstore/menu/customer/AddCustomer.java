@@ -25,9 +25,9 @@ public class AddCustomer implements Menu {
 
     private AddCustomer(){}
 
-    //-----
+    //
 
-    public void addCustomer(){ //Todo : update에서도 활용가능하게 함수화 하기, 이 함수 클래스화 가능한지 생각해보기
+    public void addCustomer(){
         while(true){
             try {
                 System.out.println("How many customer to input?");
@@ -38,7 +38,7 @@ public class AddCustomer implements Menu {
                     allCustomers.add(inputCustomerInfo(null));
                     // 고객정보 입력받는 함수 추가됨
                 }
-                allCustomers.refresh(allGroups);
+                allCustomers.refresh();
                 break;
             }catch (InputEndException e){
                 System.out.println(Message.ERR_MSG_INPUT_END);
@@ -49,6 +49,7 @@ public class AddCustomer implements Menu {
         }
     }
 
+    
     public Customer inputCustomerInfo(Customer customer){
         //cusotmer이 null일 때 -> 새로운 고객객체를 생성할 때
         //cusotmer이 null이 아닐때 -> 기존 고객정보를 수정할 때
@@ -56,12 +57,13 @@ public class AddCustomer implements Menu {
         String id = "";
         Integer spentTime = 0;
         Integer totalPay = 0;
-        if (customer != null){
+        if (customer != null){ // updateCustomer일 때 기존정보를 불러옴
             name = customer.getCustomerName();
             id = customer.getCustomerId();
             spentTime = customer.getCustomerTotalTime();
             totalPay = customer.getCustomerTotalPay();
         }
+
         while (true){
             int choice = chooseMenu(new String[]{
                     "Customer Name",
@@ -71,24 +73,13 @@ public class AddCustomer implements Menu {
                     "Back"});
 
             if (choice == 1) {
-                name = inputCustomerName();
-                if(name == null) continue;
+                name = inputCustomerName(name);
             } else if (choice == 2) {
-                id = inputCustomerID();
-                if(id == null) continue;
+                id = inputCustomerID(id);
             } else if (choice == 3) {
-                try{
-                    spentTime = inputSpentTime();
-                }catch (NullPointerException e){
-                    continue;
-                }
-
+                spentTime = inputSpentTime(spentTime);
             } else if (choice == 4) {
-                try{
-                    totalPay = inputTotalPay();
-                }catch (NullPointerException e){
-                    continue;
-                }
+                totalPay = inputTotalPay(totalPay);
             } else {
                 return new Customer(name, id, spentTime, totalPay);
             }
@@ -97,7 +88,7 @@ public class AddCustomer implements Menu {
 
     }
 
-    public String inputCustomerName(){
+    public String inputCustomerName(String originName){
         try {
             System.out.println("\nInput Customer's Name: ");
             String name = nextLineNotUpperCase(Message.END_MSG);
@@ -105,47 +96,47 @@ public class AddCustomer implements Menu {
             return name;
         } catch (InputEndException e){
             System.out.println(Message.ERR_MSG_INPUT_END);
-            return null;
+            return originName;
         }
 
     }
 
-    public String inputCustomerID(){
+    public String inputCustomerID(String originID){
         try{
             System.out.println("\nInput Customer's ID: ");
             String id = nextLineNotUpperCase(Message.END_MSG);
             return id;
         } catch (InputEndException e){
             System.out.println(Message.ERR_MSG_INPUT_END);
-            return null;
+            return originID;
         }
     }
 
-    public Integer inputSpentTime(){
+    public Integer inputSpentTime(Integer originSpentTime){
         try{
             System.out.println("\nInput Customer's Spent Time: ");
             Integer spentTime = Integer.parseInt(nextLineNotUpperCase(Message.END_MSG));
             return spentTime;
         } catch (InputEndException e){
             System.out.println(Message.ERR_MSG_INPUT_END);
-            return null;
-        } catch (IllegalArgumentException e){
+            return originSpentTime;
+        } catch (NumberFormatException e){
             System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
-            return null;
+            return originSpentTime;
         }
     }
 
-    public Integer inputTotalPay(){
+    public Integer inputTotalPay(Integer originTotalPay){
         try{
             System.out.println("\nInput Customer's Total Payment: ");
             Integer totalPay = Integer.parseInt(nextLineNotUpperCase(Message.END_MSG));
             return totalPay;
         } catch (InputEndException e){
             System.out.println(Message.ERR_MSG_INPUT_END);
-            return null;
-        } catch (IllegalArgumentException e){
+            return originTotalPay;
+        } catch (NumberFormatException e){
             System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
-            return null;
+            return originTotalPay;
         }
     }
 

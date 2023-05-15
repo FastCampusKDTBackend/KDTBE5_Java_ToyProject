@@ -37,7 +37,6 @@ public class SmartStoreApp {
 
 
     public SmartStoreApp test() {
-        allGroups.add(new Group(new Parameter(null, null), GroupType.NONE));
         allGroups.add(new Group(new Parameter(10, 100000), GroupType.GENERAL));
         allGroups.add(new Group(new Parameter(20, 200000), GroupType.VIP));
         allGroups.add(new Group(new Parameter(30, 300000), GroupType.VVIP));
@@ -53,11 +52,10 @@ public class SmartStoreApp {
 
         allCustomers.add(new Customer("test1","test1",9,90000));
         allCustomers.add(new Customer("test2","test2",9,3100000));
-        allCustomers.refresh(allGroups);
+        allCustomers.refresh();
 
         System.out.println("allCustomers = " + allCustomers);
         System.out.println("allGroups = " + allGroups);
-
 
 
         return this; // smartStoreApp
@@ -65,6 +63,7 @@ public class SmartStoreApp {
 
     public void run() {
         details();
+        allGroups.add(new Group(new Parameter(0, 0), GroupType.NONE));
         mainMenu.manage();
 
     }

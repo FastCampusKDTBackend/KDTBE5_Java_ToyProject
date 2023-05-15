@@ -33,25 +33,21 @@ public class Customers extends DArray<Customer> {
 
 
 
-    // refresh 함수가 호출되는 경우
-    // 1. 분류기준 바뀔 때
-    // 2. 새로운 고객이 들어올 때
-    // 해당부분 완성 - SmartStoreApp 참고
-    public void refresh(Groups groups){
-        // 고객들 리스트 불러와서 한명씩 Customer.customerTotalTime-Group.minTime
-        // Customer.customerTotalPay-Group.minPay와 비교를해서 그룹타입을 지정해준다.
-        // 지정은 setGroup을 통해서 한다.
+    public void refresh(){
+        if (allGroups.size() != 4){
+            System.out.println("you need to set all Parameter.\n"+ (4-allGroups.size())+" more left");
+        }
         int noneNum = 0;
         int generalNum = 0;
         int vipNum = 0;
         int vvipNum = 0;
 
-        for (int i = 0; i < groups.size(); i++) {
-            if (groups.get(i).getGroupType().equals(GroupType.GENERAL)){
+        for (int i = 0; i < allGroups.size(); i++) {
+            if (allGroups.get(i).getGroupType().equals(GroupType.GENERAL)){
                 generalNum = i;
-            } else if (groups.get(i).getGroupType().equals(GroupType.VIP)) {
+            } else if (allGroups.get(i).getGroupType().equals(GroupType.VIP)) {
                 vipNum = i;
-            } else if (groups.get(i).getGroupType().equals(GroupType.VVIP)) {
+            } else if (allGroups.get(i).getGroupType().equals(GroupType.VVIP)) {
                 vvipNum = i;
             }else{
                 noneNum = i;
@@ -60,18 +56,18 @@ public class Customers extends DArray<Customer> {
 
 
         for (int i = 0; i < allCustomers.size; i++) {
-            if ((allCustomers.get(i).getCustomerTotalTime()<groups.get(generalNum).getParameter().getMinTime()) ||
-                    (allCustomers.get(i).getCustomerTotalPay()<groups.get(generalNum).getParameter().getMinPay())){
-                allCustomers.get(i).setGroup(groups.get(noneNum));
-            } else if ((allCustomers.get(i).getCustomerTotalTime()<groups.get(vipNum).getParameter().getMinTime()) ||
-                    (allCustomers.get(i).getCustomerTotalPay()<groups.get(vipNum).getParameter().getMinPay())) {
-                allCustomers.get(i).setGroup(groups.get(generalNum));
-            } else if ((allCustomers.get(i).getCustomerTotalTime()<groups.get(vvipNum).getParameter().getMinTime()) ||
-                    (allCustomers.get(i).getCustomerTotalPay()<groups.get(vvipNum).getParameter().getMinPay())) {
-                allCustomers.get(i).setGroup(groups.get(vipNum));
+            if ((allCustomers.get(i).getCustomerTotalTime()<allGroups.get(generalNum).getParameter().getMinTime()) ||
+                    (allCustomers.get(i).getCustomerTotalPay()<allGroups.get(generalNum).getParameter().getMinPay())){
+                allCustomers.get(i).setGroup(allGroups.get(noneNum));
+            } else if ((allCustomers.get(i).getCustomerTotalTime()<allGroups.get(vipNum).getParameter().getMinTime()) ||
+                    (allCustomers.get(i).getCustomerTotalPay()<allGroups.get(vipNum).getParameter().getMinPay())) {
+                allCustomers.get(i).setGroup(allGroups.get(generalNum));
+            } else if ((allCustomers.get(i).getCustomerTotalTime()<allGroups.get(vvipNum).getParameter().getMinTime()) ||
+                    (allCustomers.get(i).getCustomerTotalPay()<allGroups.get(vvipNum).getParameter().getMinPay())) {
+                allCustomers.get(i).setGroup(allGroups.get(vipNum));
             }
             else {
-                allCustomers.get(i).setGroup(groups.get(vvipNum));
+                allCustomers.get(i).setGroup(allGroups.get(vvipNum));
             }
         }
     }

@@ -14,17 +14,16 @@ public interface Menu {
         return scanner.nextLine().toUpperCase();
     }
 
-    // TODO: 2023/05/10 nextLine이 쫌 꼬였음 UpperCase가 되어야되는곳과 아닌곳이 구별되어야 함 ㅠㅠ 
     default String nextLine(String end){
         System.out.println("** Press 'end', if you want to exit! **");
         String str = scanner.nextLine().toUpperCase();
-        if (str.equals(end) || str.equals("END")) throw new InputEndException();
+        if (str.equals("END")) throw new InputEndException();
         return str;
     }
     default String nextLineNotUpperCase(String end){
         System.out.println("** Press 'end', if you want to exit! **");
         String str = scanner.nextLine();
-        if (str.equals(end) || str.equals("END")) throw new InputEndException();
+        if (str.equals("end") || str.equals("END")) throw new InputEndException();
         return str;
     }
 

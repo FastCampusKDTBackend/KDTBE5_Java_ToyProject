@@ -96,10 +96,10 @@ public class GroupMenu extends Menu implements DataCRUD {
     }
 
     private Parameter findParameter(GroupType groupType) {
-        MyArrayList<Group> groupList = groups.getGroups();
-        if (groupList.isEmpty()) {
-            throw new NullPointerException("등록된 등급 기준이 존재하지 않습니다");
+        if(validator.isGroupListEmpty()){
+            return null;
         }
+        MyArrayList<Group> groupList = groups.getGroups();
         for (Group group : groupList) {
             if (group.getCustomerGroup() == groupType) {
                 return group.getParameter();

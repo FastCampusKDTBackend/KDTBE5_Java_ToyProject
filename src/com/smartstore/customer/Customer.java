@@ -26,18 +26,34 @@ public class Customer {
 
     public void setMembership(int usageTime, int paymentAmount) {
         Memberships memberships = Memberships.getInstance();
-        MembershipType membership = null;
+        MembershipType membership = MembershipType.NONE;
         //Map is CustomMap
         CustomEnumMap<MembershipType, MembershipRequirement> membershipList = memberships.getMembershipList();
-        for(MembershipType membershipType :MembershipType.values()){
+        int currentUsageTime = 0;
+        int currentPaymentTime = 0;
+        boolean isUsageLowerThenCurrent = false;
+        boolean isPaymentLowerThenCurrent = false;
+        for(MembershipType membershipType : MembershipType.values()){
             try {
-                if(usageTime >= membershipList.get(membershipType).getMinUsageTime() && paymentAmount >= membershipList.get(membershipType).getMinPaymentAmount()){
-                    membership = membershipType;
+                currentUsageTime = membershipType == MembershipType.NONE ? 0 : membershipList.get(membershipType).getMinUsageTime();
+                currentPaymentTime = membershipType == MembershipType.NONE ? 0 : membershipList.get(membershipType).getMinPaymentAmount();
+
+                isUsageLowerThenCurrent = usageTime >= currentUsageTime ? false : true;
+                isPaymentLowerThenCurrent = paymentAmount >= currentPaymentTime ? false : true;
+
+                if(!isUsageLowerThenCurrent){
+                    if (!isPaymentLowerThenCurrent){
+                        membership = membershipType;
+                    } else{
+                        break;
+                    }
+                } else {
+                    break;
                 }
             }catch (NullPointerException e){
                 //Set General(lowers Membership) is not Set yet
                 //Set Membership as null
-                membership = null;
+                membership = MembershipType.NONE;
             }
 
         }

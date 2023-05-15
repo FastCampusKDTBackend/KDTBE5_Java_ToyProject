@@ -48,7 +48,7 @@ public class UpdateMembershipRequirement implements MembershipMenuHandler {
         }
         //call Menu with MembershipType
         Function.of(Integer.parseInt(menuNumber), UpdateMembershipRequirementFunction.class).run(selected);
-        return true;
+        return false;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class UpdateMembershipRequirement implements MembershipMenuHandler {
         boolean isExit = false;
 
         while (!isExit){
-            Printer.printSelectable(getMenuListFromEnum(MembershipType.class));
+            Printer.printSelectable(getMenuListFromEnum(MembershipType.class, MembershipType.GENERAL.ordinal(), MembershipType.VVIP.ordinal()));
             //get menu number from user until valid menu number
             isExit = MembershipMenuHandler.super.handleChoice(Validator.getParameter(getMenuListFromEnum(MembershipType.class)));
         }

@@ -44,11 +44,4 @@ public class Customers {
         }
     }
 
-    public int getIndexOfCustomer(Customer customer){
-        if(customerList.size() == 0){
-            return -1;
-        }
-        return customerList.indexOf(customer);
-    }
-
 }

@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public enum MembershipType implements MenuProvider {
+    NONE (new String[] {"NONE, N, 비회원"}, "None"),
     GENERAL(new String[] {"G", "GENERAL", "일반"}, "General"),
     VIP(new String[] {"V", "VIP", "우수"}, "VIP"),
     VVIP(new String[] {"VV", "VVIP", "최우수"}, "VVIP");

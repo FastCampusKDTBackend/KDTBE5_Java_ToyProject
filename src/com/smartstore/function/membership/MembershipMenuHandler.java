@@ -17,7 +17,7 @@ public interface MembershipMenuHandler extends EnumValueProvider, Handler {
         boolean isExit = false;
         while (!isExit){
             //get values from enum by string array
-            Printer.printSelectable(getMenuListFromEnum(MembershipType.class));
+            Printer.printSelectable(getMenuListFromEnum(MembershipType.class, MembershipType.GENERAL.ordinal(), MembershipType.VVIP.ordinal()));
 
             isExit = handleChoice(Validator.getParameter(getMenuListFromEnum(MembershipType.class)));
         }

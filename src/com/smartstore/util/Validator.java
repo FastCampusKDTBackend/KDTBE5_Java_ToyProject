@@ -71,6 +71,7 @@ public class Validator implements Readable {
                 } catch (IOException | IllegalArgumentException | NullPointerException e) {
                     System.out.println("Invalid Parameter");
                 }
+                System.out.println("Invalid Parameter");
             }
         }
         return valueName;
@@ -83,34 +84,15 @@ public class Validator implements Readable {
                 System.out.print("Wait for Input : ");
                 menu = Integer.parseInt(br.readLine());
                 if (menu <= 0 || menu > values.length) {
-                    // TODO: 2023-05-08 throw other exception, catch it
-                    throw new NumberFormatException("Invalid Menu");
+                    throw new NumberFormatException("Input valid Menu Number 1 ~ " + (values.length-1));
                 }
                 break;
 
             } catch (IOException | NumberFormatException e) {
-                System.out.println("Invalid Menu");
+                System.out.println(e.getMessage());
             }
         }
         return String.valueOf(menu);
-    }
-
-    public static int getIntegerValue(){
-        int value;
-        while (true){
-            try {
-                System.out.println("Wait for Input : ");
-                value = Integer.parseInt(br.readLine());
-                if(value < 0){
-                    throw new IllegalArgumentException();
-                }else {
-                    break;
-                }
-            } catch (IOException | IllegalArgumentException e) {
-                System.out.print("Input valid Integer Data 1 ~ Integer.Max");
-            }
-        }
-        return value;
     }
 
     public static boolean isAnswerYes(String msg){

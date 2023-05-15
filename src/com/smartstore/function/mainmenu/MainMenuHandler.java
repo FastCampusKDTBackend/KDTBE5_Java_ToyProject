@@ -28,7 +28,7 @@ public interface MainMenuHandler extends EnumValueProvider, Handler, HandleableP
 
     @Override
     default int getCurrentMenuNumber(){
-        return Screen.MAIN_MENU.getMenuNumber();
+        return MainMenuFunction.MAIN_MENU.getMenuNumber();
     }
 
 }

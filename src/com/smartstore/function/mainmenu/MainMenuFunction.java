@@ -5,7 +5,7 @@ import com.smartstore.util.Function;
 import com.smartstore.util.Handleable;
 
 public enum MainMenuFunction implements Function<Handleable> {
-    SPLASH_SCREEN(0, MainMenu.getInstance(), "SPLASH_SCREEN"),
+    MAIN_MENU(0, MainMenu.getInstance(), "Main Menu"),
     MEMBERSHIP_MANAGEMENT(1, MembershipMenu.getInstance(), "Membership Management"),
     CUSTOMER_MANAGEMENT(2, CustomerMenu.getInstance(), "Customer Management"),
     REPORT_MANAGEMENT(3, Back.getInstance(), "Report"),

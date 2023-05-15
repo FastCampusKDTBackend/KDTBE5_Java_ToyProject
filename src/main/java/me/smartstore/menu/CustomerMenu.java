@@ -67,8 +67,8 @@ public class CustomerMenu extends Menu implements DataCRUD {
             return;
         }
         MyArrayList<Customer> customerList = customers.getCustomers();
-        for (Customer customer : customerList) {
-            System.out.println(customer);
+        for (int i = 0; i < customerList.size(); i++) {
+            System.out.println(customerList.get(i));
         }
     }
 

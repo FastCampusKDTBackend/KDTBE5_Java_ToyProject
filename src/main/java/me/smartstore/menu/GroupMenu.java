@@ -100,9 +100,9 @@ public class GroupMenu extends Menu implements DataCRUD {
             return null;
         }
         MyArrayList<Group> groupList = groups.getGroups();
-        for (Group group : groupList) {
-            if (group.getCustomerGroup() == groupType) {
-                return group.getParameter();
+        for(int i=0; i<groupList.size(); i++){
+            if (groupList.get(i).getCustomerGroup() == groupType) {
+                return groupList.get(i).getParameter();
             }
         }
         throw new NoSuchElementException("해당하는 등급이 존재하지 않습니다.");

@@ -1,6 +1,7 @@
 package me.smartstore.menu;
 
 import me.smartstore.collections.MyArrayList;
+import me.smartstore.customer.Customer;
 import me.smartstore.group.Group;
 import me.smartstore.group.GroupType;
 import me.smartstore.group.Parameter;
@@ -87,12 +88,14 @@ public class GroupMenu extends Menu implements DataCRUD {
                 System.out.println("누적 이용 시간을 입력해주세요.");
                 int hours = Integer.parseInt(br.readLine());
                 parameter.setMinimumHours(hours);
+
             } else if (parameterNumber == 2) {
                 //누적 결제 금액 입력 받음
                 System.out.println("누적 결제 금액을 입력해주세요.");
                 int totalAmount = Integer.parseInt(br.readLine());
                 parameter.setMinimumTotalAmount(totalAmount);
             } else {
+                customers.refreshCustomersGroup();
                 return;
             }
             //3이 입력되기 전까지 재귀 호출해서 메뉴 실행 상태 유지

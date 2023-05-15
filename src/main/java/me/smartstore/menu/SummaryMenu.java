@@ -21,6 +21,9 @@ public class SummaryMenu extends Menu {
     }
 
     public void run() {
+        if (validator.isCustomerListEmpty()) {
+            return;
+        }
         classifiedCustomers.refresh();
         int summaryNumber = 0;
         while (summaryNumber != 5) {

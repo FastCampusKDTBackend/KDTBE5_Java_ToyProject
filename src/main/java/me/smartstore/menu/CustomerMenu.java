@@ -61,9 +61,11 @@ public class CustomerMenu extends Menu implements DataCRUD {
         return new Customer(name, id, hour, totalAmount);
     }
 
-
     @Override
     public void viewData() {
+        if (validator.isCustomerListEmpty()) {
+            return;
+        }
         MyArrayList<Customer> customerList = customers.getCustomers();
         for (Customer customer : customerList) {
             System.out.println(customer);

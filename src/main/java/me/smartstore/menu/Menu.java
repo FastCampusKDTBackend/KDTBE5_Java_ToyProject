@@ -10,17 +10,19 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Menu {
+    private static Menu menu;
     protected BufferedReader br;
     protected Customers customers;
     protected Groups groups;
     protected ClassifiedCustomers classifiedCustomers;
-    private static Menu menu;
+    protected Validator validator;
 
     protected Menu() {
         br = new BufferedReader(new InputStreamReader(System.in));
         customers = Customers.getInstance();
         groups = Groups.getInstance();
         classifiedCustomers = ClassifiedCustomers.getInstance();
+        validator = Validator.getInstance();
     }
 
     public static Menu getInstance() {

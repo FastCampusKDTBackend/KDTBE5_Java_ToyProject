@@ -24,6 +24,7 @@ public class MainMenu implements MainMenuHandler {
     @Override
     public boolean handleChoice(String menuNumber) {
         if(Integer.parseInt(menuNumber) == MainMenuFunction.QUIT.getMenuNumber()) {
+            System.out.println("Okay By...e");
             return true;
         }
         //call Menu with menuNumber

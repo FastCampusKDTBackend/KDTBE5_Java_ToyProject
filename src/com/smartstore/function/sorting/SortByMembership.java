@@ -6,6 +6,7 @@ import com.smartstore.membership.MembershipType;
 import com.smartstore.util.CustomEnumMap;
 import com.smartstore.util.CustomList;
 import com.smartstore.util.MergeSort;
+import com.smartstore.util.Validator;
 
 import java.util.Arrays;
 
@@ -34,6 +35,7 @@ public class SortByMembership implements SortHandler, MergeSort {
         if(customerList.size() == 0){
             return;
         }
+
         Customer[] customersSortByMembership = mergeSort(customerList.toArray(new Customer[customerList.size()]));
         int index = 0;
         for(MembershipType membershipType : MembershipType.values()){

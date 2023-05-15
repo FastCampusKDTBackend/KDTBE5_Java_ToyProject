@@ -10,16 +10,24 @@ import java.util.Arrays;
 public interface SortHandler extends EnumValueProvider, Handleable, MergeSort {
     @Override
     default void run() {
+        String answer = "A";
         CustomList<Customer> customerList = Customers.getInstance().getCustomerList();
+
+        if(! (this instanceof SortByMembership)){
+            answer = Validator.isAscendingOrEnd();
+        }
+
+        if("end".equalsIgnoreCase(answer)){
+            return;
+        }
         if(customerList.size() == 0){
             System.out.println("There is No Data Yet");
             return;
         }
-        Customer[] customerArr = customerList.toArray(new Customer[customerList.size()]);
         for(MembershipType membershipType : MembershipType.values()){
             System.out.println(membershipType.toString());
             System.out.println("==========================");
-            System.out.println(Arrays.toString(mergeSort(SortByMembership.getInstance().getSortedCustomersMap().get(membershipType))));
+            System.out.println(Arrays.toString(mergeSort(SortByMembership.getInstance().getSortedCustomersMap().get(membershipType),"A".equalsIgnoreCase(answer))));
         }
 
 

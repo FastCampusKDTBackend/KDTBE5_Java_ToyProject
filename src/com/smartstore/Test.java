@@ -19,7 +19,7 @@ public class Test {
         };
         setMembershipHandler.setMembershipRequirement(MembershipType.GENERAL,3,5);
         setMembershipHandler.setMembershipRequirement(MembershipType.VIP,3,10);
-        setMembershipHandler.setMembershipRequirement(MembershipType.VVIP,20,20);
+        setMembershipHandler.setMembershipRequirement(MembershipType.VVIP,10,15);
 
         CustomList<Customer> customerList = Customers.getInstance().getCustomerList();
         Random random = new Random();
@@ -29,8 +29,6 @@ public class Test {
             String id = "id"+random.nextInt(100)+1;
             customerList.add(new Customer(name, id, random.nextInt(28)+1, random.nextInt(28)+1));
         }
-        System.out.println(customerList);
-
 
         SmartStore.run();
     }

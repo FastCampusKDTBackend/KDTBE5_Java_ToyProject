@@ -194,4 +194,23 @@ public class Validator implements Readable {
         return value <= nextMinPayment && value >= prevMinPayment;
     }
 
+    public static String isAscendingOrEnd(){
+        System.out.println(PrettyTerminal.BLUE.getAttribute() + "Ascending" + PrettyTerminal.RESET.getAttribute() + " or " + PrettyTerminal.RED.getAttribute() +"Descending?" + PrettyTerminal.RESET.getAttribute());
+        String value = "";
+        while (true){
+            try {
+                System.out.print("Wait for Input A or D " + PrettyTerminal.RED.getAttribute() + "end" + PrettyTerminal.RESET.getAttribute() + " to exit :");
+                value = br.readLine();
+            } catch (IOException e) {
+                System.out.println("Please Input A or D");
+            }
+
+            if("A".equalsIgnoreCase(value) || "D".equalsIgnoreCase(value) || "end".equalsIgnoreCase(value)){
+                return value;
+            }
+
+            System.out.println("Please Input A or D or end");
+        }
+    }
+
 }

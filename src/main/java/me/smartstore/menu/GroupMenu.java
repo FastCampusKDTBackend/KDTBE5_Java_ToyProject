@@ -79,9 +79,9 @@ public class GroupMenu extends Menu implements DataCRUD {
 
     private void insertInputParameter(Parameter parameter) {
         //기준을 입력할 메뉴 입력 1: 누적 시간/ 2: 누적 결제 금액
+        printInsertParameterMessage();
+        int parameterNumber = readNumber(3);
         try {
-            printInsertParameterMessage();
-            int parameterNumber = Integer.parseInt(br.readLine());
             //누적 시간 입력 받음
             if (parameterNumber == 1) {
                 System.out.println("누적 이용 시간을 입력해주세요.");
@@ -95,6 +95,7 @@ public class GroupMenu extends Menu implements DataCRUD {
             } else {
                 return;
             }
+            //3이 입력되기 전까지 재귀 호출해서 메뉴 실행 상태 유지
             insertInputParameter(parameter);
         } catch (IOException e) {
             System.out.println(e.getMessage());

@@ -28,9 +28,9 @@ public class SetId implements UpdateCustomerHandler {
                 System.out.println("Change not saved");
                 break;
             }
-            if(!DuplicateChecker.isIdDuplicated(id)){
-                System.out.println("Change Successfully Saved");
+            if(DuplicateChecker.isIdDuplicated(id)){
                 ((Customer) value).setCustomerId(id);
+                System.out.println("Change Successfully Saved");
                 break;
             }
             System.out.printf("User Id %s already Exist Try Other Id\n", id);

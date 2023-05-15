@@ -1,5 +1,6 @@
 package com.smartstore.function.mainmenu;
 
+import com.smartstore.util.Define;
 import com.smartstore.util.Function;
 
 public class MainMenu implements MainMenuHandler {
@@ -16,7 +17,7 @@ public class MainMenu implements MainMenuHandler {
     }
 
     private void printSplashScreen(){
-        System.out.println(Function.of(0, MainMenuFunction.class).getMenuText());
+        System.out.println(Define.SPLASHSCREEN);
     }
 
     @Override

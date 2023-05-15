@@ -1,5 +1,7 @@
 package com.smartstore.membership;
 
+import java.util.Objects;
+
 public class MembershipRequirement {
     private final int minUsageTime;
     private final int minPaymentAmount;
@@ -23,4 +25,16 @@ public class MembershipRequirement {
         return minPaymentAmount;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MembershipRequirement)) return false;
+        MembershipRequirement that = (MembershipRequirement) o;
+        return minUsageTime == that.minUsageTime && minPaymentAmount == that.minPaymentAmount;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(minUsageTime, minPaymentAmount);
+    }
 }

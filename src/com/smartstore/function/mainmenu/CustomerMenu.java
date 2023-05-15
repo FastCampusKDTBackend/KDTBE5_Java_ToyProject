@@ -2,6 +2,7 @@ package com.smartstore.function.mainmenu;
 
 import com.smartstore.util.Function;
 import com.smartstore.function.customer.CustomerFunction;
+import com.smartstore.util.PrettyTerminal;
 import com.smartstore.util.Printer;
 import com.smartstore.util.Validator;
 
@@ -28,6 +29,7 @@ public class CustomerMenu implements MainMenuHandler {
     @Override
     public boolean handleChoice(String menuNumber) {
         if(Integer.parseInt(menuNumber) == CustomerFunction.BACK.getMenuNumber()) {
+            PrettyTerminal.cls();
             return true;
         }
         Function.of(Integer.parseInt(menuNumber), CustomerFunction.class).run();

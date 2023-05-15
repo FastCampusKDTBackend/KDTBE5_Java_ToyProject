@@ -1,14 +1,10 @@
 package com.smartstore.membership;
 
-import com.smartstore.customer.Customers;
 import com.smartstore.util.CustomEnumMap;
+import com.smartstore.util.Readable;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
-public class Memberships {
-    private final CustomEnumMap<MembershipType, MembershipRequirement> membershipList = new CustomEnumMap<>(MembershipType.class);
+public class Memberships implements Readable {
+    private final CustomEnumMap<MembershipType, MembershipRequirement> membershipMap = new CustomEnumMap<>(MembershipType.class);
     private static Memberships instance;
 
     public static Memberships getInstance(){
@@ -22,59 +18,15 @@ public class Memberships {
 
     }
 
-    public CustomEnumMap<MembershipType, MembershipRequirement> getMembershipList() {
-        return membershipList;
+    public CustomEnumMap<MembershipType, MembershipRequirement> getMembershipMap() {
+        return membershipMap;
     }
 
-    public MembershipRequirement findByType(MembershipType membershipType){
-        if(membershipList.size() == 0 ){
+    public MembershipRequirement findByType(MembershipType membershipType) {
+        if (membershipMap.size() == 0) {
             return null;
         }
-        return membershipList.get(membershipType);
+        return membershipMap.get(membershipType);
     }
 
-    public void setMembershipRequirement(MembershipType membershipType){
-        int minUsageTime;
-        int minPaymentAmount;
-
-        minUsageTime = getMinUsageFromInput();
-        minPaymentAmount = getMinPaymentAmountFromInput();
-        // TODO: 2023-05-15 check minUsage, minPayment Bigger than prev Membership
-        membershipList.put(membershipType, new MembershipRequirement(minUsageTime, minPaymentAmount));
-    }
-
-    public void setMembershipRequirement(MembershipType membershipType, int minUsage, int minPaymentAmount){
-        membershipList.put(membershipType, new MembershipRequirement(minUsage, minPaymentAmount));
-        //update membership
-        Customers.getInstance().updateMembership();
-    }
-
-    public int getMinUsageFromInput(){
-        return getInputFromConsole("Input minUsageTime : ");
-    }
-
-    public int getMinPaymentAmountFromInput(){
-        return getInputFromConsole("Input minPaymentAmount : ");
-    }
-
-    private int getInputFromConsole(String msg){
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int value;
-        while (true){
-            try {
-                System.out.print(msg);
-                value = Integer.parseInt(br.readLine());
-                //check value overflowed or negative
-                if (value < 0) {
-                    // TODO: 2023-05-08 throw other exception, catch it
-                    throw new NumberFormatException("");
-                }
-                break;
-
-            } catch (IOException | NumberFormatException e) {
-                System.out.println("Invalid Range of Input try 0 ~ Integer.Max");
-            }
-        }
-        return value;
-    }
 }

@@ -2,7 +2,6 @@ package com.smartstore.util;
 
 import com.smartstore.customer.Customer;
 import com.smartstore.customer.Customers;
-import com.smartstore.util.CustomList;
 
 import java.util.Arrays;
 import java.util.Optional;

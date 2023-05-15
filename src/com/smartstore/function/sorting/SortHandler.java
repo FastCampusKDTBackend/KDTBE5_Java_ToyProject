@@ -8,7 +8,6 @@ import com.smartstore.util.*;
 import java.util.Arrays;
 
 public interface SortHandler extends EnumValueProvider, Handleable, MergeSort {
-    CustomEnumMap<MembershipType, Customer[]> sortedCustomerMap = SortByMembership.getInstance().getSortedCustomersList();
     @Override
     default void run() {
         CustomList<Customer> customerList = Customers.getInstance().getCustomerList();
@@ -16,7 +15,7 @@ public interface SortHandler extends EnumValueProvider, Handleable, MergeSort {
         for(MembershipType membershipType : MembershipType.values()){
             System.out.println(membershipType.toString());
             System.out.println("==========================");
-            System.out.println(Arrays.toString(mergeSort(sortedCustomerMap.get(membershipType))));
+            System.out.println(Arrays.toString(mergeSort(SortByMembership.getInstance().getSortedCustomersMap().get(membershipType))));
         }
 
 

@@ -1,6 +1,8 @@
 package com.smartstore.util;
 
+import com.smartstore.membership.MembershipRequirement;
 import com.smartstore.membership.MembershipType;
+import com.smartstore.membership.Memberships;
 
 import java.io.IOException;
 
@@ -67,7 +69,9 @@ public class Validator implements Readable {
                             break;
                         }
                     }
-                    System.out.println("Invalid Parameter");
+                    if(!isExit){
+                        throw new IllegalArgumentException();
+                    }
                 } catch (IOException | IllegalArgumentException | NullPointerException e) {
                     System.out.println("Invalid Parameter");
                 }
@@ -83,12 +87,12 @@ public class Validator implements Readable {
                 System.out.print("Wait for Input : ");
                 menu = Integer.parseInt(br.readLine());
                 if (menu <= 0 || menu > values.length) {
-                    throw new NumberFormatException("Input valid Menu Number 1 ~ " + (values.length-1));
+                    throw new NumberFormatException();
                 }
                 break;
 
             } catch (IOException | NumberFormatException e) {
-                System.out.println(e.getMessage());
+                System.out.println("Input valid Menu Number 1 ~ " + (values.length));
             }
         }
         return String.valueOf(menu);
@@ -112,6 +116,82 @@ public class Validator implements Readable {
             }
             System.out.println("Please Input Y or N");
         }
+    }
+
+    public static int getInteger(String msg){
+        int value;
+        while (true){
+            try {
+                System.out.print(msg);
+                value = Integer.parseInt(br.readLine());
+                //check value overflowed or negative
+                if (value < 0) {
+                    throw new NumberFormatException("");
+                }
+                break;
+
+            } catch (IOException | NumberFormatException e) {
+                System.out.println("Invalid Range of Input try 0 ~ Integer.Max");
+            }
+        }
+        return value;
+    }
+
+    public static boolean isValidMinUsage(MembershipType membershipType, int value){
+        int prevMinUsageTime;
+        int nextMinUsageTime;
+        MembershipRequirement requirement;
+        CustomEnumMap<MembershipType, MembershipRequirement> membershipMap = Memberships.getInstance().getMembershipMap();
+
+        //if current membershipType is The Highest Membership
+        if(membershipType == MembershipType.values()[MembershipType.values().length-1]){
+            nextMinUsageTime = Integer.MAX_VALUE;
+        } else {
+            MembershipType nextMembershipType = MembershipType.values()[membershipType.ordinal()+1];
+            requirement = membershipMap.get(nextMembershipType);
+            nextMinUsageTime = (requirement == null) ? Integer.MAX_VALUE : requirement.getMinUsageTime();
+        }
+
+        //if current membershipType is The Lowest Membership or Next of Lowest
+        if(membershipType == MembershipType.values()[0] || membershipType == MembershipType.values()[1]){
+            prevMinUsageTime = 0;
+        } else {
+            MembershipType prevMembershipType = MembershipType.values()[membershipType.ordinal()-1];
+            requirement = membershipMap.get(prevMembershipType);
+            prevMinUsageTime = (requirement == null) ? 0 : requirement.getMinUsageTime();
+        }
+
+
+        return value <= nextMinUsageTime && value >= prevMinUsageTime;
+    }
+
+    public static boolean isValidMinPayment(MembershipType membershipType, int value){
+        int prevMinPayment;
+        int nextMinPayment;
+        MembershipRequirement requirement;
+        CustomEnumMap<MembershipType, MembershipRequirement> membershipMap = Memberships.getInstance().getMembershipMap();
+
+        //if current membershipType is The Highest Membership
+        if(membershipType == MembershipType.values()[MembershipType.values().length-1]){
+            nextMinPayment = Integer.MAX_VALUE;
+        } else {
+            MembershipType nextMembershipType = MembershipType.values()[membershipType.ordinal()+1];
+            requirement = membershipMap.get(nextMembershipType);
+            //if next is not exist, 0
+            nextMinPayment = (requirement == null) ? Integer.MAX_VALUE : requirement.getMinPaymentAmount();
+        }
+
+        //if current membershipType is The Lowest Membership or Next of Lowest
+        if(membershipType == MembershipType.values()[0] || membershipType == MembershipType.values()[1]){
+            prevMinPayment = 0;
+        } else {
+            MembershipType prevMembershipType = MembershipType.values()[membershipType.ordinal()-1];
+            requirement = membershipMap.get(prevMembershipType);
+            prevMinPayment = (requirement == null) ? 0 : requirement.getMinPaymentAmount();
+        }
+
+
+        return value <= nextMinPayment && value >= prevMinPayment;
     }
 
 }

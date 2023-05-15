@@ -1,17 +1,12 @@
 package com.smartstore.function.membership;
 
 import com.smartstore.function.mainmenu.MainMenuFunction;
-import com.smartstore.membership.MembershipRequirement;
 import com.smartstore.membership.MembershipType;
-import com.smartstore.membership.Memberships;
-import com.smartstore.util.EnumValueProvider;
-import com.smartstore.util.Handler;
-import com.smartstore.util.Printer;
-import com.smartstore.util.Validator;
+import com.smartstore.util.*;
 
 import java.util.NoSuchElementException;
 
-public interface MembershipMenuHandler extends EnumValueProvider, Handler {
+public interface MembershipMenuHandler extends EnumValueProvider, Handler, HandleableParam {
 
     default void run() {
         boolean isExit = false;
@@ -42,10 +37,8 @@ public interface MembershipMenuHandler extends EnumValueProvider, Handler {
         if(!"end".equalsIgnoreCase(membershipName)){
             //get enum_value using string from MembershipType
             MembershipType membershipType = getMembershipType(membershipName);
-            //find requirement using type from enum_map
-            MembershipRequirement requirement = Memberships.getInstance().findByType(membershipType);
             //run each function's method
-            processMembership(membershipType, requirement);
+            run(membershipType);
         }
         return true;
     }
@@ -54,7 +47,5 @@ public interface MembershipMenuHandler extends EnumValueProvider, Handler {
     default int getCurrentMenuNumber(){
         return MainMenuFunction.MEMBERSHIP_MANAGEMENT.getMenuNumber();
     }
-
-    void processMembership(MembershipType membershipType, MembershipRequirement requirement);
 
 }

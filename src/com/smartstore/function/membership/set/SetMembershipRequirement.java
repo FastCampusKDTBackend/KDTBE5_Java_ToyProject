@@ -1,11 +1,10 @@
 package com.smartstore.function.membership.set;
 
-import com.smartstore.function.membership.MembershipMenuHandler;
 import com.smartstore.membership.MembershipRequirement;
 import com.smartstore.membership.MembershipType;
 import com.smartstore.membership.Memberships;
 
-public class SetMembershipRequirement implements MembershipMenuHandler {
+public class SetMembershipRequirement implements SetMembershipHandler {
     private static SetMembershipRequirement instance;
 
     private SetMembershipRequirement(){
@@ -19,15 +18,29 @@ public class SetMembershipRequirement implements MembershipMenuHandler {
         return instance;
     }
 
-    //requirement null check before call method
+    boolean isPrevMembershipExist(MembershipType membershipType){
+        if(membershipType == MembershipType.values()[0] || membershipType == MembershipType.values()[1]){
+            return true;
+        } else{
+            return Memberships.getInstance().findByType(MembershipType.values()[membershipType.ordinal() - 1]) != null;
+        }
+    }
+
     @Override
-    public void processMembership(MembershipType membershipType, MembershipRequirement requirement) {
+    public <T> void run(T value) {
+        MembershipType membershipType = (MembershipType) value;
+        MembershipRequirement requirement = Memberships.getInstance().getMembershipMap().get(membershipType);
         if(requirement == null){
-            Memberships.getInstance().setMembershipRequirement(membershipType);
-            System.out.printf("Set %s Successfully\n\n\n",membershipType.name());
+            if(isPrevMembershipExist(membershipType)){
+                setMembershipRequirement(membershipType);
+                System.out.printf("Set %s Successfully\n\n\n",membershipType.name());
+            }
+            else {
+                System.out.printf("Define %s first to right Sort\n", MembershipType.values()[membershipType.ordinal()-1]);
+            }
+
         }else {
             System.out.printf("Membership '%s' Already Defined\n", membershipType.name());
         }
     }
-
 }

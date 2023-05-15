@@ -16,7 +16,7 @@ public enum PrettyTerminal {
     PrettyTerminal(String attribute) {
         this.attribute = attribute;
     }
-    static void cls(){
+    public static void cls(){
 
         String osName = System.getProperty("os.name");
         try{

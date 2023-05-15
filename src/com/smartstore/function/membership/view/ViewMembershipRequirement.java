@@ -3,6 +3,7 @@ package com.smartstore.function.membership.view;
 import com.smartstore.function.membership.MembershipMenuHandler;
 import com.smartstore.membership.MembershipRequirement;
 import com.smartstore.membership.MembershipType;
+import com.smartstore.membership.Memberships;
 
 public class ViewMembershipRequirement implements MembershipMenuHandler {
     private static ViewMembershipRequirement instance;
@@ -17,9 +18,12 @@ public class ViewMembershipRequirement implements MembershipMenuHandler {
         }
         return instance;
     }
+
     @Override
-    public void processMembership(MembershipType membershipType, MembershipRequirement requirement) {
-        //if not found in enum_map
+    public <T> void run(T value) {
+        MembershipType membershipType = (MembershipType) value;
+        MembershipRequirement requirement = Memberships.getInstance().getMembershipMap().get(membershipType);
+
         if(requirement == null ){
             System.out.printf("Membership '%s' Not Defined Yet\n", membershipType.name());
         } else{

@@ -28,7 +28,7 @@ public class Customer {
         Memberships memberships = Memberships.getInstance();
         MembershipType membership = MembershipType.NONE;
         //Map is CustomMap
-        CustomEnumMap<MembershipType, MembershipRequirement> membershipList = memberships.getMembershipList();
+        CustomEnumMap<MembershipType, MembershipRequirement> membershipList = memberships.getMembershipMap();
         int currentUsageTime;
         int currentPaymentTime;
         boolean isUsageLowerThenCurrent;

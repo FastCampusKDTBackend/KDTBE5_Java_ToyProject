@@ -15,7 +15,7 @@ public class CustomerGroupManager {
   private static CustomerGroupManager customerGroupManager = new CustomerGroupManager();
   private final CustomerGroup[] customerGroups;
 
-  public CustomerGroupManager() {
+  private CustomerGroupManager() {
     customerGroups =
         Arrays.stream(CustomerType.values())
             .map(customerType -> new CustomerGroup(customerType, null))
@@ -33,16 +33,13 @@ public class CustomerGroupManager {
    * 고객 그룹 저장
    *
    * @param customerGroup 고객 그룹
-   * @return 저장된 고객 그룹
    */
-  public CustomerGroup save(CustomerGroup customerGroup) {
+  public void save(CustomerGroup customerGroup) {
     for (int idx = 0; idx < customerGroups.length; idx++) {
       if (customerGroup.getCustomerType() == customerGroups[idx].getCustomerType()) {
         customerGroups[idx] = customerGroup;
       }
     }
-
-    return customerGroup;
   }
 
   /**

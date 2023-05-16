@@ -1,13 +1,13 @@
 package me.smartstore.core.manager;
 
-import static me.smartstore.exceptions.StoreErrorCode.NO_MATCHING_GROUP;
-import static me.smartstore.exceptions.StoreErrorCode.UNKNOWN_TYPE;
+import static me.smartstore.enums.CustomerType.GENERAL;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import me.smartstore.core.domain.CustomerGroup;
+import me.smartstore.core.domain.Parameter;
 import me.smartstore.enums.CustomerType;
-import me.smartstore.exceptions.StoreException;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,29 +17,46 @@ class CustomerGroupManagerTest {
   private static final CustomerGroupManager customerGroupManager =
       CustomerGroupManager.getInstance();
 
-  @DisplayName("[SAVE] 고객 그룹 - 저장 성공")
-  @Test
-  void givenCustomerGroup_whenSave_thenReturnsSavedCustomerGroup() {
-    CustomerGroup customerGroup = new CustomerGroup(CustomerType.GENERAL, null);
-
-    CustomerGroup actual = customerGroupManager.save(customerGroup);
-
-    assertEquals(customerGroup, actual);
-    assertEquals(actual.getCustomerType(), customerGroup.getCustomerType());
-    assertEquals(actual.getParameter(), customerGroup.getParameter());
+  @AfterEach
+  void restoreCustomerGroup() {
+    // Instance 를 직접 사용하기 때문에 각 테스트가 끝난 이후 직접 초기화 해주어야 각각의 테스트가 의도한대로 수행됨
+    // 이 과정이 없을 경우 먼저 수행된 테스트의 결과가 이후 테스트에 영향을 미침.
+    Arrays.stream(CustomerType.values())
+        .forEach(type -> customerGroupManager.save(new CustomerGroup(type, null)));
   }
 
-  @DisplayName("[SAVE] 고객 그룹을 알 수 없는 경우 - 저장 실패")
+  @DisplayName("[SAVE] 정상 고객 그룹 - 저장 성공")
   @Test
-  void givenUnknownCustomerType_whenSave_thenThrowsUnknownTypeStoreException() {
+  void givenCustomerGroup_whenSaves_thenSavesCustomerGroup() {
     // Given
-    CustomerGroup customerGroup = new CustomerGroup(null, null);
+    Parameter parameter = new Parameter(123, 123456);
+    CustomerGroup testGroup = new CustomerGroup(GENERAL, parameter);
 
-    // When & Then
-    StoreException storeException =
-        assertThrows(StoreException.class, () -> customerGroupManager.save(customerGroup));
-    assertEquals(UNKNOWN_TYPE, storeException.getErrorCode());
-    assertEquals(UNKNOWN_TYPE.getMessage(), storeException.getMessage());
+    // When
+    customerGroupManager.save(testGroup);
+    CustomerGroup updated = customerGroupManager.selectCustomerGroupByCustomerType(GENERAL);
+
+    // Then
+    assertEquals(GENERAL, updated.getCustomerType());
+    assertEquals(parameter, updated.getParameter());
+    assertEquals(123, updated.getParameter().getMinSpentTime());
+    assertEquals(123456, updated.getParameter().getMinPayAmount());
+  }
+
+  @DisplayName("[SAVE] 알 수 없는 고객 그룹 - 저장 실패")
+  @ParameterizedTest(name = "고객 유형 (CustomerType): {0}")
+  @EnumSource(CustomerType.class)
+  void givenUnknownCustomerType_whenSave_thenChangesNothing(CustomerType customerType) {
+    // Given
+    Parameter parameter = new Parameter(123, 123456);
+    CustomerGroup testGroup = new CustomerGroup(null, parameter);
+
+    // When
+    customerGroupManager.save(testGroup);
+    CustomerGroup actual = customerGroupManager.selectCustomerGroupByCustomerType(customerType);
+
+    // Then
+    assertNull(actual.getParameter());
   }
 
   @DisplayName("[SELECT] 고객 유형별 그룹 조회 - 조회 성공")
@@ -56,18 +73,13 @@ class CustomerGroupManagerTest {
     assertEquals(customerType, actual.getCustomerType());
   }
 
-  @DisplayName("[SELECT] 고객 유형이 주어지지 않은 경우 - 조회 실패")
+  @DisplayName("[SELECT] 고객 유형이 주어지지 않은 경우 - Null")
   @Test
   void givenNothing_whenSelectCustomerGroup_thenReturnsSelectedCustomerGroup() {
     // Given
 
     // When & Then
-    StoreException exception =
-        assertThrows(
-            StoreException.class,
-            () -> customerGroupManager.selectCustomerGroupByCustomerType(null));
-    assertEquals(NO_MATCHING_GROUP, exception.getErrorCode());
-    assertEquals(NO_MATCHING_GROUP.getMessage(), exception.getMessage());
+    assertNull(customerGroupManager.selectCustomerGroupByCustomerType(null));
   }
 
   @DisplayName("[SELECT] 모든 고객 그룹 조회")

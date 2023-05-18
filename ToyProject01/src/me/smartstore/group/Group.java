@@ -2,7 +2,7 @@ package me.smartstore.group;
 
 public abstract class Group {
 
-    public String groupName;
+    public String groupType;
     public double time;
     public double pay;
 

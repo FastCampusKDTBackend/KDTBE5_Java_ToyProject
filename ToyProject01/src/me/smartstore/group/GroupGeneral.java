@@ -4,7 +4,7 @@ public class GroupGeneral extends Group {
 
 
     public GroupGeneral() {
-        this.groupName = "General";
+        this.groupType = "General";
     }
 
     @Override

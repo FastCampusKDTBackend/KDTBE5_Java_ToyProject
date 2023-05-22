@@ -27,5 +27,11 @@ public class GroupGeneral extends Group {
         return this.pay;
     }
 
-
+    @Override
+    public String toString() {
+        return "parameter{" +
+                "minimumSpentTime=" + time +
+                ", minimumTotalPay=" + pay +
+                '}';
+    }
 }

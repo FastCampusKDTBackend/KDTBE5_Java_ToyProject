@@ -4,7 +4,7 @@ public class GroupVVIP extends Group{
 
 
     public GroupVVIP() {
-        this.groupName = "VVIP";
+        this.groupType = "VVIP";
     }
 
     @Override

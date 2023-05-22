@@ -23,5 +23,27 @@ public class Groups {
         return instance;
     }
 
+    public Optional<GroupGeneral> getGroupGeneral() {
+        return groupGeneral;
+    }
 
+    public void setGroupGeneral(Optional<GroupGeneral> groupGeneral) {
+        this.groupGeneral = groupGeneral;
+    }
+
+    public Optional<GroupVIP> getGroupVIP() {
+        return groupVIP;
+    }
+
+    public void setGroupVIP(Optional<GroupVIP> groupVIP) {
+        this.groupVIP = groupVIP;
+    }
+
+    public Optional<GroupVVIP> getGroupVVIP() {
+        return groupVVIP;
+    }
+
+    public void setGroupVVIP(Optional<GroupVVIP> groupVVIP) {
+        this.groupVVIP = groupVVIP;
+    }
 }

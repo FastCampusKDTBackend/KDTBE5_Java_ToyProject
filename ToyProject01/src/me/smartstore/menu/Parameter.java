@@ -2,6 +2,9 @@ package me.smartstore.menu;
 
 import me.smartstore.customer.Customers;
 import me.smartstore.exception.InvalidInputExcetion;
+import me.smartstore.parameter.SetParameter;
+import me.smartstore.parameter.UpdateParameter;
+import me.smartstore.parameter.ViewParameter;
 import me.smartstore.scanner.Scan;
 
 public class Parameter {
@@ -16,22 +19,11 @@ public class Parameter {
         String in = Scan.getInstance().nextLine();
 
         if(in.equals("1")){
-            System.out.println("Which group (GENERAL (G), VIP (V), VVIP (VV))?\n" +
-                               "** Press 'end', if you want to exit! **");
-            in = Scan.getInstance().nextLine();
-            if(in.equalsIgnoreCase("G")){
-
-            }else if(in.equalsIgnoreCase("V")){
-
-            }else if(in.equalsIgnoreCase("VV")){
-
-            }else{
-
-            }
+            SetParameter.setParameterMethod();
         }else if(in.equals("2")){
-
+            ViewParameter.viewParameterMethod();
         }else if(in.equals("3")){
-
+            UpdateParameter.updateParameterMethod();
         }else if(in.equals("4")){
             Lobby.lobbyMenuUI();
         }else{

@@ -2,6 +2,8 @@ package me.smartstore.group;
 
 import me.smartstore.arrays.MyArray;
 
+import java.util.Optional;
+
 public class Groups extends MyArray<Group> {
     private static Groups allGroups;
 
@@ -14,14 +16,14 @@ public class Groups extends MyArray<Group> {
 
     private Groups() {}
 
-    public Group find(GroupType groupType) {
+    public Optional<Group> find(GroupType groupType) {
         for (int i = 0; i < allGroups.size(); i++) {
             Group group = allGroups.get(i);
             if (group.getGroupType() == groupType) {
-                return group;
+                return Optional.of(group);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
 }

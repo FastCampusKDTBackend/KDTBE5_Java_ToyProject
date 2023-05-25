@@ -9,6 +9,7 @@ import me.smartstore.group.Groups;
 import me.smartstore.group.Parameter;
 
 import java.util.InputMismatchException;
+import java.util.Optional;
 
 import static me.smartstore.util.Message.*;
 
@@ -51,30 +52,36 @@ public class GroupMenu implements Menu{
             else break; // choice == 4
         }
     }
-    private void createParameter(){
-        while (true){
+    private void createParameter() {
+        while (true) {
             try {
                 System.out.println("Which group (GENERAL (G), VIP (V), VVIP (VV))?");
                 String inputData = nextLine(END_MSG);
                 GroupType groupType = GroupType.valueOf(inputData).replaceFullName();
-                Group group = allGroups.find(groupType);
+                Optional<Group> foundGroup = allGroups.find(groupType);
 
-                if (group != null && group.getParameter() != null) {
-                    System.out.println("group already exists.");
-                }
-                else{
+                if (foundGroup.isPresent()) {
+                    Group group = foundGroup.get();
+                    if (group.getParameter() != null) {
+                        System.out.println("Group already exists.");
+                    } else {
+                        Parameter parameter = new Parameter();
+                        setParameter(parameter);
+                        group = new Group(parameter, groupType);
+                        allGroups.add(group);
+                        allcustomers.refresh();
+                    }
+                } else {
                     Parameter parameter = new Parameter();
                     setParameter(parameter);
-                    group = new Group(parameter, groupType);
+                    Group group = new Group(parameter, groupType);
                     allGroups.add(group);
                     allcustomers.refresh();
                 }
-            }
-            catch (InputEndException e){
+            } catch (InputEndException e) {
                 System.out.println(ERR_MSG_INPUT_END);
                 break;
-            }
-            catch (IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
                 System.out.println(ERR_MSG_INVALID_INPUT_RANGE);
             }
         }
@@ -129,54 +136,54 @@ public class GroupMenu implements Menu{
     }
 
 
-    private void viewParameter(){
-        while (true){
-            try{
+    private void viewParameter() {
+        while (true) {
+            try {
                 System.out.println("Which group (GENERAL (G), VIP (V), VVIP (VV))?");
                 String inputData = nextLine(END_MSG);
                 GroupType groupType = GroupType.valueOf(inputData).replaceFullName();
-                Group group = allGroups.find(groupType);
+                Optional<Group> foundGroup = allGroups.find(groupType);
 
-                System.out.printf("%nGroupType: %s%n", groupType.name());
-                System.out.println("Parameter: " + group.getParameter());
-            }
-
-            catch (InputEndException e){
+                if (foundGroup.isPresent()) {
+                    Group group = foundGroup.get();
+                    System.out.printf("%nGroupType: %s%n", groupType.name());
+                    System.out.println("Parameter: " + group.getParameter());
+                } else {
+                    System.out.println("Group not found.");
+                }
+            } catch (InputEndException e) {
                 System.out.println(ERR_MSG_INPUT_END);
                 break;
-            }
-
-            catch (IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
                 System.out.println(ERR_MSG_INVALID_INPUT_RANGE);
             }
         }
     }
-    private void updateParameter(){
-        while (true){
-            try{
+    private void updateParameter() {
+        while (true) {
+            try {
                 System.out.println("Which group (GENERAL (G), VIP (V), VVIP (VV))?");
                 String inputData = nextLine(END_MSG);
                 GroupType groupType = GroupType.valueOf(inputData).replaceFullName();
-                Group group = allGroups.find(groupType);
+                Optional<Group> foundGroup = allGroups.find(groupType);
 
-                if (group == null){
-                    System.out.println(ERR_MSG_INVALID_ARR_EMPTY);
-                    break;
-                }
-                else{
+                if (foundGroup.isPresent()) {
+                    Group group = foundGroup.get();
                     Parameter parameter = group.getParameter();
                     setParameter(parameter);
                     group.setParameter(parameter);
                     allcustomers.refresh();
+                } else {
+                    System.out.println("Group not found.");
+                    break;
                 }
-            }
-            catch (InputEndException e){
+            } catch (InputEndException e) {
                 System.out.println(ERR_MSG_INPUT_END);
                 break;
-            }
-            catch (IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
                 System.out.println(ERR_MSG_INVALID_INPUT_RANGE);
             }
         }
     }
+
 }

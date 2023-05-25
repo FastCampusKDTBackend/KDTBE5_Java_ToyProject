@@ -66,7 +66,7 @@ public class SummaryMenu implements Menu {
             System.out.println(ERR_MSG_NULL_ARR_ELEMENT);
         }
     }
-    private int sort(){
+    private SortType sort(){
         while (true){
             try{
                 System.out.println("Which order (ASCENDING (A), DESCENDING (D))?");
@@ -77,10 +77,10 @@ public class SummaryMenu implements Menu {
                 }
 
                 if (data.equals("A")){
-                    return 1;
+                    return SortType.ASCENDING;
                 }
                 else{
-                    return -1;
+                    return SortType.DESCENDING;
                 }
             }
             catch (InputRangeException e){
@@ -91,22 +91,22 @@ public class SummaryMenu implements Menu {
                 break;
             }
         }
-        return 0;
+        return SortType.DESCENDING;
     }
 
     private void summaryName(){
         while (true){
-            int sortNum = sort();
+            SortType sortType = sort();
             Customer[] sortedCustomers = allCustomers.getCustomers().clone();
 
-            if (sortNum == 1) {
+            if (sortType == SortType.ASCENDING) {
                 Arrays.sort(sortedCustomers, new Comparator<Customer>() {
                     @Override
                     public int compare(Customer c1, Customer c2) {
                         return c1.getCusName().compareTo(c2.getCusName());
                     }
                 });
-            } else if (sortNum == -1) {
+            } else if (sortType == SortType.DESCENDING) {
                 Arrays.sort(sortedCustomers, new Comparator<Customer>() {
                     @Override
                     public int compare(Customer c1, Customer c2) {
@@ -135,17 +135,17 @@ public class SummaryMenu implements Menu {
 
     private void summaryTime(){
         while (true){
-            int sortNum = sort();
+            SortType sortType = sort();
             Customer[] sortedCustomers = allCustomers.getCustomers().clone();
 
-            if (sortNum == 1) {
+            if (sortType == SortType.ASCENDING) {
                 Arrays.sort(sortedCustomers, new Comparator<Customer>() {
                     @Override
                     public int compare(Customer c1, Customer c2) {
                         return c1.getCusTotalTime().compareTo(c2.getCusTotalTime());
                     }
                 });
-            } else if (sortNum == -1) {
+            } else if (sortType == SortType.DESCENDING) {
                 Arrays.sort(sortedCustomers, new Comparator<Customer>() {
                     @Override
                     public int compare(Customer c1, Customer c2) {
@@ -174,17 +174,17 @@ public class SummaryMenu implements Menu {
 
     private void summaryPay(){
         while (true){
-            int sortNum = sort();
+            SortType sortType = sort();
             Customer[] sortedCustomers = allCustomers.getCustomers().clone();
 
-            if (sortNum == 1) {
+            if (sortType == SortType.ASCENDING) {
                 Arrays.sort(sortedCustomers, new Comparator<Customer>() {
                     @Override
                     public int compare(Customer c1, Customer c2) {
                         return c1.getCusTotalPay().compareTo(c2.getCusTotalPay());
                     }
                 });
-            } else if (sortNum == -1) {
+            } else if (sortType == SortType.DESCENDING) {
                 Arrays.sort(sortedCustomers, new Comparator<Customer>() {
                     @Override
                     public int compare(Customer c1, Customer c2) {

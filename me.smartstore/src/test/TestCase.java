@@ -12,9 +12,9 @@ import java.util.Random;
 
 public class TestCase {
 
-    private final Groups groups = Groups.getInstance();
-    private final Customers customers = Customers.getInstance();
-    private final CustomerService customerService = CustomerService.getInstance();
+    private static final Groups groups = Groups.getInstance();
+    private static final Customers customers = Customers.getInstance();
+    private static final CustomerService customerService = CustomerService.getInstance();
 
     public void buildTestCase() {
         groups.add(new Group(new Parameter(10, 100000), GroupType.GENERAL));
@@ -30,12 +30,12 @@ public class TestCase {
                     ((int) (Math.random() * 5) + 1) * 100000));
         }
 
+        //NONE 타입 테스트를 위한 Customer generate
         int startChar = 48; // number '0'
         int endChar = 122; // letter 'z'
         int targetLength = 10;
         Random random = new Random();
 
-        //NONE 타입 테스트를 위한 Customer generate
         for (int x = 0; x < 5; x++) {
             String randomName = random.ints(startChar,endChar + 1)
                     .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))

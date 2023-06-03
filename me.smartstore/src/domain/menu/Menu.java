@@ -1,8 +1,8 @@
 package domain.menu;
+
 //각각의 메뉴는 객체가 하나만 있나?
 //각 메뉴는 싱글톤으로 가야 하나?
 
-import handler.exception.InputEmptyException;
 import handler.exception.InputEndException;
 import handler.exception.InputFormatException;
 import handler.exception.InputRangeException;

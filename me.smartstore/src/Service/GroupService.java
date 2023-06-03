@@ -10,7 +10,6 @@ import handler.exception.*;
 import java.util.Arrays;
 
 import static resources.Message.END_MSG;
-import static resources.Message.ERR_MSG_INVALID_GROUP_EMPTY;
 
 public class GroupService {
 
@@ -48,10 +47,10 @@ public class GroupService {
                 } else {
                     setParameterDetail(groupType);
                 }
-                //groups에 해당 그룹이 등록되어 있지 않다면 등록 메뉴로 이동
-            } catch (NoSuchGroupException | InputEmptyException | InputRangeException e) {
+            } catch (InputEmptyException | InputRangeException | InputFormatException e) {
                 System.out.println(e.getMessage());
-            } catch (InputEndException e) {
+                // groups에 해당 그룹이 등록되어 있지 않다면 등록 메뉴로 이동
+            } catch (InputEndException | NoSuchGroupException e) {
                 System.out.println(e.getMessage());
                 break;
             } catch (NullPointerException e) {
@@ -60,9 +59,8 @@ public class GroupService {
         }
     }
 
-
     private void setParameterDetail(GroupType groupType) {
-        // time, pay 사용자 입력받은 후 groups에 add
+        // time, pay 사용자 입력을 받은 후 groups에 add한다.
         Parameter parameter = getParameterValue();
         groups.add(new Group(parameter, groupType));
 
@@ -77,11 +75,13 @@ public class GroupService {
             String choice = groupMenu.nextLineUpper(END_MSG);
             if (choice.isEmpty()) throw new InputEmptyException();
 
-            //입력한 group명이 null 값이 아니라면 GroupType을 찾아서 return
+            // 입력한 group명이 null이 아니라면 GroupType을 찾는다.
             GroupType searchGroupType = searchByInput(choice);
-            //입력한 GroupType을 찾지 못했다면 잘못된 입력이므로 예외 발생
+
+            // 입력한 GroupType을 찾지 못했다면 잘못된 입력이므로 예외 발생
             if (searchGroupType == null) throw new InputRangeException();
-            //아니라면 찾은 GroupType을 return
+
+            // 아니라면 찾은 GroupType을 return
             return searchGroupType;
         } catch (NoSuchGroupException | IllegalStateException | NullPointerException e) {
             throw new InputRangeException();
@@ -112,7 +112,6 @@ public class GroupService {
     }
 
     private void setParameterValue(Parameter parameter) {
-
         while (true) {
             try {
                 int choice = getParamMenuNum();
@@ -120,17 +119,13 @@ public class GroupService {
                 if (choice == 1) parameter.setMinTime(getParamMinTime());
                 if (choice == 2) parameter.setMinPay(getParamMinPay());
                 if (choice == 3) {
-                    if (parameter.getMinTime() == null || parameter.getMinPay() == null) {
-                        System.out.println("[ERROR] => Null value in the parameter." + parameter);
-                        throw new InputEmptyException();
+                    if (parameter.getMinTime() != null || parameter.getMinPay() != null) {
+                        break;
                     }
-                    break;
+                    throw new InputEmptyException();
                 }
             } catch (InputEmptyException | InputFormatException | InputRangeException e) {
                 System.out.println(e.getMessage());
-            } catch (InputEndException e) {
-                System.out.println(e.getMessage());
-                break;
             }
         }
     }
@@ -143,30 +138,44 @@ public class GroupService {
         });
     }
 
-    private Integer getParamMinTime() throws InputEndException {
-        try {
-            System.out.println("Input Minimum Spent Time");
-            return groupMenu.nextInt(END_MSG);
-        } catch (InputFormatException e) {
-            throw new InputFormatException();
+    private Integer getParamMinTime() {
+        while (true) {
+            try {
+                System.out.println("Input Minimum Spent Time");
+                return groupMenu.nextInt(END_MSG);
+            } catch (InputFormatException e) {
+                System.out.println(e.getMessage());
+            } catch (InputEndException e) {
+                System.out.println(e.getMessage());
+                break;
+            }
         }
+        throw new InputEmptyException();
     }
 
     private Integer getParamMinPay() throws InputEndException {
-        try {
-            System.out.println("Input Minimum Total Pay");
-            return groupMenu.nextInt(END_MSG);
-        } catch (InputFormatException e) {
-            throw new InputFormatException();
+        while (true) {
+            try {
+                System.out.println("Input Minimum Total Pay");
+                return groupMenu.nextInt(END_MSG);
+            } catch (InputFormatException e) {
+                System.out.println(e.getMessage());
+            } catch (InputEndException e) {
+                System.out.println(e.getMessage());
+                break;
+            }
         }
+        throw new InputEmptyException();
     }
 
     public GroupType searchByInput(String input) {
-        //GroupType ENUM을 배열 형태로 변환 후 0번 index NONE은 스킵하고
-        //사용자가 입력한 문자에 해당하는 GroupType을 찾아서 반환한다.
+        if (input.isEmpty()) throw new InputEmptyException();
+
+        // GroupType ENUM을 배열 형태로 변환 후 NONE 그룹은 제외하고
+        // 사용자가 입력한 문자에 해당하는 GroupType을 찾아서 반환한다.
         return Arrays.stream(GroupType.values())
-                .skip(1)    // NONE은 건너뜀
-                .filter(type -> type.name().equals(input) || type.getShortName().equals(input))
+                .filter(type -> !type.isName("NONE"))  // GroupType NONE은 제외.
+                .filter(type -> type.isName(input))
                 .findFirst()
                 .orElseThrow(NoSuchGroupException::new);
     }

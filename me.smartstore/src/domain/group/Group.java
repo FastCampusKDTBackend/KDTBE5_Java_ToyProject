@@ -34,6 +34,10 @@ public class Group {
         return groupType;
     }
 
+    public boolean isGroupType(GroupType groupType) {
+        return this.groupType == groupType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

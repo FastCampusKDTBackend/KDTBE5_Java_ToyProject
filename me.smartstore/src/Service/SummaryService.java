@@ -3,14 +3,16 @@ package Service;
 import domain.customer.Customer;
 import domain.customer.Customers;
 import domain.group.Group;
-import domain.group.GroupType;
 import domain.group.Groups;
 import handler.exception.ArrayEmptyException;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static resources.Message.*;
+import static resources.Message.ERR_MSG_GROUP_CUSTOMER_EMPTY;
+import static resources.Message.ERR_MSG_INVALID_ARR_EMPTY;
 
 public class SummaryService {
 
@@ -29,19 +31,16 @@ public class SummaryService {
     }
 
     private String showSummaryHeader(Group group) {
-        String returnStr = "\n=============================="
-                + "\nGroup : " + group.getGroupType();
-
-        if (group.getGroupType() == GroupType.NONE) {
-            returnStr += " ( Time : 0, Pay : 0 )";
-        } else {
-            returnStr +=
-                    " ( Time : " + group.getParameter().getMinTime() +
-                            ", Pay : " + group.getParameter().getMinPay() + " )";
-        }
-
-        returnStr += "\n==============================";
-        return returnStr;
+        StringBuilder returnStr = new StringBuilder("\n===========================================");
+        returnStr.append("\nGroup : ")
+                .append(group.getGroupType())
+                .append(" ( Time : ")
+                .append(group.getParameter().getMinTime())
+                .append(", Pay : ")
+                .append(group.getParameter().getMinPay())
+                .append(" )")
+                .append("\n===========================================");
+        return returnStr.toString();
     }
 
     public void showDefaultSummary() {
@@ -73,15 +72,13 @@ public class SummaryService {
             }
         } catch (IndexOutOfBoundsException | ArrayEmptyException e) {
             System.out.println(e.getMessage());
+            return;
         }
-    }
-
-    private void categorizeByGroup() {
-
     }
 
     /**
      * 매개변수로 넘겨 받은 Customer[] 배열에서 GroupType에 일치하는 Customer 객체를 배열로 만들어서 return.
+     *
      * @param group       : 그룹 객체
      * @param customerArr : Customer[] 객체 배열
      * @return 매개변수로 넘겨 받은 GroupType과 일치하는 Custmer[] 객체 배열
@@ -89,14 +86,15 @@ public class SummaryService {
     private Customer[] arrayByGroupType(Group group, Customer[] customerArr) {
         return Arrays.stream(customerArr)
                 .filter(Objects::nonNull)
-                .filter(customer -> group.getGroupType() == customer.getGroupType())
+                .filter(customer -> group.isGroupType(customer.getGroupType()))
                 .toArray(Customer[]::new);
     }
 
     /**
      * Type별로 정렬하여 Summary 출력
      * TODO 코드 중복을 많이 줄였지만 이걸 더 추상화 할 수 없을까?
-     * @param sortOrder : 정렬 방법 - ASC : false / DESC : true
+     *
+     * @param sortOrder : ASC : false / DESC : true (정렬 option)
      */
     public void showByName(boolean sortOrder) {
         Comparator<Customer> byName = Comparator.comparing(Customer::getCusName);
@@ -121,6 +119,7 @@ public class SummaryService {
     /**
      * comparator를 모듈화 하여 정렬 로직을 재사용.
      * Stream을 적극 활용함으로서 Null safe한 코드로 재탄생
+     *
      * @param comparator : lambda expression
      * @param sortOrder  : false - ASC(default) / true - DESC
      * @return Customer[]

@@ -1,17 +1,14 @@
 package domain.menu;
 
 import Service.SummaryService;
-import domain.customer.Customers;
-import domain.group.Groups;
 import handler.exception.InputEmptyException;
 import handler.exception.InputEndException;
 import handler.exception.InputFormatException;
 import handler.exception.InputRangeException;
 
-import java.util.InputMismatchException;
+import java.util.function.Predicate;
 
 import static resources.Message.END_MSG;
-import static resources.Message.ERR_MSG_INVALID_INPUT_RANGE;
 
 public class SummaryMenu implements Menu {
 
@@ -25,9 +22,7 @@ public class SummaryMenu implements Menu {
         return summaryMenu;
     }
 
-    private SummaryMenu() {
-
-    }
+    private SummaryMenu() {}
 
     @Override
     public void manage() {
@@ -42,18 +37,9 @@ public class SummaryMenu implements Menu {
                 });
 
                 if (choice == 1) summaryService.showDefaultSummary();
-                if (choice == 2) {
-                    boolean sortOrder = getSortOrder();
-                    summaryService.showByName(sortOrder);
-                }
-                if (choice == 3) {
-                    boolean sortOrder = getSortOrder();
-                    summaryService.showByTime(sortOrder);
-                }
-                if (choice == 4) {
-                    boolean sortOrder = getSortOrder();
-                    summaryService.showByPayment(sortOrder);
-                }
+                if (choice == 2) summaryService.showByName(getSortOrder());
+                if (choice == 3) summaryService.showByTime(getSortOrder());
+                if (choice == 4) summaryService.showByPayment(getSortOrder());
                 if (choice == 5) break;
             } catch (InputRangeException | InputFormatException e) {
                 System.out.println(e.getMessage());
@@ -62,21 +48,35 @@ public class SummaryMenu implements Menu {
     }
 
     /**
-     * 하위 메서드에서 발생한 Exception을 상위 메서드로 전달하려면 어떤 방법이 더 좋을까?
-     * break로 제어를 하는게 좋은 방법일까?
-     *
      * @return sortOrder - ASC : false / DESC : ture
      * @throws InputEndException
      */
     private boolean getSortOrder() {
-        try {
-            System.out.println("Which order (ASCENDING (A), DESCENDING (D))?");
-            String order = summaryMenu.nextLineUpper(END_MSG);
-            if (order.equals("A")) return false;
-            else if (order.equals("D")) return true;
-            else throw new InputFormatException();
-        } catch (InputEmptyException e) {
-            throw new InputRangeException();
+        while (true) {
+            try {
+                System.out.println("Which order (ASCENDING (A), DESCENDING (D))?");
+                String order = summaryMenu.nextLineUpper(END_MSG);
+                return isOrderName.test(order);
+            } catch (InputEmptyException | InputFormatException | InputRangeException e) {
+                System.out.println(e.getMessage());
+            } catch (InputEndException e) {
+                System.out.println(e.getMessage());
+                break;
+            }
         }
+        throw new InputRangeException();
     }
+
+    Predicate<String> isOrderName = input -> {
+        if (input.isEmpty()) {
+            throw new InputEmptyException();
+        }
+        if (input.equals("A")) {
+            return false;
+        }
+        if (input.equals("D")) {
+            return true;
+        }
+        throw new InputRangeException();
+    };
 }
